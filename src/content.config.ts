@@ -1,0 +1,50 @@
+import { defineCollection, reference, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+const civilizations = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/civilizations' }),
+  schema: z.object({
+    english_name: z.string(),
+    also_known_as: z.array(z.string()).optional(),
+    region: z.string(),
+    era_start: z.number(),
+    era_end: z.number(),
+    summary: z.string(),
+    featured_image: z.string().optional(),
+  }),
+});
+
+const languages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/languages' }),
+  schema: z.object({
+    english_name: z.string(),
+    native_name: z.string().optional(),
+    language_family: z.string(),
+    script: z.string(),
+    era_start: z.number(),
+    era_end: z.number(),
+    direction: z.enum(['ltr', 'rtl', 'btt']).default('ltr'),
+  }),
+});
+
+const names = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/names' }),
+  schema: z.object({
+    civilization: reference('civilizations'),
+    language: reference('languages'),
+    original_text: z.string(),
+    transliteration: z.string(),
+    ipa: z.string().optional(),
+    literal_meaning: z.string().optional(),
+    era_start: z.number().optional(),
+    era_end: z.number().optional(),
+    confidence: z.enum(['attested', 'reconstructed', 'disputed']),
+    sources: z.array(z.object({
+      citation: z.string(),
+      page: z.string().optional(),
+      url: z.string().optional(),
+    })),
+  }),
+});
+
+export const collections = { civilizations, languages, names };

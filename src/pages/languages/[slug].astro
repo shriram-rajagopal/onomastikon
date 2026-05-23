@@ -1,0 +1,60 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const langs = await getCollection('languages');
+  return langs.map((lang) => ({
+    params: { slug: lang.id },
+    props: { lang },
+  }));
+}
+
+const { lang } = Astro.props;
+
+const allNames = await getCollection('names');
+const namesInLang = allNames.filter((n) => n.data.language.id === lang.id);
+
+const enriched = await Promise.all(
+  namesInLang.map(async (n) => {
+    const civ = await getEntry(n.data.civilization);
+    return { name: n, civilization: civ };
+  })
+);
+---
+
+<BaseLayout title={lang.data.english_name}>
+  <article>
+    <p class="eyebrow">Language</p>
+    <h1>{lang.data.english_name}</h1>
+    <p class="meta">{lang.data.language_family} · {lang.data.script}</p>
+
+    <h2>Civilizations named in this language</h2>
+
+    {enriched.length === 0 && <p><em>No entries yet.</em></p>}
+
+    <ul class="name-list">
+      {enriched.map(({ name, civilization }) => (
+        <li>
+          <a href={`/civilizations/${civilization?.id}`}>
+            <span class="original">{name.data.original_text}</span>
+            <span class="translit"><em>{name.data.transliteration}</em></span>
+            <span class="civ-name">{civilization?.data.english_name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </article>
+</BaseLayout>
+
+<style>
+  .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
+  .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1.5rem; }
+  .name-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+  .name-list li { border-bottom: 1px solid var(--rule); }
+  .name-list a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.5rem; padding: 1rem 0; text-decoration: none; color: var(--ink); }
+  .name-list a:hover { color: var(--accent); }
+  .original { font-family: 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans', serif; font-size: 1.75rem; }
+  .translit { color: var(--ink-soft); }
+  .civ-name { font-family: 'Inter', sans-serif; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); }
+</style>

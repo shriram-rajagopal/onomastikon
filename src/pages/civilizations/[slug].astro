@@ -1,0 +1,98 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const civs = await getCollection('civilizations');
+  return civs.map((civ) => ({
+    params: { slug: civ.id },
+    props: { civ },
+  }));
+}
+
+const { civ } = Astro.props;
+const { Content } = await render(civ);
+
+const allNames = await getCollection('names');
+const namesForCiv = allNames.filter((n) => n.data.civilization.id === civ.id);
+
+const enriched = await Promise.all(
+  namesForCiv.map(async (n) => {
+    const lang = await getEntry(n.data.language);
+    return { name: n, language: lang };
+  })
+);
+
+function formatEra(start: number, end: number) {
+  const fmt = (y: number) => (y < 0 ? `${Math.abs(y)} BCE` : `${y} CE`);
+  return `${fmt(start)} – ${fmt(end)}`;
+}
+---
+
+<BaseLayout title={civ.data.english_name} description={civ.data.summary}>
+  <article>
+    <p class="eyebrow">Civilization</p>
+    <h1>{civ.data.english_name}</h1>
+    <p class="meta">{civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}</p>
+
+    {civ.data.also_known_as && (
+      <p class="aka">Also known as: {civ.data.also_known_as.join(', ')}</p>
+    )}
+
+    <div class="summary"><Content /></div>
+
+    <h2>Names across languages</h2>
+
+    {enriched.length === 0 && <p><em>No name entries yet.</em></p>}
+
+    {enriched.map(({ name, language }) => (
+      <section class="name-entry">
+        <h3>{language?.data.english_name}</h3>
+        <p class="original">{name.data.original_text}</p>
+        <dl>
+          <dt>Transliteration</dt><dd><em>{name.data.transliteration}</em></dd>
+          {name.data.ipa && (<><dt>IPA</dt><dd>{name.data.ipa}</dd></>)}
+          {name.data.literal_meaning && (<><dt>Meaning</dt><dd>"{name.data.literal_meaning}"</dd></>)}
+          <dt>Confidence</dt>
+          <dd>
+            <span class={`confidence confidence-${name.data.confidence}`}>
+              {name.data.confidence}
+            </span>
+          </dd>
+        </dl>
+        <details class="sources">
+          <summary>Sources ({name.data.sources.length})</summary>
+          <ol>
+            {name.data.sources.map((s) => (
+              <li>
+                {s.citation}{s.page && <>, p. {s.page}</>}
+                {s.url && <> <a href={s.url}>↗</a></>}
+              </li>
+            ))}
+          </ol>
+        </details>
+      </section>
+    ))}
+  </article>
+</BaseLayout>
+
+<style>
+  .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
+  .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1rem; }
+  .aka { font-style: italic; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  .summary { margin: 1.5rem 0 2rem; }
+  .name-entry { margin: 2rem 0; padding: 1.5rem; background: rgba(255, 255, 255, 0.4); border: 1px solid var(--rule); border-radius: 4px; }
+  .name-entry h3 { font-family: 'Inter', sans-serif; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 0.75rem; }
+  .original { font-family: 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans', serif; font-size: 2.5rem; line-height: 1.2; margin: 0.5rem 0 1rem; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1.5rem; margin: 1rem 0; font-size: 1rem; }
+  dt { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); padding-top: 0.2rem; }
+  dd { margin: 0; }
+  .confidence { font-family: 'Inter', sans-serif; font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .confidence-attested { background: #e3edd9; color: #3a5a1c; }
+  .confidence-reconstructed { background: #f0e5d0; color: #6b4f1c; }
+  .confidence-disputed { background: #f0d8d0; color: #7a3020; }
+  .sources { margin-top: 1rem; font-size: 0.9375rem; }
+  .sources summary { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); cursor: pointer; }
+  .sources ol { padding-left: 1.5rem; margin: 0.75rem 0 0; }
+  .sources li { margin: 0.5rem 0; }
+</style>

@@ -1,0 +1,98 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description ?? "A digital atlas of ancient names."} />
+    <title>{title} — Onomastikon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="logo">Onomastikon</a>
+      <nav>
+        <a href="/">Civilizations</a>
+        <a href="/">Languages</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>Onomastikon · A digital atlas of ancient names</p>
+    </footer>
+
+    <style is:global>
+      :root {
+        --parchment: #f5efe4;
+        --ink: #1a1a1a;
+        --ink-soft: #4a4a4a;
+        --rule: #d8cfbf;
+        --accent: #6b3a2a;
+        --max-width: 720px;
+      }
+      * { box-sizing: border-box; }
+      html { background: var(--parchment); color: var(--ink); }
+      body {
+        margin: 0;
+        font-family: 'EB Garamond', Georgia, serif;
+        font-size: 1.125rem;
+        line-height: 1.6;
+      }
+      .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 2rem 1.5rem 1rem;
+        border-bottom: 1px solid var(--rule);
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--ink);
+        letter-spacing: 0.02em;
+      }
+      .site-header nav { font-family: 'Inter', sans-serif; font-size: 0.875rem; }
+      .site-header nav a {
+        margin-left: 1.5rem;
+        text-decoration: none;
+        color: var(--ink-soft);
+      }
+      .site-header nav a:hover { color: var(--accent); }
+      main {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+      }
+      .site-footer {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        border-top: 1px solid var(--rule);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+      }
+      h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
+      h1 { font-size: 2.5rem; margin: 0 0 0.25rem; }
+      h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); }
+      a { color: var(--accent); }
+    </style>
+  </body>
+</html>
