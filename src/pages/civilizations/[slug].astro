@@ -21,7 +21,8 @@ const namesForCiv = allNames
 const enriched = await Promise.all(
   namesForCiv.map(async (n) => {
     const lang = await getEntry(n.data.language);
-    return { name: n, language: lang };
+    const { Content } = await render(n);
+    return { name: n, language: lang, Content };
   })
 );
 
@@ -49,7 +50,7 @@ function formatEra(start: number, end: number) {
 
     {enriched.length === 0 && <p><em>No name entries yet.</em></p>}
 
-    {enriched.map(({ name, language }) => (
+    {enriched.map(({ name, language, Content }) => (
       <section class="name-entry">
         <h3>
           {language?.data.english_name}
@@ -67,6 +68,9 @@ function formatEra(start: number, end: number) {
             </span>
           </dd>
         </dl>
+        <div class="name-body">
+          <Content />
+        </div>
         <details class="sources">
           <summary>Sources ({name.data.sources.length})</summary>
           <ol>
@@ -99,6 +103,14 @@ function formatEra(start: number, end: number) {
     color: var(--ink-soft);
     opacity: 0.7;
   }
+  .name-body {
+    margin: 1.5rem 0 0;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .name-body p:first-child { margin-top: 0; }
+  .name-body p:last-child { margin-bottom: 0; }
   .original { font-family: 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'EB Garamond', serif; font-size: 2.5rem; line-height: 1.2; margin: 0.5rem 0 1rem; }
   dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1.5rem; margin: 1rem 0; font-size: 1rem; }
   dt { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); padding-top: 0.2rem; }
