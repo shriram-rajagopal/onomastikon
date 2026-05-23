@@ -1,9 +1,5 @@
 ---
 english_name: Egypt
-also_known_as:
-  - Aegyptus
-  - Misr
-  - Kemet
 region: Northeast Africa, Nile Valley
 era_start: -3100
 era_end: -30

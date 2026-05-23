@@ -1,11 +1,5 @@
 ---
 english_name: Greece
-also_known_as:
-  - Hellas
-  - Graecia
-  - Yauna
-  - Yavana
-  - Yāwān
 region: Aegean and southern Balkans
 era_start: -800
 era_end: 600

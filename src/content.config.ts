@@ -5,7 +5,6 @@ const civilizations = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/civilizations' }),
   schema: z.object({
     english_name: z.string(),
-    also_known_as: z.array(z.string()).optional(),
     region: z.string(),
     era_start: z.number(),
     era_end: z.number(),
@@ -36,8 +35,8 @@ const names = defineCollection({
     transliteration: z.string(),
     ipa: z.string().optional(),
     literal_meaning: z.string().optional(),
-    era_start: z.number().optional(),
-    era_end: z.number().optional(),
+    era_start: z.number(),
+    era_end: z.number(),
     confidence: z.enum(['attested', 'reconstructed', 'disputed']),
     sources: z.array(z.object({
       citation: z.string(),
