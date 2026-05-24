@@ -22,6 +22,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Each entry focuses on its subject as a primarily linguistic but also historical record.
       Readers seeking detailed historical context should consult the standard reference works cited in each entry.
     </p>
+    <h3>Regions and identification across languages</h3>
+    <p>
+      Regional names attested in different languages do not always pick out
+      identical geographic units. Greek <em>Mesopotamía</em>, Akkadian
+      <em>Māt birīt nārim</em>, and Hebrew <em>Aram-Naharaim</em> all refer
+      transparently to the land between the Tigris and the Euphrates, and are
+      treated as variant names of the same entity. By contrast, Sanskrit
+      <em>Bhārata</em> and Old Persian <em>Hinduš</em>, though both connected
+      to what is now called India, designate different conceptual units
+      (a civilizational-cultural identity versus a specific river basin) and
+      are treated as distinct entities. Where two names overlap partially or
+      are framed differently, the entry's prose explains the distinction.
+    </p>
 
     <h2>Source tiers</h2>
     <p>
@@ -70,3 +83,101 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       the name's use rather than the full lifespan of the language to which it belongs.
       Where a name's first attestation is securely dated to a specific inscription or
       text, the entry notes this and specifies the date of the source.
+    </p>
+
+     <p>
+      Every name entry carries one of three confidence labels:
+    </p>
+    <dl>
+      <dt><span class="confidence confidence-attested">Attested</span></dt>
+      <dd>The form is documented in primary sources, even where its
+      pronunciation must be reconstructed (as is typical for Egyptian and
+      cuneiform corpora).</dd>
+      <dt><span class="confidence confidence-reconstructed">Reconstructed</span></dt>
+      <dd>The form itself, not merely its pronunciation, is inferred, typically
+      through comparative reconstruction or projection from a later attested
+      form.</dd>
+      <dt><span class="confidence confidence-disputed">Disputed</span></dt>
+      <dd>Scholars disagree substantively about the form, its meaning, or its
+      identification with the entity in question.</dd>
+    </dl>
+
+    <h2>Transliteration conventions</h2>
+    <p>
+      Each language follows the transliteration standard of its established
+      philological tradition: the Leiden Unified Transliteration for Ancient
+      Egyptian; the Chicago system for Akkadian (CAD); the Library of Congress
+      ALA-LC romanization for Sanskrit; standard scholarly conventions for
+      Greek, Latin, Old Persian, and Biblical Hebrew. Where multiple systems
+      coexist, the entry notes the choice.
+    </p>
+
+    <h2>Limitations</h2>
+    <p>
+      Onomastikon is the work of a student in active study, not a credentialed
+      philologist. Entries are checked against the cited sources and corrected
+      when error is identified. Errors and disputed identifications should be
+      reported via the project's GitHub repository, where each entry's source
+      Markdown file can be viewed, cited, and improved by pull request.
+    </p>
+
+    <h2>Source</h2>
+    <p>
+      The full source of the project, including the underlying data for every
+      entry, is available at
+      <a href="https://github.com/shriram-rajagopal/onomastikon">github.com/shriram-rajagopal/onomastikon</a>.
+      Code is released under the MIT license; content under
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+      Attribution-ShareAlike 4.0</a>.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose { max-width: 36rem; }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem;
+  }
+  .lede {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 2.5rem;
+  }
+  .prose p { margin: 1rem 0; }
+  .prose h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 2rem 0 0.75rem;
+  }
+  .prose ol, .prose ul { padding-left: 1.5rem; }
+  .prose li { margin: 0.5rem 0; }
+  .prose dl {
+    margin: 1.5rem 0;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+    align-items: start;
+  }
+  .prose dt { padding-top: 0.15rem; }
+  .prose dd { margin: 0; }
+  .confidence {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .confidence-attested { background: #e3edd9; color: #3a5a1c; }
+  .confidence-reconstructed { background: #f0e5d0; color: #6b4f1c; }
+  .confidence-disputed { background: #f0d8d0; color: #7a3020; }
+</style>
