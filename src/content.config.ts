@@ -5,6 +5,7 @@ const civilizations = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/civilizations' }),
   schema: z.object({
     english_name: z.string(),
+    type: z.enum(['civilization', 'city', 'region', 'geographic_feature']).default('civilization'),
     region: z.string(),
     era_start: z.number(),
     era_end: z.number(),

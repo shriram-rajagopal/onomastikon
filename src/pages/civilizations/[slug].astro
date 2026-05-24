@@ -34,7 +34,12 @@ function formatEra(start: number, end: number) {
 
 <BaseLayout title={civ.data.english_name} description={civ.data.summary}>
   <article>
-    <p class="eyebrow">Civilization</p>
+    <p class="eyebrow">{
+      civ.data.type === 'civilization' ? 'Civilization' :
+      civ.data.type === 'city' ? 'City' :
+      civ.data.type === 'region' ? 'Region' :
+      'Geographic feature'
+    }</p>
     <h1>{civ.data.english_name}</h1>
     <p class="meta">{civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}</p>
 

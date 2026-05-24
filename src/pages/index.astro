@@ -22,17 +22,38 @@ function formatEra(start: number, end: number) {
     </p>
   </section>
 
-  <h2>Civilizations</h2>
-  <ul class="index-list">
-    {civs.map((civ) => (
-      <li>
-        <a href={`/civilizations/${civ.id}`}>
-          <span class="name">{civ.data.english_name}</span>
-          <span class="era">{formatEra(civ.data.era_start, civ.data.era_end)}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
+  {(() => {
+    const grouped = {
+      civilization: civs.filter((c) => c.data.type === 'civilization'),
+      city: civs.filter((c) => c.data.type === 'city'),
+      region: civs.filter((c) => c.data.type === 'region'),
+      geographic_feature: civs.filter((c) => c.data.type === 'geographic_feature'),
+    };
+    const labels = {
+      civilization: 'Civilizations',
+      city: 'Cities',
+      region: 'Regions',
+      geographic_feature: 'Geographic features',
+    };
+    const order = ['civilization', 'city', 'region', 'geographic_feature'] as const;
+    return order
+      .filter((key) => grouped[key].length > 0)
+      .map((key) => (
+        <>
+          <h2>{labels[key]}</h2>
+          <ul class="index-list">
+            {grouped[key].map((entity) => (
+              <li>
+                <a href={`/civilizations/${entity.id}`}>
+                  <span class="name">{entity.data.english_name}</span>
+                  <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ));
+  })()}
 
   <h2>Languages</h2>
   <ul class="index-list">
