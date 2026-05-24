@@ -4,9 +4,9 @@
 
 What the great civilizations of antiquity called themselves and what their neighbors referred to them as. Each entry records the original script, transliteration, IPA pronunciation, literal meaning, and primary sources, with explicit attention to uncertainty and reconstruction.
 
-**Live site:** [onomastikon.vercel.app](https://onomastikon.vercel.app)
+**Live site:** [onomastikon.org](https://onomastikon.org)
 
-**Methodology:** [onomastikon.vercel.app/about](https://onomastikon.vercel.app/about)
+**Methodology:** [onomastikon.org/about](https://onomastikon.org/about)
 
 ## What this is
 
@@ -20,7 +20,7 @@ The project is intended for students, language enthusiasts, history teachers, an
 - **Honest about uncertainty.** Every entry carries one of three confidence labels: *attested*, *reconstructed*, or *disputed*. Reconstructed pronunciations are marked with the conventional leading asterisk. All dates are flagged as approximate with the *circa* convention.
 - **Original scripts displayed prominently.** Egyptian hieroglyphs, cuneiform, Devanagari, Hebrew, and Greek are rendered in their original writing systems alongside transliterations and IPA.
 
-Read the full [methodology](https://onomastikon.vercel.app/about) for details on source tiers, reconstruction conventions, and editorial scope.
+Read the full [methodology](https://onomastikon.org/about) for details on source tiers, reconstruction conventions, and editorial scope.
 
 ## Project structure
 
