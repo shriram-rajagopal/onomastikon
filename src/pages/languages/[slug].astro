@@ -29,21 +29,41 @@ const enriched = await Promise.all(
     <h1>{lang.data.english_name}</h1>
     <p class="meta">{lang.data.language_family} · {lang.data.script}</p>
 
-    <h2>Civilizations named in this language</h2>
-
     {enriched.length === 0 && <p><em>No entries yet.</em></p>}
 
-    <ul class="name-list">
-      {enriched.map(({ name, civilization }) => (
-        <li>
-          <a href={`/civilizations/${civilization?.id}`}>
-            <span class="original">{name.data.original_text}</span>
-            <span class="translit"><em>{name.data.transliteration}</em></span>
-            <span class="civ-name">{civilization?.data.english_name}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+    {(() => {
+      const grouped = {
+        civilization: enriched.filter(({ civilization }) => civilization?.data.type === 'civilization' || !civilization?.data.type),
+        city: enriched.filter(({ civilization }) => civilization?.data.type === 'city'),
+        region: enriched.filter(({ civilization }) => civilization?.data.type === 'region'),
+        geographic_feature: enriched.filter(({ civilization }) => civilization?.data.type === 'geographic_feature'),
+      };
+      const labels = {
+        civilization: 'Civilizations',
+        city: 'Cities',
+        region: 'Regions',
+        geographic_feature: 'Geographic features',
+      };
+      const order = ['civilization', 'city', 'region', 'geographic_feature'] as const;
+      return order
+        .filter((key) => grouped[key].length > 0)
+        .map((key) => (
+          <>
+            <h2>{labels[key]} named in this language</h2>
+            <ul class="name-list">
+              {grouped[key].map(({ name, civilization }) => (
+                <li>
+                  <a href={`/civilizations/${civilization?.id}`}>
+                    <span class="original">{name.data.original_text}</span>
+                    <span class="translit"><em>{name.data.transliteration}</em></span>
+                    <span class="civ-name">{civilization?.data.english_name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        ));
+    })()}
   </article>
 </BaseLayout>
 
