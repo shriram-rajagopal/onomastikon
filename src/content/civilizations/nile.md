@@ -2,6 +2,7 @@
 english_name: The Nile
 type: geographic_feature
 region: Northeast Africa
+entry_status: developing
 era_start: -3000
 era_end: 600
 summary: The river of Egypt, flowing roughly 6,650 kilometers from the East African Great Lakes to the Mediterranean. The Nile's annual flood defined Egyptian agriculture, religion, and self-identity; Egypt's own endonym *Kemet* ("the Black Land") refers to the dark silt the river deposited each year.

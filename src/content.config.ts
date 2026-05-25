@@ -6,7 +6,7 @@ const civilizations = defineCollection({
   schema: z.object({
     english_name: z.string(),
     type: z.enum(['civilization', 'city', 'region', 'geographic_feature']).default('civilization'),
-    region: z.string(),
+    entry_status: z.enum(['developing', 'complete']).default('developing'),
     era_start: z.number(),
     era_end: z.number(),
     summary: z.string(),

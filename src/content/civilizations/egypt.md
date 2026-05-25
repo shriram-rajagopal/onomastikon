@@ -1,6 +1,7 @@
 ---
 english_name: Egypt
 region: Northeast Africa, Nile Valley
+entry_status: developing
 era_start: -3100
 era_end: -30
 summary: One of the earliest and longest-lived civilizations of the ancient world, centered on the Nile Valley.

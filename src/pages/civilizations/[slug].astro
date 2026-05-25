@@ -41,7 +41,10 @@ function formatEra(start: number, end: number) {
       'Geographic feature'
     }</p>
     <h1>{civ.data.english_name}</h1>
-    <p class="meta">{civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}</p>
+    <p class="meta">
+      {civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}
+      <span class={`status status-${civ.data.entry_status}`}>{civ.data.entry_status}</span>
+    </p>
 
     {enriched.length > 0 && (
       <p class="aka">
@@ -100,6 +103,18 @@ function formatEra(start: number, end: number) {
 <style>
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1rem; }
+  .status {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+  .status-developing { background: #d9e2ec; color: #334e68; }
+  .status-complete { background: #d8e7d6; color: #2c5a3a; }
   .aka { font-style: italic; color: var(--ink-soft); margin-bottom: 1.5rem; }
   .summary { margin: 1.5rem 0 2rem; }
   .name-entry { margin: 2rem 0; padding: 1.5rem; background: rgba(255, 255, 255, 0.4); border: 1px solid var(--rule); border-radius: 4px; }
