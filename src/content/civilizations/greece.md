@@ -1,7 +1,7 @@
 ---
 english_name: Greece
 region: Aegean and southern Balkans
-entry_status: developing
+entry_status: complete
 era_start: -800
 era_end: 600
 summary: The civilization of the Aegean world from the Archaic period through Late Antiquity. The Greeks called themselves *Hellenes* and their land *Hellas*; the Romans called them *Graeci*, and this Latin form (via the Etruscan transmission) became the basis for most modern European exonyms.
