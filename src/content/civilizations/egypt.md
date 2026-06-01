@@ -1,5 +1,6 @@
 ---
 english_name: Egypt
+type: civilization
 region: Northeast Africa, Nile Valley
 entry_status: complete
 era_start: -3100
