@@ -84,7 +84,7 @@ function formatEra(start: number, end: number) {
 </BaseLayout>
 
 <style>
-  .hero { margin: 1rem 0 3rem; }
+  .hero { margin: 1rem 0 3rem; text-align: center; }
   .masthead {
     margin: 0 0 1.5rem;
   }
@@ -114,7 +114,9 @@ function formatEra(start: number, end: number) {
     font-size: 1.25rem;
     color: var(--ink-soft);
     max-width: 32em;
-    margin-top: 1rem;
+    /* auto side margins keep the constrained-width tagline centered under
+       the centered wordmark and h1. */
+    margin: 1rem auto 0;
   }
   .index-list {
     list-style: none;
