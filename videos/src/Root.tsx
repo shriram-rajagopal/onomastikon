@@ -4,6 +4,8 @@ import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { Onomastikon } from "./Onomastikon";
 import { EgyptTitleCard } from "./EgyptTitleCard";
+import { GreeceTitleCard } from "./GreeceTitleCard";
+import { PersiaTitleCard } from "./PersiaTitleCard";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -26,6 +28,28 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="EgyptTitleCard"
         component={EgyptTitleCard}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={720}
+      />
+
+      {/* Greece entry title card — static endonym card (Ἑλλάς, "Hellas").
+          Render: npx remotion still GreeceTitleCard ../public/greece-title.png */}
+      <Composition
+        id="GreeceTitleCard"
+        component={GreeceTitleCard}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={720}
+      />
+
+      {/* Persia entry title card — static endonym card (Pārsa, the Achaemenid
+          heartland). Render: npx remotion still PersiaTitleCard ../public/persia-title.png */}
+      <Composition
+        id="PersiaTitleCard"
+        component={PersiaTitleCard}
         durationInFrames={1}
         fps={30}
         width={1920}
