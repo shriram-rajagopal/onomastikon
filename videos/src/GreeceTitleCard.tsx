@@ -12,8 +12,11 @@ const { fontFamily: garamond } = loadGaramond("normal", {
 });
 
 // Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
-// Background is left transparent so the page parchment shows through; render to
-// PNG with alpha so the card drops cleanly onto the entry page.
+// The card is filled with parchment rather than left transparent: on the entry
+// page the result is identical (the page itself is parchment), but an opaque
+// background is required for this PNG to also serve as the page's Open Graph
+// social-share image, where transparency renders unpredictably.
+const PARCHMENT = "#f5efe4";
 const INK = "#1a1a1a";
 const INK_SOFT = "#4a4a4a";
 const ACCENT = "#6b3a2a";
@@ -29,6 +32,7 @@ export const GreeceTitleCard: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
+        backgroundColor: PARCHMENT,
         justifyContent: "center",
         alignItems: "center",
       }}

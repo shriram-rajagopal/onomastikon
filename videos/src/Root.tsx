@@ -6,6 +6,7 @@ import { Onomastikon } from "./Onomastikon";
 import { EgyptTitleCard } from "./EgyptTitleCard";
 import { GreeceTitleCard } from "./GreeceTitleCard";
 import { PersiaTitleCard } from "./PersiaTitleCard";
+import { DefaultOgCard } from "./DefaultOgCard";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -50,6 +51,17 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="PersiaTitleCard"
         component={PersiaTitleCard}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={720}
+      />
+
+      {/* Site-wide Open Graph fallback image for pages without a title card.
+          Render: npx remotion still DefaultOgCard ../public/og-default.png */}
+      <Composition
+        id="DefaultOgCard"
+        component={DefaultOgCard}
         durationInFrames={1}
         fps={30}
         width={1920}

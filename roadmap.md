@@ -178,7 +178,6 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 
 ## Editorial discipline
 
-- **The rule:** I will not add a new feature until the next civilization on the list is done. Forces content depth over feature spread.
 - **The boundary:** Don't expand temporal scope past Late Antiquity. Don't expand entity types beyond civilization/city/region/geographic feature without serious justification.
 - **The audience:** Onomastikon is for students, language enthusiasts, history teachers, and anyone curious. Assume an intelligent reader who appreciates nuance but is not already a specialist.
 

@@ -41,7 +41,7 @@ function entryAnchor(nameId: string, civId: string) {
 }
 ---
 
-<BaseLayout title={civ.data.english_name} description={civ.data.summary}>
+<BaseLayout title={civ.data.english_name} description={civ.data.summary} image={civ.data.featured_image}>
   <article>
     {civ.data.featured_image && (
       <img
@@ -77,8 +77,13 @@ function entryAnchor(nameId: string, civId: string) {
     {enriched.map(({ name, language, Content }) => (
       <section class="name-entry" id={entryAnchor(name.id, civ.id)}>
         <h3>
-          {language?.data.english_name}
+          <a class="lang-link" href={`/languages/${language?.id}`}>{language?.data.english_name}</a>
           <span class="name-era">{formatEra(name.data.era_start, name.data.era_end)}</span>
+          <a
+            class="entry-anchor"
+            href={`#${entryAnchor(name.id, civ.id)}`}
+            aria-label={`Permalink to the ${language?.data.english_name} entry`}
+          >#</a>
         </h3>
         <p class="original">{name.data.original_text}</p>
         <dl>
@@ -141,6 +146,24 @@ function entryAnchor(nameId: string, civId: string) {
      entry's heading clear of the top edge instead of landing flush against it. */
   .name-entry { scroll-margin-top: 2rem; margin: 2rem 0; padding: 1.5rem; background: color-mix(in srgb, var(--ink) 4%, var(--parchment)); border: 1px solid var(--rule); border-radius: 4px; }
   .name-entry h3 { font-family: 'Inter', sans-serif; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 0 0 0.75rem; }
+  /* Language label links back to the language page (mirrors the language page's
+     links into these entries), styled to read as heading text, not a link. */
+  .lang-link { color: inherit; text-decoration: none; }
+  .lang-link:hover { color: var(--accent); }
+  /* Permalink affordance: hidden until the entry is hovered or the anchor is
+     focused, so a reader can grab the deep link to this specific entry. */
+  .entry-anchor { margin-left: 0.4rem; text-decoration: none; color: var(--ink-soft); opacity: 0; transition: opacity 0.15s; }
+  .name-entry:hover .entry-anchor { opacity: 0.55; }
+  .entry-anchor:hover, .entry-anchor:focus { opacity: 1; color: var(--accent); }
+  /* When deep-linked, mark the entry with a persistent accent border so the
+     reader can see which one they landed on; the flash is motion-gated. */
+  .name-entry:target { border-color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .name-entry:target { animation: entry-flash 1.6s ease-out; }
+  }
+  @keyframes entry-flash {
+    from { background: color-mix(in srgb, var(--accent) 16%, var(--parchment)); }
+  }
   .name-era {
     text-transform: none;
     letter-spacing: 0;
