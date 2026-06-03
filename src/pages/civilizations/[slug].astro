@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { entryAnchor } from '../../lib/entry';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -29,15 +30,6 @@ const enriched = await Promise.all(
 function formatEra(start: number, end: number) {
   const fmt = (y: number) => (y < 0 ? `${Math.abs(y)} BCE` : `${y} CE`);
   return `c. ${fmt(start)} – ${fmt(end)}`;
-}
-
-// Deterministic anchor for a name entry: the record slug with its civ prefix
-// stripped (egypt-coptic-keme -> coptic-keme). Falls back to the full slug if
-// the prefix isn't present, so it is always content-derived, never index-based.
-// Language pages build the same anchor to deep-link here.
-function entryAnchor(nameId: string, civId: string) {
-  const prefix = `${civId}-`;
-  return nameId.startsWith(prefix) ? nameId.slice(prefix.length) : nameId;
 }
 ---
 

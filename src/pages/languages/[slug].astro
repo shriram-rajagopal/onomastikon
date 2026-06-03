@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { entryAnchor } from '../../lib/entry';
 
 export async function getStaticPaths() {
   const langs = await getCollection('languages');
@@ -21,13 +22,6 @@ const enriched = await Promise.all(
     return { name: n, civilization: civ };
   })
 );
-
-// Must match entryAnchor() in civilizations/[slug].astro: the name slug with
-// its civ prefix stripped, so each link deep-links to its own entry's #anchor.
-function entryAnchor(nameId: string, civId: string) {
-  const prefix = `${civId}-`;
-  return nameId.startsWith(prefix) ? nameId.slice(prefix.length) : nameId;
-}
 ---
 
 <BaseLayout title={lang.data.english_name}>

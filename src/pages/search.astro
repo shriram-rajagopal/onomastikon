@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Search" description="Search the atlas by name, meaning, language, script, civilization, or region.">
+  <h1>Search</h1>
+  <p class="hint">Names, meanings, languages, scripts, civilizations, and regions.</p>
+
+  <input
+    id="q"
+    type="search"
+    autocomplete="off"
+    autofocus
+    role="combobox"
+    aria-controls="results"
+    aria-expanded="false"
+    aria-label="Search"
+    placeholder="Try “Parsa”, “black land”, “Coptic”, “Iranian”…"
+  />
+  <ul id="results" role="listbox" aria-label="Search results"></ul>
+  <p id="empty" hidden>No matches.</p>
+
+  <script>
+    // Fold diacritics so a query of "Parsa" matches the indexed "parsa" form of
+    // Pārsa. Kept functionally identical to fold() in search-index.json.ts.
+    const fold = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const q = document.getElementById('q');
+    const list = document.getElementById('results');
+    const empty = document.getElementById('empty');
+    let records = [];
+    let current = [];
+    let sel = -1;
+
+    fetch('/search-index.json')
+      .then((r) => r.json())
+      .then((d) => {
+        records = d;
+        if (q.value) run();
+      });
+
+    function score(r, nq) {
+      const lab = fold(r.label);
+      const tr = fold(r.translit || '');
+      if (lab.startsWith(nq) || tr.startsWith(nq)) return 0; // prefix of the form
+      if (lab.includes(nq) || tr.includes(nq)) return 1; // inside the form
+      return 2; // matched only in the wider metadata haystack
+    }
+
+    function run() {
+      const nq = fold(q.value).trim();
+      list.textContent = '';
+      sel = -1;
+      if (!nq) {
+        current = [];
+        empty.hidden = true;
+        q.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      current = records
+        .filter((r) => r.h.includes(nq))
+        .map((r) => ({ r, s: score(r, nq) }))
+        .sort((a, b) => a.s - b.s || a.r.label.localeCompare(b.r.label))
+        .slice(0, 25)
+        .map((x) => x.r);
+      empty.hidden = current.length > 0;
+      q.setAttribute('aria-expanded', current.length ? 'true' : 'false');
+      for (const r of current) {
+        const li = document.createElement('li');
+        li.setAttribute('role', 'option');
+        const a = document.createElement('a');
+        a.href = r.url;
+        const lab = document.createElement('span');
+        lab.className = 'r-label';
+        lab.textContent = r.label;
+        const ctx = document.createElement('span');
+        ctx.className = 'r-ctx';
+        ctx.textContent = r.context || '';
+        a.append(lab, ctx);
+        li.append(a);
+        list.append(li);
+      }
+    }
+
+    function move(d) {
+      if (!current.length) return;
+      sel = (sel + d + current.length) % current.length;
+      [...list.children].forEach((li, i) => li.classList.toggle('sel', i === sel));
+      list.children[sel]?.scrollIntoView({ block: 'nearest' });
+    }
+
+    q.addEventListener('input', run);
+    q.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        move(1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        move(-1);
+      } else if (e.key === 'Enter' && sel >= 0) {
+        e.preventDefault();
+        location.href = current[sel].url;
+      }
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .hint { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0 0 1.5rem; }
+  #q {
+    width: 100%;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.25rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--parchment);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  #q:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  #results { list-style: none; padding: 0; margin: 1rem 0 0; }
+  #results li { border-bottom: 1px solid var(--rule); }
+  #results a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 0.7rem 0.5rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  #results a:hover,
+  #results li.sel a { background: color-mix(in srgb, var(--accent) 8%, var(--parchment)); color: var(--accent); }
+  /* Match the entity page's .original stack so non-Latin script labels render. */
+  .r-label {
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Serif Devanagari', 'Noto Serif Hebrew', serif;
+    font-size: 1.1rem;
+  }
+  .r-ctx { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: right; }
+  #empty { font-family: 'Inter', sans-serif; color: var(--ink-soft); margin-top: 1rem; }
+</style>

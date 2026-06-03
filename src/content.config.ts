@@ -7,6 +7,10 @@ const civilizations = defineCollection({
     english_name: z.string(),
     type: z.enum(['civilization', 'city', 'region', 'geographic_feature']).default('civilization'),
     entry_status: z.enum(['developing', 'complete']).default('developing'),
+    // Authored on every civ entry and shown in the page meta line. Optional so
+    // adding it after content already exists can't break the build; tighten to
+    // required if every entity is guaranteed to carry one.
+    region: z.string().optional(),
     era_start: z.number(),
     era_end: z.number(),
     summary: z.string(),
