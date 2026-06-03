@@ -13,7 +13,22 @@ function formatEra(start: number, end: number) {
 
 <BaseLayout title="Onomastikon">
   <section class="hero">
-    <p class="eyebrow">Onomastikon</p>
+    <div class="masthead">
+      <video
+        class="masthead-motion"
+        autoplay
+        muted
+        playsinline
+        poster="/onomastikon-logo.png"
+        aria-hidden="true"
+      >
+        <!-- Transparent (VP9 alpha) for Chromium/Firefox; opaque parchment MP4
+             fallback for Safari, which doesn't support WebM alpha. -->
+        <source src="/onomastikon-logo.webm" type="video/webm" />
+        <source src="/onomastikon-logo.mp4" type="video/mp4" />
+      </video>
+      <img class="masthead-static" src="/onomastikon-logo.png" alt="Onomastikon" />
+    </div>
     <h1>A digital atlas of ancient names</h1>
     <p class="tagline">
       What the great civilizations of antiquity called themselves and what their
@@ -70,13 +85,30 @@ function formatEra(start: number, end: number) {
 
 <style>
   .hero { margin: 1rem 0 3rem; }
-  .eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--ink-soft);
-    margin: 0 0 0.5rem;
+  .masthead {
+    margin: 0 0 1.5rem;
+  }
+  /* The video background is the same parchment as the page, so it blends in
+     seamlessly. aspect-ratio reserves the space to avoid layout shift. */
+  .masthead-motion {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 720;
+    /* The video is transparent; this guarantees an exact-match backdrop. */
+    background: var(--parchment);
+  }
+  /* Static fallback shown only to visitors who prefer reduced motion. */
+  .masthead-static {
+    display: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 720;
+    background: var(--parchment);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .masthead-motion { display: none; }
+    .masthead-static { display: block; }
   }
   .tagline {
     font-size: 1.25rem;
