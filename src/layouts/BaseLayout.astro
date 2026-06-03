@@ -44,7 +44,11 @@ const { title, description } = Astro.props;
         --max-width: 720px;
       }
       * { box-sizing: border-box; }
-      html { background: var(--parchment); color: var(--ink); }
+      html { background: var(--parchment); color: var(--ink); scroll-behavior: smooth; }
+      /* Honor reduced-motion: jump instantly to hash anchors instead of animating. */
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
       body {
         margin: 0;
         font-family: 'EB Garamond', Georgia, serif;
