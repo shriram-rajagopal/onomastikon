@@ -2,6 +2,7 @@
 civilization: egypt
 language: demotic
 original_text: ""
+script_unencodable: true
 transliteration: kmy
 ipa: "*kmiː"
 literal_meaning: the Black Land

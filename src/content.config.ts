@@ -36,6 +36,11 @@ const names = defineCollection({
     transliteration: z.string(),
     ipa: z.string().optional(),
     literal_meaning: z.string().optional(),
+    // Asserts the original script has no usable Unicode representation (e.g.
+    // Demotic), so original_text is intentionally left empty. This is a claim
+    // about the script's encodability, not a stand-in for "not yet typed" — set
+    // it only where the form genuinely cannot be encoded.
+    script_unencodable: z.boolean().optional(),
     era_start: z.number(),
     era_end: z.number(),
     confidence: z.enum(['attested', 'reconstructed', 'disputed']),

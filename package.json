@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "new:name": "node scripts/new-name.mjs",
+    "lint:content": "node scripts/lint-content.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
