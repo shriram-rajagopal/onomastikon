@@ -34,6 +34,13 @@ function formatEra(start: number, end: number) {
 
 <BaseLayout title={civ.data.english_name} description={civ.data.summary}>
   <article>
+    {civ.data.featured_image && (
+      <img
+        class="featured"
+        src={civ.data.featured_image}
+        alt={`${civ.data.english_name} title card`}
+      />
+    )}
     <p class="eyebrow">{
       civ.data.type === 'civilization' ? 'Civilization' :
       civ.data.type === 'city' ? 'City' :
@@ -96,6 +103,15 @@ function formatEra(start: number, end: number) {
 </BaseLayout>
 
 <style>
+  /* Title card is a transparent PNG; the parchment page shows through. The
+     aspect-ratio reserves space to avoid layout shift while it loads. */
+  .featured {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 720;
+    margin: 0 0 1rem;
+  }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1rem; }
   .status {

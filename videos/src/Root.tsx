@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { Onomastikon } from "./Onomastikon";
+import { EgyptTitleCard } from "./EgyptTitleCard";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -15,6 +16,17 @@ export const RemotionRoot: React.FC = () => {
         id="OnomastikonLogo"
         component={Onomastikon}
         durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={720}
+      />
+
+      {/* Egypt entry title card — static endonym card (km.t, "the Black Land").
+          Render: npx remotion still EgyptTitleCard ../public/egypt-title.png */}
+      <Composition
+        id="EgyptTitleCard"
+        component={EgyptTitleCard}
+        durationInFrames={1}
         fps={30}
         width={1920}
         height={720}
