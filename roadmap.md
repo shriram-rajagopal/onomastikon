@@ -17,7 +17,7 @@ Target: 12-15 civilizations + supporting cities, regions, and geographic feature
 ### Civilizations
 - [x] Egypt
 - [x] Greece
-- [ ] Persia
+- [x] Persia
 - [ ] Sumer
 - [ ] Akkad
 - [ ] Babylonia

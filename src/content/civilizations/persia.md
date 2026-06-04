@@ -1,7 +1,7 @@
 ---
 english_name: Persia
 type: civilization
-entry_status: developing
+entry_status: complete
 region: Iranian plateau and the wider Near East
 era_start: -550
 era_end: 650
