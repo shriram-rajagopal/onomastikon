@@ -115,6 +115,18 @@ function lintFile(path, kind) {
     flag(path, null, `ipa "${ipa}" has stray asterisks; reconstruction uses a single leading *`);
   }
 
+  // Unicode normalization. Original scripts and romanizations carry combining
+  // marks (emphatic ṣ, pharyngeal ḥ, vowel length aː, Greek breathings). The same
+  // glyph can be stored pre-composed (NFC) or decomposed (NFD); they look identical
+  // but compare unequal, so a stray NFD value silently breaks cross-entry matching
+  // and the search index. Require NFC for the text-bearing fields.
+  for (const key of ['original_text', 'transliteration', 'ipa', 'literal_meaning']) {
+    const v = scalar(fm, key);
+    if (v && v !== v.normalize('NFC')) {
+      flag(path, null, `${key} is not in Unicode NFC form; normalize it (NFD combining marks won't match across entries or in search)`);
+    }
+  }
+
   // At least one source, each with a non-empty citation.
   const citations = [...fm.matchAll(/^\s*-\s*citation:\s*(.*)$/gm)].map((m) => {
     let v = m[1].trim();

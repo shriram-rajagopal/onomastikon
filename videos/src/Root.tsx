@@ -7,12 +7,32 @@ import { EgyptTitleCard } from "./EgyptTitleCard";
 import { GreeceTitleCard } from "./GreeceTitleCard";
 import { PersiaTitleCard } from "./PersiaTitleCard";
 import { DefaultOgCard } from "./DefaultOgCard";
+import { TitleCard, titleCardSchema } from "./TitleCard";
 
 // Each <Composition> is an entry in the sidebar!
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* Data-driven entry title card — pass per-entity props to render any card.
+          Single:  npx remotion still TitleCard ../public/<slug>-title.png \
+                     --props='{"script":"old-persian","glyphs":"𐎱𐎠𐎼𐎿","transliteration":"Pārsa","label":"Persia"}'
+          Batch:   node scripts/render-title-cards.mjs title-cards.json */}
+      <Composition
+        id="TitleCard"
+        component={TitleCard}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={720}
+        schema={titleCardSchema}
+        defaultProps={{
+          script: "egyptian-hieroglyphs" as const,
+          glyphs: "𓆎𓅓𓏏",
+          transliteration: "Kemet",
+          label: "Egypt",
+        }}
+      />
       {/* Onomastikon homepage wordmark — 8:3 masthead banner.
           Render: npx remotion render OnomastikonLogo ../public/onomastikon-logo.mp4 */}
       <Composition

@@ -11,6 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "new:name": "node scripts/new-name.mjs",
+    "new:civ": "node scripts/new-entity.mjs civilization",
+    "new:lang": "node scripts/new-entity.mjs language",
     "lint:content": "node scripts/lint-content.mjs"
   },
   "dependencies": {

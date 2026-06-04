@@ -1,0 +1,123 @@
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import { z } from "zod";
+import { loadFont as loadGaramond } from "@remotion/google-fonts/EBGaramond";
+import { loadFont as loadHieroglyphs } from "@remotion/google-fonts/NotoSansEgyptianHieroglyphs";
+import { loadFont as loadOldPersian } from "@remotion/google-fonts/NotoSansOldPersian";
+
+// Data-driven version of the hand-built EgyptTitleCard / GreeceTitleCard /
+// PersiaTitleCard. Those three share an identical layout and differ only in four
+// values: the original-script glyphs, the font that renders them, the italic
+// transliteration, and the uppercase English label. This composition takes those
+// four as props so per-entity cards can be rendered without a new component each.
+// The three originals are left in place; this is additive.
+
+// EB Garamond carries the transliteration and English label on every card, and the
+// script line itself for Greek- and Latin-script endonyms. greek/greek-ext subsets
+// are needed for polytonic glyphs (e.g. the rough-breathing Ἑ).
+const { fontFamily: garamond } = loadGaramond("normal", {
+  weights: ["400", "600"],
+  subsets: ["latin", "greek", "greek-ext"],
+});
+const { fontFamily: hieroglyphs } = loadHieroglyphs("normal", {
+  weights: ["400"],
+  subsets: ["egyptian-hieroglyphs"],
+});
+const { fontFamily: oldPersian } = loadOldPersian("normal", {
+  weights: ["400"],
+  subsets: ["old-persian"],
+});
+
+// Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
+// The card is filled with parchment rather than left transparent so the same PNG
+// can also serve as the page's Open Graph social-share image.
+const PARCHMENT = "#f5efe4";
+const INK = "#1a1a1a";
+const INK_SOFT = "#4a4a4a";
+const ACCENT = "#6b3a2a";
+const RULE = "#d8cfbf";
+
+// Per-script line styling, carried over from the three originals: hieroglyphs and
+// Old Persian cuneiform get extra letter-spacing and render at 200-248px; Greek and
+// Latin ride EB Garamond at 600 weight. To add a script: install its
+// @remotion/google-fonts package, load it above, and add a row here.
+const SCRIPTS = {
+  "egyptian-hieroglyphs": { fontFamily: hieroglyphs, fontSize: 248, letterSpacing: 12, fontWeight: 400 },
+  "old-persian": { fontFamily: oldPersian, fontSize: 200, letterSpacing: 12, fontWeight: 400 },
+  greek: { fontFamily: garamond, fontSize: 200, letterSpacing: 0, fontWeight: 600 },
+  latin: { fontFamily: garamond, fontSize: 168, letterSpacing: 0, fontWeight: 600 },
+} as const;
+
+export const titleCardSchema = z.object({
+  script: z.enum(["egyptian-hieroglyphs", "old-persian", "greek", "latin"]),
+  glyphs: z.string(), // the endonym in its original script (original_text)
+  transliteration: z.string(), // the italic accent line (Kemet, Hellás, Pārsa)
+  label: z.string(), // the uppercase English entity name
+});
+
+export const TitleCard: React.FC<z.infer<typeof titleCardSchema>> = ({
+  script,
+  glyphs,
+  transliteration,
+  label,
+}) => {
+  const line = SCRIPTS[script];
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: PARCHMENT,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div style={{ display: "inline-block", textAlign: "center" }}>
+        <div
+          style={{
+            fontFamily: line.fontFamily,
+            fontWeight: line.fontWeight,
+            fontSize: line.fontSize,
+            lineHeight: 1,
+            letterSpacing: line.letterSpacing,
+            paddingLeft: line.letterSpacing,
+            whiteSpace: "nowrap",
+            color: INK,
+          }}
+        >
+          {glyphs}
+        </div>
+
+        <div
+          style={{
+            fontFamily: garamond,
+            fontWeight: 600,
+            fontStyle: "italic",
+            fontSize: 104,
+            lineHeight: 1,
+            marginTop: 36,
+            color: ACCENT,
+          }}
+        >
+          {transliteration}
+        </div>
+
+        <div style={{ marginTop: 30, height: 3, width: "100%", backgroundColor: RULE }} />
+
+        <div
+          style={{
+            fontFamily: garamond,
+            fontWeight: 400,
+            fontSize: 44,
+            lineHeight: 1,
+            marginTop: 30,
+            letterSpacing: 16,
+            paddingLeft: 16,
+            textTransform: "uppercase",
+            color: INK_SOFT,
+          }}
+        >
+          {label}
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
