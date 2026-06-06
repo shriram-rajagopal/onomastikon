@@ -110,9 +110,12 @@ function formatEra(start: number, end: number) {
     .masthead-motion { display: none; }
     .masthead-static { display: block; }
   }
-  /* The masthead video renders unreliably on mobile WebKit, so below the phone
-     breakpoint show the static wordmark instead of the animation. */
-  @media (max-width: 640px) {
+  /* The masthead video renders unreliably on mobile WebKit: iOS Safari plays the
+     VP9 WebM but ignores its alpha channel, painting the transparent areas black.
+     Hide it on any touch device (so both orientations are covered — a landscape
+     phone is wider than a width breakpoint) and on narrow windows, showing the
+     static wordmark instead. */
+  @media (hover: none), (pointer: coarse), (max-width: 640px) {
     .masthead-motion { display: none; }
     .masthead-static { display: block; }
   }
