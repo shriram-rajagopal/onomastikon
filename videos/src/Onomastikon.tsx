@@ -16,16 +16,18 @@ const { fontFamily } = loadFont("normal", {
 });
 
 // Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
-// The background is intentionally left transparent so the page's parchment
-// shows through; only the wordmark and rule are drawn. Render to a format that
-// supports alpha (transparent WebM / VP9) to preserve this.
+// The background defaults to transparent so the page's parchment shows through
+// in the alpha-capable WebM / VP9 render; only the wordmark and rule are drawn.
+// The MP4 fallback (H.264 has no alpha, so transparent areas flatten to black)
+// must be rendered with `background` set to parchment, e.g.
+//   npx remotion render OnomastikonLogo ../public/onomastikon-logo.mp4 --props='{"background":"#f5efe4"}'
 const INK = "#1a1a1a";
 const ACCENT = "#6b3a2a";
 const RULE = "#d8cfbf";
 
 const WORD = "ONOMAΣTIKON";
 
-export const Onomastikon: React.FC = () => {
+export const Onomastikon: React.FC<{ background?: string }> = ({ background }) => {
   const frame = useCurrentFrame();
   const { fps, width } = useVideoConfig();
 
@@ -49,6 +51,7 @@ export const Onomastikon: React.FC = () => {
       style={{
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: background ?? "transparent",
       }}
     >
       {/* inline-block so the column shrinks to the wordmark's exact width,
