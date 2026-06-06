@@ -110,6 +110,12 @@ function formatEra(start: number, end: number) {
     .masthead-motion { display: none; }
     .masthead-static { display: block; }
   }
+  /* The masthead video renders unreliably on mobile WebKit, so below the phone
+     breakpoint show the static wordmark instead of the animation. */
+  @media (max-width: 640px) {
+    .masthead-motion { display: none; }
+    .masthead-static { display: block; }
+  }
   .tagline {
     font-size: 1.25rem;
     color: var(--ink-soft);

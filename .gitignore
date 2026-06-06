@@ -23,4 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# AI agent tooling — kept out of the public repo
 CLAUDE.md
+.claude/
+.agents/
+skills-lock.json
