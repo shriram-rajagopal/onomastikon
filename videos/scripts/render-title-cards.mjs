@@ -55,9 +55,13 @@ if (!Array.isArray(cards) || cards.length === 0) fail("manifest must be a non-em
 
 // Validate every card up front so a typo in card 30 fails before card 1 renders.
 cards.forEach((c, i) => {
-  for (const key of ["slug", "script", "glyphs", "transliteration", "label"]) {
+  for (const key of ["slug", "script", "glyphs", "label"]) {
     if (typeof c[key] !== "string" || c[key] === "") fail(`card ${i}: missing or empty "${key}".`);
   }
+  // transliteration is optional: Latin-script endonyms omit it (the original already
+  // is the romanization). If present it must be a non-empty string.
+  if ("transliteration" in c && (typeof c.transliteration !== "string" || c.transliteration === ""))
+    fail(`card ${i}: "transliteration" must be a non-empty string if present (omit it entirely for Latin-script endonyms).`);
   if (!SLUG_RE.test(c.slug)) fail(`card ${i}: "${c.slug}" is not a valid slug (lowercase kebab-case).`);
   if (!SCRIPTS.includes(c.script)) fail(`card ${i} (${c.slug}): script "${c.script}" is not one of ${SCRIPTS.join(", ")}.`);
 });
@@ -66,6 +70,10 @@ console.log(`\nRendering ${cards.length} title card(s) to ${rel(PUBLIC_DIR)}/${d
 
 for (const { slug, ...props } of cards) {
   const out = resolve(PUBLIC_DIR, `${slug}-title.png`);
+  // Remotion merges --props over the composition's defaultProps, so an omitted
+  // transliteration would fall back to the default rather than emptying the line.
+  // Normalize a missing value to "" so Latin-script endonyms render without it.
+  if (props.transliteration === undefined) props.transliteration = "";
   const propsJson = JSON.stringify(props);
   if (dryRun) {
     console.log(`  would render ${slug} -> ${rel(out)}  ${propsJson}`);

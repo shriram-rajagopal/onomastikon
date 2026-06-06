@@ -93,6 +93,16 @@ function lintFile(path, kind) {
     flag(path, null, `era_start (${eraStart}) is after era_end (${eraEnd})`);
   }
 
+  // Entity-only: the region label is shown as a standalone descriptor in the page
+  // meta line, so it reads as a label and must start with a capital letter
+  // ("Central Italy ...", not "central Italy ..."). Proper-noun starts already pass.
+  if (kind === 'entity') {
+    const region = scalar(fm, 'region');
+    if (region && /^\p{Ll}/u.test(region)) {
+      flag(path, null, `region "${region}" should start with a capital letter`);
+    }
+  }
+
   if (kind !== 'name') return;
 
   // --- Name-only field checks ---

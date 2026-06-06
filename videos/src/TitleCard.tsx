@@ -51,7 +51,7 @@ const SCRIPTS = {
 export const titleCardSchema = z.object({
   script: z.enum(["egyptian-hieroglyphs", "old-persian", "greek", "latin"]),
   glyphs: z.string(), // the endonym in its original script (original_text)
-  transliteration: z.string(), // the italic accent line (Kemet, Hellás, Pārsa)
+  transliteration: z.string().optional(), // italic accent line (Kemet, Hellás, Pārsa); omit for Latin-script endonyms whose original IS the romanization (e.g. Roma)
   label: z.string(), // the uppercase English entity name
 });
 
@@ -86,19 +86,21 @@ export const TitleCard: React.FC<z.infer<typeof titleCardSchema>> = ({
           {glyphs}
         </div>
 
-        <div
-          style={{
-            fontFamily: garamond,
-            fontWeight: 600,
-            fontStyle: "italic",
-            fontSize: 104,
-            lineHeight: 1,
-            marginTop: 36,
-            color: ACCENT,
-          }}
-        >
-          {transliteration}
-        </div>
+        {transliteration ? (
+          <div
+            style={{
+              fontFamily: garamond,
+              fontWeight: 600,
+              fontStyle: "italic",
+              fontSize: 104,
+              lineHeight: 1,
+              marginTop: 36,
+              color: ACCENT,
+            }}
+          >
+            {transliteration}
+          </div>
+        ) : null}
 
         <div style={{ marginTop: 30, height: 3, width: "100%", backgroundColor: RULE }} />
 
