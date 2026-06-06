@@ -4,7 +4,7 @@ language: old-persian
 original_text: 𐎸𐎢𐎭𐎼𐎠𐎹
 transliteration: Mudrāya
 ipa: /muˈdraː.ja/
-literal_meaning: Egypt (loaned from Semitic *mṣr* and reshaped by Iranian morphology)
+literal_meaning: Egypt (loaned from Semitic mṣr and reshaped by Iranian morphology)
 era_start: -525
 era_end: -330
 confidence: attested

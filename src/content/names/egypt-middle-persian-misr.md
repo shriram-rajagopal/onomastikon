@@ -4,7 +4,7 @@ language: middle-persian
 original_text: 𐭬𐭱𐭥𐭩
 transliteration: Mišr
 ipa: "*miʃr"
-literal_meaning: Egypt (from the Semitic root *mṣr*, preserved through Iranian phonological adaptation)
+literal_meaning: Egypt (from the Semitic root mṣr, preserved through Iranian phonological adaptation)
 era_start: 200
 era_end: 900
 confidence: attested

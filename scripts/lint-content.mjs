@@ -125,6 +125,12 @@ function lintFile(path, kind) {
     flag(path, null, `ipa "${ipa}" has stray asterisks; reconstruction uses a single leading *`);
   }
 
+  // literal_meaning is rendered as plain text by the entity page, so markdown
+  // asterisks (e.g. *mṣr*) would print literally. Forms in the gloss stay unmarked.
+  const lit = scalar(fm, 'literal_meaning');
+  if (lit && lit.includes('*'))
+    flag(path, null, `literal_meaning "${lit}" contains '*'; this field renders as plain text, so write any form without markdown italics`);
+
   // Unicode normalization. Original scripts and romanizations carry combining
   // marks (emphatic ṣ, pharyngeal ḥ, vowel length aː, Greek breathings). The same
   // glyph can be stored pre-composed (NFC) or decomposed (NFD); they look identical

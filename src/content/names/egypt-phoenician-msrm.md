@@ -4,7 +4,7 @@ language: phoenician
 original_text: 𐤌𐤑𐤓𐤌
 transliteration: Mṣrm
 ipa: "*misˤram"
-literal_meaning: Egypt (from the Semitic root *mṣr*)
+literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: -900
 era_end: -300
 confidence: attested

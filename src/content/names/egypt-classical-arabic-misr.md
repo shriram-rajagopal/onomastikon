@@ -4,7 +4,7 @@ language: classical-arabic
 original_text: مصر
 transliteration: Miṣr
 ipa: /misˤr/
-literal_meaning: Egypt (from the Semitic root *mṣr*)
+literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: 600
 era_end: 1300
 confidence: attested

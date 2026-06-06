@@ -51,6 +51,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       const nq = fold(q.value).trim();
       list.textContent = '';
       sel = -1;
+      q.removeAttribute('aria-activedescendant');
       if (!nq) {
         current = [];
         empty.hidden = true;
@@ -65,9 +66,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         .map((x) => x.r);
       empty.hidden = current.length > 0;
       q.setAttribute('aria-expanded', current.length ? 'true' : 'false');
-      for (const r of current) {
+      current.forEach((r, i) => {
         const li = document.createElement('li');
+        li.id = 'result-' + i;
         li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
         const a = document.createElement('a');
         a.href = r.url;
         const lab = document.createElement('span');
@@ -79,14 +82,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         a.append(lab, ctx);
         li.append(a);
         list.append(li);
-      }
+      });
     }
 
     function move(d) {
       if (!current.length) return;
       sel = (sel + d + current.length) % current.length;
-      [...list.children].forEach((li, i) => li.classList.toggle('sel', i === sel));
-      list.children[sel]?.scrollIntoView({ block: 'nearest' });
+      [...list.children].forEach((li, i) => {
+        const on = i === sel;
+        li.classList.toggle('sel', on);
+        li.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      const active = list.children[sel];
+      if (active) {
+        q.setAttribute('aria-activedescendant', active.id);
+        active.scrollIntoView({ block: 'nearest' });
+      }
     }
 
     q.addEventListener('input', run);
@@ -120,8 +131,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
   #q:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
   #results { list-style: none; padding: 0; margin: 1rem 0 0; }
-  #results li { border-bottom: 1px solid var(--rule); }
-  #results a {
+  /* The result <li>/<a>/<span> are created at runtime via createElement, so they
+     never receive Astro's scoped-style attribute (data-astro-cid-…). Target them
+     with :global(), anchored on the static #results, or none of this applies and
+     the label/context spans collapse to unstyled inline text run together. */
+  #results :global(li) { border-bottom: 1px solid var(--rule); }
+  #results :global(a) {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -130,13 +145,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-decoration: none;
     color: var(--ink);
   }
-  #results a:hover,
-  #results li.sel a { background: color-mix(in srgb, var(--accent) 8%, var(--parchment)); color: var(--accent); }
+  #results :global(a:hover),
+  #results :global(li.sel a) { background: color-mix(in srgb, var(--accent) 8%, var(--parchment)); color: var(--accent); }
   /* Match the entity page's .original stack so non-Latin script labels render. */
-  .r-label {
-    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Serif Devanagari', 'Noto Serif Hebrew', serif;
+  #results :global(.r-label) {
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', serif;
     font-size: 1.1rem;
   }
-  .r-ctx { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: right; }
+  #results :global(.r-ctx) { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: right; }
   #empty { font-family: 'Inter', sans-serif; color: var(--ink-soft); margin-top: 1rem; }
 </style>

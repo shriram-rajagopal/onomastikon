@@ -4,7 +4,7 @@ language: classical-arabic
 original_text: فارس
 transliteration: Fāris
 ipa: /ˈfaːris/
-literal_meaning: Persia (from Old Persian *Pārsa*)
+literal_meaning: Persia (from Old Persian Pārsa)
 era_start: 600
 era_end: 1300
 confidence: attested

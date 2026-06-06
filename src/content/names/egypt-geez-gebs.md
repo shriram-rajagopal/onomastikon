@@ -4,7 +4,7 @@ language: geez
 original_text: ግብጽ
 transliteration: Gəbṣ
 ipa: /ˈɡɨbsˤ/
-literal_meaning: Egypt (ultimately from a form related to Greek *Aígyptos*)
+literal_meaning: Egypt (ultimately from a form related to Greek Aígyptos)
 era_start: 350
 era_end: 1500
 confidence: attested

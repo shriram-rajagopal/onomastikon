@@ -4,7 +4,7 @@ language: ugaritic
 original_text: 𐎎𐎕𐎗𐎎
 transliteration: Mṣrm
 ipa: "*misˤrama"
-literal_meaning: Egypt (from the Semitic root *mṣr*)
+literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: -1400
 era_end: -1190
 confidence: attested

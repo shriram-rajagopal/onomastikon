@@ -4,7 +4,7 @@ language: sanskrit
 original_text: पारसीक
 transliteration: Pārasīka
 ipa: /paːrɐˈsiːkɐ/
-literal_meaning: Persian; of Persia (from Old Persian *Pārsa*)
+literal_meaning: Persian; of Persia (from Old Persian Pārsa)
 era_start: 100
 era_end: 1200
 confidence: attested

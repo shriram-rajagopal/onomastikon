@@ -2,7 +2,7 @@
 civilization: persia
 language: elamite
 original_text: 𒁇𒊭𒀭
-transliteration: Paršann
+transliteration: Paršan
 ipa: "*parʃan"
 literal_meaning: Persia; the Persian heartland
 era_start: -520

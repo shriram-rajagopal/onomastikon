@@ -4,7 +4,7 @@ language: imperial-aramaic
 original_text: מצרין
 transliteration: Mṣryn
 ipa: "*miṣˈrajin"
-literal_meaning: Egypt (from the Semitic root *mṣr*)
+literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: -500
 era_end: -200
 confidence: attested
