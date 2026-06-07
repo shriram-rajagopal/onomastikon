@@ -42,6 +42,7 @@ const SCRIPTS = [
   "old-persian",
   "inscriptional-pahlavi",
   "egyptian-hieroglyphs",
+  "ugaritic",
 ];
 const rel = (p) => relative(ROOT, p).replace(/\\/g, "/");
 
