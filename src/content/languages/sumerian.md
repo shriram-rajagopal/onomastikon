@@ -6,6 +6,7 @@ script: Sumerian cuneiform
 era_start: -3100
 era_end: -100
 direction: ltr
+featured_image: /languages/sumerian-card.png
 ---
 
 The language of ancient Sumer in southern Mesopotamia, the earliest written language and a language isolate with no demonstrated relationship to any other known tongue. Sumerian was the medium of the world's first literature, law, and administration, recorded in the cuneiform script that its speakers invented around 3100 BCE and that went on to write a dozen later languages of the Near East. Speakers called it *eme-gir*, "the native tongue," distinguishing the main register from *eme-sal*, a special form used for certain cultic and literary speech. Sumerian had probably died out as an everyday spoken language by about 2000 BCE, giving way to Akkadian in the mouths of the population.

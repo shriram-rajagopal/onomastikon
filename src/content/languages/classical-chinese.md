@@ -6,6 +6,7 @@ script: Chinese characters
 era_start: -500
 era_end: 600
 direction: ltr
+featured_image: /languages/classical-chinese-card.png
 ---
 
 Classical Chinese is the literary language of the Chinese cultural sphere, fixed in its classical form on the usage of the late Zhou period and continuing as the written standard of administration, scholarship, and history for more than two millennia thereafter. It is the language of the dynastic histories, and it is in those histories, above all the *Hou Hanshu*, the *Weilüe*, and their successors, that the Chinese record of the western world survives: the reports of envoys, the routes of the silk trade, and the names by which the Han court knew the distant empires at the other end of Eurasia, Rome among them.

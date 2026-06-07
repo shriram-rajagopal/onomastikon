@@ -24,8 +24,15 @@ const enriched = await Promise.all(
 );
 ---
 
-<BaseLayout title={lang.data.english_name}>
+<BaseLayout title={lang.data.english_name} image={lang.data.featured_image}>
   <article>
+    {lang.data.featured_image && (
+      <img
+        class="featured"
+        src={lang.data.featured_image}
+        alt={`${lang.data.english_name} endonym card`}
+      />
+    )}
     <p class="eyebrow">Language</p>
     <h1>{lang.data.english_name}</h1>
     <p class="meta">{lang.data.language_family} · {lang.data.script}</p>
@@ -69,6 +76,7 @@ const enriched = await Promise.all(
 </BaseLayout>
 
 <style>
+  .featured { display: block; width: 100%; height: auto; aspect-ratio: 1920 / 720; margin: 0 0 1rem; }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1.5rem; }
   .name-list { list-style: none; padding: 0; margin: 1.5rem 0; }

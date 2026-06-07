@@ -9,6 +9,7 @@ import { PersiaTitleCard } from "./PersiaTitleCard";
 import { DefaultOgCard } from "./DefaultOgCard";
 import { TitleCard, titleCardSchema } from "./TitleCard";
 import { DualTitleCard } from "./DualTitleCard";
+import { LanguageTitleCard, languageCardSchema } from "./LanguageTitleCard";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -50,6 +51,27 @@ export const RemotionRoot: React.FC = () => {
             { script: "inscriptional-pahlavi" as const, glyphs: "𐭠𐭩𐭥𐭠𐭭", transliteration: "Ērān", caption: "Middle Persian" },
           ],
           label: "Persia",
+        }}
+      />
+      {/* Language entry title card — endonym-hero card for a language (native_name
+          as hero, English name anchored, alphabet · family · era strip).
+          Single:  npx remotion still LanguageTitleCard ../public/languages/<slug>-card.png \
+                     --props='{"script":"syriac","glyphs":"ܣܘܪܝܝܐ","romanization":"Suryāyā","name":"Syriac","meta":"Syriac alphabet · Northwest Semitic · c. 100–700 CE"}'
+          Batch:   node scripts/render-language-cards.mjs language-cards.json */}
+      <Composition
+        id="LanguageTitleCard"
+        component={LanguageTitleCard}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={720}
+        schema={languageCardSchema}
+        defaultProps={{
+          script: "syriac" as const,
+          glyphs: "ܣܘܪܝܝܐ",
+          romanization: "Suryāyā",
+          name: "Syriac",
+          meta: "Syriac alphabet · Northwest Semitic · c. 100–700 CE",
         }}
       />
       {/* Onomastikon homepage wordmark — 8:3 masthead banner.

@@ -28,6 +28,9 @@ const languages = defineCollection({
     era_start: z.number(),
     era_end: z.number(),
     direction: z.enum(['ltr', 'rtl', 'btt']).default('ltr'),
+    // The language's endonym title card, rendered from LanguageTitleCard. Optional:
+    // languages whose native_name is missing or stored romanized have no card yet.
+    featured_image: z.string().optional(),
   }),
 });
 

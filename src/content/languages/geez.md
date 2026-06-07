@@ -6,6 +6,7 @@ script: Ethiopic
 era_start: 350
 era_end: 1500
 direction: ltr
+featured_image: /languages/geez-card.png
 ---
 
 The classical literary and liturgical language of the Christian Ethiopian highlands, attested from the fourth century CE in the royal inscriptions of the Aksumite kingdom and continuing in unbroken use through the medieval Solomonic dynasty into the present day as the language of the Ethiopian Orthodox Tewahedo Church. Geʽez belongs to the South Semitic branch of the Afro-Asiatic family alongside the related Old South Arabian languages of the Yemeni highlands, with which it shares the Ethiopic script's ultimate ancestry. The language is named after itself: ግዕዝ in Geʽez signifies "free" or "of the free people," and refers to the speech community.
