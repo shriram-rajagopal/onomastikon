@@ -1,7 +1,7 @@
 ---
 english_name: Rome
 type: civilization
-entry_status: developing
+entry_status: complete
 region: Central Italy and, at its height, the Mediterranean basin
 era_start: -753
 era_end: 476
