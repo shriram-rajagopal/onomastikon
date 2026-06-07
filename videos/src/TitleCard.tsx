@@ -4,6 +4,7 @@ import { z } from "zod";
 import { loadFont as loadGaramond } from "@remotion/google-fonts/EBGaramond";
 import { loadFont as loadHieroglyphs } from "@remotion/google-fonts/NotoSansEgyptianHieroglyphs";
 import { loadFont as loadOldPersian } from "@remotion/google-fonts/NotoSansOldPersian";
+import { loadFont as loadCuneiform } from "@remotion/google-fonts/NotoSansCuneiform";
 
 // Data-driven version of the hand-built EgyptTitleCard / GreeceTitleCard /
 // PersiaTitleCard. Those three share an identical layout and differ only in four
@@ -27,6 +28,10 @@ const { fontFamily: oldPersian } = loadOldPersian("normal", {
   weights: ["400"],
   subsets: ["old-persian"],
 });
+const { fontFamily: cuneiform } = loadCuneiform("normal", {
+  weights: ["400"],
+  subsets: ["cuneiform"],
+});
 
 // Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
 // The card is filled with parchment rather than left transparent so the same PNG
@@ -44,12 +49,13 @@ const RULE = "#d8cfbf";
 const SCRIPTS = {
   "egyptian-hieroglyphs": { fontFamily: hieroglyphs, fontSize: 248, letterSpacing: 12, fontWeight: 400 },
   "old-persian": { fontFamily: oldPersian, fontSize: 200, letterSpacing: 12, fontWeight: 400 },
+  cuneiform: { fontFamily: cuneiform, fontSize: 180, letterSpacing: 14, fontWeight: 400 },
   greek: { fontFamily: garamond, fontSize: 200, letterSpacing: 0, fontWeight: 600 },
   latin: { fontFamily: garamond, fontSize: 168, letterSpacing: 0, fontWeight: 600 },
 } as const;
 
 export const titleCardSchema = z.object({
-  script: z.enum(["egyptian-hieroglyphs", "old-persian", "greek", "latin"]),
+  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "greek", "latin"]),
   glyphs: z.string(), // the endonym in its original script (original_text)
   transliteration: z.string().optional(), // italic accent line (Kemet, Hellás, Pārsa); omit for Latin-script endonyms whose original IS the romanization (e.g. Roma)
   language: z.string(), // the endonym's language, shown below the transliteration (Middle Egyptian, Ancient Greek, Latin, ...)

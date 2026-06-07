@@ -18,7 +18,7 @@ Target: 12-15 civilizations + supporting cities, regions, and geographic feature
 - [x] Egypt
 - [x] Greece
 - [x] Persia
-- [ ] Sumer
+- [x] Sumer
 - [ ] Akkad
 - [ ] Babylonia
 - [ ] Assyria
@@ -69,7 +69,7 @@ Target: 12-15 civilizations + supporting cities, regions, and geographic feature
 - [x] Old Persian
 - [x] Sanskrit
 - [x] Biblical Hebrew
-- [ ] Sumerian
+- [x] Sumerian
 - [ ] Aramaic
 - [ ] Phoenician
 - [ ] Hittite
