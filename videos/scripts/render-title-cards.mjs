@@ -55,7 +55,7 @@ if (!Array.isArray(cards) || cards.length === 0) fail("manifest must be a non-em
 
 // Validate every card up front so a typo in card 30 fails before card 1 renders.
 cards.forEach((c, i) => {
-  for (const key of ["slug", "script", "glyphs", "label"]) {
+  for (const key of ["slug", "script", "glyphs", "language", "label"]) {
     if (typeof c[key] !== "string" || c[key] === "") fail(`card ${i}: missing or empty "${key}".`);
   }
   // transliteration is optional: Latin-script endonyms omit it (the original already
