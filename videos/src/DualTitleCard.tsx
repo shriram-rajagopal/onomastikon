@@ -46,11 +46,17 @@ export const DualTitleCard: React.FC<{ endonyms: Endonym[]; label: string }> = (
   return (
     <AbsoluteFill style={{ backgroundColor: PARCHMENT, justifyContent: "center", alignItems: "center" }}>
       <div style={{ display: "inline-block", textAlign: "center" }}>
-        <div style={{ display: "flex", justifyContent: "center", gap: 40 }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "stretch", gap: 40 }}>
           {endonyms.map((e, i) => {
             const line = SCRIPTS[e.script];
             return (
-              <div key={i} style={{ width: 540, textAlign: "center" }}>
+              <React.Fragment key={i}>
+                {/* vertical divider between columns; alignSelf stretch spans the
+                    column block only, so it ends above the horizontal rule below */}
+                {i > 0 ? (
+                  <div style={{ width: 2, backgroundColor: RULE, alignSelf: "stretch" }} />
+                ) : null}
+              <div style={{ width: 540, textAlign: "center" }}>
                 {/* fixed-height glyph row so the transliteration lines align across columns
                     even when the two scripts differ in height */}
                 <div style={{ height: 178, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
@@ -100,6 +106,7 @@ export const DualTitleCard: React.FC<{ endonyms: Endonym[]; label: string }> = (
                   </div>
                 ) : null}
               </div>
+              </React.Fragment>
             );
           })}
         </div>
@@ -109,14 +116,14 @@ export const DualTitleCard: React.FC<{ endonyms: Endonym[]; label: string }> = (
         <div
           style={{
             fontFamily: garamond,
-            fontWeight: 400,
+            fontWeight: 600,
             fontSize: 44,
             lineHeight: 1,
             marginTop: 30,
             letterSpacing: 16,
             paddingLeft: 16,
             textTransform: "uppercase",
-            color: INK_SOFT,
+            color: INK,
           }}
         >
           {label}

@@ -52,6 +52,7 @@ export const titleCardSchema = z.object({
   script: z.enum(["egyptian-hieroglyphs", "old-persian", "greek", "latin"]),
   glyphs: z.string(), // the endonym in its original script (original_text)
   transliteration: z.string().optional(), // italic accent line (Kemet, Hellás, Pārsa); omit for Latin-script endonyms whose original IS the romanization (e.g. Roma)
+  language: z.string(), // the endonym's language, shown below the transliteration (Middle Egyptian, Ancient Greek, Latin, ...)
   label: z.string(), // the uppercase English entity name
 });
 
@@ -59,6 +60,7 @@ export const TitleCard: React.FC<z.infer<typeof titleCardSchema>> = ({
   script,
   glyphs,
   transliteration,
+  language,
   label,
 }) => {
   const line = SCRIPTS[script];
@@ -102,19 +104,37 @@ export const TitleCard: React.FC<z.infer<typeof titleCardSchema>> = ({
           </div>
         ) : null}
 
+        {/* The endonym's language is always expressed, below the transliteration
+            (or below the glyphs when there is no transliteration, as for Latin). */}
+        <div
+          style={{
+            fontFamily: garamond,
+            fontWeight: 400,
+            fontSize: 30,
+            lineHeight: 1,
+            marginTop: transliteration ? 22 : 34,
+            letterSpacing: 8,
+            paddingLeft: 8,
+            textTransform: "uppercase",
+            color: INK_SOFT,
+          }}
+        >
+          {language}
+        </div>
+
         <div style={{ marginTop: 30, height: 3, width: "100%", backgroundColor: RULE }} />
 
         <div
           style={{
             fontFamily: garamond,
-            fontWeight: 400,
+            fontWeight: 600,
             fontSize: 44,
             lineHeight: 1,
             marginTop: 30,
             letterSpacing: 16,
             paddingLeft: 16,
             textTransform: "uppercase",
-            color: INK_SOFT,
+            color: INK,
           }}
         >
           {label}

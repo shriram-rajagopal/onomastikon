@@ -31,6 +31,7 @@ export const RemotionRoot: React.FC = () => {
           script: "egyptian-hieroglyphs" as const,
           glyphs: "𓆎𓅓𓏏",
           transliteration: "Kemet",
+          language: "Middle Egyptian",
           label: "Egypt",
         }}
       />
