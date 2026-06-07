@@ -8,6 +8,7 @@ import { GreeceTitleCard } from "./GreeceTitleCard";
 import { PersiaTitleCard } from "./PersiaTitleCard";
 import { DefaultOgCard } from "./DefaultOgCard";
 import { TitleCard, titleCardSchema } from "./TitleCard";
+import { DualTitleCard } from "./DualTitleCard";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -31,6 +32,23 @@ export const RemotionRoot: React.FC = () => {
           glyphs: "𓆎𓅓𓏏",
           transliteration: "Kemet",
           label: "Egypt",
+        }}
+      />
+      {/* PROTOTYPE — two-column card for multi-endonym entities (Persia: Pārsa + Ērān).
+          Render: npx remotion still DualTitleCard /tmp/persia-dual.png */}
+      <Composition
+        id="DualTitleCard"
+        component={DualTitleCard}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={720}
+        defaultProps={{
+          endonyms: [
+            { script: "old-persian" as const, glyphs: "𐎱𐎠𐎼𐎿", transliteration: "Pārsa", caption: "Old Persian" },
+            { script: "inscriptional-pahlavi" as const, glyphs: "𐭠𐭩𐭥𐭠𐭭", transliteration: "Ērān", caption: "Middle Persian" },
+          ],
+          label: "Persia",
         }}
       />
       {/* Onomastikon homepage wordmark — 8:3 masthead banner.
