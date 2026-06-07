@@ -13,6 +13,7 @@ import { loadFont as loadPhoenician } from "@remotion/google-fonts/NotoSansPhoen
 import { loadFont as loadCuneiform } from "@remotion/google-fonts/NotoSansCuneiform";
 import { loadFont as loadOldPersian } from "@remotion/google-fonts/NotoSansOldPersian";
 import { loadFont as loadPahlavi } from "@remotion/google-fonts/NotoSansInscriptionalPahlavi";
+import { loadFont as loadHieroglyphs } from "@remotion/google-fonts/NotoSansEgyptianHieroglyphs";
 
 // Language entry title card. A thin sibling of the civ TitleCard: same parchment,
 // same vertical rhythm and tokens, but it leads with the LANGUAGE's own name
@@ -39,6 +40,7 @@ const { fontFamily: phoenician } = loadPhoenician("normal", { weights: ["400"], 
 const { fontFamily: cuneiform } = loadCuneiform("normal", { weights: ["400"], subsets: ["cuneiform"] });
 const { fontFamily: oldPersian } = loadOldPersian("normal", { weights: ["400"], subsets: ["old-persian"] });
 const { fontFamily: pahlavi } = loadPahlavi("normal", { weights: ["400"], subsets: ["inscriptional-pahlavi"] });
+const { fontFamily: hieroglyphs } = loadHieroglyphs("normal", { weights: ["400"], subsets: ["egyptian-hieroglyphs"] });
 
 const PARCHMENT = "#f5efe4";
 const INK = "#1a1a1a";
@@ -62,6 +64,7 @@ const SCRIPTS = {
   chinese: { fontFamily: sc, fontSize: 180, letterSpacing: 10, fontWeight: 400, rtl: false },
   phoenician: { fontFamily: phoenician, fontSize: 120, letterSpacing: 8, fontWeight: 400, rtl: true },
   cuneiform: { fontFamily: cuneiform, fontSize: 150, letterSpacing: 14, fontWeight: 400, rtl: false },
+  "egyptian-hieroglyphs": { fontFamily: hieroglyphs, fontSize: 168, letterSpacing: 10, fontWeight: 400, rtl: false },
   "old-persian": { fontFamily: oldPersian, fontSize: 150, letterSpacing: 12, fontWeight: 400, rtl: false },
   "inscriptional-pahlavi": { fontFamily: pahlavi, fontSize: 140, letterSpacing: 8, fontWeight: 400, rtl: true },
 } as const;
@@ -81,6 +84,7 @@ export const languageCardSchema = z.object({
     "cuneiform",
     "old-persian",
     "inscriptional-pahlavi",
+    "egyptian-hieroglyphs",
   ]),
   glyphs: z.string(), // the language's own name in its own script (native_name)
   romanization: z.string().optional(), // italic accent line; omit for Latin-script endonyms (Lingua Latina)

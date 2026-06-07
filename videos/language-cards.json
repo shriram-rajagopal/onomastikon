@@ -14,5 +14,7 @@
   { "slug": "middle-persian", "script": "inscriptional-pahlavi", "glyphs": "𐭯𐭠𐭫𐭮𐭩𐭪", "romanization": "Pārsīg", "name": "Middle Persian", "meta": "Pahlavi script · Iranian · c. 300 BCE – 900 CE" },
   { "slug": "classical-arabic", "script": "arabic", "glyphs": "العربية الفصحى", "romanization": "al-ʿArabiyya al-Fuṣḥā", "name": "Classical Arabic", "meta": "Arabic alphabet · Central Semitic · c. 500–1300 CE" },
   { "slug": "syriac", "script": "syriac", "glyphs": "ܣܘܪܝܝܐ", "romanization": "Suryāyā", "name": "Syriac", "meta": "Syriac alphabet · Northwest Semitic · c. 100–700 CE" },
-  { "slug": "geez", "script": "ethiopic", "glyphs": "ግዕዝ", "romanization": "Gəʿz", "name": "Geʽez", "meta": "Ethiopic · South Semitic · c. 350–1500 CE" }
+  { "slug": "geez", "script": "ethiopic", "glyphs": "ግዕዝ", "romanization": "Gəʿz", "name": "Geʽez", "meta": "Ethiopic · South Semitic · c. 350–1500 CE" },
+  { "slug": "egyptian", "script": "egyptian-hieroglyphs", "glyphs": "𓂋𓈖𓆎𓅓𓏏", "romanization": "R n Kmt", "name": "Egyptian", "meta": "Hieroglyphs · Afro-Asiatic · c. 2000–1300 BCE" },
+  { "slug": "akkadian", "script": "cuneiform", "glyphs": "𒀝𒅗𒁺𒌑", "romanization": "Akkadû", "name": "Akkadian", "meta": "Cuneiform · East Semitic · c. 2500–100 BCE" }
 ]
