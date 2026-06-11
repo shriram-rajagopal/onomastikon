@@ -7,6 +7,8 @@ ipa: /ˈfaːris/
 literal_meaning: Persia (from Old Persian Pārsa)
 era_start: 600
 era_end: 1300
+family: parsa
+derived_from: persia-old-persian-parsa
 confidence: attested
 sources:
   - citation: "Lane, Edward William. *An Arabic-English Lexicon*. London: Williams and Norgate, 1863–1893, s.v. فارس."

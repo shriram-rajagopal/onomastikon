@@ -7,6 +7,8 @@ ipa: /anˈniːl/
 literal_meaning: the Nile (from Greek Neîlos)
 era_start: 600
 era_end: 1300
+family: neilos
+derived_from: nile-ancient-greek-neilos
 confidence: attested
 sources:
   - citation: "Lane, Edward William. *An Arabic-English Lexicon*. London: Williams and Norgate, 1863–1893, s.v. نيل."

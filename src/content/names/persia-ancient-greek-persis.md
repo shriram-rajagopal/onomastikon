@@ -7,6 +7,8 @@ ipa: /per.sís/
 literal_meaning: Persia; the land of the Persians
 era_start: -500
 era_end: 600
+family: parsa
+derived_from: persia-old-persian-parsa
 confidence: attested
 sources:
   - citation: "Herodotus, *Histories*, books 1, 3, and 7, passim."

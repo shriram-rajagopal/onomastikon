@@ -7,6 +7,8 @@ ipa: /ae̯ˈɡyp.tus/
 literal_meaning: Egypt (toponym; borrowed from Greek)
 era_start: -200
 era_end: 600
+family: aigyptos
+derived_from: egypt-ancient-greek-aigyptos
 confidence: attested
 sources:
   - citation: "Augustus, *Res Gestae Divi Augusti* 27."

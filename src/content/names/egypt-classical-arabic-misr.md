@@ -7,6 +7,7 @@ ipa: /misˤr/
 literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: 600
 era_end: 1300
+family: msr
 confidence: attested
 sources:
   - citation: "Lane, Edward William. *An Arabic-English Lexicon*. London: Williams and Norgate, 1863–1893, s.v. مصر."

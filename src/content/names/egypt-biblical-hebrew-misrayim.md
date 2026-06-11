@@ -7,6 +7,7 @@ ipa: /misˤˈʁajim/
 literal_meaning: the two Miṣrs (traditional reading); border-land
 era_start: -1200
 era_end: -100
+family: msr
 confidence: attested
 sources:
   - citation: "*Hebrew and Aramaic Lexicon of the Old Testament* (HALOT), Leiden: Brill, 1994–2000, s.v. *miṣrayim*."

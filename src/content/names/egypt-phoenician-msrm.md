@@ -7,6 +7,7 @@ ipa: "*misˤram"
 literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: -900
 era_end: -300
+family: msr
 confidence: attested
 sources:
   - citation: "Krahmalkov, Charles R. *Phoenician-Punic Dictionary*. Leuven: Peeters, 2000, s.v. *mṣrm*."

@@ -7,6 +7,7 @@ ipa: /eːˈraːn/
 literal_meaning: of the Aryans; Iran
 era_start: 224
 era_end: 900
+family: eran
 confidence: attested
 sources:
   - citation: "MacKenzie, D. N. *A Concise Pahlavi Dictionary*. London: Oxford University Press, 1971, s.v. *ērān*."

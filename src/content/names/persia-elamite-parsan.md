@@ -7,6 +7,7 @@ ipa: "*parʃan"
 literal_meaning: Persia; the Persian heartland
 era_start: -520
 era_end: -330
+family: parsa
 confidence: attested
 sources:
   - citation: "Hinz, Walther, and Heidemarie Koch. *Elamisches Wörterbuch*. 2 vols. Berlin: Dietrich Reimer, 1987, s.v. *Paršan*."

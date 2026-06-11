@@ -7,6 +7,8 @@ ipa: /hroːm/
 literal_meaning: Rome; the Roman (later Byzantine) empire
 era_start: 240
 era_end: 900
+family: roma
+derived_from: rome-ancient-greek-rhome
 confidence: attested
 sources:
   - citation: "MacKenzie, D. N. *A Concise Pahlavi Dictionary*. London: Oxford University Press, 1971, s.v. *Hrōm*."

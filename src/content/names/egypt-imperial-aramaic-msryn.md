@@ -7,6 +7,7 @@ ipa: "*miṣˈrajin"
 literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: -500
 era_end: -200
+family: msr
 confidence: attested
 sources:
   - citation: "Porten, Bezalel, and Ada Yardeni. *Textbook of Aramaic Documents from Ancient Egypt* (TADAE). 4 vols. Jerusalem: Hebrew University, 1986–1999."

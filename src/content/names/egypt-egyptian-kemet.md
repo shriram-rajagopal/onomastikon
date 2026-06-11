@@ -7,6 +7,7 @@ ipa: "*kuːmat"
 literal_meaning: the Black Land
 era_start: -2000
 era_end: -1300
+family: kemet
 confidence: attested
 sources:
   - citation: "Loprieno, Antonio. *Ancient Egyptian: A Linguistic Introduction*. Cambridge: Cambridge University Press, 1995."

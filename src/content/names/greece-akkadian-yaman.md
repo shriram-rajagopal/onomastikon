@@ -7,6 +7,7 @@ ipa: /jaːˈmaːn/
 literal_meaning: Ionia; the Greek-speaking world (as seen from the east)
 era_start: -720
 era_end: -540
+family: ionian
 confidence: attested
 sources:
   - citation: "*Chicago Assyrian Dictionary* (CAD), University of Chicago, Vol. Y, s.v. *Yamānu*, *Yamānāya*."

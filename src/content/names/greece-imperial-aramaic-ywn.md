@@ -7,6 +7,7 @@ ipa: "*jaːˈwaːn"
 literal_meaning: Ionia; the Greek world
 era_start: -500
 era_end: -200
+family: ionian
 confidence: attested
 sources:
   - citation: "Porten, Bezalel, and Ada Yardeni. *Textbook of Aramaic Documents from Ancient Egypt* (TADAE). 4 vols. Jerusalem: Hebrew University, 1986–1999."

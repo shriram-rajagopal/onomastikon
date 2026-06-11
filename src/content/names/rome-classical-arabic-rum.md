@@ -7,6 +7,8 @@ ipa: /arˈruːm/
 literal_meaning: the Romans; the Roman (Byzantine) realm
 era_start: 600
 era_end: 1300
+family: roma
+derived_from: rome-syriac-rhoma
 confidence: attested
 sources:
   - citation: "Lane, Edward William. *An Arabic-English Lexicon*. London: Williams and Norgate, 1863–1893, s.v. روم."

@@ -7,6 +7,7 @@ ipa: /ai̯.ɡyp.tos/
 literal_meaning: Egypt (toponym; etymology disputed)
 era_start: -800
 era_end: 600
+family: aigyptos
 confidence: attested
 sources:
   - citation: "Homer, *Odyssey* 4.83, 14.246, 17.426."

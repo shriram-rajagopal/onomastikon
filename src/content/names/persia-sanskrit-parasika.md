@@ -7,6 +7,8 @@ ipa: /paːrɐˈsiːkɐ/
 literal_meaning: Persian; of Persia (from Old Persian Pārsa)
 era_start: 100
 era_end: 1200
+family: parsa
+derived_from: persia-old-persian-parsa
 confidence: attested
 sources:
   - citation: "*Mahābhārata* 6.10.51 (Bhīṣmaparvan, the survey of peoples)."

@@ -7,6 +7,7 @@ ipa: /ˈpaːr.sa/
 literal_meaning: Persia; the Persian heartland
 era_start: -550
 era_end: -330
+family: parsa
 confidence: attested
 sources:
   - citation: "Kent, Roland G. *Old Persian: Grammar, Texts, Lexicon*. 2nd ed. New Haven: American Oriental Society, 1953."

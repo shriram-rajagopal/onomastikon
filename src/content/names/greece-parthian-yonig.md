@@ -7,6 +7,7 @@ ipa: /joːniːɡ/
 literal_meaning: Greek
 era_start: 250
 era_end: 400
+family: ionian
 confidence: attested
 sources:
   - citation: "Durkin-Meisterernst, Desmond. *Dictionary of Manichaean Middle Persian and Parthian*. Corpus Fontium Manichaeorum, Subsidia. Turnhout: Brepols, 2004, s.v. *ywnyg*."

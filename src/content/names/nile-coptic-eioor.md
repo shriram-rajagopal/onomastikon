@@ -7,6 +7,7 @@ ipa: /ˈejoːr/
 literal_meaning: the river; the Nile (from Egyptian jtrw)
 era_start: 300
 era_end: 1000
+family: jtrw
 confidence: attested
 sources:
   - citation: "Crum, W. E. *A Coptic Dictionary*. Oxford: Clarendon Press, 1939, s.v. ⲉⲓⲟⲟⲣ."

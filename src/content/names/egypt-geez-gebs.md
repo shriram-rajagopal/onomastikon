@@ -7,6 +7,7 @@ ipa: /ˈɡɨbsˤ/
 literal_meaning: Egypt (ultimately from a form related to Greek Aígyptos)
 era_start: 350
 era_end: 1500
+family: aigyptos
 confidence: attested
 sources:
   - citation: "Leslau, Wolf. *Comparative Dictionary of Geʿez (Classical Ethiopic)*. Wiesbaden: Otto Harrassowitz, 1987, s.v. *gǝbṣ*."

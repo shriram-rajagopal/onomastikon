@@ -7,6 +7,7 @@ ipa: "*miʃr"
 literal_meaning: Egypt (from the Semitic root mṣr, preserved through Iranian phonological adaptation)
 era_start: 200
 era_end: 900
+family: msr
 confidence: attested
 sources:
   - citation: "MacKenzie, D. N. *A Concise Pahlavi Dictionary*. London: Oxford University Press, 1971, s.v. *mišr*."

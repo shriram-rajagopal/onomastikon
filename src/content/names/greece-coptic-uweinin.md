@@ -7,6 +7,8 @@ ipa: /uˈweː.nin/
 literal_meaning: Greek; later also "pagan"
 era_start: 200
 era_end: 1300
+family: hellas
+derived_from: greece-ancient-greek-hellas
 confidence: attested
 sources:
   - citation: "Crum, W. E. *A Coptic Dictionary*. Oxford: Clarendon Press, 1939, s.v. ⲟⲩⲉⲓⲉⲛⲓⲛ."

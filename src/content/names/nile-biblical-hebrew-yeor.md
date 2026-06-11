@@ -7,6 +7,7 @@ ipa: /jəˈʔoːr/
 literal_meaning: the Nile; the river (from Egyptian jtrw)
 era_start: -900
 era_end: -100
+family: jtrw
 confidence: attested
 sources:
   - citation: "*Hebrew and Aramaic Lexicon of the Old Testament* (HALOT), Leiden: Brill, 1994–2000, s.v. *yeʾōr*."

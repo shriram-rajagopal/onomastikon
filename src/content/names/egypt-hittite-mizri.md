@@ -7,6 +7,8 @@ ipa: "*mitsri"
 literal_meaning: Egypt (borrowed via Akkadian)
 era_start: -1400
 era_end: -1180
+family: msr
+derived_from: egypt-akkadian-misru
 confidence: attested
 sources:
   - citation: "Edel, Elmar. *Die ägyptisch-hethitische Korrespondenz aus Boghazköi in babylonischer und hethitischer Sprache*. 2 vols. Opladen: Westdeutscher Verlag, 1994."

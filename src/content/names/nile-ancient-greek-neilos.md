@@ -7,6 +7,7 @@ ipa: /nêː.los/
 literal_meaning: the Nile (etymology uncertain)
 era_start: -700
 era_end: 600
+family: neilos
 confidence: attested
 sources:
   - citation: "Beekes, Robert. *Etymological Dictionary of Greek*. Brill, 2010, s.v. Νεῖλος."

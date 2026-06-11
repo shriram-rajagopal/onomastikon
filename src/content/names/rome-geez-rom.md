@@ -7,6 +7,8 @@ ipa: /roːm/
 literal_meaning: Rome; the Roman (Byzantine) empire
 era_start: 350
 era_end: 1500
+family: roma
+derived_from: rome-ancient-greek-rhome
 confidence: attested
 sources:
   - citation: "Leslau, Wolf. *Comparative Dictionary of Geʿez (Classical Ethiopic)*. Wiesbaden: Otto Harrassowitz, 1987, s.v. *rōm*."

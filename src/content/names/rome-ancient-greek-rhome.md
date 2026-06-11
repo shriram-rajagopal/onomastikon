@@ -7,6 +7,8 @@ ipa: /ˈr̥ɔː.mɛː/
 literal_meaning: Rome (toponym)
 era_start: -350
 era_end: 600
+family: roma
+derived_from: rome-latin-roma
 confidence: attested
 sources:
   - citation: "Liddell, Henry George, and Robert Scott. *A Greek-English Lexicon*. 9th ed. Oxford: Clarendon Press, 1940, s.v. Ῥώμη."

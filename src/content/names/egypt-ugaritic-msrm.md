@@ -7,6 +7,7 @@ ipa: "*misˤrama"
 literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: -1400
 era_end: -1190
+family: msr
 confidence: attested
 sources:
   - citation: "del Olmo Lete, Gregorio, and Joaquín Sanmartín. *A Dictionary of the Ugaritic Language in the Alphabetic Tradition*. 3rd ed. Leiden: Brill, 2015, s.v. *mṣrm*."

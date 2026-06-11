@@ -8,6 +8,8 @@ ipa: "*kmiː"
 literal_meaning: the Black Land
 era_start: -650
 era_end: 450
+family: kemet
+derived_from: egypt-egyptian-kemet
 confidence: attested
 sources:
   - citation: "Erichsen, Wolja. *Demotisches Glossar*. Copenhagen: Ejnar Munksgaard, 1954, s.v. *km*."

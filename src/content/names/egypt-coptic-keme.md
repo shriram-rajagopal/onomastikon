@@ -7,6 +7,8 @@ ipa: /ˈkeːmə/
 literal_meaning: the Black Land
 era_start: 200
 era_end: 1300
+family: kemet
+derived_from: egypt-egyptian-kemet
 confidence: attested
 sources:
   - citation: "Crum, W. E. *A Coptic Dictionary*. Oxford: Clarendon Press, 1939, s.v. ⲕⲏⲙⲉ."

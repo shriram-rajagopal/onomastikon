@@ -15,6 +15,10 @@ const civilizations = defineCollection({
     era_end: z.number(),
     summary: z.string(),
     featured_image: z.string().optional(),
+    // Opaque variant of the title card for Open Graph previews. featured_image
+    // is background-stripped so it sits on either page theme; OG images must
+    // stay opaque, so the pre-strip render is preserved under /og/.
+    og_image: z.string().optional(),
   }),
 });
 
@@ -34,6 +38,8 @@ const languages = defineCollection({
     // The language's endonym title card, rendered from LanguageTitleCard. Optional:
     // languages whose native_name is missing or stored romanized have no card yet.
     featured_image: z.string().optional(),
+    // Opaque pre-strip render of the card, for Open Graph (see civilizations).
+    og_image: z.string().optional(),
   }),
 });
 
@@ -51,6 +57,16 @@ const names = defineCollection({
     // about the script's encodability, not a stand-in for "not yet typed" — set
     // it only where the form genuinely cannot be encoded.
     script_unencodable: z.boolean().optional(),
+    // Name-family membership: a slug grouping cognate names for the same entity
+    // that share one etymological root or transmission tradition (e.g. "msr",
+    // "ionian", "roma"). Only set when at least two entries on the entity's
+    // page share the family; etymologically isolated names carry no family.
+    family: z.string().optional(),
+    // The specific entry this form was borrowed or descended from, set ONLY
+    // where the entry's own prose asserts the derivation without hedging and
+    // the parent form exists in the collection. Cognate siblings (parallel
+    // descent, no asserted borrowing path) share a family but carry no edge.
+    derived_from: reference('names').optional(),
     era_start: z.number(),
     era_end: z.number(),
     confidence: z.enum(['attested', 'reconstructed', 'disputed']),

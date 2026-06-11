@@ -7,6 +7,8 @@ ipa: /ˈjɐʋɐnɐ/
 literal_meaning: Greek; later broadened to Westerner
 era_start: -400
 era_end: 600
+family: ionian
+derived_from: greece-old-persian-yauna
 confidence: attested
 sources:
   - citation: "Pāṇini, *Aṣṭādhyāyī* 4.1.49."

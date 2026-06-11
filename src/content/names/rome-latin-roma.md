@@ -6,6 +6,7 @@ transliteration: Roma
 ipa: /ˈroː.ma/
 era_start: -600
 era_end: 600
+family: roma
 confidence: attested
 sources:
   - citation: "Lewis, Charlton T., and Charles Short. *A Latin Dictionary*. Oxford: Clarendon Press, 1879, s.v. *Roma*."

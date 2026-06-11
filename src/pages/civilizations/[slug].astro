@@ -4,6 +4,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { entryAnchor } from '../../lib/entry';
 import { citationParts } from '../../lib/citation';
 import { formatEra } from '../../lib/era';
+import { familyDisplay } from '../../lib/families';
+import FamilyNode from '../../components/FamilyNode.astro';
+import type { TreeNode } from '../../components/FamilyNode.astro';
+import CiteThis from '../../components/CiteThis.astro';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -28,9 +32,65 @@ const enriched = await Promise.all(
     return { name: n, language: lang, Content };
   })
 );
+
+const byId = new Map(enriched.map((e) => [e.name.id, e]));
+
+// Transmission trees: group the page's names by family, then hang each name
+// under its asserted parent (derived_from). Names with no asserted parent in
+// the family sit at the top level as cognate siblings. enriched is era-sorted,
+// so roots and children inherit chronological order.
+type Enriched = (typeof enriched)[number];
+function toNode(e: Enriched): TreeNode {
+  return {
+    id: e.name.id,
+    original_text: e.name.data.original_text,
+    transliteration: e.name.data.transliteration,
+    languageName: e.language?.data.english_name ?? '',
+    langCode: e.language?.data.lang_code,
+    rtl: e.language?.data.direction === 'rtl',
+    children: [],
+  };
+}
+const familyGroups = new Map<string, Enriched[]>();
+for (const e of enriched) {
+  const fam = e.name.data.family;
+  if (!fam) continue;
+  if (!familyGroups.has(fam)) familyGroups.set(fam, []);
+  familyGroups.get(fam)!.push(e);
+}
+const familyTrees = [...familyGroups.entries()]
+  .filter(([, members]) => members.length >= 2)
+  .map(([slug, members]) => {
+    const nodes = new Map(members.map((m) => [m.name.id, toNode(m)]));
+    const roots: TreeNode[] = [];
+    for (const m of members) {
+      const parentId = m.name.data.derived_from?.id;
+      const parent = parentId ? nodes.get(parentId) : undefined;
+      if (parent) parent.children.push(nodes.get(m.name.id)!);
+      else roots.push(nodes.get(m.name.id)!);
+    }
+    return { slug, ...familyDisplay(slug), roots, size: members.length };
+  })
+  .sort((a, b) => b.size - a.size);
 ---
 
-<BaseLayout title={civ.data.english_name} description={civ.data.summary} image={civ.data.featured_image}>
+<BaseLayout
+  title={civ.data.english_name}
+  description={civ.data.summary}
+  image={civ.data.og_image ?? civ.data.featured_image}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: civ.data.english_name,
+    description: civ.data.summary,
+    url: new URL(`/civilizations/${civ.id}`, Astro.site).href,
+    ...(civ.data.og_image ? { image: new URL(civ.data.og_image, Astro.site).href } : {}),
+    author: { '@type': 'Person', name: 'Shriram Rajagopal' },
+    license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    inLanguage: 'en',
+    isPartOf: { '@type': 'WebSite', name: 'Onomastikon', url: Astro.site?.href },
+  }}
+>
   <article>
     {civ.data.featured_image && (
       <img
@@ -59,6 +119,25 @@ const enriched = await Promise.all(
 
     <div class="summary"><Content /></div>
 
+    {familyTrees.length > 0 && (
+      <>
+        <h2>Name families</h2>
+        <p class="families-hint">
+          Cognate names grouped by shared root. An indented name is borrowed from
+          the form above it; names at the same level are parallel descendants.
+        </p>
+        {familyTrees.map((fam) => (
+          <section class="family">
+            <h3 class="family-title">{fam.display}</h3>
+            {fam.note && <p class="family-note">{fam.note}</p>}
+            <ul class="family-roots">
+              {fam.roots.map((node) => <FamilyNode node={node} civId={civ.id} />)}
+            </ul>
+          </section>
+        ))}
+      </>
+    )}
+
     <h2>Names across languages</h2>
 
     {enriched.length === 0 && <p><em>No name entries yet.</em></p>}
@@ -85,6 +164,17 @@ const enriched = await Promise.all(
           <dt>Transliteration</dt><dd><em>{name.data.transliteration}</em></dd>
           {name.data.ipa && (<><dt>IPA</dt><dd>{name.data.ipa}</dd></>)}
           {name.data.literal_meaning && (<><dt>Meaning</dt><dd>“{name.data.literal_meaning}”</dd></>)}
+          {name.data.derived_from && byId.get(name.data.derived_from.id) && (
+            <>
+              <dt>Derived from</dt>
+              <dd>
+                <a class="derived-link" href={`#${entryAnchor(name.data.derived_from.id, civ.id)}`}>
+                  {byId.get(name.data.derived_from.id)!.language?.data.english_name}{' '}
+                  <em>{byId.get(name.data.derived_from.id)!.name.data.transliteration}</em>
+                </a>
+              </dd>
+            </>
+          )}
           <dt>Confidence</dt>
           <dd>
             <span class={`confidence confidence-${name.data.confidence}`}>
@@ -108,6 +198,8 @@ const enriched = await Promise.all(
         </details>
       </section>
     ))}
+
+    <CiteThis title={civ.data.english_name} path={`/civilizations/${civ.id}`} />
   </article>
 </BaseLayout>
 
@@ -151,6 +243,13 @@ const enriched = await Promise.all(
   .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
   .aka { font-style: italic; color: var(--ink-soft); margin-bottom: 1.5rem; }
   .summary { margin: 1.5rem 0 2rem; }
+  .families-hint { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); margin: -0.5rem 0 1.5rem; }
+  .family { margin: 1.5rem 0 2rem; }
+  .family-title { font-size: 1.125rem; margin: 0 0 0.25rem; }
+  .family-note { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.75rem; }
+  .family-roots { list-style: none; margin: 0; padding: 0; }
+  .derived-link { color: var(--ink); }
+  .derived-link:hover { color: var(--accent); }
   /* When deep-linked from a language page (/civilizations/x#anchor), keep the
      entry's heading clear of the top edge instead of landing flush against it. */
   .name-entry { scroll-margin-top: 2rem; margin: 2rem 0; padding: 1.5rem; background: color-mix(in srgb, var(--ink) 4%, var(--parchment)); border: 1px solid var(--rule); border-radius: 4px; }

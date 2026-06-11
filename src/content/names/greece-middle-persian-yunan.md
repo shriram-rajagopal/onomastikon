@@ -7,6 +7,8 @@ ipa: /juˈnaːn/
 literal_meaning: Greek; Ionian
 era_start: 200
 era_end: 900
+family: ionian
+derived_from: greece-old-persian-yauna
 confidence: attested
 sources:
   - citation: "MacKenzie, D. N. *A Concise Pahlavi Dictionary*. London: Oxford University Press, 1971, s.v. *yunān*."

@@ -7,6 +7,8 @@ ipa: /ˈniː.lus/
 literal_meaning: the Nile (from Greek)
 era_start: -200
 era_end: 600
+family: neilos
+derived_from: nile-ancient-greek-neilos
 confidence: attested
 sources:
   - citation: "Lewis and Short, *A Latin Dictionary*. Clarendon Press, 1879, s.v. 'Nilus.'"

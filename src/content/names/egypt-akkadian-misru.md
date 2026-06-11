@@ -7,6 +7,7 @@ ipa: /misˤ.ru/
 literal_meaning: borderland; frontier
 era_start: -1500
 era_end: -500
+family: msr
 confidence: attested
 sources:
   - citation: "*Chicago Assyrian Dictionary* (CAD), University of Chicago, Vol. M/2, s.v. *miṣru*."

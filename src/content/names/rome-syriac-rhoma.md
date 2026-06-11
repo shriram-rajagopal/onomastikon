@@ -7,6 +7,8 @@ ipa: /ˈrhoːmaː/
 literal_meaning: Rome; the Roman (Byzantine) realm
 era_start: 200
 era_end: 800
+family: roma
+derived_from: rome-ancient-greek-rhome
 confidence: attested
 sources:
   - citation: "Sokoloff, Michael. *A Syriac Lexicon: A Translation from the Latin, Correction, Expansion, and Update of C. Brockelmann's Lexicon Syriacum*. Winona Lake/Piscataway: Eisenbrauns/Gorgias, 2009, s.v. ܪܗܘܡܝܐ."

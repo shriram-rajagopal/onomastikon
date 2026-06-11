@@ -7,6 +7,8 @@ ipa: "*mudraja"
 literal_meaning: Egypt (borrowed from Old Persian)
 era_start: -520
 era_end: -330
+family: msr
+derived_from: egypt-old-persian-mudraya
 confidence: attested
 sources:
   - citation: "Hinz, Walther, and Heidemarie Koch. *Elamisches Wörterbuch*. 2 vols. Berlin: Dietrich Reimer, 1987, s.v. *Mudraya*."

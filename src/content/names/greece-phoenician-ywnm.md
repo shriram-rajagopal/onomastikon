@@ -7,6 +7,7 @@ ipa: "*jaːwˈniːm"
 literal_meaning: the Ionians (plural ethnonym)
 era_start: -800
 era_end: -300
+family: ionian
 confidence: attested
 sources:
   - citation: "Krahmalkov, Charles R. *Phoenician-Punic Dictionary*. Leuven: Peeters, 2000, s.v. *ywnm*."

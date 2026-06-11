@@ -7,6 +7,7 @@ ipa: /ˈpaːr.sa/
 literal_meaning: Persia (in various historical forms across Akkadian usage)
 era_start: -850
 era_end: -330
+family: parsa
 confidence: attested
 sources:
   - citation: "*Chicago Assyrian Dictionary* (CAD), University of Chicago, Vol. P, s.v. *Pārsa*, *Parsuwaš*, *Parsumaš*."

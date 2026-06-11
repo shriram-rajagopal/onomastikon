@@ -6,6 +6,7 @@ transliteration: Bōsī
 literal_meaning: Persia (transcription of the Iranian name Pārs)
 era_start: 450
 era_end: 650
+family: parsa
 confidence: attested
 sources:
   - citation: "Wei Shou, *Weishu* 102 (*Xiyu zhuan*, Account of the Western Regions)."

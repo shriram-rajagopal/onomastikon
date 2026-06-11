@@ -7,6 +7,7 @@ ipa: /jau̯.na/
 literal_meaning: Ionian
 era_start: -550
 era_end: -330
+family: ionian
 confidence: attested
 sources:
   - citation: "Kent, Roland G. *Old Persian: Grammar, Texts, Lexicon*. 2nd ed. New Haven: American Oriental Society, 1953."

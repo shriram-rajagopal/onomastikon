@@ -7,6 +7,8 @@ ipa: "*paːˈraːs"
 literal_meaning: Persia (in Aramaic administrative usage)
 era_start: -500
 era_end: -200
+family: parsa
+derived_from: persia-old-persian-parsa
 confidence: attested
 sources:
   - citation: "Porten, Bezalel, and Ada Yardeni. *Textbook of Aramaic Documents from Ancient Egypt* (TADAE). 4 vols. Jerusalem: Hebrew University, 1986–1999."

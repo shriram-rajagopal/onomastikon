@@ -7,6 +7,7 @@ ipa: /muˈdraː.ja/
 literal_meaning: Egypt (loaned from Semitic mṣr and reshaped by Iranian morphology)
 era_start: -525
 era_end: -330
+family: msr
 confidence: attested
 sources:
   - citation: "Kent, Roland G. *Old Persian: Grammar, Texts, Lexicon*. 2nd ed. New Haven: American Oriental Society, 1953."

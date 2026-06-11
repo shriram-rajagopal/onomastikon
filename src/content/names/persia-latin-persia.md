@@ -7,6 +7,8 @@ ipa: /ˈper.si.a/
 literal_meaning: Persia; the land of the Persians
 era_start: -200
 era_end: 600
+family: parsa
+derived_from: persia-ancient-greek-persis
 confidence: attested
 sources:
   - citation: "Lewis, Charlton T., and Charles Short. *A Latin Dictionary*. Oxford: Clarendon Press, 1879, s.v. *Persae*, *Persis*."

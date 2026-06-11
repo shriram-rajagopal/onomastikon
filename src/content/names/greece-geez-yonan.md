@@ -7,6 +7,7 @@ ipa: /joˈnan/
 literal_meaning: Greek; Ionian
 era_start: 350
 era_end: 1500
+family: ionian
 confidence: attested
 sources:
   - citation: "Leslau, Wolf. *Comparative Dictionary of Geʿez (Classical Ethiopic)*. Wiesbaden: Otto Harrassowitz, 1987, s.v. *yonan*."

@@ -7,6 +7,8 @@ ipa: /ˈpaːrɛs/
 literal_meaning: Persia
 era_start: 150
 era_end: 800
+family: parsa
+derived_from: persia-imperial-aramaic-prs
 confidence: attested
 sources:
   - citation: "Payne Smith, Jessie. *A Compendious Syriac Dictionary*. Oxford: Clarendon Press, 1903, s.v. ܦܪܣ."

@@ -7,6 +7,8 @@ ipa: /ˈroːmɐkɐ/
 literal_meaning: Roman; of Rome
 era_start: 300
 era_end: 600
+family: roma
+derived_from: rome-latin-roma
 confidence: attested
 sources:
   - citation: "Monier-Williams, Monier. *A Sanskrit-English Dictionary*. Oxford: Clarendon Press, 1899, s.v. *romaka*."

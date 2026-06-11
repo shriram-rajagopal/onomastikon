@@ -7,6 +7,8 @@ ipa: /mɛsˤˈreːn/
 literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: 150
 era_end: 800
+family: msr
+derived_from: egypt-imperial-aramaic-msryn
 confidence: attested
 sources:
   - citation: "Payne Smith, Jessie. *A Compendious Syriac Dictionary*. Oxford: Clarendon Press, 1903, s.v. ܡܨܪܝܢ."

@@ -7,6 +7,8 @@ ipa: /paːˈras/
 literal_meaning: Persia (borrowed from Old Persian)
 era_start: -550
 era_end: -100
+family: parsa
+derived_from: persia-old-persian-parsa
 confidence: attested
 sources:
   - citation: "*Hebrew and Aramaic Lexicon of the Old Testament* (HALOT), Leiden: Brill, 1994–2000, s.v. *pāras*."

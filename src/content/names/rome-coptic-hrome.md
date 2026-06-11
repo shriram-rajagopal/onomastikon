@@ -7,6 +7,8 @@ ipa: /ˈhroːmeː/
 literal_meaning: Rome (toponym)
 era_start: 300
 era_end: 1000
+family: roma
+derived_from: rome-ancient-greek-rhome
 confidence: attested
 sources:
   - citation: "*The Coptic Version of the New Testament in the Southern Dialect (Sahidic)*. Edited by George Horner. Oxford: Clarendon Press, 1911–1924, Romans 1:7, 1:15; Acts 28:14–16."
