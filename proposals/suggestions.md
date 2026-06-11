@@ -3,6 +3,16 @@
 Tier 3: features and structural ideas, ranked by impact. Opinionated; all
 respect the existing visual identity. None of these were implemented.
 
+## Status (2026-06-11)
+
+The author retired the entity-shipping feature gate; this list is now a live
+worklist. Shipped so far: **item 4** (native_name surfaced on language pages)
+and a **dark mode toggle** (author-requested; not on the original list since it
+was barred at the time — parchment identity inverted to a lamplit-dark palette,
+all pairings WCAG AA, prefers-color-scheme default, persisted toggle, title
+cards re-aimed via filter). Still open: fonts self-hosting (1), language
+summary field (2), JSON-LD (3), and the rest below.
+
 ## High impact
 
 1. **Self-host the fonts.** Every page pulls 17 families from Google Fonts via
