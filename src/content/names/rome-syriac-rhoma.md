@@ -9,7 +9,7 @@ era_start: 200
 era_end: 800
 confidence: attested
 sources:
-  - citation: "Sokoloff, Michael. *A Syriac Lexicon: A Translation from the Latin, Correction, Expansion, and Update of C. Brockelmann's Lexicon Syriacum*. Winona Lake/Piscataway: Eisenbrauns/Gorgias, 2009, s.v. ܪܗܘܡܐ."
+  - citation: "Sokoloff, Michael. *A Syriac Lexicon: A Translation from the Latin, Correction, Expansion, and Update of C. Brockelmann's Lexicon Syriacum*. Winona Lake/Piscataway: Eisenbrauns/Gorgias, 2009, s.v. ܪܗܘܡܝܐ."
   - citation: "Payne Smith, R. *Thesaurus Syriacus*. Oxford: Clarendon Press, 1879–1901, s.v. ܪܗܘܡܐ."
   - citation: "Peshitta, Acts 28:14–16; Romans 1:7."
 ---

@@ -10,7 +10,7 @@ confidence: attested
 sources:
   - citation: "Wei Shou, *Weishu* 102 (*Xiyu zhuan*, Account of the Western Regions)."
   - citation: "Pulleyblank, Edwin G. *Encyclopaedia Iranica*, s.v. \"Chinese-Iranian Relations i. In Pre-Islamic Times\"."
-  - citation: "Kotyk, Jeffrey. *Sino-Iranian and Sino-Arabian Relations in Late Antiquity*. Leiden: Brill, 2024."
+  - citation: "Kotyk, Jeffrey. *Sino-Iranian and Sino-Arabian Relations in Late Antiquity: China and the Parthians, Sasanians, and Arabs in the First Millennium*. Leiden: Brill, 2024."
 ---
 
 *Bōsī* (波斯) is the Chinese name of Sasanian Persia, given its first full description in the *Weishu*, the history of the Northern Wei compiled in the early 550s CE, whose account of the western regions opens its notice with the state of *Bōsī*, capital at Sūlì, identified with Seleucia-Ctesiphon. Embassies passed between the Sasanian and Northern Wei courts from c. 455 CE, and the *Weishu* preserves a letter sent in the Shéngūi era (518–520) from "the king of *Bōsī*, Jūhéduō," identified as Kavadh I. The name recurs in the *Zhoushu*, the *Suishu*, and the *Liangshu* as the fixed term for Persia, and it is a phonetic transcription: the Middle Chinese reading of the characters, conventionally transcribed *pa sje*, renders the Iranian name *Pārs*.
