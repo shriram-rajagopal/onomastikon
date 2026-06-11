@@ -3,7 +3,7 @@ civilization: greece
 language: akkadian
 original_text: 𒅀𒀀𒈠𒈾
 transliteration: Yāmān
-ipa: "*jaːˈmaːn"
+ipa: /jaːˈmaːn/
 literal_meaning: Ionia; the Greek-speaking world (as seen from the east)
 era_start: -720
 era_end: -540
