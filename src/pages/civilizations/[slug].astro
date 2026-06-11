@@ -78,7 +78,7 @@ function formatEra(start: number, end: number) {
             aria-label={`Permalink to the ${language?.data.english_name} entry`}
           >#</a>
         </h3>
-        <p class="original">{name.data.original_text}</p>
+        {name.data.original_text && <p class="original">{name.data.original_text}</p>}
         <dl>
           <dt>Transliteration</dt><dd><em>{name.data.transliteration}</em></dd>
           {name.data.ipa && (<><dt>IPA</dt><dd>{name.data.ipa}</dd></>)}
