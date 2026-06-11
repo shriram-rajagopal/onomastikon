@@ -1,14 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatEra } from '../lib/era';
 
 const civs = await getCollection('civilizations');
 const langs = await getCollection('languages');
-
-function formatEra(start: number, end: number) {
-  const fmt = (y: number) => (y < 0 ? `${Math.abs(y)} BCE` : `${y} CE`);
-  return `c. ${fmt(start)} – ${fmt(end)}`;
-}
 ---
 
 <BaseLayout title="Onomastikon">

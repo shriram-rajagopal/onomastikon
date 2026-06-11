@@ -3,6 +3,7 @@ import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { entryAnchor } from '../../lib/entry';
 import { citationParts } from '../../lib/citation';
+import { formatEra } from '../../lib/era';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -27,11 +28,6 @@ const enriched = await Promise.all(
     return { name: n, language: lang, Content };
   })
 );
-
-function formatEra(start: number, end: number) {
-  const fmt = (y: number) => (y < 0 ? `${Math.abs(y)} BCE` : `${y} CE`);
-  return `c. ${fmt(start)} – ${fmt(end)}`;
-}
 ---
 
 <BaseLayout title={civ.data.english_name} description={civ.data.summary} image={civ.data.featured_image}>
@@ -88,7 +84,7 @@ function formatEra(start: number, end: number) {
         <dl>
           <dt>Transliteration</dt><dd><em>{name.data.transliteration}</em></dd>
           {name.data.ipa && (<><dt>IPA</dt><dd>{name.data.ipa}</dd></>)}
-          {name.data.literal_meaning && (<><dt>Meaning</dt><dd>"{name.data.literal_meaning}"</dd></>)}
+          {name.data.literal_meaning && (<><dt>Meaning</dt><dd>“{name.data.literal_meaning}”</dd></>)}
           <dt>Confidence</dt>
           <dd>
             <span class={`confidence confidence-${name.data.confidence}`}>
