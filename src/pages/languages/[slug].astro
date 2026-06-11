@@ -39,6 +39,13 @@ const enriched = await Promise.all(
     )}
     <p class="eyebrow">Language</p>
     <h1>{lang.data.english_name}</h1>
+    {lang.data.native_name && (
+      <p
+        class="native"
+        lang={lang.data.lang_code}
+        dir={lang.data.direction === 'rtl' ? 'rtl' : undefined}
+      >{lang.data.native_name}</p>
+    )}
     <p class="meta">{lang.data.language_family} · {lang.data.script}</p>
 
     <div class="summary"><Content /></div>
@@ -89,6 +96,14 @@ const enriched = await Promise.all(
   .featured { display: block; width: 100%; height: auto; aspect-ratio: 1920 / 720; margin: 0 0 1rem; }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1.5rem; }
+  /* The language's self-name in its own script, as selectable text rather than
+     only pixels in the title card. Same script font stack as .original. */
+  .native {
+    font-family: 'EB Garamond','Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', serif;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin: 0.25rem 0 0.5rem;
+  }
   .summary { margin: 1.5rem 0 2rem; }
   .name-list { list-style: none; padding: 0; margin: 1.5rem 0; }
   .name-list li { border-bottom: 1px solid var(--rule); }
