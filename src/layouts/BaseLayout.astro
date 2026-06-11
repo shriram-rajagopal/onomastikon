@@ -3,8 +3,10 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  /** Optional schema.org JSON-LD object, serialized into the head. */
+  schema?: Record<string, unknown>;
 }
-const { title, description, image } = Astro.props;
+const { title, description, image, schema } = Astro.props;
 
 // Public-facing text is authored, never synthesized here: the description is an
 // entity's own summary (passed in) or the site tagline. The OG image is the
@@ -44,6 +46,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <!-- Open Graph / Twitter social previews. Description mirrors the page's
          authored summary; image is the entity title card or the fallback. -->
@@ -81,7 +84,11 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       <slot />
     </main>
     <footer class="site-footer">
-      <p>Onomastikon · A digital atlas of ancient names</p>
+      <p>
+        Onomastikon · A digital atlas of ancient names ·
+        <a href="/onomastikon.json">Data</a> ·
+        <a href="https://github.com/shriram-rajagopal/onomastikon">GitHub</a>
+      </p>
     </footer>
 
     <style is:global>

@@ -1,0 +1,72 @@
+---
+// "Cite this page" block: a Chicago-style citation line and a BibTeX record,
+// each with a copy button. The author line is the project's author; the year
+// is the build year (entries carry their own source citations separately).
+interface Props {
+  title: string;
+  path: string;
+}
+const { title, path } = Astro.props;
+const url = new URL(path, Astro.site).href;
+const year = new Date().getFullYear();
+const slug = path.split('/').filter(Boolean).pop();
+const bibtex = `@misc{onomastikon-${slug},
+  author = {Rajagopal, Shriram},
+  title = {${title}},
+  year = {${year}},
+  howpublished = {\\url{${url}}},
+  note = {Onomastikon: A Digital Atlas of Ancient Names}
+}`;
+---
+
+<section class="cite">
+  <h2>Cite this page</h2>
+  <p class="cite-chicago" id="cite-chicago">
+    Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {url}.
+  </p>
+  <pre class="cite-bibtex" id="cite-bibtex">{bibtex}</pre>
+  <p class="cite-actions">
+    <button type="button" data-copy="cite-chicago">Copy citation</button>
+    <button type="button" data-copy="cite-bibtex">Copy BibTeX</button>
+  </p>
+</section>
+
+<script>
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    btn.addEventListener('click', async () => {
+      const el = document.getElementById(btn.dataset.copy!);
+      if (!el) return;
+      await navigator.clipboard.writeText(el.textContent!.trim());
+      const old = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(() => { btn.textContent = old; }, 1500);
+    });
+  }
+</script>
+
+<style>
+  .cite { margin-top: 3rem; }
+  .cite-chicago { font-size: 1rem; color: var(--ink-soft); }
+  .cite-bibtex {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    padding: 0.75rem 1rem;
+    background: color-mix(in srgb, var(--ink) 4%, var(--parchment));
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow-x: auto;
+    color: var(--ink-soft);
+  }
+  .cite-actions { display: flex; gap: 0.75rem; }
+  .cite-actions button {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    padding: 0.3rem 0.8rem;
+    background: var(--parchment);
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .cite-actions button:hover { color: var(--accent); border-color: var(--accent); }
+</style>

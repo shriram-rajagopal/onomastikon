@@ -33,6 +33,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     let current = [];
     let sel = -1;
 
+    // Deep-linkable queries (/search?q=parsa), also the contract the homepage
+    // SearchAction JSON-LD declares.
+    const initial = new URLSearchParams(location.search).get('q');
+    if (initial) q.value = initial;
+
     fetch('/search-index.json')
       .then((r) => r.json())
       .then((d) => {
