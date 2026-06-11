@@ -147,8 +147,8 @@ const enriched = await Promise.all(
     margin-left: 0.5rem;
     vertical-align: middle;
   }
-  .status-developing { background: #d9e2ec; color: #334e68; }
-  .status-complete { background: #d8e7d6; color: #2c5a3a; }
+  .status-developing { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
+  .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
   .aka { font-style: italic; color: var(--ink-soft); margin-bottom: 1.5rem; }
   .summary { margin: 1.5rem 0 2rem; }
   /* When deep-linked from a language page (/civilizations/x#anchor), keep the
@@ -198,9 +198,9 @@ const enriched = await Promise.all(
   dt { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); padding-top: 0.2rem; }
   dd { margin: 0; }
   .confidence { font-family: 'Inter', sans-serif; font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .confidence-attested { background: #e3edd9; color: #3a5a1c; }
-  .confidence-reconstructed { background: #f0e5d0; color: #6b4f1c; }
-  .confidence-disputed { background: #f0d8d0; color: #7a3020; }
+  .confidence-attested { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
+  .confidence-reconstructed { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
+  .confidence-disputed { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
   @media print {
     .entry-anchor { display: none; }
     .name-entry { break-inside: avoid; }

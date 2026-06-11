@@ -184,9 +184,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .confidence-attested { background: #e3edd9; color: #3a5a1c; }
-  .confidence-reconstructed { background: #f0e5d0; color: #6b4f1c; }
-  .confidence-disputed { background: #f0d8d0; color: #7a3020; }
+  .confidence-attested { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
+  .confidence-reconstructed { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
+  .confidence-disputed { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
   .status {
     font-family: 'Inter', sans-serif;
     font-size: 0.6875rem;
@@ -196,6 +196,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 3px;
     vertical-align: middle;
   }
-  .status-developing { background: #d9e2ec; color: #334e68; }
-  .status-complete { background: #d8e7d6; color: #2c5a3a; }
+  .status-developing { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
+  .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
 </style>

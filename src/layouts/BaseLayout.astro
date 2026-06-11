@@ -22,6 +22,22 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={metaDescription} />
     <meta name="theme-color" content="#f5efe4" />
+    <!-- Theme boot: set data-theme before first paint so a stored or system
+         dark preference never flashes parchment. Kept inline and tiny. -->
+    <script is:inline>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem('theme'); } catch {}
+        if (t !== 'dark' && t !== 'light') {
+          t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+        if (t === 'dark') {
+          const m = document.querySelector('meta[name="theme-color"]');
+          if (m) m.setAttribute('content', '#211e18');
+        }
+      })();
+    </script>
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -57,6 +73,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       <nav>
         <a href="/search">Search</a>
         <a href="/about">About</a>
+        <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark theme">◐</button>
       </nav>
     </header>
     <main id="main">
@@ -74,6 +91,43 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         --rule: #d8cfbf;
         --accent: #6b3a2a;
         --max-width: 720px;
+        --badge-developing-bg: #d9e2ec; --badge-developing-fg: #334e68;
+        --badge-complete-bg: #d8e7d6; --badge-complete-fg: #2c5a3a;
+        --conf-attested-bg: #e3edd9; --conf-attested-fg: #3a5a1c;
+        --conf-reconstructed-bg: #f0e5d0; --conf-reconstructed-fg: #6b4f1c;
+        --conf-disputed-bg: #f0d8d0; --conf-disputed-fg: #7a3020;
+        color-scheme: light;
+      }
+      /* Dark theme: the same lamplit-study identity with the values inverted.
+         Every text/background pairing here was checked against WCAG AA
+         (all clear 6.1:1 or better, matching the light palette's profile). */
+      :root[data-theme='dark'] {
+        --parchment: #211e18;
+        --ink: #ece5d8;
+        --ink-soft: #b8b0a2;
+        --rule: #403a30;
+        --accent: #d29978;
+        --badge-developing-bg: #2c3a47; --badge-developing-fg: #b9d2e8;
+        --badge-complete-bg: #2b3b2b; --badge-complete-fg: #b4d6bc;
+        --conf-attested-bg: #313f2a; --conf-attested-fg: #bfd9a3;
+        --conf-reconstructed-bg: #403729; --conf-reconstructed-fg: #e0c596;
+        --conf-disputed-bg: #422c26; --conf-disputed-fg: #e2ab90;
+        color-scheme: dark;
+      }
+      /* Title cards and the masthead are ink-on-transparent renders authored for
+         parchment; invert-plus-hue-rotate re-aims them at the dark ground while
+         keeping the warm accent warm. */
+      :root[data-theme='dark'] .featured,
+      :root[data-theme='dark'] .masthead-motion,
+      :root[data-theme='dark'] .masthead-static {
+        filter: invert(0.88) hue-rotate(180deg);
+      }
+      /* The masthead's parchment CSS backdrop would invert to a light plate;
+         drop it in dark mode so the filtered glyphs sit on the page ground.
+         (Transparent pixels stay transparent under filter.) */
+      :root[data-theme='dark'] .masthead-motion,
+      :root[data-theme='dark'] .masthead-static {
+        background: transparent;
       }
       * { box-sizing: border-box; }
       html { background: var(--parchment); color: var(--ink); scroll-behavior: smooth; }
@@ -132,6 +186,17 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         color: var(--ink-soft);
       }
       .site-header nav a:hover { color: var(--accent); }
+      #theme-toggle {
+        margin-left: 1.5rem;
+        padding: 0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1;
+        color: var(--ink-soft);
+      }
+      #theme-toggle:hover { color: var(--accent); }
       main {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -152,10 +217,42 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       a { color: var(--accent); }
       @media print {
         .skip-link, .site-header nav { display: none; }
+        /* Force the light palette on paper regardless of the on-screen theme,
+           and drop the dark-mode image inversion. */
+        :root, :root[data-theme='dark'] {
+          --parchment: #f5efe4;
+          --ink: #1a1a1a;
+          --ink-soft: #4a4a4a;
+          --rule: #d8cfbf;
+          --accent: #6b3a2a;
+        }
+        :root[data-theme='dark'] .featured,
+        :root[data-theme='dark'] .masthead-motion,
+        :root[data-theme='dark'] .masthead-static { filter: none; }
         /* Most browsers omit backgrounds when printing; keep text plain ink. */
         html { background: #fff; }
         a { color: var(--ink); text-decoration: none; }
       }
     </style>
+
+    <script>
+      // Theme toggle: the boot script in <head> has already set data-theme
+      // before paint; this wires the button, persists the choice, and keeps
+      // the browser-chrome color and button state in sync.
+      const toggle = document.getElementById('theme-toggle');
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      const reflect = (t: string) => {
+        document.documentElement.dataset.theme = t;
+        themeColor?.setAttribute('content', t === 'dark' ? '#211e18' : '#f5efe4');
+        toggle?.setAttribute('aria-pressed', String(t === 'dark'));
+        toggle?.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+      };
+      reflect(document.documentElement.dataset.theme ?? 'light');
+      toggle?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem('theme', next); } catch {}
+        reflect(next);
+      });
+    </script>
   </body>
 </html>
