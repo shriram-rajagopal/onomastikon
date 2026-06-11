@@ -115,6 +115,20 @@ function formatEra(start: number, end: number) {
   </article>
 </BaseLayout>
 
+<script>
+  // Sources live inside collapsed <details>, which print as just the summary
+  // line. Open them for printing and restore the reader's state afterwards.
+  let openedForPrint: HTMLDetailsElement[] = [];
+  window.addEventListener('beforeprint', () => {
+    openedForPrint = [...document.querySelectorAll<HTMLDetailsElement>('details:not([open])')];
+    openedForPrint.forEach((d) => (d.open = true));
+  });
+  window.addEventListener('afterprint', () => {
+    openedForPrint.forEach((d) => (d.open = false));
+    openedForPrint = [];
+  });
+</script>
+
 <style>
   /* Title card is a transparent PNG; the parchment page shows through. The
      aspect-ratio reserves space to avoid layout shift while it loads. */
@@ -191,6 +205,10 @@ function formatEra(start: number, end: number) {
   .confidence-attested { background: #e3edd9; color: #3a5a1c; }
   .confidence-reconstructed { background: #f0e5d0; color: #6b4f1c; }
   .confidence-disputed { background: #f0d8d0; color: #7a3020; }
+  @media print {
+    .entry-anchor { display: none; }
+    .name-entry { break-inside: avoid; }
+  }
   .sources { margin-top: 1rem; font-size: 0.9375rem; }
   .sources summary { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); cursor: pointer; }
   .sources ol { padding-left: 1.5rem; margin: 0.75rem 0 0; }

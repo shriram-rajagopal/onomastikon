@@ -119,6 +119,11 @@ function formatEra(start: number, end: number) {
     .masthead-motion { display: none; }
     .masthead-static { display: block; }
   }
+  /* Print the static wordmark, never the video element. */
+  @media print {
+    .masthead-motion { display: none; }
+    .masthead-static { display: block; }
+  }
   .tagline {
     font-size: 1.25rem;
     color: var(--ink-soft);
