@@ -22,7 +22,7 @@ Target: 12-15 civilizations + supporting cities, regions, and geographic feature
 - [ ] Akkad
 - [ ] Babylonia
 - [ ] Assyria
-- [ ] Rome
+- [x] Rome
 - [ ] Phoenicia
 - [ ] Carthage
 - [ ] The Hittites
@@ -70,11 +70,18 @@ Target: 12-15 civilizations + supporting cities, regions, and geographic feature
 - [x] Sanskrit
 - [x] Biblical Hebrew
 - [x] Sumerian
-- [ ] Aramaic
-- [ ] Phoenician
-- [ ] Hittite
-- [ ] Elamite
+- [x] Aramaic (as Imperial Aramaic)
+- [x] Phoenician
+- [x] Hittite
+- [x] Elamite
 - [ ] Hurrian
+
+Added beyond the original Phase 1 list, pulled in by entries that needed them:
+- [x] Demotic
+- [x] Ugaritic
+- [x] Classical Arabic
+- [x] Syriac
+- [x] Parthian
 
 ## Phase 2: Expanding the eastern axis
 
@@ -113,10 +120,10 @@ Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian
 
 ### Languages needed for Phase 2
 - [ ] Avestan
-- [ ] Middle Persian (Pahlavi)
+- [x] Middle Persian (Pahlavi) (added early, during Phase 1)
 - [ ] Sogdian
 - [ ] Pali
-- [ ] Classical Chinese
+- [x] Classical Chinese (added early, with the Rome and Persia entries)
 - [ ] Urartian
 
 ## Phase 3: The Americas, Africa, and edge cases
@@ -140,8 +147,8 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 - [ ] Teotihuacán
 
 ### Languages needed for Phase 3
-- [ ] Coptic
-- [ ] Geʽez
+- [x] Coptic (added early, during Phase 1)
+- [x] Geʽez (added early, during Phase 1)
 - [ ] Nahuatl
 - [ ] Quechua
 - [ ] Mayan languages / glyphic Maya
@@ -149,14 +156,15 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 ## Feature roadmap
 
 ### Soon (after ~10-15 entities)
-- [ ] Mobile font fix for missing characters (note: cuneiform/Old Persian/Devanagari rendering on some mobile devices needs verification)
-- [ ] Custom favicon (the Old Persian cuneiform 𐎠 character)
-- [ ] Open Graph preview image for social link sharing
+- [ ] Mobile font fix for missing characters (note: cuneiform/Old Persian/Devanagari rendering on some mobile devices needs verification; webfonts now load for all scripts in the inventory, including Inscriptional Parthian, Manichaean, and Syriac, but device verification is still owed)
+- [x] Custom favicon (shipped with the site logo mark rather than the 𐎠 character)
+- [x] Open Graph preview image for social link sharing (per-entity title cards with a site-wide fallback)
+- [x] Endonym title cards for all language pages (rendered through the Remotion setup in videos/)
 - [ ] DNS cleanup to Vercel's recommended new records
 - [ ] LinkedIn Featured + Projects entries (no feed post yet)
 - [ ] Pin Onomastikon on GitHub profile
 - [ ] `modern_etymology` field per civilization, populated as entries are added or revisited
-- [ ] Client-side search across English names, transliterations, and original scripts (fuse.js, ~1-2 hours)
+- [x] Client-side search across English names, transliterations, and original scripts
 - [ ] Polished homepage hero with rotating "name of the day"
 - [ ] Browse by region or era (filtered views of existing data)
 
