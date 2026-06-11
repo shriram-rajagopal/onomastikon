@@ -6,12 +6,14 @@ respect the existing visual identity. None of these were implemented.
 ## Status (2026-06-11)
 
 The author retired the entity-shipping feature gate; this list is now a live
-worklist. Shipped so far: **item 4** (native_name surfaced on language pages)
-and a **dark mode toggle** (author-requested; not on the original list since it
-was barred at the time — parchment identity inverted to a lamplit-dark palette,
-all pairings WCAG AA, prefers-color-scheme default, persisted toggle, title
-cards re-aimed via filter). Still open: fonts self-hosting (1), language
-summary field (2), JSON-LD (3), and the rest below.
+worklist. Shipped so far: **item 3** (JSON-LD: WebSite+SearchAction, Article pages, plus
+a full dataset export at /onomastikon.json and cite-this-page blocks with
+BibTeX — the citation-infrastructure cluster), **item 4** (native_name on
+language pages), **item 10** (apple-touch-icon, with the favicon replacement),
+a **dark mode toggle** (author-requested), and the **name-family data model
+with transmission-chain trees** on entity pages (from the 2026-06-11
+brainstorm). Still open: fonts self-hosting (1), language summary field (2),
+and the rest below.
 
 ## High impact
 
