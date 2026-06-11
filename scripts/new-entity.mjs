@@ -121,6 +121,7 @@ english_name: ""        # TODO modern English name of the language
 # native_name: ""        # optional; the language's name in its own script
 language_family: ""     # TODO e.g. "Indo-European (Iranian)", "Afro-Asiatic (Semitic)"
 script: ""              # TODO e.g. "Old Persian cuneiform", "Aramaic alphabet"
+lang_code: ""           # TODO BCP-47 / ISO 639-3 code, e.g. grc, akk, hbo
 era_start: 0            # TODO start of the language's documented life (negative = BCE)
 era_end: 0              # TODO end
 direction: ${direction} # ltr | rtl | btt

@@ -3,6 +3,7 @@ english_name: Ancient Greek
 native_name: Ἑλληνική
 language_family: Indo-European (Hellenic)
 script: Greek alphabet
+lang_code: grc
 era_start: -800
 era_end: 600
 direction: ltr

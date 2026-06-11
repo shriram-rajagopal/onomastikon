@@ -3,6 +3,7 @@ english_name: Hittite
 native_name: 𒉈𒅆𒇷
 language_family: Indo-European (Anatolian)
 script: Sumero-Akkadian cuneiform
+lang_code: hit
 era_start: -1650
 era_end: -1180
 direction: ltr

@@ -76,6 +76,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const lab = document.createElement('span');
         lab.className = 'r-label';
         lab.textContent = r.label;
+        if (r.lang) lab.setAttribute('lang', r.lang);
+        if (r.dir) lab.setAttribute('dir', r.dir);
         const ctx = document.createElement('span');
         ctx.className = 'r-ctx';
         ctx.textContent = r.context || '';

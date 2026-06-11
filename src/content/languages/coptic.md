@@ -3,6 +3,7 @@ english_name: Coptic
 native_name: ϯⲙⲉⲧⲣⲉⲙⲛ̄ⲭⲏⲙⲓ
 language_family: Afro-Asiatic (Egyptian branch)
 script: Coptic alphabet
+lang_code: cop
 era_start: 200
 era_end: 1300
 direction: ltr

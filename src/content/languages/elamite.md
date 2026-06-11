@@ -3,6 +3,7 @@ english_name: Elamite
 native_name: 𒂊𒋾𒈨𒈦
 language_family: Language isolate
 script: Elamite cuneiform
+lang_code: elx
 era_start: -2500
 era_end: -350
 direction: ltr

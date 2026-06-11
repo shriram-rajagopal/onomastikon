@@ -3,6 +3,7 @@ english_name: Biblical Hebrew
 native_name: עִבְרִית
 language_family: Afro-Asiatic (Northwest Semitic)
 script: Hebrew alphabet
+lang_code: hbo
 era_start: -1200
 era_end: -100
 direction: rtl

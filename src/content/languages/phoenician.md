@@ -3,6 +3,7 @@ english_name: Phoenician
 native_name: 𐤃𐤁𐤓𐤉𐤌 𐤊𐤍𐤏𐤍𐤉𐤌
 language_family: Afro-Asiatic (Northwest Semitic)
 script: Phoenician alphabet
+lang_code: phn
 era_start: -1050
 era_end: -150
 direction: rtl

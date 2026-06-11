@@ -51,9 +51,15 @@ export const GET: APIRoute = async () => {
     // Demotic and other unencodable scripts have empty original_text; fall back
     // to the transliteration so the result still has a readable label.
     const label = n.data.original_text || n.data.transliteration;
+    // When the label is original-script text, carry the language's lang/dir so
+    // the client can set them on the result label (screen readers, RTL shaping).
+    const labelIsOriginal = Boolean(n.data.original_text);
     records.push({
       type: 'name',
       label,
+      ...(labelIsOriginal && l
+        ? { lang: l.data.lang_code, ...(l.data.direction === 'rtl' ? { dir: 'rtl' } : {}) }
+        : {}),
       translit: n.data.transliteration,
       context: `${l?.data.english_name ?? ''} · ${c?.data.english_name ?? ''}`,
       url: `/civilizations/${c?.id}#${entryAnchor(n.id, c?.id ?? '')}`,

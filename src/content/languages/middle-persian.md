@@ -3,6 +3,7 @@ english_name: Middle Persian
 native_name: 𐭯𐭠𐭫𐭮𐭩𐭪
 language_family: Indo-European (Iranian)
 script: Pahlavi
+lang_code: pal
 era_start: -300
 era_end: 900
 direction: rtl

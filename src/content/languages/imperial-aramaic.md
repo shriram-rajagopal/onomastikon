@@ -3,6 +3,7 @@ english_name: Imperial Aramaic
 native_name: ארמיא
 language_family: Afro-Asiatic (Northwest Semitic)
 script: Aramaic alphabet
+lang_code: arc
 era_start: -700
 era_end: -200
 direction: rtl

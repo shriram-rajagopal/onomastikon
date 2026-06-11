@@ -3,6 +3,7 @@ english_name: Classical Arabic
 native_name: العربية الفصحى
 language_family: Afro-Asiatic (Central Semitic)
 script: Arabic alphabet
+lang_code: ar
 era_start: 500
 era_end: 1300
 direction: rtl

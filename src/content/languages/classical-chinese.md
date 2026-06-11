@@ -3,6 +3,7 @@ english_name: Classical Chinese
 native_name: 文言
 language_family: Sino-Tibetan (Sinitic)
 script: Chinese characters
+lang_code: lzh
 era_start: -500
 era_end: 600
 direction: ltr

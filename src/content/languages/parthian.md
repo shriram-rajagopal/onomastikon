@@ -3,6 +3,7 @@ english_name: Parthian
 native_name: 𐭐𐭓𐭕𐭅
 language_family: Indo-European (Iranian)
 script: Inscriptional Parthian
+lang_code: xpr
 era_start: -250
 era_end: 400
 direction: rtl

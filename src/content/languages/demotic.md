@@ -3,6 +3,7 @@ english_name: Demotic
 native_name: 𓏞𓈖𓈙𓂝𓏏
 language_family: Afro-Asiatic (Egyptian branch)
 script: Demotic
+lang_code: egy
 era_start: -650
 era_end: 452
 direction: rtl

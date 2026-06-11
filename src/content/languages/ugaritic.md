@@ -3,6 +3,7 @@ english_name: Ugaritic
 native_name: 𐎜𐎂𐎗𐎚
 language_family: Afro-Asiatic (Northwest Semitic)
 script: Ugaritic cuneiform alphabet
+lang_code: uga
 era_start: -1400
 era_end: -1190
 direction: ltr

@@ -3,6 +3,7 @@ english_name: Sumerian
 native_name: 𒅴𒂠
 language_family: Language isolate
 script: Sumerian cuneiform
+lang_code: sux
 era_start: -3100
 era_end: -100
 direction: ltr

@@ -3,6 +3,7 @@ english_name: Latin
 native_name: Lingua Latina
 language_family: Indo-European (Italic)
 script: Latin alphabet
+lang_code: la
 era_start: -700
 era_end: 600
 direction: ltr

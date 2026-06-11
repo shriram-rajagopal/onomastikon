@@ -3,6 +3,7 @@ english_name: Akkadian
 native_name: 𒀝𒅗𒁺𒌑
 language_family: Afro-Asiatic (East Semitic)
 script: Sumero-Akkadian cuneiform
+lang_code: akk
 era_start: -2500
 era_end: -100
 direction: ltr

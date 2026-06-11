@@ -25,6 +25,9 @@ const languages = defineCollection({
     native_name: z.string().optional(),
     language_family: z.string(),
     script: z.string(),
+    // BCP-47 / ISO 639-3 code (e.g. grc, akk, hbo), emitted as the lang attribute
+    // on original-script text so screen readers and font selection behave.
+    lang_code: z.string(),
     era_start: z.number(),
     era_end: z.number(),
     direction: z.enum(['ltr', 'rtl', 'btt']).default('ltr'),

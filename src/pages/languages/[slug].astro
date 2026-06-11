@@ -65,7 +65,11 @@ const enriched = await Promise.all(
               {grouped[key].map(({ name, civilization }) => (
                 <li>
                   <a href={`/civilizations/${civilization?.id}#${entryAnchor(name.id, civilization?.id ?? '')}`}>
-                    <span class="original">{name.data.original_text}</span>
+                    <span
+                      class="original"
+                      lang={lang.data.lang_code}
+                      dir={lang.data.direction === 'rtl' ? 'rtl' : undefined}
+                    >{name.data.original_text}</span>
                     <span class="translit"><em>{name.data.transliteration}</em></span>
                     <span class="civ-name">{civilization?.data.english_name}</span>
                   </a>
