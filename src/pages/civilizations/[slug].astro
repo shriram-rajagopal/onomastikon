@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { entryAnchor } from '../../lib/entry';
+import { citationParts } from '../../lib/citation';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -97,8 +98,8 @@ function formatEra(start: number, end: number) {
           <ol>
             {name.data.sources.map((s) => (
               <li>
-                {s.citation}{s.page && <>, p. {s.page}</>}
-                {s.url && <> <a href={s.url}>↗</a></>}
+                {citationParts(s.citation).map((part) => (part.em ? <em>{part.text}</em> : part.text))}{s.page && <>, p. {s.page}</>}
+                {s.url && <> <a href={s.url} aria-label={`Open source: ${s.citation.replaceAll('*', '')}`}>↗</a></>}
               </li>
             ))}
           </ol>
