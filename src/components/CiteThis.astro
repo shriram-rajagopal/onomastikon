@@ -1,15 +1,23 @@
 ---
-// "Cite this page" block: a Chicago-style citation line and a BibTeX record,
-// each with a copy button. The author line is the project's author; the year
-// is the build year (entries carry their own source citations separately).
+// "Cite this page/entry" block: a Chicago-style citation line and a BibTeX
+// record, each with a copy button. The full variant is the page-level block;
+// the compact variant sits inside a name entry's Sources drawer, citing the
+// entry's permalink anchor, with the BibTeX present but not displayed.
+// The author line is the project's author; the year is the build year
+// (entries carry their own source citations separately).
 interface Props {
   title: string;
   path: string;
+  /** Entry anchor; when set, the citation points at path#anchor. */
+  anchor?: string;
+  /** Render the compact in-drawer variant instead of the page-level section. */
+  compact?: boolean;
 }
-const { title, path } = Astro.props;
-const url = new URL(path, Astro.site).href;
+const { title, path, anchor, compact = false } = Astro.props;
+const url = new URL(anchor ? `${path}#${anchor}` : path, Astro.site).href;
 const year = new Date().getFullYear();
-const slug = path.split('/').filter(Boolean).pop();
+const slug = [path.split('/').filter(Boolean).pop(), anchor].filter(Boolean).join('-');
+const base = `cite-${slug}`;
 const bibtex = `@misc{onomastikon-${slug},
   author = {Rajagopal, Shriram},
   title = {${title}},
@@ -19,17 +27,31 @@ const bibtex = `@misc{onomastikon-${slug},
 }`;
 ---
 
-<section class="cite">
-  <h2>Cite this page</h2>
-  <p class="cite-chicago" id="cite-chicago">
-    Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {url}.
-  </p>
-  <pre class="cite-bibtex" id="cite-bibtex">{bibtex}</pre>
-  <p class="cite-actions">
-    <button type="button" data-copy="cite-chicago">Copy citation</button>
-    <button type="button" data-copy="cite-bibtex">Copy BibTeX</button>
-  </p>
-</section>
+{compact ? (
+  <div class="cite-entry">
+    <p class="cite-entry-label">Cite this entry</p>
+    <p class="cite-chicago" id={`${base}-chicago`}>
+      Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {url}.
+    </p>
+    <span hidden id={`${base}-bibtex`}>{bibtex}</span>
+    <p class="cite-actions">
+      <button type="button" data-copy={`${base}-chicago`}>Copy citation</button>
+      <button type="button" data-copy={`${base}-bibtex`}>Copy BibTeX</button>
+    </p>
+  </div>
+) : (
+  <section class="cite">
+    <h2>Cite this page</h2>
+    <p class="cite-chicago" id={`${base}-chicago`}>
+      Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {url}.
+    </p>
+    <pre class="cite-bibtex" id={`${base}-bibtex`}>{bibtex}</pre>
+    <p class="cite-actions">
+      <button type="button" data-copy={`${base}-chicago`}>Copy citation</button>
+      <button type="button" data-copy={`${base}-bibtex`}>Copy BibTeX</button>
+    </p>
+  </section>
+)}
 
 <script>
   // Clipboard API first; fall back to a transient textarea + execCommand for
@@ -77,7 +99,7 @@ const bibtex = `@misc{onomastikon-${slug},
     overflow-x: auto;
     color: var(--ink-soft);
   }
-  .cite-actions { display: flex; gap: 0.75rem; }
+  .cite-actions { display: flex; gap: 0.75rem; margin: 0.5rem 0 0; }
   .cite-actions button {
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
@@ -89,4 +111,24 @@ const bibtex = `@misc{onomastikon-${slug},
     cursor: pointer;
   }
   .cite-actions button:hover { color: var(--accent); border-color: var(--accent); }
+  /* Compact in-drawer variant: a quiet appendix below the source list. */
+  .cite-entry {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+  }
+  .cite-entry-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin: 0 0 0.35rem;
+  }
+  .cite-entry .cite-chicago {
+    font-size: 0.875rem;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .cite-entry .cite-actions button { font-size: 0.75rem; padding: 0.2rem 0.6rem; }
 </style>

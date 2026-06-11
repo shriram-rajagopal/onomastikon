@@ -195,6 +195,12 @@ const familyTrees = [...familyGroups.entries()]
               </li>
             ))}
           </ol>
+          <CiteThis
+            compact
+            title={`${name.data.transliteration} (${language?.data.english_name} name for ${civ.data.english_name})`}
+            path={`/civilizations/${civ.id}`}
+            anchor={entryAnchor(name.id, civ.id)}
+          />
         </details>
       </section>
     ))}
