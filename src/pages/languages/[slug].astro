@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { entryAnchor } from '../../lib/entry';
 
@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.props;
+const { Content } = await render(lang);
 
 const allNames = await getCollection('names');
 const namesInLang = allNames.filter((n) => n.data.language.id === lang.id);
@@ -36,6 +37,8 @@ const enriched = await Promise.all(
     <p class="eyebrow">Language</p>
     <h1>{lang.data.english_name}</h1>
     <p class="meta">{lang.data.language_family} · {lang.data.script}</p>
+
+    <div class="summary"><Content /></div>
 
     {enriched.length === 0 && <p><em>No entries yet.</em></p>}
 
@@ -79,6 +82,7 @@ const enriched = await Promise.all(
   .featured { display: block; width: 100%; height: auto; aspect-ratio: 1920 / 720; margin: 0 0 1rem; }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1.5rem; }
+  .summary { margin: 1.5rem 0 2rem; }
   .name-list { list-style: none; padding: 0; margin: 1.5rem 0; }
   .name-list li { border-bottom: 1px solid var(--rule); }
   .name-list a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.5rem; padding: 1rem 0; text-decoration: none; color: var(--ink); }
