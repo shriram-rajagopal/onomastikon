@@ -7,6 +7,7 @@ era_start: -3500
 era_end: -1900
 summary: The earliest urban civilization, in the southern Mesopotamian floodplain.
 featured_image: /sumer-title.png
+og_image: /og/sumer-title.png
 ---
 
 Sumer was the earliest urban civilization, arising in the alluvial plain between the lower Tigris and Euphrates in the fourth millennium BCE. Its cities, Uruk and Ur and Eridu and Lagash and Nippur and Kish among them, were among the first on earth, and to Sumer are credited the invention of writing, the potter's wheel, monumental temple platforms that became the ziggurat, and the oldest literature and law yet known. The Sumerian-speaking city-states flourished through the Early Dynastic period and the empires of Akkad and the Third Dynasty of Ur, until the fall of Ur around 2000 BCE ended Sumerian political independence and the southern plain passed to Amorite and then Babylonian rule, while Sumerian itself lived on for two more millennia as a classical language.
