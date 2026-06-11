@@ -73,7 +73,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       <nav>
         <a href="/search">Search</a>
         <a href="/about">About</a>
-        <button id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark theme">◐</button>
+        <button id="theme-toggle" type="button">◐ Dark mode</button>
       </nav>
     </header>
     <main id="main">
@@ -192,7 +192,8 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         background: none;
         border: none;
         cursor: pointer;
-        font-size: 1rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
         line-height: 1;
         color: var(--ink-soft);
       }
@@ -241,11 +242,12 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       // the browser-chrome color and button state in sync.
       const toggle = document.getElementById('theme-toggle');
       const themeColor = document.querySelector('meta[name="theme-color"]');
+      // The button is labeled with the action it performs, so the visible text
+      // is the accessible name; no aria-pressed alongside a changing label.
       const reflect = (t: string) => {
         document.documentElement.dataset.theme = t;
         themeColor?.setAttribute('content', t === 'dark' ? '#211e18' : '#f5efe4');
-        toggle?.setAttribute('aria-pressed', String(t === 'dark'));
-        toggle?.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        if (toggle) toggle.textContent = t === 'dark' ? '◑ Light mode' : '◐ Dark mode';
       };
       reflect(document.documentElement.dataset.theme ?? 'light');
       toggle?.addEventListener('click', () => {
