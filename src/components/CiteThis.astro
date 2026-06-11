@@ -32,13 +32,33 @@ const bibtex = `@misc{onomastikon-${slug},
 </section>
 
 <script>
+  // Clipboard API first; fall back to a transient textarea + execCommand for
+  // contexts where the permission is denied. Always give visible feedback.
+  function copyText(text: string): boolean {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.append(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { ok = false; }
+    ta.remove();
+    return ok;
+  }
   for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
     btn.addEventListener('click', async () => {
       const el = document.getElementById(btn.dataset.copy!);
       if (!el) return;
-      await navigator.clipboard.writeText(el.textContent!.trim());
+      const text = el.textContent!.trim();
+      let ok = true;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        ok = copyText(text);
+      }
       const old = btn.textContent;
-      btn.textContent = 'Copied';
+      btn.textContent = ok ? 'Copied' : 'Copy failed';
       setTimeout(() => { btn.textContent = old; }, 1500);
     });
   }
