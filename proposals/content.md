@@ -6,6 +6,28 @@ changed. Each item is a proposal for you to accept, adapt, or reject. Findings
 come from a full-corpus review pass (all 63 name entries, 6 entity files); the
 corpus is in very good shape overall, and nothing below is a blocker.
 
+## Status (applied 2026-06-11, on the author's instruction)
+
+- **Applied:** 1 (Yāmān normalized to slashes, matching the other three Akkadian
+  entries; Akkadian syllabograms write vowels, so the attested convention fits),
+  3 (capitalized *Eioor* everywhere; macrons need no change since ⲉⲓⲟⲟⲣ contains
+  no eta/omega; convention noted in coptic.md), 4 (Crum → s.v. ⲕⲏⲙⲉ), 5 (Beekes
+  s.v. Νεῖλος), 7 (Kēme P2 written), 8 (Kittîm lead reordered), 9 (Giyon dispute
+  stated directly), 12 (Ḥꜣw-nbwt referent shift made explicit).
+- **Verified, no change:** 6 — Kotyk 2024 is real (Brill, ISBN 9789004695436,
+  open access; reviewed in Bulletin of SOAS). Citation stands.
+- **Held:** 2 — all four missing-IPA entries stay absent: no sourceable Demotic
+  vocalization for *Mty* was found, and inventing one is barred; the Chinese and
+  Sumerian absences were already judged defensible. Revisit *Mty* if a source
+  for the vocalization turns up.
+- **Rejected on re-read:** 10 — *Mty*'s P2 already opens on a real observation
+  and closes on its strongest line; reordering would churn good prose. 11 — both
+  Mudrāya entries already name all three chancellery languages; the finding
+  overstated the gap.
+- The Vycichl citation in nile-ancient-greek-neilos also lacks an s.v. headword
+  (same gap as item 5), but the correct lemma was not verifiable, so it is left
+  for a source check rather than guessed.
+
 ## Notation and field consistency
 
 1. **Akkadian IPA notation is split between conventions.**
