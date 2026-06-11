@@ -14,6 +14,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     role="combobox"
     aria-controls="results"
     aria-expanded="false"
+    aria-autocomplete="list"
     aria-label="Search"
     placeholder="Try “Parsa”, “black land”, “Coptic”, “Iranian”…"
   />
@@ -113,6 +114,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       } else if (e.key === 'Enter' && sel >= 0) {
         e.preventDefault();
         location.href = current[sel].url;
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        q.value = '';
+        run();
       }
     });
   </script>
