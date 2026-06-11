@@ -9,7 +9,7 @@ era_start: -700
 era_end: 600
 confidence: attested
 sources:
-  - citation: "Beekes, Robert. *Etymological Dictionary of Greek*. Brill, 2010, s.v."
+  - citation: "Beekes, Robert. *Etymological Dictionary of Greek*. Brill, 2010, s.v. Νεῖλος."
   - citation: "Herodotus, *Histories* 2.10-34 (extended discussion of the Nile)."
   - citation: "Vycichl, Werner. *Dictionnaire étymologique de la langue copte*. Peeters, 1983, s.v."
 ---
