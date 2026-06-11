@@ -70,9 +70,10 @@ summary field (2), JSON-LD (3), and the rest below.
    a GitHub Action running both on push would catch breakage before Vercel
    does. (The browser-level checks stay manual via the deploy-QA skill.)
 
-10. **`apple-touch-icon`.** The favicon set has `.ico` + `.svg`; a 180×180 PNG
-    would complete it for iOS home-screen pinning. Needs a rendered asset, so
-    it belongs with the next title-card batch in `videos/`.
+10. **`apple-touch-icon`.** SHIPPED 2026-06-11, together with a favicon
+    replacement: the `.svg`/`.ico` on disk turned out to be the stock Astro
+    rocket, now replaced by a sigma mark (oxblood on parchment, dark-scheme
+    variant in the SVG) with a matching 180×180 touch icon.
 
 11. **Search index growth plan.** The single JSON index is ~63 names and loads
     on the search page only — fine now, fine at 500 entries. Past that,
