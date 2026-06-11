@@ -15,7 +15,10 @@ const { lang } = Astro.props;
 const { Content } = await render(lang);
 
 const allNames = await getCollection('names');
-const namesInLang = allNames.filter((n) => n.data.language.id === lang.id);
+// Same era ordering as the entity page, so the two listings can't disagree.
+const namesInLang = allNames
+  .filter((n) => n.data.language.id === lang.id)
+  .sort((a, b) => (a.data.era_start ?? 0) - (b.data.era_start ?? 0));
 
 const enriched = await Promise.all(
   namesInLang.map(async (n) => {
