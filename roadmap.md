@@ -157,7 +157,7 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 
 ### Soon (after ~10-15 entities)
 - [ ] Mobile font fix for missing characters (note: cuneiform/Old Persian/Devanagari rendering on some mobile devices needs verification; webfonts now load for all scripts in the inventory, including Inscriptional Parthian, Manichaean, and Syriac, but device verification is still owed)
-- [x] Custom favicon (shipped with the site logo mark rather than the 𐎠 character)
+- [x] Custom favicon (the wordmark's sigma in oxblood on a parchment tile, dark-scheme variant in the SVG, plus a 180×180 apple-touch-icon; replaced the Astro starter rocket that had silently shipped)
 - [x] Open Graph preview image for social link sharing (per-entity title cards with a site-wide fallback)
 - [x] Endonym title cards for all language pages (rendered through the Remotion setup in videos/)
 - [ ] DNS cleanup to Vercel's recommended new records
