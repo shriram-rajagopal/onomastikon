@@ -9,6 +9,8 @@ import FamilyNode from '../../components/FamilyNode.astro';
 import type { TreeNode } from '../../components/FamilyNode.astro';
 import CiteThis from '../../components/CiteThis.astro';
 import AttestationTimeline from '../../components/AttestationTimeline.astro';
+import TransmissionMap from '../../components/TransmissionMap.astro';
+import { LANG_GEO } from '../../lib/geo';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -153,6 +155,33 @@ const familyTrees = [...familyGroups.entries()]
       </>
     )}
 
+    {enriched.filter((e) => e.language && LANG_GEO[e.language.id]).length >= 2 && (
+      <section class="tmap">
+        <h2>Transmission map</h2>
+        <p class="families-hint">
+          Each form at the homeland of its language; arcs follow asserted
+          borrowing paths. Slide to a year to see which names were in use.
+        </p>
+        <TransmissionMap
+          civId={civ.id}
+          nodes={enriched
+            .filter((e) => e.language)
+            .map((e) => ({
+              id: e.name.id,
+              anchor: entryAnchor(e.name.id, civ.id),
+              translit: e.name.data.transliteration,
+              langId: e.language!.id,
+              langName: e.language!.data.english_name,
+              start: e.name.data.era_start,
+              end: e.name.data.era_end,
+            }))}
+          edges={enriched
+            .filter((e) => e.name.data.derived_from)
+            .map((e) => ({ from: e.name.data.derived_from!.id, to: e.name.id }))}
+        />
+      </section>
+    )}
+
     {enriched.length >= 2 && (
       <section class="timeline">
         <h2>Attestation timeline</h2>
@@ -270,8 +299,9 @@ const familyTrees = [...familyGroups.entries()]
       f.classList.add('anim');
       io.observe(f);
     }
-    // The attestation timeline's bars grow in on the same trigger.
-    for (const t of document.querySelectorAll('.timeline')) {
+    // The attestation timeline's bars and the map's arcs draw in on the
+    // same trigger.
+    for (const t of document.querySelectorAll('.timeline, .tmap')) {
       t.classList.add('anim');
       io.observe(t);
     }
