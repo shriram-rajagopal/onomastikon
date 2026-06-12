@@ -425,13 +425,24 @@ const contents = [
     margin: 0 0 0.5rem;
   }
   .toc-list { list-style: none; margin: 0; padding: 0; }
-  .toc-list > li { margin: 0.25rem 0; }
+  .toc-list > li { margin: 0.35rem 0; }
   .toc a { color: var(--ink-soft); text-decoration: none; }
   .toc a:hover { color: var(--accent); }
   .toc a.active { color: var(--accent); }
+  /* Section links echo the headings they point to: serif, semibold, full
+     ink. The language sub-links stay small sans, clearly subordinate. */
+  .toc-list > li > a {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .toc-list > li > a:hover, .toc-list > li > a.active { color: var(--accent); }
   .toc-langs {
     list-style: none;
-    margin: 0.25rem 0 0.25rem;
+    margin: 0.3rem 0 0.4rem;
     padding: 0 0 0 1rem;
     display: flex;
     flex-wrap: wrap;
