@@ -4,17 +4,17 @@ language: coptic
 original_text: ⲟⲩⲉⲓⲉⲛⲓⲛ
 transliteration: Uweinin
 ipa: /uˈweː.nin/
-literal_meaning: Greek; later also "pagan"
+literal_meaning: Greek; an Ionian
 era_start: 200
 era_end: 1300
-family: hellas
-derived_from: greece-ancient-greek-hellas
+family: ionian
+derived_from: greece-demotic-wynn
 confidence: attested
 sources:
   - citation: "Crum, W. E. *A Coptic Dictionary*. Oxford: Clarendon Press, 1939, s.v. ⲟⲩⲉⲓⲉⲛⲓⲛ."
   - citation: "Vycichl, Werner. *Dictionnaire étymologique de la langue copte*. Peeters, 1983, s.v. ⲟⲩⲉⲓⲉⲛⲓⲛ."
 ---
 
-The Coptic name for Greeks, derived directly from Greek *Hellēn* (Ἕλλην) through the phonological adaptations characteristic of Coptic borrowings from Greek. Coptic developed during the Roman and early Byzantine periods in Egypt as the language of Egyptian Christianity, in an environment where Greek was the language of administration, education, and the church, and where the dominant Hellenophone society around the emerging Coptic-speaking Christians called itself *Hellēnes*. The Coptic form *Uweinin* reflects this contact: rather than inheriting an older Egyptian or Semitic form for the Greeks, Coptic borrowed from the most current Greek self-designation, making *Uweinin* the only entry in this catalogue that derives from the Greeks' own ethnonym for themselves.
+The Coptic word for Greeks, *Uweinin* (ⲟⲩⲉⲓⲉⲛⲓⲛ, with dialectal spelling variants), the final stage of the Egyptian-internal word for the Greek world. It continues Demotic *Wynn*, the ordinary designation of Greeks in Ptolemaic and Roman Egypt, itself an adaptation of the Ionian name, so that the Coptic form descends not from any contemporary Greek self-designation but from the word Egyptians had applied to Greeks for centuries. The Greek-derived Coptic alphabet spells out the vocalization that the consonantal Demotic writing concealed, and Crum's dictionary records the word across the literary dialects.
 
-In late antique Christian Coptic usage, *Uweinin* took on a religious dimension alongside its ethnic meaning. Egyptian Christians defined their new religious identity against the pre-Christian Greek-speaking polytheistic culture that had dominated late Roman Egypt, and *Uweinin* came to designate not only ethnic Greeks but more broadly the non-Christian "pagans" against whom Christian identity was being constructed. This semantic doubling parallels similar developments in late antique Hebrew (*Yāwān*) and Syriac, where words for "Greek" came to carry religious as well as ethnic content in the period of Christianization. The Coptic form thus preserves a particular moment in the history of Mediterranean religion when "Greek" and "pagan" became momentarily interchangeable in the language of a people defining themselves against the cultural inheritance they had once shared.
+*Uweinin* is the Egyptian terminus of the Ionian family, the same eastern name for the Greeks that runs through Akkadian *Yāmān*, Hebrew *Yāwān*, and Old Persian *Yauna*, here arriving by its own route and surviving longest of all, still current in Christian Egypt more than a millennium after Neo-Assyrian scribes first wrote the name down. The language also knew the Greeks' self-designation, and what it did with it is the sharper lesson: Coptic borrowed *Hellēn* (ϩⲉⲗⲗⲏⲛ) as its word for "pagan," the old religion against which Egyptian Christianity defined itself. The everyday word for a Greek remained the one Egypt had always used; the Greeks' own name for themselves became, in Egyptian mouths, the name of an abandoned faith.

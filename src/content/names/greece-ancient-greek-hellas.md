@@ -7,7 +7,6 @@ ipa: /hel.lás/
 literal_meaning: Hellas (toponym)
 era_start: -800
 era_end: 600
-family: hellas
 confidence: attested
 sources:
   - citation: "Homer, *Iliad* 2.683–684."
