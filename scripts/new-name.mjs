@@ -125,5 +125,8 @@ console.log(
   `\nCreated ${rel(outPath)}\n` +
     `  Anchor on the entity page: #${lang}-${slug}\n` +
     `  Next: fill in original_text, transliteration, era_start/era_end, sources,\n` +
-    `  and the two paragraphs. Replace the TODO era values before building.\n`
+    `  and the two paragraphs. Replace the TODO era values before building.\n` +
+    `  If the form shares a root with others on the page, set family: (and\n` +
+    `  derived_from: only where the prose asserts the borrowing unhedged and the\n` +
+    `  parent entry exists); a new family slug needs a label in src/lib/families.ts.\n`
 );

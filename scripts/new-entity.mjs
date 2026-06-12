@@ -148,11 +148,13 @@ direction: ${direction} # ltr | rtl | btt
 
   nextSteps =
     `  1. Fill the frontmatter (replace every TODO) and write the description prose.\n` +
-    `  2. Backfill: a new language obliges you to add name entries for the existing\n` +
+    `  2. Add the language's homeland to src/lib/geo.ts (lon/lat + label offsets)\n` +
+    `     so its forms appear on the transmission maps.\n` +
+    `  3. Backfill: a new language obliges you to add name entries for the existing\n` +
     `     entities it meaningfully attests. Scaffold each with\n` +
     `       npm run new:name -- <civ> ${slug} <name-slug>\n` +
     civList +
-    `  3. Run npm run lint:content, then astro build.`;
+    `  4. Run npm run lint:content, then astro build.`;
 }
 
 // --- Write and report --------------------------------------------------------
