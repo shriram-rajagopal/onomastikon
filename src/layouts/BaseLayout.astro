@@ -40,6 +40,51 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         }
       })();
     </script>
+    <!-- View-transition pairing. Static view-transition-names scatter: any
+         named element without a match on the destination page exits as its
+         own floating layer. Instead, tag exactly one element per side, per
+         navigation, and only for the clean pair (an index row and the detail
+         page's h1, same text and font). Must run from the head so the
+         pagereveal listener is registered before first render. -->
+    <script is:inline>
+      (() => {
+        const NAME = 'detail-title';
+        const detail = (path) => {
+          const m = path.match(/^\/(civilizations|languages)\/([a-z0-9-]+)\/?$/);
+          return m ? `${m[1]}/${m[2]}` : null;
+        };
+        const isIndex = (path) => path === '/' || path === '/index.html';
+        const clear = () => {
+          for (const el of document.querySelectorAll('[style*="view-transition-name"]')) {
+            if (el.style.viewTransitionName === NAME) el.style.viewTransitionName = '';
+          }
+        };
+        const tagRow = (slug) => {
+          const el = slug && document.querySelector(`[data-morph="${slug}"]`);
+          if (el) el.style.viewTransitionName = NAME;
+        };
+        const tagH1 = () => {
+          const h1 = document.querySelector('main h1');
+          if (h1) h1.style.viewTransitionName = NAME;
+        };
+        addEventListener('pageswap', (e) => {
+          if (!e.viewTransition || !e.activation) return;
+          const here = location.pathname;
+          const to = new URL(e.activation.entry.url).pathname;
+          if (isIndex(here) && detail(to)) tagRow(detail(to));
+          else if (detail(here) && isIndex(to)) tagH1();
+        });
+        addEventListener('pagereveal', (e) => {
+          clear();
+          if (!e.viewTransition || !window.navigation?.activation?.from) return;
+          const from = new URL(navigation.activation.from.url).pathname;
+          const here = location.pathname;
+          if (detail(here) && isIndex(from)) tagH1();
+          else if (isIndex(here) && detail(from)) tagRow(detail(from));
+          e.viewTransition.finished.finally(clear);
+        });
+      })();
+    </script>
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
@@ -152,6 +197,13 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
          while the content cross-fades beneath. */
       .site-header { view-transition-name: site-header; }
       .site-footer { view-transition-name: site-footer; }
+      /* The morphing title pair scales proportionally instead of stretching
+         to the group box (the sizes differ between row text and h1). */
+      ::view-transition-old(detail-title),
+      ::view-transition-new(detail-title) {
+        height: 100%;
+        width: auto;
+      }
       /* Keyboard focus: a consistent, clearly visible ring in the accent color.
          :focus-visible keeps it off mouse clicks. */
       :focus-visible {

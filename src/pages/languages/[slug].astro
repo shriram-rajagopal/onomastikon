@@ -28,19 +28,6 @@ const enriched = await Promise.all(
   })
 );
 
-// View-transition names must be unique per page; only the first entry for a
-// civilization carries the morph target for its entity page.
-const firstForCiv = new Set<string>();
-{
-  const seen = new Set<string>();
-  for (const e of enriched) {
-    const cid = e.civilization?.id;
-    if (cid && !seen.has(cid)) {
-      seen.add(cid);
-      firstForCiv.add(e.name.id);
-    }
-  }
-}
 ---
 
 <BaseLayout
@@ -67,7 +54,7 @@ const firstForCiv = new Set<string>();
       />
     )}
     <p class="eyebrow">Language</p>
-    <h1 style={`view-transition-name: lang-${lang.id}`}>{lang.data.english_name}</h1>
+    <h1>{lang.data.english_name}</h1>
     {lang.data.native_name && (
       <p
         class="native"
@@ -110,10 +97,7 @@ const firstForCiv = new Set<string>();
                       dir={lang.data.direction === 'rtl' ? 'rtl' : undefined}
                     >{name.data.original_text}</span>
                     <span class="translit"><em>{name.data.transliteration}</em></span>
-                    <span
-                      class="civ-name"
-                      style={firstForCiv.has(name.id) ? `view-transition-name: civ-${civilization?.id}` : undefined}
-                    >{civilization?.data.english_name}</span>
+                    <span class="civ-name">{civilization?.data.english_name}</span>
                   </a>
                 </li>
               ))}
