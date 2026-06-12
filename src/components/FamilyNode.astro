@@ -83,4 +83,32 @@ const { node, civId } = Astro.props;
     width: 1.1rem;
     border-top: 1px solid var(--rule);
   }
+  /* Scroll reveal: nodes are hidden only after the page script opts the
+     section in (.anim), so the no-JS and reduced-motion paths always see the
+     full tree. The per-node stagger delay is set by the script. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.family.anim) .family-node {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    :global(.family.anim.revealed) .family-node {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity 0.5s ease var(--reveal-delay, 0s),
+        transform 0.5s ease var(--reveal-delay, 0s);
+    }
+  }
+  /* Lineage trace: hovering or focusing a form lights its ancestor cards and
+     the rails connecting them, reading the chain back to its root. */
+  .node-card.lit {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .family-children.lit {
+    border-left-color: var(--accent);
+  }
+  .family-children.lit > :global(.family-node)::before {
+    border-top-color: var(--accent);
+  }
 </style>

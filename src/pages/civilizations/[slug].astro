@@ -210,6 +210,56 @@ const familyTrees = [...familyGroups.entries()]
 </BaseLayout>
 
 <script>
+  // Family-tree animation. Reveal: each family section's nodes fade in with a
+  // stagger when scrolled into view; opted in by JS so no-JS and
+  // reduced-motion visitors always see the full tree. Trace: hovering or
+  // focusing a form lights its ancestor chain back to the root.
+  const families = document.querySelectorAll('.family');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('revealed');
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+    for (const f of families) {
+      f.querySelectorAll<HTMLElement>('.family-node').forEach((n, i) =>
+        n.style.setProperty('--reveal-delay', `${Math.min(i * 90, 900)}ms`)
+      );
+      f.classList.add('anim');
+      io.observe(f);
+    }
+  }
+  function setLineage(card: Element, on: boolean) {
+    let li: Element | null = card.closest('.family-node');
+    while (li) {
+      li.querySelector(':scope > .node-card')?.classList.toggle('lit', on);
+      const rail: Element | null = li.parentElement?.closest('.family-children') ?? null;
+      rail?.classList.toggle('lit', on);
+      li = rail ? rail.closest('.family-node') : null;
+    }
+  }
+  for (const f of families) {
+    for (const [over, out] of [['mouseover', 'mouseout'], ['focusin', 'focusout']] as const) {
+      f.addEventListener(over, (ev) => {
+        const card = (ev.target as Element).closest('.node-card');
+        if (card) setLineage(card, true);
+      });
+      f.addEventListener(out, (ev) => {
+        const card = (ev.target as Element).closest('.node-card');
+        if (card) setLineage(card, false);
+      });
+    }
+  }
+</script>
+
+<script>
   // Sources live inside collapsed <details>, which print as just the summary
   // line. Open them for printing and restore the reader's state afterwards.
   let openedForPrint: HTMLDetailsElement[] = [];
