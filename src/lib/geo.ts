@@ -4,9 +4,12 @@
 // is shown in the node's tooltip. Label offsets (dx/dy in map units, anchor)
 // are hand-placed so the Levant and Mesopotamian clusters stay legible.
 //
-// The map window is lon 8–82, lat 12–47 at 10 units/degree (see
-// scripts/generate-coastline.mjs). Languages east of the window carry
-// offmap: true and are pinned at the eastern edge with a direction mark.
+// Coordinates are true lon/lat. The map component picks a baked region (see
+// scripts/generate-coastline.mjs) and pins nodes outside it to the frame
+// edge automatically, so no fake coordinates belong here.
+import type { MapRegion } from './coastline';
+import { MAP_SCALE } from './coastline';
+
 export interface LangGeo {
   lon: number;
   lat: number;
@@ -14,12 +17,7 @@ export interface LangGeo {
   dx?: number;
   dy?: number;
   anchor?: 'start' | 'middle' | 'end';
-  offmap?: boolean;
 }
-
-export const LON_MIN = 8;
-export const LAT_MAX = 47;
-export const GEO_SCALE = 10;
 
 export const LANG_GEO: Record<string, LangGeo> = {
   egyptian: { lon: 31.25, lat: 29.85, place: 'Memphis', anchor: 'end', dx: -7, dy: 9 },
@@ -40,11 +38,32 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'middle-persian': { lon: 44.58, lat: 33.1, place: 'Ctesiphon', anchor: 'middle', dx: 0, dy: -7 },
   parthian: { lon: 58.4, lat: 37.6, place: 'Nisa', dy: -6 },
   sanskrit: { lon: 77.7, lat: 27.5, place: 'Mathura', anchor: 'end', dx: -7 },
-  'classical-chinese': { lon: 80.5, lat: 34.5, place: "Chang'an (east of the map)", offmap: true, anchor: 'end', dx: -7 },
+  'classical-chinese': { lon: 108.94, lat: 34.27, place: "Chang'an", anchor: 'end', dx: -7 },
   'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hejaz' },
   geez: { lon: 38.72, lat: 14.13, place: 'Aksum' },
 };
 
-export function projectGeo(g: LangGeo): { x: number; y: number } {
-  return { x: (g.lon - LON_MIN) * GEO_SCALE, y: (LAT_MAX - g.lat) * GEO_SCALE };
+export function inRegion(g: LangGeo, r: MapRegion): boolean {
+  return g.lon >= r.lonMin && g.lon <= r.lonMax && g.lat >= r.latMin && g.lat <= r.latMax;
+}
+
+/** Project into a region's pixel space, clamping to the frame with a margin;
+    `pinned` marks coordinates that were outside the region. */
+export function projectGeo(
+  g: LangGeo,
+  r: MapRegion,
+  margin = 8
+): { x: number; y: number; pinned: false | 'east' | 'west' | 'north' | 'south' } {
+  const rawX = (g.lon - r.lonMin) * MAP_SCALE;
+  const rawY = (r.latMax - g.lat) * MAP_SCALE;
+  const w = (r.lonMax - r.lonMin) * MAP_SCALE;
+  const h = (r.latMax - r.latMin) * MAP_SCALE;
+  const x = Math.min(Math.max(rawX, margin), w - margin);
+  const y = Math.min(Math.max(rawY, margin), h - margin);
+  let pinned: ReturnType<typeof projectGeo>['pinned'] = false;
+  if (rawX > w - margin) pinned = 'east';
+  else if (rawX < margin) pinned = 'west';
+  else if (rawY < margin) pinned = 'north';
+  else if (rawY > h - margin) pinned = 'south';
+  return { x, y, pinned };
 }

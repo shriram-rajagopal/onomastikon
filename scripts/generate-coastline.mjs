@@ -1,14 +1,16 @@
 #!/usr/bin/env node
-// Bake the transmission map's coastline from Natural Earth 50m land polygons
+// Bake the transmission map's coastlines from Natural Earth 50m land polygons
 // (via the world-atlas package) into src/lib/coastline.ts.
 //
 //   curl -sL -o /tmp/land-50m.json https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json
 //   node scripts/generate-coastline.mjs /tmp/land-50m.json
 //
-// Equirectangular projection over the ancient-world window (lon 8–82,
-// lat 12–47, 10 units per degree). Rings are clipped to a slightly larger
-// box with Sutherland-Hodgman so the path stays small; the SVG viewBox does
-// the final crop. Natural Earth data is public domain.
+// Several REGIONS are baked, each an equirectangular window at 10 units per
+// degree; the map component picks the region that covers the most of an
+// entity's nodes and pins the rest to the frame edge. To support a new part
+// of the world (Mesoamerica for the Maya, say), add a region here and rerun.
+// Rings are clipped per region with Sutherland-Hodgman so paths stay small.
+// Natural Earth data is public domain.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -22,21 +24,21 @@ if (!input) {
   process.exit(1);
 }
 
-// Map window (degrees) and scale; mirrored in src/lib/geo.ts.
-export const LON_MIN = 8, LON_MAX = 82, LAT_MIN = 12, LAT_MAX = 47, SCALE = 10;
-// Clip box extends past the window so coastline runs cleanly off the edges.
-const CLIP = { x0: LON_MIN - 8, x1: LON_MAX + 8, y0: LAT_MIN - 6, y1: LAT_MAX + 6 };
-
-const project = ([lon, lat]) => [
-  (lon - LON_MIN) * SCALE,
-  (LAT_MAX - lat) * SCALE,
+const SCALE = 10;
+const REGIONS = [
+  // The core window: Mediterranean and Near East through the Indus.
+  { id: 'ancient-west', lonMin: 8, lonMax: 82, latMin: 12, latMax: 47 },
+  // Iran through China and northern India, for the eastern entities to come.
+  { id: 'east-asia', lonMin: 55, lonMax: 135, latMin: 8, latMax: 50 },
 ];
 
-// Sutherland-Hodgman polygon clipping against an axis-aligned box.
-function clipRing(ring) {
-  const edges = [
-    (p) => p[0] >= CLIP.x0, (p) => p[0] <= CLIP.x1,
-    (p) => p[1] >= CLIP.y0, (p) => p[1] <= CLIP.y1,
+// Sutherland-Hodgman polygon clipping against an axis-aligned lon/lat box.
+function clipRing(ring, box) {
+  const params = [
+    [0, box.x0, (p) => p[0] >= box.x0],
+    [0, box.x1, (p) => p[0] <= box.x1],
+    [1, box.y0, (p) => p[1] >= box.y0],
+    [1, box.y1, (p) => p[1] <= box.y1],
   ];
   const intersect = (a, b, axis, value) => {
     const t = (value - a[axis]) / (b[axis] - a[axis]);
@@ -44,23 +46,16 @@ function clipRing(ring) {
       ? [value, a[1] + t * (b[1] - a[1])]
       : [a[0] + t * (b[0] - a[0]), value];
   };
-  const params = [
-    [0, CLIP.x0], [0, CLIP.x1], [1, CLIP.y0], [1, CLIP.y1],
-  ];
   let out = ring;
-  for (let e = 0; e < 4; e++) {
-    const inside = edges[e];
-    const [axis, value] = params[e];
+  for (const [axis, value, inside] of params) {
     const next = [];
     for (let i = 0; i < out.length; i++) {
       const cur = out[i];
       const prev = out[(i + out.length - 1) % out.length];
-      const curIn = inside(cur);
-      const prevIn = inside(prev);
-      if (curIn) {
-        if (!prevIn) next.push(intersect(prev, cur, axis, value));
+      if (inside(cur)) {
+        if (!inside(prev)) next.push(intersect(prev, cur, axis, value));
         next.push(cur);
-      } else if (prevIn) {
+      } else if (inside(prev)) {
         next.push(intersect(prev, cur, axis, value));
       }
     }
@@ -73,22 +68,40 @@ function clipRing(ring) {
 const topo = JSON.parse(readFileSync(input, 'utf8'));
 const land = feature(topo, topo.objects.land);
 
-const paths = [];
-for (const poly of land.features[0].geometry.coordinates) {
-  for (const ring of poly) {
-    const clipped = clipRing(ring);
-    if (!clipped || clipped.length < 4) continue;
-    const pts = clipped.map(project).map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`);
-    paths.push(`M${pts.join('L')}Z`);
+const regionsOut = [];
+for (const r of REGIONS) {
+  // Clip box extends past the window so coastline runs cleanly off the edges.
+  const box = { x0: r.lonMin - 8, x1: r.lonMax + 8, y0: r.latMin - 6, y1: r.latMax + 6 };
+  const project = ([lon, lat]) => [
+    ((lon - r.lonMin) * SCALE).toFixed(1),
+    ((r.latMax - lat) * SCALE).toFixed(1),
+  ];
+  const paths = [];
+  for (const poly of land.features[0].geometry.coordinates) {
+    for (const ring of poly) {
+      const clipped = clipRing(ring, box);
+      if (!clipped || clipped.length < 4) continue;
+      paths.push(`M${clipped.map(project).map((p) => p.join(',')).join('L')}Z`);
+    }
   }
+  const d = paths.join('');
+  const viewBox = `0 0 ${(r.lonMax - r.lonMin) * SCALE} ${(r.latMax - r.latMin) * SCALE}`;
+  regionsOut.push({ ...r, viewBox, path: d });
+  console.log(`${r.id}: ${paths.length} rings, ${(d.length / 1024).toFixed(1)} KB, viewBox ${viewBox}`);
 }
 
-const d = paths.join('');
-const viewBox = `0 0 ${(LON_MAX - LON_MIN) * SCALE} ${(LAT_MAX - LAT_MIN) * SCALE}`;
 const out = `// Generated by scripts/generate-coastline.mjs from Natural Earth 50m land
 // polygons (public domain, via world-atlas). Do not edit by hand.
-export const COAST_VIEWBOX = '${viewBox}';
-export const COAST_PATH = '${d}';
+export interface MapRegion {
+  id: string;
+  lonMin: number;
+  lonMax: number;
+  latMin: number;
+  latMax: number;
+  viewBox: string;
+  path: string;
+}
+export const MAP_SCALE = ${SCALE};
+export const REGIONS: MapRegion[] = ${JSON.stringify(regionsOut)};
 `;
 writeFileSync(resolve(ROOT, 'src/lib/coastline.ts'), out);
-console.log(`coastline: ${paths.length} rings, ${(d.length / 1024).toFixed(1)} KB, viewBox ${viewBox}`);

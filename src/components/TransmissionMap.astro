@@ -1,11 +1,16 @@
 ---
 // Transmission map: each of an entity's name-forms plotted at its language's
 // homeland on a parchment-styled map of the ancient world, with asserted
-// borrowing paths (derived_from) drawn as arcs. The era slider fades out
-// forms not yet attested at the chosen year. Server-rendered SVG; the only
-// script is the slider and the motion-gated arc draw-in.
-import { COAST_PATH, COAST_VIEWBOX } from '../lib/coastline';
-import { LANG_GEO, projectGeo } from '../lib/geo';
+// borrowing paths (derived_from) drawn as arcs. The era slider divides the
+// names into three states: in use at the chosen year (solid), formerly in
+// use (open circles, dashed arcs), and not yet attested (faded).
+//
+// The map window is chosen per entity from the baked regions (the one whose
+// bounds cover the most nodes); nodes outside it are pinned to the frame
+// edge with a direction mark. Server-rendered SVG; the only script is the
+// slider and the motion-gated arc draw-in.
+import { REGIONS } from '../lib/coastline';
+import { LANG_GEO, inRegion, projectGeo } from '../lib/geo';
 import { formatEra } from '../lib/era';
 
 export interface MapNode {
@@ -25,12 +30,20 @@ interface Props {
 }
 const { nodes, edges, civId } = Astro.props;
 
-const placed = nodes
-  .filter((n) => LANG_GEO[n.langId])
-  .map((n) => {
-    const geo = LANG_GEO[n.langId];
-    return { ...n, geo, ...projectGeo(geo) };
-  });
+const located = nodes.filter((n) => LANG_GEO[n.langId]);
+// Pick the region covering the most nodes; ties go to the smaller window.
+const region = REGIONS.map((r) => ({
+  r,
+  covered: located.filter((n) => inRegion(LANG_GEO[n.langId], r)).length,
+  area: (r.lonMax - r.lonMin) * (r.latMax - r.latMin),
+}))
+  .sort((a, b) => b.covered - a.covered || a.area - b.area)[0].r;
+
+const PIN_MARK = { east: '→', west: '←', north: '↑', south: '↓' } as const;
+const placed = located.map((n) => {
+  const geo = LANG_GEO[n.langId];
+  return { ...n, geo, ...projectGeo(geo, region) };
+});
 const byId = new Map(placed.map((p) => [p.id, p]));
 const arcs = edges
   .filter((e) => byId.has(e.from) && byId.has(e.to))
@@ -40,7 +53,11 @@ const arcs = edges
     // Quadratic arc bowed to the left of travel, so parallel routes separate.
     const cx = (a.x + b.x) / 2 - (b.y - a.y) * 0.18;
     const cy = (a.y + b.y) / 2 + (b.x - a.x) * 0.18;
-    return { d: `M${a.x.toFixed(1)},${a.y.toFixed(1)}Q${cx.toFixed(1)},${cy.toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}`, start: b.start };
+    return {
+      d: `M${a.x.toFixed(1)},${a.y.toFixed(1)}Q${cx.toFixed(1)},${cy.toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}`,
+      start: b.start,
+      end: b.end,
+    };
   });
 const minYear = Math.min(...placed.map((p) => p.start));
 const maxYear = Math.max(...placed.map((p) => p.end));
@@ -48,16 +65,16 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 ---
 
 <div class="tmap-wrap">
-  <svg class="tmap-svg" viewBox={COAST_VIEWBOX} role="img" aria-label={`Map of the names' homelands and transmission paths`}>
-    <path class="coast" d={COAST_PATH} />
+  <svg class="tmap-svg" viewBox={region.viewBox} role="img" aria-label={`Map of the names' homelands and transmission paths`}>
+    <path class="coast" d={region.path} />
     {arcs.map((arc) => (
-      <path class="arc" d={arc.d} pathLength="1" data-start={arc.start} />
+      <path class="arc" d={arc.d} pathLength="1" data-start={arc.start} data-end={arc.end} />
     ))}
     {placed.map((p) => (
-      <a href={`#${p.anchor}`} class="map-node" data-start={p.start}>
-        <title>{p.langName} · {p.translit} · {p.geo.place} · {formatEra(p.start, p.end)}</title>
+      <a href={`#${p.anchor}`} class="map-node" data-start={p.start} data-end={p.end}>
+        <title>{p.langName} · {p.translit} · {p.geo.place}{p.pinned ? ' (beyond the map edge)' : ''} · {formatEra(p.start, p.end)}</title>
         <circle cx={p.x} cy={p.y} r="3.2" />
-        {p.geo.offmap && <text class="offmark" x={p.x + 6} y={p.y + 3.5}>→</text>}
+        {p.pinned && <text class="offmark" x={p.x + 6} y={p.y + 3.5}>{PIN_MARK[p.pinned]}</text>}
         <text
           class="map-label"
           x={p.x + (p.geo.dx ?? 7)}
@@ -69,10 +86,15 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   </svg>
 </div>
 <div class="tmap-controls">
-  <label class="tmap-label" for={`era-${civId}`}>Attested by</label>
+  <label class="tmap-label" for={`era-${civId}`}>In</label>
   <input id={`era-${civId}`} class="tmap-range" type="range" min={minYear} max={maxYear} step="10" value={maxYear} />
   <output class="tmap-year" for={`era-${civId}`}>{fmtYear(maxYear)}</output>
 </div>
+<p class="tmap-legend">
+  <span class="leg-key leg-current"></span> in use at this year ·
+  <span class="leg-key leg-past"></span> formerly in use ·
+  <span class="leg-key leg-future"></span> not yet attested
+</p>
 
 <script>
   for (const wrap of document.querySelectorAll('.tmap-controls')) {
@@ -81,11 +103,16 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     const svg = wrap.previousElementSibling!.querySelector('svg')!;
     const dated = svg.querySelectorAll<SVGElement>('[data-start]');
     const fmt = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} CE`);
-    range.addEventListener('input', () => {
+    const apply = () => {
       const v = Number(range.value);
       year.textContent = fmt(v);
-      for (const el of dated) el.classList.toggle('off', Number(el.dataset.start) > v);
-    });
+      for (const el of dated) {
+        el.classList.toggle('future', Number(el.dataset.start) > v);
+        el.classList.toggle('past', Number(el.dataset.end) < v);
+      }
+    };
+    range.addEventListener('input', apply);
+    apply();
   }
 </script>
 
@@ -98,11 +125,12 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     height: auto;
     border: 1px solid var(--rule);
     border-radius: 4px;
-    background: color-mix(in srgb, var(--ink) 2%, var(--parchment));
+    /* The sea: barely off the page ground, so the land reads clearly. */
+    background: color-mix(in srgb, var(--ink) 1%, var(--parchment));
   }
   .coast {
-    fill: color-mix(in srgb, var(--ink) 6%, var(--parchment));
-    stroke: var(--rule);
+    fill: color-mix(in srgb, var(--ink) 12%, var(--parchment));
+    stroke: color-mix(in srgb, var(--ink) 30%, var(--parchment));
     stroke-width: 0.8;
   }
   .arc {
@@ -112,10 +140,17 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     opacity: 0.55;
     transition: opacity 0.3s;
   }
+  /* Formerly in use: dashed path, open circle. Dash units are fractions of
+     the path (pathLength=1). */
+  .arc.past { stroke-dasharray: 0.025 0.018; }
   .map-node circle {
     fill: var(--accent);
+    stroke: var(--accent);
+    stroke-width: 1.1;
     transition: opacity 0.3s;
   }
+  .map-node.past circle { fill: color-mix(in srgb, var(--ink) 1%, var(--parchment)); }
+  .map-node.past text { opacity: 0.75; }
   .map-node text {
     font-family: 'EB Garamond', Georgia, serif;
     font-style: italic;
@@ -125,29 +160,47 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   }
   .map-node .offmark { font-style: normal; fill: var(--ink-soft); }
   .map-node:hover circle, .map-node:focus circle { r: 4.5; }
-  .map-node:hover text, .map-node:focus text { fill: var(--accent); }
-  .arc.off, .map-node.off { opacity: 0.1; }
-  .map-node.off { pointer-events: none; }
-  /* Draw the arcs in when the section scrolls into view (script-opted). */
+  .map-node:hover text, .map-node:focus text { fill: var(--accent); opacity: 1; }
+  .arc.future, .map-node.future { opacity: 0.1; }
+  .map-node.future { pointer-events: none; }
+  /* Draw the arcs in when the section scrolls into view (script-opted). The
+     keyframes pin a solid dash during the draw, then release to the static
+     dasharray (solid, or the .past dashes). */
   @media (prefers-reduced-motion: no-preference) {
-    :global(.tmap.anim) .arc {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-    }
     :global(.tmap.anim.revealed) .arc {
-      stroke-dashoffset: 0;
-      transition: stroke-dashoffset 1.1s ease 0.15s, opacity 0.3s;
+      animation: arc-draw 1.1s ease 0.15s backwards;
     }
   }
+  @keyframes arc-draw {
+    from { stroke-dasharray: 1; stroke-dashoffset: 1; }
+    to { stroke-dasharray: 1; stroke-dashoffset: 0; }
+  }
+  :global(.tmap.anim:not(.revealed)) .arc { opacity: 0; }
   .tmap-controls {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin: 0 0 2rem;
+    margin: 0;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
     color: var(--ink-soft);
   }
   .tmap-range { flex: 1; accent-color: var(--accent); }
   .tmap-year { min-width: 5.5em; text-align: right; font-variant-numeric: tabular-nums; }
+  .tmap-legend {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    color: var(--ink-soft);
+    margin: 0.4rem 0 2rem;
+  }
+  .leg-key {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    vertical-align: baseline;
+  }
+  .leg-current { background: var(--accent); }
+  .leg-past { border: 1.5px solid var(--accent); }
+  .leg-future { background: var(--accent); opacity: 0.15; }
 </style>
