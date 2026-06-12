@@ -10,7 +10,9 @@ import type { TreeNode } from '../../components/FamilyNode.astro';
 import CiteThis from '../../components/CiteThis.astro';
 import AttestationTimeline from '../../components/AttestationTimeline.astro';
 import TransmissionMap from '../../components/TransmissionMap.astro';
+import ArtifactViewer from '../../components/ArtifactViewer.astro';
 import { LANG_GEO } from '../../lib/geo';
+import { ARTIFACTS } from '../../lib/artifacts';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -249,6 +251,7 @@ const familyTrees = [...familyGroups.entries()]
         <div class="name-body">
           <Content />
         </div>
+        {ARTIFACTS[name.id] && <ArtifactViewer artifact={ARTIFACTS[name.id]} />}
         <details class="sources">
           <summary>Sources ({name.data.sources.length})</summary>
           <ol>

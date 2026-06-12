@@ -1,0 +1,64 @@
+---
+// Click-to-load 3D artifact viewer. The Sketchfab iframe (and its scripts)
+// cost nothing until the reader presses the button; until then this is one
+// styled button and a credit line.
+import type { Artifact } from '../lib/artifacts';
+
+interface Props {
+  artifact: Artifact;
+}
+const { artifact } = Astro.props;
+---
+
+<div class="artifact" data-sketchfab={artifact.sketchfabId} data-title={artifact.title}>
+  <button type="button" class="artifact-load">View the artifact in 3D · {artifact.title}</button>
+  <p class="artifact-credit">
+    3D scan: {artifact.credit},
+    <a href={artifact.licenseUrl}>{artifact.license}</a>, via
+    <a href={artifact.modelUrl}>Sketchfab</a>.
+  </p>
+</div>
+
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('.artifact')) {
+    box.querySelector('.artifact-load')?.addEventListener('click', () => {
+      const frame = document.createElement('iframe');
+      frame.src = `https://sketchfab.com/models/${box.dataset.sketchfab}/embed?autostart=1`;
+      frame.title = `${box.dataset.title} (3D model)`;
+      frame.className = 'artifact-frame';
+      frame.setAttribute('allow', 'autoplay; fullscreen; xr-spatial-tracking');
+      frame.setAttribute('allowfullscreen', '');
+      box.querySelector('.artifact-load')!.replaceWith(frame);
+    });
+  }
+</script>
+
+<style>
+  .artifact { margin: 1.25rem 0 0; }
+  .artifact-load {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .artifact-load:hover { color: var(--accent); border-color: var(--accent); }
+  .artifact :global(.artifact-frame) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .artifact-credit {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    color: var(--ink-soft);
+    margin: 0.4rem 0 0;
+  }
+</style>
