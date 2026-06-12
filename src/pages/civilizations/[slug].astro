@@ -77,6 +77,18 @@ const familyTrees = [...familyGroups.entries()]
     return { slug, ...familyDisplay(slug), roots, size: members.length };
   })
   .sort((a, b) => b.size - a.size);
+
+// Which sections this page actually has, for the contents rail.
+const showFamilies = familyTrees.length > 0;
+const showMap = enriched.filter((e) => e.language && LANG_GEO[e.language.id]).length >= 2;
+const showTimeline = enriched.length >= 2;
+const contents = [
+  ...(showFamilies ? [{ href: '#families', label: 'Name families' }] : []),
+  ...(showMap ? [{ href: '#map', label: 'Transmission map' }] : []),
+  ...(showTimeline ? [{ href: '#timeline', label: 'Attestation timeline' }] : []),
+  { href: '#names', label: 'Names across languages' },
+  { href: '#cite', label: 'Cite this page' },
+];
 ---
 
 <BaseLayout
@@ -124,9 +136,27 @@ const familyTrees = [...familyGroups.entries()]
 
     <div class="summary"><Content /></div>
 
-    {familyTrees.length > 0 && (
+    <nav class="toc" aria-label="Contents">
+      <p class="toc-title">Contents</p>
+      <ol class="toc-list">
+        {contents.map((c) => (
+          <li>
+            <a href={c.href}>{c.label}</a>
+            {c.href === '#names' && (
+              <ol class="toc-langs">
+                {enriched.map(({ name, language }) => (
+                  <li><a href={`#${entryAnchor(name.id, civ.id)}`}>{language?.data.english_name}</a></li>
+                ))}
+              </ol>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    {showFamilies && (
       <>
-        <h2>Name families</h2>
+        <h2 id="families">Name families</h2>
         <p class="families-hint">
           Cognate names grouped by shared root. An indented name is borrowed from
           the form above it; names at the same level are parallel descendants.
@@ -143,8 +173,8 @@ const familyTrees = [...familyGroups.entries()]
       </>
     )}
 
-    {enriched.filter((e) => e.language && LANG_GEO[e.language.id]).length >= 2 && (
-      <section class="tmap">
+    {showMap && (
+      <section class="tmap" id="map">
         <h2>Transmission map</h2>
         <p class="families-hint">
           Each form at the homeland of its language; arcs follow asserted
@@ -170,8 +200,8 @@ const familyTrees = [...familyGroups.entries()]
       </section>
     )}
 
-    {enriched.length >= 2 && (
-      <section class="timeline">
+    {showTimeline && (
+      <section class="timeline" id="timeline">
         <h2>Attestation timeline</h2>
         <p class="families-hint">When each name is attested, earliest first. Dates bound the name's use, not the language's lifespan.</p>
         <AttestationTimeline
@@ -186,7 +216,7 @@ const familyTrees = [...familyGroups.entries()]
       </section>
     )}
 
-    <h2>Names across languages</h2>
+    <h2 id="names">Names across languages</h2>
 
     {enriched.length === 0 && <p><em>No name entries yet.</em></p>}
 
@@ -291,6 +321,29 @@ const familyTrees = [...familyGroups.entries()]
       io.observe(t);
     }
   }
+  // Contents scrollspy: highlight the link for the section (or the language
+  // entry) currently near the top of the viewport.
+  const toc = document.querySelector('.toc');
+  if (toc && 'IntersectionObserver' in window) {
+    const links = new Map(
+      [...toc.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')].map((a) => [a.getAttribute('href')!.slice(1), a])
+    );
+    const spy = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          for (const l of links.values()) l.classList.remove('active');
+          links.get(e.target.id)?.classList.add('active');
+        }
+      },
+      { rootMargin: '-15% 0px -75% 0px' }
+    );
+    for (const id of links.keys()) {
+      const target = document.getElementById(id);
+      if (target) spy.observe(target);
+    }
+  }
+
   function setLineage(card: Element, on: boolean) {
     let li: Element | null = card.closest('.family-node');
     while (li) {
@@ -354,6 +407,54 @@ const familyTrees = [...familyGroups.entries()]
   .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
   .aka { font-style: italic; color: var(--ink-soft); margin-bottom: 1.5rem; }
   .summary { margin: 1.5rem 0 2rem; }
+  /* Contents: an in-flow block under the summary; on wide viewports it
+     becomes a sticky rail in the right margin with scrollspy highlighting. */
+  .toc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    margin: 0 0 2rem;
+  }
+  .toc-title {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem;
+  }
+  .toc-list { list-style: none; margin: 0; padding: 0; }
+  .toc-list > li { margin: 0.25rem 0; }
+  .toc a { color: var(--ink-soft); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .toc a.active { color: var(--accent); }
+  .toc-langs {
+    list-style: none;
+    margin: 0.25rem 0 0.25rem;
+    padding: 0 0 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.4rem;
+    font-size: 0.75rem;
+  }
+  .toc-langs li:not(:last-child)::after { content: '·'; margin-left: 0.4rem; color: var(--rule); }
+  @media (min-width: 1180px) {
+    .toc {
+      position: fixed;
+      top: 7rem;
+      left: calc(50% + 380px);
+      width: 200px;
+      max-height: calc(100vh - 9rem);
+      overflow-y: auto;
+      margin: 0;
+    }
+  }
+  @media print {
+    .toc { display: none; }
+  }
+  /* Anchored section headings land clear of the viewport edge. */
+  h2[id], .tmap[id], .timeline[id] { scroll-margin-top: 2rem; }
   .families-hint { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); margin: -0.5rem 0 1.5rem; }
   .family { margin: 1.5rem 0 2rem; }
   .family-title { font-size: 1.125rem; margin: 0 0 0.25rem; }
