@@ -139,6 +139,19 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       }
       * { box-sizing: border-box; }
       html { background: var(--parchment); color: var(--ink); scroll-behavior: smooth; }
+      /* Cross-document view transitions: same-origin navigations cross-fade,
+         and elements sharing a view-transition-name (entity and language
+         names) morph between pages. Pure CSS; browsers without support, and
+         visitors preferring reduced motion, get instant navigation. */
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition {
+          navigation: auto;
+        }
+      }
+      /* Page chrome is identical across pages; naming it keeps it stable
+         while the content cross-fades beneath. */
+      .site-header { view-transition-name: site-header; }
+      .site-footer { view-transition-name: site-footer; }
       /* Keyboard focus: a consistent, clearly visible ring in the accent color.
          :focus-visible keeps it off mouse clicks. */
       :focus-visible {

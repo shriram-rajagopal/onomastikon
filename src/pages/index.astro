@@ -75,7 +75,7 @@ const langs = await getCollection('languages');
             {grouped[key].map((entity) => (
               <li>
                 <a href={`/civilizations/${entity.id}`}>
-                  <span class="name">{entity.data.english_name}</span>
+                  <span class="name" style={`view-transition-name: civ-${entity.id}`}>{entity.data.english_name}</span>
                   <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
                 </a>
               </li>
@@ -90,7 +90,7 @@ const langs = await getCollection('languages');
     {langs.map((lang) => (
       <li>
         <a href={`/languages/${lang.id}`}>
-          <span class="name">{lang.data.english_name}</span>
+          <span class="name" style={`view-transition-name: lang-${lang.id}`}>{lang.data.english_name}</span>
           <span class="era">{lang.data.script}</span>
         </a>
       </li>

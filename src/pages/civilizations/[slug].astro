@@ -35,6 +35,20 @@ const enriched = await Promise.all(
 
 const byId = new Map(enriched.map((e) => [e.name.id, e]));
 
+// View-transition names must be unique per page; only the first entry for a
+// language carries the morph target for its language page.
+const firstForLang = new Set<string>();
+{
+  const seen = new Set<string>();
+  for (const e of enriched) {
+    const lid = e.language?.id;
+    if (lid && !seen.has(lid)) {
+      seen.add(lid);
+      firstForLang.add(e.name.id);
+    }
+  }
+}
+
 // Transmission trees: group the page's names by family, then hang each name
 // under its asserted parent (derived_from). Names with no asserted parent in
 // the family sit at the top level as cognate siblings. enriched is era-sorted,
@@ -105,7 +119,7 @@ const familyTrees = [...familyGroups.entries()]
       civ.data.type === 'region' ? 'Region' :
       'Geographic feature'
     }</p>
-    <h1>{civ.data.english_name}</h1>
+    <h1 style={`view-transition-name: civ-${civ.id}`}>{civ.data.english_name}</h1>
     <p class="meta">
       {civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}
       <span class={`status status-${civ.data.entry_status}`}>{civ.data.entry_status}</span>
@@ -145,7 +159,11 @@ const familyTrees = [...familyGroups.entries()]
     {enriched.map(({ name, language, Content }) => (
       <section class="name-entry" id={entryAnchor(name.id, civ.id)}>
         <h3>
-          <a class="lang-link" href={`/languages/${language?.id}`}>{language?.data.english_name}</a>
+          <a
+            class="lang-link"
+            href={`/languages/${language?.id}`}
+            style={firstForLang.has(name.id) ? `view-transition-name: lang-${language?.id}` : undefined}
+          >{language?.data.english_name}</a>
           <span class="name-era">{formatEra(name.data.era_start, name.data.era_end)}</span>
           <a
             class="entry-anchor"
