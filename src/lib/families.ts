@@ -42,6 +42,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The jtrw (river) family',
     note: 'The plain Egyptian word for "the river," surviving natively into Coptic and borrowed into Hebrew.',
   },
+  shinar: {
+    display: 'The Šinʿar family',
+    note: 'The second-millennium international name for southern Mesopotamia, of contested origin, shared by Egyptian, Hittite, and Hebrew scribes.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
