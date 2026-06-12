@@ -8,6 +8,7 @@ import { familyDisplay } from '../../lib/families';
 import FamilyNode from '../../components/FamilyNode.astro';
 import type { TreeNode } from '../../components/FamilyNode.astro';
 import CiteThis from '../../components/CiteThis.astro';
+import AttestationTimeline from '../../components/AttestationTimeline.astro';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -152,6 +153,22 @@ const familyTrees = [...familyGroups.entries()]
       </>
     )}
 
+    {enriched.length >= 2 && (
+      <section class="timeline">
+        <h2>Attestation timeline</h2>
+        <p class="families-hint">When each name is attested, earliest first. Dates bound the name's use, not the language's lifespan.</p>
+        <AttestationTimeline
+          entries={enriched.map((e) => ({
+            anchor: entryAnchor(e.name.id, civ.id),
+            label: e.language?.data.english_name ?? '',
+            translit: e.name.data.transliteration,
+            start: e.name.data.era_start,
+            end: e.name.data.era_end,
+          }))}
+        />
+      </section>
+    )}
+
     <h2>Names across languages</h2>
 
     {enriched.length === 0 && <p><em>No name entries yet.</em></p>}
@@ -252,6 +269,11 @@ const familyTrees = [...familyGroups.entries()]
       );
       f.classList.add('anim');
       io.observe(f);
+    }
+    // The attestation timeline's bars grow in on the same trigger.
+    for (const t of document.querySelectorAll('.timeline')) {
+      t.classList.add('anim');
+      io.observe(t);
     }
   }
   function setLineage(card: Element, on: boolean) {

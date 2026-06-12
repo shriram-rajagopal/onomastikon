@@ -1,0 +1,125 @@
+---
+// Attestation timeline: one bar per name, spanning the years the NAME is
+// attested (not the language's lifespan). Built as HTML/CSS with percentage
+// positions computed at build time, so labels keep their size at any
+// viewport (SVG text would scale with the viewBox). Rows link to the entry
+// anchors; the grow-in animation is opt-in by script and motion-gated.
+import { formatEra } from '../lib/era';
+
+export interface TimelineEntry {
+  anchor: string;
+  label: string;
+  translit: string;
+  start: number;
+  end: number;
+}
+
+interface Props {
+  entries: TimelineEntry[];
+}
+const { entries } = Astro.props;
+
+const min = Math.min(...entries.map((e) => e.start));
+const max = Math.max(...entries.map((e) => e.end));
+// Pick the smallest round tick step that keeps the axis to ~7 labels.
+const step = [100, 200, 250, 500, 1000].find((s) => (max - min) / s <= 7) ?? 1000;
+const domainMin = Math.floor(min / step) * step;
+const domainMax = Math.ceil(max / step) * step;
+const span = domainMax - domainMin;
+const pct = (year: number) => ((year - domainMin) / span) * 100;
+const ticks: number[] = [];
+for (let y = domainMin; y <= domainMax; y += step) ticks.push(y);
+const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} CE`);
+// Faint vertical gridline at each tick, painted on every track.
+const grid = ticks
+  .map((y) => {
+    const p = pct(y).toFixed(3);
+    return `linear-gradient(90deg, transparent calc(${p}% - 1px), var(--rule) calc(${p}% - 1px), var(--rule) ${p}%, transparent ${p}%)`;
+  })
+  .join(', ');
+---
+
+<div class="tl">
+  <div class="tl-row tl-axis" aria-hidden="true">
+    <span class="tl-label"></span>
+    <span class="tl-track tl-axis-track">
+      {ticks.map((y) => (
+        <span class="tl-tick" style={`left: ${pct(y).toFixed(3)}%`}>{fmtYear(y)}</span>
+      ))}
+    </span>
+  </div>
+  {entries.map((e, i) => (
+    <a class="tl-row" href={`#${e.anchor}`} title={`${e.label} · ${e.translit} · ${formatEra(e.start, e.end)}`}>
+      <span class="tl-label">{e.label}</span>
+      <span class="tl-track" style={`background-image: ${grid}`}>
+        <span
+          class="tl-bar"
+          style={`left: ${pct(e.start).toFixed(3)}%; width: ${Math.max(100 * (e.end - e.start) / span, 0.8).toFixed(3)}%; --reveal-delay: ${Math.min(i * 60, 700)}ms`}
+        ></span>
+      </span>
+    </a>
+  ))}
+</div>
+
+<style>
+  .tl { margin: 1.5rem 0 2rem; }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.3rem 0;
+    text-decoration: none;
+  }
+  .tl-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tl-track {
+    position: relative;
+    height: 12px;
+  }
+  .tl-bar {
+    position: absolute;
+    top: 1px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--accent);
+    opacity: 0.35;
+  }
+  .tl-row:hover .tl-bar, .tl-row:focus-visible .tl-bar { opacity: 0.75; }
+  .tl-row:hover .tl-label, .tl-row:focus-visible .tl-label { color: var(--accent); }
+  .tl-axis-track { height: 1rem; }
+  .tl-tick {
+    position: absolute;
+    transform: translateX(-50%);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .tl-tick:first-child { transform: none; }
+  .tl-tick:last-child { transform: translateX(-100%); }
+  /* Grow-in, opted in by the page script; reduced-motion and no-JS visitors
+     see the finished chart. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.timeline.anim) .tl-bar {
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+    :global(.timeline.anim.revealed) .tl-bar {
+      transform: scaleX(1);
+      transition: transform 0.6s ease var(--reveal-delay, 0s);
+    }
+  }
+  @media (max-width: 560px) {
+    .tl-row { grid-template-columns: 6.5rem 1fr; gap: 0.5rem; }
+  }
+</style>
