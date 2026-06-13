@@ -14,10 +14,11 @@
 // left blank with TODO markers (so `npm run lint:content` keeps reminding you until
 // they are filled), and the body is stubbed as a comment describing its job.
 //
-// A civilization is publishable at endonym + 2-3 major exonyms; a new language
+// A civilization is built maximally by default: the endonym plus every in-inventory
+// language with a real attested name for it, authored up front. A new language
 // carries a backfill obligation. This script does not author those name entries —
-// it prints the next step. The judgment (which exonyms, which civs to backfill)
-// lives with the author and the onomastikon-new-entity skill.
+// it prints the next step. The judgment (which forms are viable, which civs to
+// backfill) lives with the author and the onomastikon-new-entity skill.
 
 import { existsSync, writeFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -100,7 +101,9 @@ summary: ""             # TODO one-sentence summary for cards and meta tags
 
   nextSteps =
     `  1. Fill the frontmatter (replace every TODO) and write the summary prose.\n` +
-    `  2. Minimum to publish: endonym + 2-3 major exonyms. Scaffold each name with\n` +
+    `  2. Build maximally by default: endonym + every in-inventory language with a\n` +
+    `     real attested name for this entity (sweep src/content/languages/; label\n` +
+    `     uncertain real forms, document honest gaps). Scaffold each name with\n` +
     `       npm run new:name -- ${slug} <lang> <name-slug>\n` +
     `     (each <lang> must already exist in src/content/languages/).\n` +
     `  3. Run npm run lint:content, then astro build.`;
