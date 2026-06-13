@@ -1,7 +1,7 @@
 ---
 english_name: Assyria
 type: civilization
-entry_status: developing
+entry_status: complete
 region: Upper Mesopotamia (the upper Tigris)
 era_start: -2025
 era_end: -609

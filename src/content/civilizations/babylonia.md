@@ -1,7 +1,7 @@
 ---
 english_name: Babylonia
 type: civilization
-entry_status: developing
+entry_status: complete
 region: Southern Mesopotamia
 era_start: -1894
 era_end: -539
