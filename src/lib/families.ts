@@ -50,6 +50,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Aššur family',
     note: 'The name of the god, city, and land of Aššur, carried across the Semitic and Iranian languages; an Aramaic t-form, ʾĀtūr, feeds Old Persian and Syriac, while the form behind Greek Assyría gives the modern world both "Assyria" and "Syria."',
   },
+  babili: {
+    display: 'The Bābilu family',
+    note: 'The name of Babylon, written with the Sumerian "gate of god" logogram and traditionally read in Akkadian as Bāb-ilim, spread as the name of the land of Babylonia across the Semitic, Iranian, and classical languages, giving Greek Babylṓn and the modern "Babylon."',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
