@@ -46,6 +46,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Šinʿar family',
     note: 'The second-millennium international name for southern Mesopotamia, of contested origin, shared by Egyptian, Hittite, and Hebrew scribes.',
   },
+  ashur: {
+    display: 'The Aššur family',
+    note: 'The name of the god, city, and land of Aššur, carried across the Semitic and Iranian languages; an Aramaic t-form, ʾĀtūr, feeds Old Persian and Syriac, while the form behind Greek Assyría gives the modern world both "Assyria" and "Syria."',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
