@@ -54,6 +54,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Bābilu family',
     note: 'The name of Babylon, written with the Sumerian "gate of god" logogram and traditionally read in Akkadian as Bāb-ilim, spread as the name of the land of Babylonia across the Semitic, Iranian, and classical languages, giving Greek Babylṓn and the modern "Babylon."',
   },
+  akkad: {
+    display: 'The Akkad family',
+    note: 'The name of the city of Agade and the land of Akkad, of uncertain origin, that gave the Akkadian language its name; an empire of the third millennium BCE, it was gone before the classical world arose and survives in the wider tradition only through the Hebrew Bible.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
