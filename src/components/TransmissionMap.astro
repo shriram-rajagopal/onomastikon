@@ -87,8 +87,8 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 </div>
 <div class="tmap-controls">
   <label class="tmap-label" for={`era-${civId}`}>In</label>
-  <input id={`era-${civId}`} class="tmap-range" type="range" min={minYear} max={maxYear} step="10" value={maxYear} />
-  <output class="tmap-year" for={`era-${civId}`}>{fmtYear(maxYear)}</output>
+  <input id={`era-${civId}`} class="tmap-range" type="range" min={minYear} max={maxYear} step="10" value={minYear} />
+  <output class="tmap-year" for={`era-${civId}`}>{fmtYear(minYear)}</output>
 </div>
 <p class="tmap-legend">
   <span class="leg-key leg-current"></span> in use at this year ·
