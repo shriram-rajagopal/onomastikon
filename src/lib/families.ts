@@ -74,6 +74,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Ḥēt family',
     note: 'The biblical name of the sons of Heth, a people of Canaan, carried from Hebrew through the Greek and Latin Bibles; nineteenth-century scholars borrowed it for the Anatolian empire of Hatti, and so the modern world calls them "Hittites." Whether biblical Ḥēt and Anatolian Ḫatti are truly the same name is debated.',
   },
+  phoinix: {
+    display: 'The Phoiníkē family',
+    note: 'The Greek name for the Levantine coast, from phoînix ("crimson-purple," the Tyrian dye, and "date-palm"), source of Latin Phoenīcē and the modern "Phoenicia" — a name the Phoenicians never used of themselves, calling their land Canaan.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
