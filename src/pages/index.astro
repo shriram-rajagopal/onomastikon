@@ -159,13 +159,24 @@ const langs = await getCollection('languages');
   .index-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0 2.5rem;
+    gap: 0;
     align-items: start;
+  }
+  /* A rule centered in the gutter divides entities from languages. The two
+     columns each take half the 2.5rem gutter as inner padding, and the border
+     sits on the boundary between them. */
+  .index-col:first-child { padding-right: 1.25rem; }
+  .index-col:last-child {
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--rule);
   }
   /* Align the two columns' first headings on the same baseline. */
   .index-col > :first-child { margin-top: 0; }
   @media (max-width: 640px) {
     .index-grid { grid-template-columns: 1fr; }
+    /* No vertical divider once the columns stack. */
+    .index-col:first-child { padding-right: 0; }
+    .index-col:last-child { padding-left: 0; border-left: 0; }
   }
   .index-list {
     list-style: none;
