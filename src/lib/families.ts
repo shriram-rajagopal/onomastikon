@@ -58,6 +58,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Akkad family',
     note: 'The name of the city of Agade and the land of Akkad, of uncertain origin, that gave the Akkadian language its name; an empire of the third millennium BCE, it was gone before the classical world arose and survives in the wider tradition only through the Hebrew Bible.',
   },
+  elam: {
+    display: 'The Elam family',
+    note: 'The Mesopotamian name for the highland country east of Sumer, from Sumerian Elam and Akkadian Elamtu, carried through Hebrew and the Bible into Greek Elymaís and the Semitic and Ethiopic traditions; distinct from the Elamites’ own self-name, Haltamti.',
+  },
+  uvja: {
+    display: 'The Ūvja family',
+    note: 'The Iranian name for Elam, from Old Persian Ūvja, that becomes Middle Persian Hūz and gives the region its lasting name: Sasanian Hūzestān and Arabic al-Ahwāz, the modern Khuzistan.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
