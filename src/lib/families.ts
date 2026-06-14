@@ -78,6 +78,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Phoiníkē family',
     note: 'The Greek name for the Levantine coast, from phoînix ("crimson-purple," the Tyrian dye, and "date-palm"), source of Latin Phoenīcē and the modern "Phoenicia" — a name the Phoenicians never used of themselves, calling their land Canaan.',
   },
+  qarthadasht: {
+    display: 'The Qart-ḥadašt family',
+    note: 'The Punic self-name of Carthage, "New City," carried into Greek as Karkhēdṓn, Latin as Carthāgō, and Arabic as Qarṭāj — the modern "Carthage." Every later form descends from the one Phoenician name.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
