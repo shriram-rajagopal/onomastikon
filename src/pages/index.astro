@@ -188,15 +188,22 @@ const langs = await getCollection('languages');
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    gap: 0.75rem;
     padding: 0.875rem 0;
     text-decoration: none;
     color: var(--ink);
   }
   .index-list a:hover { color: var(--accent); }
-  .name { font-size: 1.125rem; }
+  /* min-width:0 lets the name shrink and wrap instead of forcing the row over
+     width, which had pushed the script label off the right edge in the narrow
+     two-column layout. */
+  .name { font-size: 1.125rem; min-width: 0; }
   .era {
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
     color: var(--ink-soft);
+    /* Keep the script label flush right even when it wraps to two lines. */
+    text-align: right;
+    flex-shrink: 0;
   }
 </style>
