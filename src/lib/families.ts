@@ -66,6 +66,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Ūvja family',
     note: 'The Iranian name for Elam, from Old Persian Ūvja, that becomes Middle Persian Hūz and gives the region its lasting name: Sasanian Hūzestān and Arabic al-Ahwāz, the modern Khuzistan.',
   },
+  hatti: {
+    display: 'The Ḫatti family',
+    note: 'The Anatolian land-name Hatti, taken by the Indo-European Hittites from the earlier Hattians and used by the wider Bronze Age world; the name of the empire as it actually called itself and as Mesopotamia knew it.',
+  },
+  het: {
+    display: 'The Ḥēt family',
+    note: 'The biblical name of the sons of Heth, a people of Canaan, carried from Hebrew through the Greek and Latin Bibles; nineteenth-century scholars borrowed it for the Anatolian empire of Hatti, and so the modern world calls them "Hittites." Whether biblical Ḥēt and Anatolian Ḫatti are truly the same name is debated.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
