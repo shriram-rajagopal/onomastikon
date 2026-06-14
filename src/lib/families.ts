@@ -82,6 +82,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Qart-ḥadašt family',
     note: 'The Punic self-name of Carthage, "New City," carried into Greek as Karkhēdṓn, Latin as Carthāgō, and Arabic as Qarṭāj — the modern "Carthage." Every later form descends from the one Phoenician name.',
   },
+  mittani: {
+    display: 'The Mittani family',
+    note: 'The kingdom\'s own name, used by its kings in Hurrian and Akkadian and adopted by the Hittites — one of Mitanni\'s several unrelated names, set apart from the Assyrian Ḫanigalbat and the Egyptian Naharina.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {

@@ -28,6 +28,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   elamite: { lon: 48.25, lat: 32.19, place: 'Susa', dx: 8, dy: -3 },
   hittite: { lon: 34.62, lat: 40.02, place: 'Hattusa', dy: -6, anchor: 'middle', dx: 0 },
   ugaritic: { lon: 35.78, lat: 35.6, place: 'Ugarit', anchor: 'end', dx: -7 },
+  hurrian: { lon: 40.05, lat: 36.85, place: 'Waššukanni', dy: -6 },
   phoenician: { lon: 35.2, lat: 33.27, place: 'Tyre', anchor: 'end', dx: -7, dy: -2 },
   'biblical-hebrew': { lon: 35.23, lat: 31.78, place: 'Jerusalem', dx: 7, dy: 4 },
   'imperial-aramaic': { lon: 36.31, lat: 33.51, place: 'Damascus', dx: 7, dy: 6 },
