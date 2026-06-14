@@ -5,6 +5,8 @@ import { loadFont as loadGaramond } from "@remotion/google-fonts/EBGaramond";
 import { loadFont as loadHieroglyphs } from "@remotion/google-fonts/NotoSansEgyptianHieroglyphs";
 import { loadFont as loadOldPersian } from "@remotion/google-fonts/NotoSansOldPersian";
 import { loadFont as loadCuneiform } from "@remotion/google-fonts/NotoSansCuneiform";
+import { loadFont as loadPhoenician } from "@remotion/google-fonts/NotoSansPhoenician";
+import { loadFont as loadHebrew } from "@remotion/google-fonts/NotoSerifHebrew";
 
 // Data-driven version of the hand-built EgyptTitleCard / GreeceTitleCard /
 // PersiaTitleCard. Those three share an identical layout and differ only in four
@@ -32,6 +34,15 @@ const { fontFamily: cuneiform } = loadCuneiform("normal", {
   weights: ["400"],
   subsets: ["cuneiform"],
 });
+const { fontFamily: phoenician } = loadPhoenician("normal", {
+  weights: ["400"],
+  subsets: ["phoenician"],
+});
+// Hebrew rides Noto Serif Hebrew to match the site's on-page Hebrew face.
+const { fontFamily: hebrew } = loadHebrew("normal", {
+  weights: ["400", "600"],
+  subsets: ["hebrew"],
+});
 
 // Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
 // The card is filled with parchment rather than left transparent so the same PNG
@@ -50,12 +61,14 @@ const SCRIPTS = {
   "egyptian-hieroglyphs": { fontFamily: hieroglyphs, fontSize: 248, letterSpacing: 12, fontWeight: 400 },
   "old-persian": { fontFamily: oldPersian, fontSize: 200, letterSpacing: 12, fontWeight: 400 },
   cuneiform: { fontFamily: cuneiform, fontSize: 180, letterSpacing: 14, fontWeight: 400 },
+  phoenician: { fontFamily: phoenician, fontSize: 188, letterSpacing: 16, fontWeight: 400 },
+  hebrew: { fontFamily: hebrew, fontSize: 208, letterSpacing: 0, fontWeight: 400 },
   greek: { fontFamily: garamond, fontSize: 200, letterSpacing: 0, fontWeight: 600 },
   latin: { fontFamily: garamond, fontSize: 168, letterSpacing: 0, fontWeight: 600 },
 } as const;
 
 export const titleCardSchema = z.object({
-  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "greek", "latin"]),
+  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "greek", "latin"]),
   glyphs: z.string(), // the endonym in its original script (original_text)
   transliteration: z.string().optional(), // italic accent line (Kemet, Hellás, Pārsa); omit for Latin-script endonyms whose original IS the romanization (e.g. Roma)
   language: z.string(), // the endonym's language, shown below the transliteration (Middle Egyptian, Ancient Greek, Latin, ...)

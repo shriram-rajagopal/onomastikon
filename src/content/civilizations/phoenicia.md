@@ -6,6 +6,8 @@ region: The Levantine coast (modern Lebanon and coastal Syria)
 era_start: -1200
 era_end: -300
 summary: The seafaring Canaanite city-states of the Levantine coast, whose Greek name comes from the purple dye they traded.
+featured_image: /phoenicia-title.png
+og_image: /og/phoenicia-title.png
 ---
 
 Phoenicia was the civilization of the Levantine coast in the Iron Age, a string of independent merchant city-states, Tyre and Sidon and Byblos and Arwad, whose ships and colonies carried Near Eastern goods, the alphabet, and the prized purple dye across the whole Mediterranean, from Cyprus to Carthage to the Atlantic. The Phoenicians were the coastal Canaanites who outlasted the Bronze Age collapse, flourishing from roughly 1200 BCE until the conquests of Alexander ended their independence, Tyre falling to his siege in 332 BCE. They never formed a single state; their unity was one of language, religion, and trade rather than politics.

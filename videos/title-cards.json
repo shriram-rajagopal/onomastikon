@@ -1,7 +1,7 @@
 [
-  { "slug": "akkad",     "script": "cuneiform", "glyphs": "𒌵𒆠",       "transliteration": "Akkadû",   "language": "Akkadian", "label": "Akkad" },
-  { "slug": "assyria",   "script": "cuneiform", "glyphs": "𒀸𒋩",       "transliteration": "Aššur",    "language": "Akkadian", "label": "Assyria" },
-  { "slug": "babylonia", "script": "cuneiform", "glyphs": "𒆍𒀭𒊏𒆠",   "transliteration": "Bābilu",   "language": "Akkadian", "label": "Babylonia" },
-  { "slug": "elam",      "script": "cuneiform", "glyphs": "𒁹𒄬𒆷𒁶𒋾", "transliteration": "Haltamti", "language": "Elamite",  "label": "Elam" },
-  { "slug": "hittites",  "script": "cuneiform", "glyphs": "𒄩𒀜𒋾",     "transliteration": "Ḫatti",    "language": "Hittite",  "label": "Hittites" }
+  { "slug": "carthage",  "script": "phoenician", "glyphs": "𐤒𐤓𐤕𐤇𐤃𐤔𐤕", "transliteration": "Qart-ḥadašt", "language": "Phoenician",     "label": "Carthage" },
+  { "slug": "phoenicia", "script": "phoenician", "glyphs": "𐤊𐤍𐤏𐤍",       "transliteration": "Kanaʿan",     "language": "Phoenician",     "label": "Phoenicia" },
+  { "slug": "israel",    "script": "hebrew",     "glyphs": "יִשְׂרָאֵל",    "transliteration": "Yiśrāʾēl",    "language": "Biblical Hebrew", "label": "Israel" },
+  { "slug": "judah",     "script": "hebrew",     "glyphs": "יְהוּדָה",      "transliteration": "Yĕhûdāh",     "language": "Biblical Hebrew", "label": "Judah" },
+  { "slug": "mitanni",   "script": "cuneiform",  "glyphs": "𒈪𒋫𒀭𒉌",     "transliteration": "Mittani",     "language": "Hurrian",        "label": "Mitanni" }
 ]

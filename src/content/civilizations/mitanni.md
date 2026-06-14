@@ -6,6 +6,8 @@ region: Upper Mesopotamia and northern Syria (the Khabur)
 era_start: -1500
 era_end: -1300
 summary: The Hurrian kingdom of upper Mesopotamia, ruled by an Indo-Aryan elite, a great power of the Amarna age.
+featured_image: /mitanni-title.png
+og_image: /og/mitanni-title.png
 ---
 
 Mitanni was the kingdom that dominated upper Mesopotamia and northern Syria in the fifteenth and fourteenth centuries BCE, one of the great powers of the Amarna age alongside Egypt, Babylonia, Hatti, and Assyria. Its population spoke Hurrian, but its ruling warrior aristocracy, the *maryannu* charioteers, bore Indo-Aryan names and swore by Indo-Aryan gods: the treaty between Mitanni and the Hittites invokes Mitra, Varuna, Indra, and the Nāsatyas, and a Hittite manual on horse-training by one Kikkuli of Mitanni preserves Indic numerals, the westernmost trace of the Indo-Aryan languages in the ancient world. Centered on its still-unlocated capital Waššukanni in the Khabur headwaters, Mitanni was ground down between the Hittite conquests of Šuppiluliuma I and the rise of Assyria, and by about 1300 BCE it had been reduced to an Assyrian vassal and then absorbed.

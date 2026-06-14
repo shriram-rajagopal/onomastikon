@@ -6,6 +6,8 @@ region: The southern highlands of Canaan, around Jerusalem
 era_start: -930
 era_end: -586
 summary: The southern Israelite kingdom around Jerusalem, whose name became "Judaea" and the root of "Jew."
+featured_image: /judah-title.png
+og_image: /og/judah-title.png
 ---
 
 Judah was the southern of the two Israelite kingdoms, the smaller and poorer one, holding the hill country around Jerusalem and ruled without interruption by the dynasty of David from the division of the monarchy about 930 BCE until the Babylonians destroyed Jerusalem and its Temple in 586 BCE and carried its elite into exile. Judah outlived its northern neighbor by well over a century, and it was the exiles of Judah who returned under Persian rule to rebuild, so that the religious and literary tradition of ancient Israel was largely preserved and transmitted through Judah. Its name would outlast every other in this atlas in everyday modern use.
