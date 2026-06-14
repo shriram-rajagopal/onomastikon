@@ -52,50 +52,56 @@ const langs = await getCollection('languages');
     </p>
   </section>
 
-  {(() => {
-    const grouped = {
-      civilization: civs.filter((c) => c.data.type === 'civilization'),
-      city: civs.filter((c) => c.data.type === 'city'),
-      region: civs.filter((c) => c.data.type === 'region'),
-      geographic_feature: civs.filter((c) => c.data.type === 'geographic_feature'),
-    };
-    const labels = {
-      civilization: 'Civilizations',
-      city: 'Cities',
-      region: 'Regions',
-      geographic_feature: 'Geographic features',
-    };
-    const order = ['civilization', 'city', 'region', 'geographic_feature'] as const;
-    return order
-      .filter((key) => grouped[key].length > 0)
-      .map((key) => (
-        <>
-          <h2>{labels[key]}</h2>
-          <ul class="index-list">
-            {grouped[key].map((entity) => (
-              <li>
-                <a href={`/civilizations/${entity.id}`}>
-                  <span class="name" data-morph={`civilizations/${entity.id}`}>{entity.data.english_name}</span>
-                  <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </>
-      ));
-  })()}
+  <div class="index-grid">
+    <div class="index-col">
+      {(() => {
+        const grouped = {
+          civilization: civs.filter((c) => c.data.type === 'civilization'),
+          city: civs.filter((c) => c.data.type === 'city'),
+          region: civs.filter((c) => c.data.type === 'region'),
+          geographic_feature: civs.filter((c) => c.data.type === 'geographic_feature'),
+        };
+        const labels = {
+          civilization: 'Civilizations',
+          city: 'Cities',
+          region: 'Regions',
+          geographic_feature: 'Geographic features',
+        };
+        const order = ['civilization', 'city', 'region', 'geographic_feature'] as const;
+        return order
+          .filter((key) => grouped[key].length > 0)
+          .map((key) => (
+            <>
+              <h2>{labels[key]}</h2>
+              <ul class="index-list">
+                {grouped[key].map((entity) => (
+                  <li>
+                    <a href={`/civilizations/${entity.id}`}>
+                      <span class="name" data-morph={`civilizations/${entity.id}`}>{entity.data.english_name}</span>
+                      <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ));
+      })()}
+    </div>
 
-  <h2>Languages</h2>
-  <ul class="index-list">
-    {langs.map((lang) => (
-      <li>
-        <a href={`/languages/${lang.id}`}>
-          <span class="name" data-morph={`languages/${lang.id}`}>{lang.data.english_name}</span>
-          <span class="era">{lang.data.script}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
+    <div class="index-col">
+      <h2>Languages</h2>
+      <ul class="index-list">
+        {langs.map((lang) => (
+          <li>
+            <a href={`/languages/${lang.id}`}>
+              <span class="name" data-morph={`languages/${lang.id}`}>{lang.data.english_name}</span>
+              <span class="era">{lang.data.script}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
 </BaseLayout>
 
 <style>
@@ -146,6 +152,20 @@ const langs = await getCollection('languages');
     /* auto side margins keep the constrained-width tagline centered under
        the centered wordmark and h1. */
     margin: 1rem auto 0;
+  }
+  /* Entities (left) and Languages (right) sit in parallel columns that both
+     begin at the top, so the long Languages list is never buried beneath a
+     growing stack of civilizations. Collapses to a single column on phones. */
+  .index-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 2.5rem;
+    align-items: start;
+  }
+  /* Align the two columns' first headings on the same baseline. */
+  .index-col > :first-child { margin-top: 0; }
+  @media (max-width: 640px) {
+    .index-grid { grid-template-columns: 1fr; }
   }
   .index-list {
     list-style: none;
