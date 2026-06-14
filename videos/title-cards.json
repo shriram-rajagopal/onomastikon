@@ -1,0 +1,7 @@
+[
+  { "slug": "akkad",     "script": "cuneiform", "glyphs": "𒌵𒆠",       "transliteration": "Akkadû",   "language": "Akkadian", "label": "Akkad" },
+  { "slug": "assyria",   "script": "cuneiform", "glyphs": "𒀸𒋩",       "transliteration": "Aššur",    "language": "Akkadian", "label": "Assyria" },
+  { "slug": "babylonia", "script": "cuneiform", "glyphs": "𒆍𒀭𒊏𒆠",   "transliteration": "Bābilu",   "language": "Akkadian", "label": "Babylonia" },
+  { "slug": "elam",      "script": "cuneiform", "glyphs": "𒁹𒄬𒆷𒁶𒋾", "transliteration": "Haltamti", "language": "Elamite",  "label": "Elam" },
+  { "slug": "hittites",  "script": "cuneiform", "glyphs": "𒄩𒀜𒋾",     "transliteration": "Ḫatti",    "language": "Hittite",  "label": "Hittites" }
+]

@@ -6,6 +6,8 @@ region: Northern Mesopotamia
 era_start: -2334
 era_end: -2154
 summary: The first empire, founded by Sargon of Akkad in the twenty-fourth century BCE around the lost city of Agade.
+featured_image: /akkad-title.png
+og_image: /og/akkad-title.png
 ---
 
 Akkad was the first empire. In the twenty-fourth century BCE, Sargon of Akkad united the Sumerian city-states of the southern Mesopotamian plain and the Semitic-speaking north under a single crown ruled from his city of Agade, and his dynasty, through his grandson Naram-Sin, held an realm reaching from the Persian Gulf toward the Mediterranean for about a century and a half before it fell, around 2154 BCE, to internal collapse and the incursion of the Gutians. The empire gave its name to the Akkadian language, the East Semitic tongue that became the speech of Mesopotamian administration and high culture for the next two thousand years, and its memory as the first universal kingship shaped every Mesopotamian empire that followed.
