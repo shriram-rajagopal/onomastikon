@@ -1,7 +1,7 @@
 ---
 english_name: Phoenicia
 type: civilization
-entry_status: developing
+entry_status: complete
 region: The Levantine coast (modern Lebanon and coastal Syria)
 era_start: -1200
 era_end: -300
