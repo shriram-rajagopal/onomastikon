@@ -106,7 +106,7 @@ const mapEdges = enriched
   .map((e) => ({ from: e.name.data.derived_from!.id, to: e.name.id }));
 const contents = [
   ...(showFamilies ? [{ href: '#families', label: 'Name families' }] : []),
-  ...(showMap && !isMapHero ? [{ href: '#map', label: 'Transmission map' }] : []),
+  ...(showMap ? [{ href: '#map', label: 'Transmission map' }] : []),
   ...(showTimeline ? [{ href: '#timeline', label: 'Attestation timeline' }] : []),
   { href: '#names', label: 'Names across languages' },
   { href: '#cite', label: 'Cite this page' },

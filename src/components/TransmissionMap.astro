@@ -45,6 +45,21 @@ const placed = located.map((n) => {
   return { ...n, geo, ...projectGeo(geo, region) };
 });
 const byId = new Map(placed.map((p) => [p.id, p]));
+// Several names can share one homeland (e.g. three Arabic names for Jerusalem
+// all at the Hejaz), landing on the same point so their labels overprint. Fan
+// each co-located cluster vertically, centered on the point, so all read.
+const FAN = 13;
+const clusters = new Map<string, typeof placed>();
+for (const p of placed) {
+  const key = `${Math.round(p.x)},${Math.round(p.y)}`;
+  const g = clusters.get(key);
+  if (g) g.push(p);
+  else clusters.set(key, [p]);
+}
+const fanY = new Map<string, number>();
+for (const g of clusters.values())
+  g.forEach((p, i) => fanY.set(p.id, (i - (g.length - 1) / 2) * FAN));
+const placedFanned = placed.map((p) => ({ ...p, oy: fanY.get(p.id) ?? 0 }));
 const arcs = edges
   .filter((e) => byId.has(e.from) && byId.has(e.to))
   .map((e) => {
@@ -70,15 +85,15 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     {arcs.map((arc) => (
       <path class="arc" d={arc.d} pathLength="1" data-start={arc.start} data-end={arc.end} />
     ))}
-    {placed.map((p) => (
+    {placedFanned.map((p) => (
       <a href={`#${p.anchor}`} class="map-node" data-start={p.start} data-end={p.end}>
         <title>{p.langName} · {p.translit} · {p.geo.place}{p.pinned ? ' (beyond the map edge)' : ''} · {formatEra(p.start, p.end)}</title>
-        <circle cx={p.x} cy={p.y} r="3.2" />
-        {p.pinned && <text class="offmark" x={p.x + 6} y={p.y + 3.5}>{PIN_MARK[p.pinned]}</text>}
+        <circle cx={p.x} cy={p.y + p.oy} r="3.2" />
+        {p.pinned && <text class="offmark" x={p.x + 6} y={p.y + p.oy + 3.5}>{PIN_MARK[p.pinned]}</text>}
         <text
           class="map-label"
           x={p.x + (p.geo.dx ?? 7)}
-          y={p.y + (p.geo.dy ?? 3.5)}
+          y={p.y + (p.geo.dy ?? 3.5) + p.oy}
           text-anchor={p.geo.anchor ?? 'start'}
         >{p.translit}</text>
       </a>
