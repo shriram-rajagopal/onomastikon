@@ -86,6 +86,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Mittani family',
     note: 'The kingdom\'s own name, used by its kings in Hurrian and Akkadian and adopted by the Hittites — one of Mitanni\'s several unrelated names, set apart from the Assyrian Ḫanigalbat and the Egyptian Naharina.',
   },
+  yisrael: {
+    display: 'The Yiśrāʾēl family',
+    note: 'The Hebrew self-name of Israel, carried through the Greek and Latin Bibles into Syriac, Geʿez, and the Arabic of the Qurʾān; the Assyrians alone named the northern kingdom otherwise, after its dynasty, as the "House of Omri."',
+  },
+  yehudah: {
+    display: 'The Yĕhûdāh family',
+    note: 'The Hebrew name of Judah, rendered in Assyrian as Yāʾudu and in the Persian province as Aramaic Yĕhûd, then carried through Greek Ioudaía and Latin Iudaea — the line that gives the modern words "Jew," "Judaea," and "Judaism."',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
