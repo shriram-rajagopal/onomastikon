@@ -94,6 +94,22 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Yĕhûdāh family',
     note: 'The Hebrew name of Judah, rendered in Assyrian as Yāʾudu and in the Persian province as Aramaic Yĕhûd, then carried through Greek Ioudaía and Latin Iudaea — the line that gives the modern words "Jew," "Judaea," and "Judaism."',
   },
+  yerushalem: {
+    display: 'The Yĕrûšālēm family',
+    note: 'The ancient name of Jerusalem, "foundation of Shalem," attested from the Bronze Age and carried through Hebrew, Aramaic, Greek (where it was refolded as Hierosólyma, "the holy"), Latin, Syriac, and Geʿez.',
+  },
+  aelia: {
+    display: 'The Aelia family',
+    note: 'The Roman renaming of Jerusalem, Aelia Capitolina, after the emperor Hadrian (Aelius); it survived the Roman city as the Arabic Īliyāʾ, an early Islamic name for the city.',
+  },
+  mesopotamia: {
+    display: 'The Mesopotamía family',
+    note: 'The Greek name for the land "between the rivers," meso- + potamós, a calque of the local Semitic idea that gave Latin Mesopotamia and the modern name.',
+  },
+  naharin: {
+    display: 'The Naharin family',
+    note: 'The Semitic "(land) of the rivers," from the root nhr, naming Mesopotamia: Hebrew Aram-Naharaim and Syriac Bēth Nahrīn, the idea the Greek Mesopotamía translates.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
