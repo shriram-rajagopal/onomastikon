@@ -82,9 +82,31 @@ const familyTrees = [...familyGroups.entries()]
 const showFamilies = familyTrees.length > 0;
 const showMap = enriched.filter((e) => e.language && LANG_GEO[e.language.id]).length >= 2;
 const showTimeline = enriched.length >= 2;
+// Regions, geographic features, and cities with no single-endonym title card
+// lead with the transmission map as the page hero rather than an endonym card:
+// these entities are multicultural, defined by place rather than one self-name.
+const isMapHero =
+  showMap &&
+  (civ.data.type === 'region' ||
+    civ.data.type === 'geographic_feature' ||
+    (civ.data.type === 'city' && !civ.data.featured_image));
+const mapNodes = enriched
+  .filter((e) => e.language)
+  .map((e) => ({
+    id: e.name.id,
+    anchor: entryAnchor(e.name.id, civ.id),
+    translit: e.name.data.transliteration,
+    langId: e.language!.id,
+    langName: e.language!.data.english_name,
+    start: e.name.data.era_start,
+    end: e.name.data.era_end,
+  }));
+const mapEdges = enriched
+  .filter((e) => e.name.data.derived_from)
+  .map((e) => ({ from: e.name.data.derived_from!.id, to: e.name.id }));
 const contents = [
   ...(showFamilies ? [{ href: '#families', label: 'Name families' }] : []),
-  ...(showMap ? [{ href: '#map', label: 'Transmission map' }] : []),
+  ...(showMap && !isMapHero ? [{ href: '#map', label: 'Transmission map' }] : []),
   ...(showTimeline ? [{ href: '#timeline', label: 'Attestation timeline' }] : []),
   { href: '#names', label: 'Names across languages' },
   { href: '#cite', label: 'Cite this page' },
@@ -127,6 +149,16 @@ const contents = [
       {civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}
       <span class={`status status-${civ.data.entry_status}`}>{civ.data.entry_status}</span>
     </p>
+
+    {isMapHero && (
+      <section class="tmap tmap-hero" id="map">
+        <TransmissionMap civId={civ.id} nodes={mapNodes} edges={mapEdges} />
+        <p class="families-hint">
+          Each form at the homeland of its language; arcs follow asserted
+          borrowing paths. Slide to a year to see which names were in use.
+        </p>
+      </section>
+    )}
 
     {enriched.length > 0 && (
       <p class="aka">
@@ -173,30 +205,14 @@ const contents = [
       </>
     )}
 
-    {showMap && (
+    {showMap && !isMapHero && (
       <section class="tmap" id="map">
         <h2>Transmission map</h2>
         <p class="families-hint">
           Each form at the homeland of its language; arcs follow asserted
           borrowing paths. Slide to a year to see which names were in use.
         </p>
-        <TransmissionMap
-          civId={civ.id}
-          nodes={enriched
-            .filter((e) => e.language)
-            .map((e) => ({
-              id: e.name.id,
-              anchor: entryAnchor(e.name.id, civ.id),
-              translit: e.name.data.transliteration,
-              langId: e.language!.id,
-              langName: e.language!.data.english_name,
-              start: e.name.data.era_start,
-              end: e.name.data.era_end,
-            }))}
-          edges={enriched
-            .filter((e) => e.name.data.derived_from)
-            .map((e) => ({ from: e.name.data.derived_from!.id, to: e.name.id }))}
-        />
+        <TransmissionMap civId={civ.id} nodes={mapNodes} edges={mapEdges} />
       </section>
     )}
 
@@ -391,6 +407,9 @@ const contents = [
     aspect-ratio: 1920 / 720;
     margin: 0 0 1rem;
   }
+  /* On region/feature/multicultural-city pages the map is the hero, sitting
+     directly under the title in place of an endonym card. */
+  .tmap-hero { margin: 0.5rem 0 2rem; }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1rem; }
   .status {
