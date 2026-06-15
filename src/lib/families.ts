@@ -110,6 +110,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Naharin family',
     note: 'The Semitic "(land) of the rivers," from the root nhr, naming Mesopotamia: Hebrew Aram-Naharaim and Syriac Bēth Nahrīn, the idea the Greek Mesopotamía translates.',
   },
+  susa: {
+    display: 'The Šušan family',
+    note: 'The native Elamite name of Susa, Šušun/Šušan, taken up by nearly every neighbor and conqueror: the Sumerian and Akkadian Šušin/Šušan, the Old Persian Çūšā, the Hebrew and Syriac Šūšan, the Greek Soûsa and Latin Susa, and the later Šuš of Sasanian and Islamic times that survives as the modern town.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
