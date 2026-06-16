@@ -214,6 +214,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Yardēn family',
     note: 'The name of the Jordan, Hebrew Yardēn, "the descender," for the river that falls to the Dead Sea, the lowest point on earth; carried by scripture into the Greek Iordánēs, Latin, Syriac, Geʿez, and the Arabic al-Urdunn that names the modern country.',
   },
+  aigaion: {
+    display: 'The Aigaîon family',
+    note: 'The Greek name of the Aegean, Aigaîon, of contested ancient etymology, and its Latin reflex Aegaeum; the Greek Aigaîon Pélagos was later reshaped into Arkhipélagos, the source of the word "archipelago."',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
