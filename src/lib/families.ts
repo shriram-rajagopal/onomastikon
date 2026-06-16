@@ -178,6 +178,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Kĕnaʿan family',
     note: 'The Bronze Age name of the Levant, attested in Ugaritic Knʿn, the Amarna Akkadian Kinaḫḫi, and Hebrew Kĕnaʿan, and carried through the Greek, Latin, Syriac, Geʿez, and Arabic Bibles; possibly "the land of purple" after the murex dye, the same idea the Greeks expressed in Phoinikē.',
   },
+  asia: {
+    display: 'The Asía family',
+    note: 'The name Asia, taken by the Greeks from the Bronze Age Anatolian league the Hittites called Aššuwa; first the name of western Anatolia alone, it expanded to name the whole continent, so that the peninsula had to be renamed Asia Minor.',
+  },
+  anatole: {
+    display: 'The Anatolḗ family',
+    note: 'The Greek Anatolḗ, "the east, sunrise," the Byzantine name for the lands east of Constantinople that narrowed to mean the Anatolian peninsula; source of the Arabic Anāḍūl and the modern Anatolia.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
