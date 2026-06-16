@@ -150,6 +150,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Lakedaímōn family',
     note: 'The other name of Sparta, Lakedaímōn, the Homeric and official name of the state and its people, the Lakedaimonioi; carried into Latin Lacedaemon and the Arabic tradition, the polity beside the city Spártē.',
   },
+  ilios: {
+    display: 'The Wiluša / Ílios family',
+    note: 'One of Troy\'s two names, the Bronze Age Anatolian Wiluša of the Hittite archives, the same name as Homer\'s Ílios (originally Wilios, with the digamma the meter still preserves), and the Latin Ilium; the city of the legendary Ilus.',
+  },
+  troia: {
+    display: 'The Troía family',
+    note: 'Troy\'s other name, Homer\'s Troíā and the Latin Troia, perhaps reaching back to the Hittite Truwiša; the city of the legendary Tros, paired in epic with Ílios as two names for one citadel.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
