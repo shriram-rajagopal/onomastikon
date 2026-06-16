@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Other ways to reach the project (including email)
+    url: https://onomastikon.org/feedback
+    about: Prefer not to use GitHub, or not sure where something fits? See the feedback page.

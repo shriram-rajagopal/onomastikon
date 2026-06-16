@@ -103,6 +103,11 @@ const contents = [
   { href: '#names', label: 'Names across languages' },
   { href: '#cite', label: 'Cite this page' },
 ];
+const pageUrl = new URL(`/civilizations/${civ.id}`, Astro.site).href;
+const correctionUrl =
+  'https://github.com/shriram-rajagopal/onomastikon/issues/new?template=correction.yml' +
+  `&title=${encodeURIComponent(`Correction: ${civ.data.english_name}`)}` +
+  `&page-url=${encodeURIComponent(pageUrl)}`;
 ---
 
 <BaseLayout
@@ -283,6 +288,9 @@ const contents = [
     ))}
 
     <CiteThis title={civ.data.english_name} path={`/civilizations/${civ.id}`} />
+    <p class="suggest-correction">
+      Spot an error on this page? <a href={correctionUrl}>Suggest a correction →</a>
+    </p>
   </article>
 </BaseLayout>
 
@@ -529,4 +537,10 @@ const contents = [
   .sources summary { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); cursor: pointer; }
   .sources ol { padding-left: 1.5rem; margin: 0.75rem 0 0; }
   .sources li { margin: 0.5rem 0; }
+  .suggest-correction {
+    margin-top: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+  }
 </style>

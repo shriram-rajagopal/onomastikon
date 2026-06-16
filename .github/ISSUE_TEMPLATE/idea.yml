@@ -1,0 +1,11 @@
+name: Idea or question
+description: Share a feature idea, a comment, or a question.
+title: "Idea: "
+labels: ["idea"]
+body:
+  - type: textarea
+    id: message
+    attributes:
+      label: Your idea or question
+    validations:
+      required: true

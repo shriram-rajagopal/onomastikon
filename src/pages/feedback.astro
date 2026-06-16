@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const issuesBase = 'https://github.com/shriram-rajagopal/onomastikon/issues/new';
+
+const routes = [
+  {
+    title: 'Correct an entry',
+    body: 'A wrong transliteration, glyph, date, citation, or claim. Corrections that cite a source are the most useful, and the most welcome.',
+    template: 'correction.yml',
+  },
+  {
+    title: 'Suggest a name, entity, or language',
+    body: 'A civilization, city, region, or geographic feature that belongs in the atlas, a language worth adding, or a missing attested form for an existing entry.',
+    template: 'suggestion.yml',
+  },
+  {
+    title: 'Report a website problem',
+    body: 'Something broken: a glyph rendering as a blank box, a broken link, a layout that fails on your device, a keyboard or screen-reader snag.',
+    template: 'bug.yml',
+  },
+  {
+    title: 'Share an idea or question',
+    body: 'A feature you would like, a comment on the project, or a question about its scope or methods.',
+    template: 'idea.yml',
+  },
+];
+
+// Email fallback for those without a GitHub account, lightly obfuscated:
+// the address appears only as HTML character references in the page source,
+// so it is readable and clickable for people but carries no literal "@" for
+// naive address scrapers. No JavaScript required.
+const email = 'shriram.keshava.rajagopal@gmail.com';
+const enc = (s: string) => [...s].map((c) => `&#${c.codePointAt(0)};`).join('');
+const mailtoHref = `mailto:${email}?subject=${encodeURIComponent('Onomastikon feedback')}`;
+const emailLink = `<a href="${enc(mailtoHref)}">${enc(email)}</a>`;
+---
+
+<BaseLayout
+  title="Feedback"
+  description="Report a correction, suggest a name or entity, flag a problem, or share an idea for Onomastikon."
+>
+  <article class="prose">
+    <p class="eyebrow">Feedback</p>
+    <h1>Corrections and contributions</h1>
+
+    <p class="lede">
+      Onomastikon is the work of a student in active study, and it is meant to be
+      corrected. If you have spotted an error, want to propose a name or an entity,
+      have run into a problem on the site, or simply have an idea, there is a place
+      for each below.
+    </p>
+
+    <p>
+      The most reliable channel is the project's GitHub, where each kind of report
+      has a short form and stays visible and trackable. Pick the one that fits:
+    </p>
+
+    <ul class="routes">
+      {routes.map((r) => (
+        <li>
+          <h2>{r.title}</h2>
+          <p>{r.body}</p>
+          <a class="route-link" href={`${issuesBase}?template=${r.template}`}>
+            Open a GitHub issue →
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <h2 class="section">Without a GitHub account</h2>
+    <p>
+      Opening an issue needs a (free) GitHub account. If you would rather not, you
+      can write directly by email: <Fragment set:html={emailLink} />. Please name
+      the entry or page you mean and include a link where you can.
+    </p>
+
+    <p class="footnote">
+      Content and data are released under
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>,
+      and the full source lives at
+      <a href="https://github.com/shriram-rajagopal/onomastikon">github.com/shriram-rajagopal/onomastikon</a>,
+      where any entry's Markdown can be read and improved by pull request.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose { max-width: 36rem; }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem;
+  }
+  .lede {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 2rem;
+  }
+  .prose p { margin: 1rem 0; }
+  .routes { list-style: none; padding: 0; margin: 1.5rem 0; }
+  .routes li {
+    margin: 0;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .routes li:last-child { border-bottom: 1px solid var(--rule); }
+  .routes h2 {
+    font-size: 1.125rem;
+    margin: 0 0 0.35rem;
+  }
+  .routes p { margin: 0 0 0.75rem; color: var(--ink-soft); font-size: 0.9375rem; }
+  .route-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+  }
+  .section {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 2.5rem 0 0.75rem;
+  }
+  .footnote {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+  }
+</style>

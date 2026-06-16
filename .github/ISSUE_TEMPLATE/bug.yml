@@ -1,0 +1,22 @@
+name: Website problem
+description: Report something broken on the site (rendering, links, layout, accessibility).
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL
+      placeholder: https://onomastikon.org/...
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: What you saw and what you expected. Screenshots are welcome.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and device (optional)
+      placeholder: e.g. Safari on iPhone, Firefox on Windows

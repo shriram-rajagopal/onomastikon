@@ -28,6 +28,10 @@ const enriched = await Promise.all(
   })
 );
 
+const correctionUrl =
+  'https://github.com/shriram-rajagopal/onomastikon/issues/new?template=correction.yml' +
+  `&title=${encodeURIComponent(`Correction: ${lang.data.english_name} (language)`)}` +
+  `&page-url=${encodeURIComponent(new URL(`/languages/${lang.id}`, Astro.site).href)}`;
 ---
 
 <BaseLayout
@@ -107,12 +111,16 @@ const enriched = await Promise.all(
     })()}
 
     <CiteThis title={lang.data.english_name} path={`/languages/${lang.id}`} />
+    <p class="suggest-correction">
+      Spot an error on this page? <a href={correctionUrl}>Suggest a correction →</a>
+    </p>
   </article>
 </BaseLayout>
 
 <style>
   .featured { display: block; width: 100%; height: auto; aspect-ratio: 1920 / 720; margin: 0 0 1rem; }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
+  .suggest-correction { margin-top: 1.5rem; font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1.5rem; }
   /* The language's self-name in its own script, as selectable text rather than
      only pixels in the title card. Same script font stack as .original. */

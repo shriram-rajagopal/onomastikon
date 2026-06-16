@@ -1,0 +1,30 @@
+name: Correction
+description: Report a factual or philological error in an entry.
+title: "Correction: "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep the atlas accurate. Please point to the specific
+        entry and say what you believe is wrong and what it should be.
+  - type: input
+    id: page-url
+    attributes:
+      label: Page or entry URL
+      description: The address of the entry or page in question.
+      placeholder: https://onomastikon.org/civilizations/babylon
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+      description: The transliteration, glyph, date, citation, claim, or other detail you believe is in error, and what it should be.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Supporting source (optional)
+      description: A reference (dictionary, edition, inscription) that supports the correction, if you have one.
