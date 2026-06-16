@@ -28,8 +28,8 @@ const bibtex = `@misc{onomastikon-${slug},
 ---
 
 {compact ? (
-  <div class="cite-entry">
-    <p class="cite-entry-label">Cite this entry</p>
+  <details class="cite-entry">
+    <summary>Cite this entry</summary>
     <p class="cite-chicago" id={`${base}-chicago`}>
       Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {url}.
     </p>
@@ -38,7 +38,7 @@ const bibtex = `@misc{onomastikon-${slug},
       <button type="button" data-copy={`${base}-chicago`}>Copy citation</button>
       <button type="button" data-copy={`${base}-bibtex`}>Copy BibTeX</button>
     </p>
-  </div>
+  </details>
 ) : (
   <section class="cite" id="cite">
     <h2>Cite this page</h2>
@@ -111,23 +111,19 @@ const bibtex = `@misc{onomastikon-${slug},
     cursor: pointer;
   }
   .cite-actions button:hover { color: var(--accent); border-color: var(--accent); }
-  /* Compact in-drawer variant: a quiet appendix below the source list. */
-  .cite-entry {
-    margin-top: 1rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--rule);
-  }
-  .cite-entry-label {
+  /* Compact per-entry variant: a standalone collapsed drawer that sits beside
+     the Sources drawer, so an entry can be cited without opening our sources. */
+  .cite-entry { margin-top: 0.5rem; }
+  .cite-entry summary {
     font-family: 'Inter', sans-serif;
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    font-size: 0.8125rem;
     color: var(--ink-soft);
-    margin: 0 0 0.35rem;
+    cursor: pointer;
   }
+  .cite-entry summary:hover { color: var(--accent); }
   .cite-entry .cite-chicago {
     font-size: 0.875rem;
-    margin: 0;
+    margin: 0.75rem 0 0;
     overflow-wrap: anywhere;
   }
   .cite-entry .cite-actions button { font-size: 0.75rem; padding: 0.2rem 0.6rem; }
