@@ -130,6 +130,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Men-nefer family',
     note: 'The name of Memphis, Egyptian Mn-nfr ("enduring and beautiful," from the pyramid-town of Pepi I), carried through Demotic and Coptic and out to the Akkadian Mempi, the Hebrew Nōph and Mōph, the Greek and Latin Memphis, and the Arabic Manf; the city\'s other name, Ḥwt-kꜣ-Ptḥ, took a separate road and became the Greek name of all Egypt.',
   },
+  rakote: {
+    display: 'The Rakote family',
+    note: 'The native Egyptian name of the site of Alexandria, Rꜥ-qd ("building site"), the village that preceded the Greek city; kept by the Greeks as Rhakōtis for the Egyptian quarter and by the Copts as Rakoti for the whole metropolis, the name the Egyptians used where the rest of the world said Alexandria.',
+  },
+  alexandreia: {
+    display: 'The Alexandreia family',
+    note: 'The name of Alexander\'s Egyptian foundation, Greek Alexandreia, that unlike most of his many cities kept his name and carried it across the world: Latin Alexandria, Syriac Aleksandriya, the Geʿez Ǝskǝndǝryā of the mother see, and, through the personal name Iskandar, the Arabic al-Iskandariyya.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
