@@ -194,6 +194,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Hespería tradition',
     note: 'The poetic name of Italy as "the western land," Greek Hespería, taken up by the Latin epic poets; a relative name, like Anatolia\'s "east," calling the peninsula by its direction from Greece.',
   },
+  idigna: {
+    display: 'The Idigna family',
+    note: 'The Semitic name of the Tigris, from Sumerian Idigna, "the swift river," borrowed into Akkadian as Idiqlat and from there into Aramaic, the Hebrew Ḥiddeqel, Syriac Deqlaṯ, and the Arabic Dijla that names the river today.',
+  },
+  tigris: {
+    display: 'The Tígris family',
+    note: 'The western name of the Tigris, from the Old Persian Tigrā, a reanalysis of the Sumerian river-name as "arrow"; carried into Greek Tígris, Latin, and Geʿez, and giving English Tigris, with the river imagined to run as swift as an arrow.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
