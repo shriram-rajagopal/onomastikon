@@ -162,6 +162,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Dimašq family',
     note: 'The name of Damascus, a stable d-m-ś-q skeleton attested from the Bronze Age (Egyptian ṯmsqw, Amarna Akkadian Dimašqa) through Aramaic, Hebrew, Greek, Latin, Syriac, and the Arabic Dimashq; the later Aramaic, Chronicles Hebrew, and Syriac forms insert an intrusive resh (Darmeśeq, Darmsuq) that the Greek-Latin-Arabic line never carried.',
   },
+  persepolis: {
+    display: 'The Persépolis family',
+    note: 'The Greek name for the Achaemenid ceremonial capital, Persépolis, "city of the Persians," with its dark echo of pérthō, "to sack"; a Greek coinage distinct from the Persians\' own name for the place, which was simply Pārsa, the name of Persia itself.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
