@@ -122,6 +122,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Unug family',
     note: 'The name of the city of Gilgamesh, Sumerian Unug and Akkadian Uruk, that reached the wider world by two roads which never met: the Semitic Erech of the Hebrew and Syriac Bibles (and the Septuagint\'s Orech), and the Hellenistic Orchoē of the Greek and Latin geographers, taken from the living Babylonian city.',
   },
+  ninua: {
+    display: 'The Ninua family',
+    note: 'The name of the Assyrian capital, Akkadian Ninua, written with a sign that pictures a fish within a house; carried into the Hebrew, Syriac, Arabic, and Ethiopic Bibles as Nineveh and into the Greek and Latin both as the toponym Nineuē and as the legendary founder-king Ninos, whom the classical historians made the city\'s eponym.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
