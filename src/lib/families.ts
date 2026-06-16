@@ -126,6 +126,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Ninua family',
     note: 'The name of the Assyrian capital, Akkadian Ninua, written with a sign that pictures a fish within a house; carried into the Hebrew, Syriac, Arabic, and Ethiopic Bibles as Nineveh and into the Greek and Latin both as the toponym Nineuē and as the legendary founder-king Ninos, whom the classical historians made the city\'s eponym.',
   },
+  mennefer: {
+    display: 'The Men-nefer family',
+    note: 'The name of Memphis, Egyptian Mn-nfr ("enduring and beautiful," from the pyramid-town of Pepi I), carried through Demotic and Coptic and out to the Akkadian Mempi, the Hebrew Nōph and Mōph, the Greek and Latin Memphis, and the Arabic Manf; the city\'s other name, Ḥwt-kꜣ-Ptḥ, took a separate road and became the Greek name of all Egypt.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
