@@ -138,6 +138,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Alexandreia family',
     note: 'The name of Alexander\'s Egyptian foundation, Greek Alexandreia, that unlike most of his many cities kept his name and carried it across the world: Latin Alexandria, Syriac Aleksandriya, the Geʿez Ǝskǝndǝryā of the mother see, and, through the personal name Iskandar, the Arabic al-Iskandariyya.',
   },
+  athenai: {
+    display: 'The Athēnai family',
+    note: 'The name of Athens, the plural Greek Athēnai shared with its patron goddess Athena, carried with little change into Latin Athēnae, Syriac, and Arabic; a name that, entering the other languages late and through Greek prestige, never fragmented as the older Near Eastern toponyms did.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
