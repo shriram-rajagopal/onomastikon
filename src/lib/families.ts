@@ -158,6 +158,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Troía family',
     note: 'Troy\'s other name, Homer\'s Troíā and the Latin Troia, perhaps reaching back to the Hittite Truwiša; the city of the legendary Tros, paired in epic with Ílios as two names for one citadel.',
   },
+  dimashq: {
+    display: 'The Dimašq family',
+    note: 'The name of Damascus, a stable d-m-ś-q skeleton attested from the Bronze Age (Egyptian ṯmsqw, Amarna Akkadian Dimašqa) through Aramaic, Hebrew, Greek, Latin, Syriac, and the Arabic Dimashq; the later Aramaic, Chronicles Hebrew, and Syriac forms insert an intrusive resh (Darmeśeq, Darmsuq) that the Greek-Latin-Arabic line never carried.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
