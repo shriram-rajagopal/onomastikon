@@ -186,6 +186,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Anatolḗ family',
     note: 'The Greek Anatolḗ, "the east, sunrise," the Byzantine name for the lands east of Constantinople that narrowed to mean the Anatolian peninsula; source of the Arabic Anāḍūl and the modern Anatolia.',
   },
+  italia: {
+    display: 'The Italia family',
+    note: 'The name of Italy, probably "the land of calves" (Latin vitulus, Oscan Víteliú), at first the Greek name of the southern toe of the peninsula and then, as Rome unified the land, of the whole; carried through Latin into the Syriac, Geʿez, and Arabic Bibles and the modern world.',
+  },
+  hesperia: {
+    display: 'The Hespería tradition',
+    note: 'The poetic name of Italy as "the western land," Greek Hespería, taken up by the Latin epic poets; a relative name, like Anatolia\'s "east," calling the peninsula by its direction from Greece.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
