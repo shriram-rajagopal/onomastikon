@@ -142,6 +142,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Athēnai family',
     note: 'The name of Athens, the plural Greek Athēnai shared with its patron goddess Athena, carried with little change into Latin Athēnae, Syriac, and Arabic; a name that, entering the other languages late and through Greek prestige, never fragmented as the older Near Eastern toponyms did.',
   },
+  sparte: {
+    display: 'The Spártē family',
+    note: 'The Greek name of the town on the Eurotas, Spártē, carried into Latin Sparta and the Arabic historical tradition; one of the two names of the Spartan state, paired with Lakedaímōn, the city beside the polity.',
+  },
+  lakedaimon: {
+    display: 'The Lakedaímōn family',
+    note: 'The other name of Sparta, Lakedaímōn, the Homeric and official name of the state and its people, the Lakedaimonioi; carried into Latin Lacedaemon and the Arabic tradition, the polity beside the city Spártē.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
