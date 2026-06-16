@@ -202,6 +202,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Tígris family',
     note: 'The western name of the Tigris, from the Old Persian Tigrā, a reanalysis of the Sumerian river-name as "arrow"; carried into Greek Tígris, Latin, and Geʿez, and giving English Tigris, with the river imagined to run as swift as an arrow.',
   },
+  purattu: {
+    display: 'The Purattu family',
+    note: 'The Semitic name of the Euphrates, the cuneiform Buranun (Sumerian) and Purattu (Akkadian), continued in the Hebrew and Syriac Pĕrāt and the Arabic al-Furāt; the eastern, faithful branch of the river\'s name.',
+  },
+  euphrates: {
+    display: 'The Euphrátēs family',
+    note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
