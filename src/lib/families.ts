@@ -114,6 +114,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Šušan family',
     note: 'The native Elamite name of Susa, Šušun/Šušan, taken up by nearly every neighbor and conqueror: the Sumerian and Akkadian Šušin/Šušan, the Old Persian Çūšā, the Hebrew and Syriac Šūšan, the Greek Soûsa and Latin Susa, and the later Šuš of Sasanian and Islamic times that survives as the modern town.',
   },
+  ur: {
+    display: 'The Ur family',
+    note: 'The name of the Sumerian city Urim, the cult-center of the moon-god Nanna, read in Akkadian as Uru; its later survival is almost entirely scriptural, as the Hebrew ʾŪr "of the Chaldees," kept in the Syriac and Latin Bibles that translated from the Hebrew but lost in the Greek Septuagint, which rendered it "the land of the Chaldeans."',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
