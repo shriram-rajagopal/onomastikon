@@ -166,6 +166,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Persépolis family',
     note: 'The Greek name for the Achaemenid ceremonial capital, Persépolis, "city of the Persians," with its dark echo of pérthō, "to sack"; a Greek coinage distinct from the Persians\' own name for the place, which was simply Pārsa, the name of Persia itself.',
   },
+  sor: {
+    display: 'The Ṣūr family',
+    note: 'The name of Tyre, Phoenician Ṣūr, "rock," for the island-rock the city stood on; kept with the emphatic ṣ across the Semitic languages (Akkadian Ṣurru, Hebrew Ṣōr, Syriac and Arabic Ṣūr) but reshaped with an initial t in the Greek Týros, Latin Tyrus, and the English Tyre, one name down two phonetic roads.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
