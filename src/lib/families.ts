@@ -170,6 +170,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Ṣūr family',
     note: 'The name of Tyre, Phoenician Ṣūr, "rock," for the island-rock the city stood on; kept with the emphatic ṣ across the Semitic languages (Akkadian Ṣurru, Hebrew Ṣōr, Syriac and Arabic Ṣūr) but reshaped with an initial t in the Greek Týros, Latin Tyrus, and the English Tyre, one name down two phonetic roads.',
   },
+  sidon: {
+    display: 'The Ṣīdōn family',
+    note: 'The name of Sidon, Phoenician Ṣīdūn, "fishery," carried with its emphatic ṣ across Akkadian, Hebrew, Syriac, and the Arabic Ṣaydā; unlike its sister-city Tyre, whose ṣ the Greeks turned to t, Sidon kept a plain s in the Greek Sidṓn and Latin Sidon.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
