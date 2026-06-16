@@ -118,6 +118,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Ur family',
     note: 'The name of the Sumerian city Urim, the cult-center of the moon-god Nanna, read in Akkadian as Uru; its later survival is almost entirely scriptural, as the Hebrew ʾŪr "of the Chaldees," kept in the Syriac and Latin Bibles that translated from the Hebrew but lost in the Greek Septuagint, which rendered it "the land of the Chaldeans."',
   },
+  unug: {
+    display: 'The Unug family',
+    note: 'The name of the city of Gilgamesh, Sumerian Unug and Akkadian Uruk, that reached the wider world by two roads which never met: the Semitic Erech of the Hebrew and Syriac Bibles (and the Septuagint\'s Orech), and the Hellenistic Orchoē of the Greek and Latin geographers, taken from the living Babylonian city.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
