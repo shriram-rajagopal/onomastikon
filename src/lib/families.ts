@@ -210,6 +210,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Euphrátēs family',
     note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
   },
+  yarden: {
+    display: 'The Yardēn family',
+    note: 'The name of the Jordan, Hebrew Yardēn, "the descender," for the river that falls to the Dead Sea, the lowest point on earth; carried by scripture into the Greek Iordánēs, Latin, Syriac, Geʿez, and the Arabic al-Urdunn that names the modern country.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
