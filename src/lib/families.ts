@@ -174,6 +174,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Ṣīdōn family',
     note: 'The name of Sidon, Phoenician Ṣīdūn, "fishery," carried with its emphatic ṣ across Akkadian, Hebrew, Syriac, and the Arabic Ṣaydā; unlike its sister-city Tyre, whose ṣ the Greeks turned to t, Sidon kept a plain s in the Greek Sidṓn and Latin Sidon.',
   },
+  kanaan: {
+    display: 'The Kĕnaʿan family',
+    note: 'The Bronze Age name of the Levant, attested in Ugaritic Knʿn, the Amarna Akkadian Kinaḫḫi, and Hebrew Kĕnaʿan, and carried through the Greek, Latin, Syriac, Geʿez, and Arabic Bibles; possibly "the land of purple" after the murex dye, the same idea the Greeks expressed in Phoinikē.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
