@@ -282,6 +282,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Mílētos family',
     note: 'The name of Miletus, the great Ionian city, Greek Mílētos (a pre-Greek Anatolian name) carried into Latin Miletus; uniquely it has two Bronze Age witnesses, the Hittite Milawanda of the Aḫḫiyawa texts and the Mycenaean Linear B mi-ra-ti-ja, "the Milesian women," of the Pylos tablets.',
   },
+  tiberis: {
+    display: 'The Tiberis family',
+    note: 'The name of the Tiber, Rome\'s river, Latin Tiberis (of uncertain, probably pre-Latin Italic origin) and its Greek forms Tíberis and the poetic Thýbris; the river\'s archaic Latin name was the unrelated Albula, "the whitish."',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
