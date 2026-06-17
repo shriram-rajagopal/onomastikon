@@ -222,6 +222,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Parθava family',
     note: 'The name of Parthia, Old Persian Parθava, a dialectal twin of Pārsa (Persia); the Parthian self-name Parθaw became, by the Iranian rθ→hl shift, the Middle Persian Pahlaw, source of "Pahlavi," and the Sanskrit Pahlava, while Greek Parthía and Latin Parthia gave the English name.',
   },
+  baxtri: {
+    display: 'The Bāxδī family',
+    note: 'The name of Bactria, Avestan Bāxδī (one of the sixteen Aryan lands of the Vendidad) and Old Persian Bāxtriš, carried into Greek Baktría and Latin Bactria and, in the hl-form, the Sanskrit Bāhlika; the Middle Persian Baxl survives as the city Balkh.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {

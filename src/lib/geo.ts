@@ -38,6 +38,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'old-persian': { lon: 52.89, lat: 29.94, place: 'Persepolis', dy: 10 },
   'middle-persian': { lon: 44.58, lat: 33.1, place: 'Ctesiphon', anchor: 'middle', dx: 0, dy: -7 },
   parthian: { lon: 58.4, lat: 37.6, place: 'Nisa', dy: -6 },
+  avestan: { lon: 66.9, lat: 36.76, place: 'Bactra', dy: -6 },
   sanskrit: { lon: 77.7, lat: 27.5, place: 'Mathura', anchor: 'end', dx: -7 },
   'classical-chinese': { lon: 108.94, lat: 34.27, place: "Chang'an", anchor: 'end', dx: -7 },
   'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hejaz' },
