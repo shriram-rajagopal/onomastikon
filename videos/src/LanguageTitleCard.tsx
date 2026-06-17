@@ -16,6 +16,7 @@ import { loadFont as loadPahlavi } from "@remotion/google-fonts/NotoSansInscript
 import { loadFont as loadHieroglyphs } from "@remotion/google-fonts/NotoSansEgyptianHieroglyphs";
 import { loadFont as loadUgaritic } from "@remotion/google-fonts/NotoSansUgaritic";
 import { loadFont as loadParthian } from "@remotion/google-fonts/NotoSansInscriptionalParthian";
+import { loadFont as loadAvestan } from "@remotion/google-fonts/NotoSansAvestan";
 
 // Language entry title card. A thin sibling of the civ TitleCard: same parchment,
 // same vertical rhythm and tokens, but it leads with the LANGUAGE's own name
@@ -45,6 +46,7 @@ const { fontFamily: pahlavi } = loadPahlavi("normal", { weights: ["400"], subset
 const { fontFamily: hieroglyphs } = loadHieroglyphs("normal", { weights: ["400"], subsets: ["egyptian-hieroglyphs"] });
 const { fontFamily: ugaritic } = loadUgaritic("normal", { weights: ["400"], subsets: ["ugaritic"] });
 const { fontFamily: parthian } = loadParthian("normal", { weights: ["400"], subsets: ["inscriptional-parthian"] });
+const { fontFamily: avestan } = loadAvestan("normal", { weights: ["400"], subsets: ["avestan"] });
 
 const PARCHMENT = "#f5efe4";
 const INK = "#1a1a1a";
@@ -73,6 +75,8 @@ const SCRIPTS = {
   "inscriptional-parthian": { fontFamily: parthian, fontSize: 140, letterSpacing: 10, fontWeight: 400, rtl: true },
   "old-persian": { fontFamily: oldPersian, fontSize: 150, letterSpacing: 12, fontWeight: 400, rtl: false },
   "inscriptional-pahlavi": { fontFamily: pahlavi, fontSize: 140, letterSpacing: 8, fontWeight: 400, rtl: true },
+  // Avestan is a cursive joining script: keep letterSpacing 0 so the letters connect.
+  avestan: { fontFamily: avestan, fontSize: 150, letterSpacing: 0, fontWeight: 400, rtl: true },
 } as const;
 
 export const languageCardSchema = z.object({
@@ -93,6 +97,7 @@ export const languageCardSchema = z.object({
     "egyptian-hieroglyphs",
     "ugaritic",
     "inscriptional-parthian",
+    "avestan",
   ]),
   glyphs: z.string(), // the language's own name in its own script (native_name)
   romanization: z.string().optional(), // italic accent line; omit for Latin-script endonyms (Lingua Latina)

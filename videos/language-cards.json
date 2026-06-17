@@ -19,5 +19,6 @@
   { "slug": "akkadian", "script": "cuneiform", "glyphs": "𒀝𒅗𒁺𒌑", "romanization": "Akkadû", "name": "Akkadian", "meta": "Cuneiform · East Semitic · c. 2500–100 BCE" },
   { "slug": "ugaritic", "script": "ugaritic", "glyphs": "𐎜𐎂𐎗𐎚", "romanization": "Ugarit", "name": "Ugaritic", "meta": "Ugaritic alphabet · Northwest Semitic · c. 1400–1190 BCE" },
   { "slug": "demotic", "script": "egyptian-hieroglyphs", "glyphs": "𓏞𓈖𓈙𓂝𓏏", "romanization": "Sš n šꜥt", "name": "Demotic", "meta": "Demotic script · Egyptian · c. 650 BCE – 450 CE" },
-  { "slug": "parthian", "script": "inscriptional-parthian", "glyphs": "𐭐𐭓𐭕𐭅", "romanization": "Parθaw", "name": "Parthian", "meta": "Parthian script · Iranian · c. 250 BCE – 400 CE" }
+  { "slug": "parthian", "script": "inscriptional-parthian", "glyphs": "𐭐𐭓𐭕𐭅", "romanization": "Parθaw", "name": "Parthian", "meta": "Parthian script · Iranian · c. 250 BCE – 400 CE" },
+  { "slug": "avestan", "script": "avestan", "glyphs": "𐬀𐬌𐬭𐬌𐬌𐬀𐬥𐬀", "romanization": "Airyana", "name": "Avestan", "meta": "Avestan alphabet · Old Iranian · c. 1500–400 BCE" }
 ]
