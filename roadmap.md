@@ -12,54 +12,54 @@ Bronze Age through Late Antiquity (roughly 3100 BCE to c. 600 CE), with later at
 
 ## Phase 1: Core Mediterranean and Near East
 
-Target: 12-15 civilizations + supporting cities, regions, and geographic features. Goal completion: end of January 2026.
+Target: 12-15 civilizations + supporting cities, regions, and geographic features. Goal completion: end of January 2026. **Status: complete (2026-06) — all 14 civilizations, 15 cities, 4 regions, and 6 geographic features done, with the full Phase-1 language inventory (Hurrian last). A few entities remain `developing` where a single in-scope form is real but not yet digitally sourceable (Geʿez NT minor forms, some Bronze Age Egyptian glyphs, Syriac Maccabees, Imperial Aramaic Hermopolis); these are prose-noted and closed opportunistically as sources surface.**
 
 ### Civilizations
 - [x] Egypt
 - [x] Greece
 - [x] Persia
 - [x] Sumer
-- [ ] Akkad
-- [ ] Babylonia
-- [ ] Assyria
+- [x] Akkad
+- [x] Babylonia
+- [x] Assyria
 - [x] Rome
-- [ ] Phoenicia
-- [ ] Carthage
-- [ ] The Hittites
-- [ ] Mitanni
-- [ ] Elam
-- [ ] Israel and Judah (treat as separate entries)
+- [x] Phoenicia
+- [x] Carthage
+- [x] The Hittites
+- [x] Mitanni
+- [x] Elam
+- [x] Israel and Judah (treat as separate entries)
 
 ### Cities
-- [ ] Babylon
-- [ ] Ur
-- [ ] Uruk
-- [ ] Nineveh
-- [ ] Memphis
-- [ ] Alexandria
-- [ ] Athens
-- [ ] Sparta
-- [ ] Troy / Ilion
-- [ ] Damascus
-- [ ] Jerusalem
-- [ ] Susa
-- [ ] Persepolis
-- [ ] Tyre
-- [ ] Sidon
+- [x] Babylon
+- [x] Ur
+- [x] Uruk
+- [x] Nineveh
+- [x] Memphis
+- [x] Alexandria
+- [x] Athens
+- [x] Sparta
+- [x] Troy / Ilion
+- [x] Damascus
+- [x] Jerusalem
+- [x] Susa
+- [x] Persepolis
+- [x] Tyre
+- [x] Sidon
 
 ### Regions
-- [ ] Mesopotamia
-- [ ] Canaan
-- [ ] Anatolia / Asia Minor
-- [ ] Italia (originally only southern Italy)
+- [x] Mesopotamia
+- [x] Canaan
+- [x] Anatolia / Asia Minor
+- [x] Italia (originally only southern Italy)
 
 ### Geographic features
 - [x] The Nile
-- [ ] The Tigris
-- [ ] The Euphrates
-- [ ] The Jordan
-- [ ] The Mediterranean Sea
-- [ ] The Aegean Sea
+- [x] The Tigris
+- [x] The Euphrates
+- [x] The Jordan
+- [x] The Mediterranean Sea
+- [x] The Aegean Sea
 
 ### Languages needed for Phase 1
 - [x] Egyptian (Middle Egyptian)
@@ -74,7 +74,7 @@ Target: 12-15 civilizations + supporting cities, regions, and geographic feature
 - [x] Phoenician
 - [x] Hittite
 - [x] Elamite
-- [ ] Hurrian
+- [x] Hurrian
 
 Added beyond the original Phase 1 list, pulled in by entries that needed them:
 - [x] Demotic
