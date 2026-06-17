@@ -33,6 +33,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'biblical-hebrew': { lon: 35.23, lat: 31.78, place: 'Jerusalem', dx: 7, dy: 4 },
   'imperial-aramaic': { lon: 36.31, lat: 33.51, place: 'Damascus', dx: 7, dy: 6 },
   syriac: { lon: 38.79, lat: 37.16, place: 'Edessa', dy: -6 },
+  'jewish-babylonian-aramaic': { lon: 43.77, lat: 33.36, place: 'Pumbedita', anchor: 'end', dx: -7, dy: -4 },
   'ancient-greek': { lon: 23.73, lat: 37.98, place: 'Athens', anchor: 'end', dx: -7 },
   latin: { lon: 12.49, lat: 41.9, place: 'Rome', dy: -6 },
   'old-persian': { lon: 52.89, lat: 29.94, place: 'Persepolis', dy: 10 },
