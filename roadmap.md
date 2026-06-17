@@ -88,17 +88,17 @@ Added beyond the original Phase 1 list, pulled in by entries that needed them:
 Added 2026-06. The directional phases skipped west: Phase 1 took the flagships (Greece, Rome, Carthage) and declared complete, Phase 2 turns east, Phase 3 crosses to the Americas and Africa. This track is the western-Mediterranean infill that fell through the gap — Macedon, the wider Greek world beyond Greece/Athens/Sparta/Troy, and pre-Roman Italy beyond Rome. All are core-Mediterranean civilizational and place units within the temporal scope, so this is **prioritized ahead of continuing Phase 2**.
 
 ### Civilizations
-- [ ] Macedon (the kingdom; Greek *Makedonía*, distinct from Greece; note the Achaemenid *Skudra* satrapy angle)
-- [ ] Etruria / the Etruscans (endonym *Raśna*; needs the Etruscan language)
-- [ ] Minoan Crete (exonym-led: Egyptian *Keftiu*, Akkadian *Kaptara*, Hebrew *Kaftor*; the Linear A endonym is undeciphered, so held)
-- [ ] Mycenaean Greece (the Bronze Age Aegean palatial culture)
+- [x] Macedon (the kingdom; Greek *Makedonía*, distinct from Greece; note the Achaemenid *Skudra* satrapy angle)
+- [x] Etruria / the Etruscans (endonym *Raśna*; needs the Etruscan language)
+- [x] Minoan Crete (exonym-led: Egyptian *Keftiu*, Akkadian *Kaptara*, Hebrew *Kaftor*; the Linear A endonym is undeciphered, so held)
+- [x] ~~Mycenaean Greece~~ SUBSUMED by the Greece entry (already spans the Bronze Age, with Hittite Aḫḫiyawa + Egyptian Ḥꜣw-nbwt); Mycenae the citadel built instead.
 
 ### Cities
 - [ ] Corinth
 - [ ] Thebes (the Greek/Boeotian Thebes, distinct from Egyptian Thebes)
 - [ ] Syracuse
 - [ ] Knossos
-- [ ] Mycenae
+- [x] Mycenae
 - [ ] Miletus
 - [ ] Ephesus
 - [ ] Byzantium (→ Constantinople)
@@ -109,7 +109,7 @@ Added 2026-06. The directional phases skipped west: Phase 1 took the flagships (
 - [ ] Tarentum / Taras (Magna Graecia)
 
 ### Regions
-- [ ] Macedonia (the region / Roman province, if split from the Macedon entry)
+- [x] Macedonia (the region / Roman province, if split from the Macedon entry)
 - [ ] Magna Graecia (the Greek south of Italy)
 - [ ] Etruria (the region, if split from the Etruscan entry)
 - [ ] Latium (the homeland of the Latins)

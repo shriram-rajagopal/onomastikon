@@ -246,6 +246,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Krḗtē family',
     note: 'The Greek name of the island, Krḗtē, a pre-Greek word unrelated to the Bronze Age Kaphtor, carried into Latin as Creta and, through the Greek of the New Testament, into Syriac as Qreṭē (the Crete of Paul\'s shipwreck voyage in Acts).',
   },
+  mykenai: {
+    display: 'The Mykēnai family',
+    note: 'The name of the citadel of Mycenae, Greek Mykēnai (Homer\'s "well-built Mycenae, rich in gold") and Latin Mycēnae; a pre-Greek place-name that gave its name to the whole Mycenaean civilization and age.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
