@@ -6,6 +6,8 @@ region: Central Asia (northern Afghanistan, the upper Oxus)
 era_start: -1500
 era_end: 650
 summary: The rich land of the upper Oxus, one of the sacred Aryan countries of the Avesta, an Achaemenid satrapy, and the seat of a remarkable Greek kingdom at the far edge of the Hellenistic world.
+featured_image: /bactria-title.png
+og_image: /og/bactria-title.png
 ---
 
 Bactria was the fertile land of the upper Oxus (Amu Darya), centered on the city of Bactra, modern Balkh, in what is now northern Afghanistan. It was one of the heartlands of the eastern Iranian world: a sacred country in the Zoroastrian tradition, a wealthy satrapy of the Achaemenid empire, and, after Alexander, the seat of the Greco-Bactrian kingdom, where Greek kings struck some of the finest coins of antiquity and Hellenism met the Buddhist world. To the Chinese envoys who reached it in the second century BCE it was the first great civilization of the far west.

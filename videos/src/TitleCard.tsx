@@ -7,6 +7,7 @@ import { loadFont as loadOldPersian } from "@remotion/google-fonts/NotoSansOldPe
 import { loadFont as loadCuneiform } from "@remotion/google-fonts/NotoSansCuneiform";
 import { loadFont as loadPhoenician } from "@remotion/google-fonts/NotoSansPhoenician";
 import { loadFont as loadHebrew } from "@remotion/google-fonts/NotoSerifHebrew";
+import { loadFont as loadAvestan } from "@remotion/google-fonts/NotoSansAvestan";
 
 // Data-driven version of the hand-built EgyptTitleCard / GreeceTitleCard /
 // PersiaTitleCard. Those three share an identical layout and differ only in four
@@ -43,6 +44,12 @@ const { fontFamily: hebrew } = loadHebrew("normal", {
   weights: ["400", "600"],
   subsets: ["hebrew"],
 });
+// Avestan: a cursive joining RTL script. Its codepoints are strong bidi-R, so the
+// glyphs order right-to-left here without an explicit direction (as Hebrew/Phoenician do).
+const { fontFamily: avestan } = loadAvestan("normal", {
+  weights: ["400"],
+  subsets: ["avestan"],
+});
 
 // Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
 // The card is filled with parchment rather than left transparent so the same PNG
@@ -63,12 +70,13 @@ const SCRIPTS = {
   cuneiform: { fontFamily: cuneiform, fontSize: 180, letterSpacing: 14, fontWeight: 400 },
   phoenician: { fontFamily: phoenician, fontSize: 188, letterSpacing: 16, fontWeight: 400 },
   hebrew: { fontFamily: hebrew, fontSize: 208, letterSpacing: 0, fontWeight: 400 },
+  avestan: { fontFamily: avestan, fontSize: 200, letterSpacing: 0, fontWeight: 400 },
   greek: { fontFamily: garamond, fontSize: 200, letterSpacing: 0, fontWeight: 600 },
   latin: { fontFamily: garamond, fontSize: 168, letterSpacing: 0, fontWeight: 600 },
 } as const;
 
 export const titleCardSchema = z.object({
-  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "greek", "latin"]),
+  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "avestan", "greek", "latin"]),
   glyphs: z.string(), // the endonym in its original script (original_text)
   transliteration: z.string().optional(), // italic accent line (Kemet, Hellás, Pārsa); omit for Latin-script endonyms whose original IS the romanization (e.g. Roma)
   language: z.string(), // the endonym's language, shown below the transliteration (Middle Egyptian, Ancient Greek, Latin, ...)
