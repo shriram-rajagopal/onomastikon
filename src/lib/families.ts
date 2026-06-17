@@ -226,6 +226,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Bāxδī family',
     note: 'The name of Bactria, Avestan Bāxδī (one of the sixteen Aryan lands of the Vendidad) and Old Persian Bāxtriš, carried into Greek Baktría and Latin Bactria and, in the hl-form, the Sanskrit Bāhlika; the Middle Persian Baxl survives as the city Balkh.',
   },
+  makedon: {
+    display: 'The Makedṓn family',
+    note: 'The ethnonym of the Macedonians, Greek Makedṓn and Latin Macedō; the Aramaic-speaking East knew Macedon chiefly through Alexander, giving the q-forms Arabic al-Maqdūnī and Jewish Babylonian Aramaic Mūqdōn, the Greek κ rendered as the q of the Semitic transmission.',
+  },
+  makedonia: {
+    display: 'The Makedonía family',
+    note: 'The land-name of Macedonia, Greek Makedonía (built on the ethnonym Makedṓn) and Latin Macedonia, taken east through the Greek of scripture as Syriac Maqedōniyā and Arabic Maqadūniya, all sharing the qōp̄/qof/qāf that marks the Aramaic route.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
