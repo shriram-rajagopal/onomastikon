@@ -274,6 +274,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Syrákousai family',
     note: 'The name of Syracuse, Greek Syrákousai (from the Sicel marsh Syrakō by its harbour), carried into Latin Syrācūsae and, through the Romance of Islamic Sicily, the Arabic Saraqūsa; the modern Siracusa continues the Latin line.',
   },
+  ephesos: {
+    display: 'The Éphesos family',
+    note: 'The name of Ephesus, the great Ionian city of the Temple of Artemis, Greek Éphesos (a pre-Greek Anatolian name) carried into Latin Ephesus, Syriac Efesos, and Arabic Afsūs; the Bronze Age Arzawan capital Apaša of the Hittite archives is widely, though not certainly, identified as its ancestor.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
