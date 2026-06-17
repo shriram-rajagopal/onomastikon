@@ -254,6 +254,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Knossos family',
     note: 'The name of the great Cretan palace-city, attested in its own Linear B archive as ko-no-so and carried on into Greek Knōsós and Latin Cnosus; a pre-Greek name, recorded by the Mycenaeans who ruled Knossos centuries before Homer made it the city of Minos.',
   },
+  byzantion: {
+    display: 'The Byzántion family',
+    note: 'The original name of the city on the Bosphorus, Greek Byzántion after its Megarian founder Byzas and Latin Byzantium; the name of the Greek colony of 657 BCE, before Constantine refounded it as Constantinople.',
+  },
+  constantinople: {
+    display: 'The Constantinople family',
+    note: 'The name Constantine gave the city he refounded in 330 CE, Greek Kōnstantinoúpolis, "the city of Constantine" (and Néa Rhōmē, "New Rome"), carried into Latin Constantinopolis, Arabic al-Qusṭanṭīniyya, and Syriac Qusṭanṭīnupolis; the colloquial "to the City," eis tēn pólin, would later become Istanbul.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
