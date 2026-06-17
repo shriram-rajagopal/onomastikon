@@ -218,6 +218,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Aigaîon family',
     note: 'The Greek name of the Aegean, Aigaîon, of contested ancient etymology, and its Latin reflex Aegaeum; the Greek Aigaîon Pélagos was later reshaped into Arkhipélagos, the source of the word "archipelago."',
   },
+  parthava: {
+    display: 'The Parθava family',
+    note: 'The name of Parthia, Old Persian Parθava, a dialectal twin of Pārsa (Persia); the Parthian self-name Parθaw became, by the Iranian rθ→hl shift, the Middle Persian Pahlaw, source of "Pahlavi," and the Sanskrit Pahlava, while Greek Parthía and Latin Parthia gave the English name.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
