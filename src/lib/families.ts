@@ -286,6 +286,18 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Tiberis family',
     note: 'The name of the Tiber, Rome\'s river, Latin Tiberis (of uncertain, probably pre-Latin Italic origin) and its Greek forms Tíberis and the poetic Thýbris; the river\'s archaic Latin name was the unrelated Albula, "the whitish."',
   },
+  padus: {
+    display: 'The Padus family',
+    note: 'The name of the Po, the great river of northern Italy, Latin Padus (probably pre-Latin Ligurian) and its Greek transcription Pádos; the Ligurians called its upper course Bodincus, "the bottomless," and the modern Italian Po descends from Padus.',
+  },
+  eridanos: {
+    display: 'The Ēridanós family',
+    note: 'The Ēridanós, the mythical amber-river of the Phaethon legend into which the sun-god\'s son fell; Herodotus doubted any such river existed, but the Greek geographers identified it with the real Po, at whose delta the Baltic amber trade reached the Mediterranean.',
+  },
+  adrias: {
+    display: 'The Adrías family',
+    note: 'The name of the Adriatic Sea, Greek Adrías and Latin Hadria / mare Hadriāticum, named after the Etruscan-and-Venetic port-city of Adria near the Po delta, since left inland by the silting of the coast.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
