@@ -238,6 +238,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Tyrrhēnoí family',
     note: 'The outsiders\' name for the Etruscans, Greek Tyrrhēnoí (Ionic Tyrsēnoí) and Latin Etrūscī / Tuscī, both apparently built on a Mediterranean turs- root and quite distinct from the Etruscans\' own self-name Raśna; Latin Tuscī gives the modern "Tuscany," Greek Tyrrhēnía the Tyrrhenian Sea.',
   },
+  kaphtor: {
+    display: 'The Kaphtor family',
+    note: 'The Bronze Age Near Eastern name for Crete and the Aegean world of the Minoans: Egyptian Keftiu, Akkadian Kaptara, Ugaritic kptr, and Hebrew Kaftor (Caphtor, whence the Philistines came). The identification with Crete is the standard view but debated, and the name is unrelated to the later Greek Krḗtē.',
+  },
+  krete: {
+    display: 'The Krḗtē family',
+    note: 'The Greek name of the island, Krḗtē, a pre-Greek word unrelated to the Bronze Age Kaphtor, carried into Latin as Creta and, through the Greek of the New Testament, into Syriac as Qreṭē (the Crete of Paul\'s shipwreck voyage in Acts).',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
