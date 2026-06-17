@@ -270,6 +270,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Veii family',
     note: 'The name of the Etruscan city of Veii, Rome\'s great rival until its fall in 396 BCE: Latin Veiī and Greek Ouioí; the Etruscan city-form is inferred from the attested name of the goddess Vei, its eponym.',
   },
+  syrakousai: {
+    display: 'The Syrákousai family',
+    note: 'The name of Syracuse, Greek Syrákousai (from the Sicel marsh Syrakō by its harbour), carried into Latin Syrācūsae and, through the Romance of Islamic Sicily, the Arabic Saraqūsa; the modern Siracusa continues the Latin line.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
