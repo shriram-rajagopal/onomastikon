@@ -70,6 +70,10 @@ const correctionUrl =
 
     <div class="summary"><Content /></div>
 
+    <p class="feedback-top">
+      <a href="#site-feedback">Spot an error or have a suggestion? Send feedback ↓</a>
+    </p>
+
     {enriched.length === 0 && <p><em>No entries yet.</em></p>}
 
     {(() => {
@@ -121,6 +125,9 @@ const correctionUrl =
   .featured { display: block; width: 100%; height: auto; aspect-ratio: 1920 / 720; margin: 0 0 1rem; }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .suggest-correction { margin-top: 1.5rem; font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); }
+  .feedback-top { font-family: 'Inter', sans-serif; font-size: 0.8125rem; margin: 1rem 0 0; }
+  .feedback-top a { color: var(--ink-soft); text-decoration: none; }
+  .feedback-top a:hover { color: var(--accent); }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1.5rem; }
   /* The language's self-name in its own script, as selectable text rather than
      only pixels in the title card. Same script font stack as .original. */

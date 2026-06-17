@@ -133,7 +133,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         Onomastikon · A digital atlas of ancient names ·
         <a href="/onomastikon.json">Data</a> ·
         <a href="https://github.com/shriram-rajagopal/onomastikon">GitHub</a> ·
-        <a href="/feedback">Feedback</a>
+        <a href="/feedback" id="site-feedback">Feedback</a>
       </p>
     </footer>
 
@@ -285,6 +285,18 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         font-family: 'Inter', sans-serif;
         font-size: 0.8125rem;
         color: var(--ink-soft);
+      }
+      /* When a top-of-page "send feedback" note jumps here, mark the footer
+         Feedback link so the reader sees where to act. Mirrors the entry
+         permalink highlight; the flash is motion-gated, the outline persists. */
+      #site-feedback { scroll-margin: 3rem; border-radius: 3px; }
+      #site-feedback:target { outline: 2px solid var(--accent); outline-offset: 3px; color: var(--accent); }
+      @media (prefers-reduced-motion: no-preference) {
+        #site-feedback:target { animation: feedback-flash 2s ease-out; }
+      }
+      @keyframes feedback-flash {
+        0%, 45% { background: color-mix(in srgb, var(--accent) 22%, var(--parchment)); }
+        100% { background: transparent; }
       }
       h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
       h1 { font-size: 2.5rem; margin: 0 0 0.25rem; }
