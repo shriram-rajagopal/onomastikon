@@ -262,6 +262,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Constantinople family',
     note: 'The name Constantine gave the city he refounded in 330 CE, Greek Kōnstantinoúpolis, "the city of Constantine" (and Néa Rhōmē, "New Rome"), carried into Latin Constantinopolis, Arabic al-Qusṭanṭīniyya, and Syriac Qusṭanṭīnupolis; the colloquial "to the City," eis tēn pólin, would later become Istanbul.',
   },
+  tarchna: {
+    display: 'The Tarχna family',
+    note: 'The name of the Etruscan city Tarquinia, Etruscan Tarχna (attested in the gens Tarchunies, the family whence Rome took its Tarquin kings) and Latin Tarquiniī; the dynastic Tarquinius and the modern Tarquinia both descend from it.',
+  },
+  veii: {
+    display: 'The Veii family',
+    note: 'The name of the Etruscan city of Veii, Rome\'s great rival until its fall in 396 BCE: Latin Veiī and Greek Ouioí; the Etruscan city-form is inferred from the attested name of the goddess Vei, its eponym.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
