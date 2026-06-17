@@ -1,16 +1,19 @@
 #!/usr/bin/env node
-// Bake the transmission map's coastlines from Natural Earth 50m land polygons
+// Bake the transmission map's coastline from Natural Earth 50m land polygons
 // (via the world-atlas package) into src/lib/coastline.ts.
 //
 //   curl -sL -o /tmp/land-50m.json https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json
 //   node scripts/generate-coastline.mjs /tmp/land-50m.json
 //
-// Several REGIONS are baked, each an equirectangular window at 10 units per
-// degree; the map component picks the region that covers the most of an
-// entity's nodes and pins the rest to the frame edge. To support a new part
-// of the world (Mesoamerica for the Maya, say), add a region here and rerun.
-// Rings are clipped per region with Sutherland-Hodgman so paths stay small.
-// Natural Earth data is public domain.
+// Output is RAW geographic data: an array of land rings in [lon, lat] degrees,
+// clipped to one generous world box and lightly simplified. The map component
+// (src/components/TransmissionMap.astro) fits its window to each entity's own
+// node coordinates and projects + re-clips this data to that window at build
+// time, so every map is framed to its content rather than to a fixed scale.
+// Nothing here is pre-projected; the scale is chosen per map, not baked.
+//
+// To cover a new part of the world (a Pacific or sub-Saharan entity, say),
+// widen DATA_BOX and rerun. Natural Earth data is public domain.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -24,21 +27,22 @@ if (!input) {
   process.exit(1);
 }
 
-const SCALE = 10;
-const REGIONS = [
-  // The core window: Mediterranean and Near East through the Indus.
-  { id: 'ancient-west', lonMin: 8, lonMax: 82, latMin: 12, latMax: 47 },
-  // Iran through China and northern India, for the eastern entities to come.
-  { id: 'east-asia', lonMin: 55, lonMax: 135, latMin: 8, latMax: 50 },
-];
+// The data window: Atlantic Europe / Morocco eastward to Japan, the Horn of
+// Africa northward to the Eurasian steppe. Wide enough that any in-scope
+// entity's homelands fall inside it with room for the map's padding.
+const DATA_BOX = { lonMin: -25, lonMax: 150, latMin: -12, latMax: 62 };
+// Douglas-Peucker tolerance in degrees: ~0.12 ≈ 13 km, fine for a small map.
+const SIMPLIFY = 0.12;
+// Rings smaller than this bounding span (degrees) are dropped as visual noise.
+const MIN_RING_SPAN = 0.5;
 
 // Sutherland-Hodgman polygon clipping against an axis-aligned lon/lat box.
 function clipRing(ring, box) {
   const params = [
-    [0, box.x0, (p) => p[0] >= box.x0],
-    [0, box.x1, (p) => p[0] <= box.x1],
-    [1, box.y0, (p) => p[1] >= box.y0],
-    [1, box.y1, (p) => p[1] <= box.y1],
+    [0, box.lonMin, (p) => p[0] >= box.lonMin],
+    [0, box.lonMax, (p) => p[0] <= box.lonMax],
+    [1, box.latMin, (p) => p[1] >= box.latMin],
+    [1, box.latMax, (p) => p[1] <= box.latMax],
   ];
   const intersect = (a, b, axis, value) => {
     const t = (value - a[axis]) / (b[axis] - a[axis]);
@@ -65,43 +69,82 @@ function clipRing(ring, box) {
   return out;
 }
 
+// Douglas-Peucker on an open polyline; good enough applied to a closed ring.
+function simplify(points, eps) {
+  if (points.length < 3) return points;
+  const [ax, ay] = points[0];
+  const [bx, by] = points[points.length - 1];
+  const dx = bx - ax;
+  const dy = by - ay;
+  const len2 = dx * dx + dy * dy;
+  let dmax = 0;
+  let idx = 0;
+  for (let i = 1; i < points.length - 1; i++) {
+    const [px, py] = points[i];
+    // Perpendicular distance from point to the line through the endpoints.
+    const d = len2 === 0
+      ? Math.hypot(px - ax, py - ay)
+      : Math.abs((px - ax) * dy - (py - ay) * dx) / Math.sqrt(len2);
+    if (d > dmax) {
+      dmax = d;
+      idx = i;
+    }
+  }
+  if (dmax > eps) {
+    const left = simplify(points.slice(0, idx + 1), eps);
+    const right = simplify(points.slice(idx), eps);
+    return left.slice(0, -1).concat(right);
+  }
+  return [points[0], points[points.length - 1]];
+}
+
 const topo = JSON.parse(readFileSync(input, 'utf8'));
 const land = feature(topo, topo.objects.land);
 
-const regionsOut = [];
-for (const r of REGIONS) {
-  // Clip box extends past the window so coastline runs cleanly off the edges.
-  const box = { x0: r.lonMin - 8, x1: r.lonMax + 8, y0: r.latMin - 6, y1: r.latMax + 6 };
-  const project = ([lon, lat]) => [
-    ((lon - r.lonMin) * SCALE).toFixed(1),
-    ((r.latMax - lat) * SCALE).toFixed(1),
-  ];
-  const paths = [];
-  for (const poly of land.features[0].geometry.coordinates) {
-    for (const ring of poly) {
-      const clipped = clipRing(ring, box);
-      if (!clipped || clipped.length < 4) continue;
-      paths.push(`M${clipped.map(project).map((p) => p.join(',')).join('L')}Z`);
+const rings = [];
+let rawPoints = 0;
+let keptPoints = 0;
+for (const poly of land.features[0].geometry.coordinates) {
+  for (const ring of poly) {
+    rawPoints += ring.length;
+    const clipped = clipRing(ring, DATA_BOX);
+    if (!clipped || clipped.length < 4) continue;
+    const simplified = simplify(clipped, SIMPLIFY);
+    if (simplified.length < 4) continue;
+    let lo = Infinity;
+    let hi = -Infinity;
+    let la = Infinity;
+    let lb = -Infinity;
+    for (const [lon, lat] of simplified) {
+      lo = Math.min(lo, lon); hi = Math.max(hi, lon);
+      la = Math.min(la, lat); lb = Math.max(lb, lat);
     }
+    if (hi - lo < MIN_RING_SPAN && lb - la < MIN_RING_SPAN) continue;
+    const rounded = simplified.map(([lon, lat]) => [
+      Math.round(lon * 10) / 10,
+      Math.round(lat * 10) / 10,
+    ]);
+    keptPoints += rounded.length;
+    rings.push(rounded);
   }
-  const d = paths.join('');
-  const viewBox = `0 0 ${(r.lonMax - r.lonMin) * SCALE} ${(r.latMax - r.latMin) * SCALE}`;
-  regionsOut.push({ ...r, viewBox, path: d });
-  console.log(`${r.id}: ${paths.length} rings, ${(d.length / 1024).toFixed(1)} KB, viewBox ${viewBox}`);
 }
+
+// Sort largest rings first so big landmasses paint before small islands.
+rings.sort((a, b) => b.length - a.length);
 
 const out = `// Generated by scripts/generate-coastline.mjs from Natural Earth 50m land
 // polygons (public domain, via world-atlas). Do not edit by hand.
-export interface MapRegion {
-  id: string;
-  lonMin: number;
-  lonMax: number;
-  latMin: number;
-  latMax: number;
-  viewBox: string;
-  path: string;
-}
-export const MAP_SCALE = ${SCALE};
-export const REGIONS: MapRegion[] = ${JSON.stringify(regionsOut)};
+//
+// Raw geographic data: each ring is an array of [lon, lat] degree pairs. The
+// transmission map fits its window to each entity's nodes and projects + clips
+// these rings to that window at build time (see src/lib/geo.ts), so the scale
+// is chosen per map, not baked here.
+export const DATA_BOUNDS = ${JSON.stringify(DATA_BOX)};
+export const LAND: [number, number][][] = ${JSON.stringify(rings)};
 `;
 writeFileSync(resolve(ROOT, 'src/lib/coastline.ts'), out);
+
+const kb = (out.length / 1024).toFixed(0);
+console.log(
+  `${rings.length} rings, ${keptPoints} points (from ${rawPoints} raw), ${kb} KB -> src/lib/coastline.ts`
+);

@@ -5,12 +5,12 @@
 // names into three states: in use at the chosen year (solid), formerly in
 // use (open circles, dashed arcs), and not yet attested (faded).
 //
-// The map window is chosen per entity from the baked regions (the one whose
-// bounds cover the most nodes); nodes outside it are pinned to the frame
-// edge with a direction mark. Server-rendered SVG; the only script is the
+// The map window is fitted to the entity's own nodes (see fitProjection), and
+// the coastline is projected and clipped to that window at build time, so every
+// map is framed to its content and a far node sits at its true place rather than
+// pinned to a fixed frame's edge. Server-rendered SVG; the only script is the
 // slider and the motion-gated arc draw-in.
-import { REGIONS } from '../lib/coastline';
-import { LANG_GEO, inRegion, projectGeo } from '../lib/geo';
+import { LANG_GEO, fitProjection, landPath } from '../lib/geo';
 import { formatEra } from '../lib/era';
 
 export interface MapNode {
@@ -31,18 +31,12 @@ interface Props {
 const { nodes, edges, civId } = Astro.props;
 
 const located = nodes.filter((n) => LANG_GEO[n.langId]);
-// Pick the region covering the most nodes; ties go to the smaller window.
-const region = REGIONS.map((r) => ({
-  r,
-  covered: located.filter((n) => inRegion(LANG_GEO[n.langId], r)).length,
-  area: (r.lonMax - r.lonMin) * (r.latMax - r.latMin),
-}))
-  .sort((a, b) => b.covered - a.covered || a.area - b.area)[0].r;
-
-const PIN_MARK = { east: '→', west: '←', north: '↑', south: '↓' } as const;
+// Fit the window to the nodes' true coordinates, then project everything into it.
+const proj = fitProjection(located.map((n) => LANG_GEO[n.langId]));
+const coastPath = landPath(proj);
 const placed = located.map((n) => {
   const geo = LANG_GEO[n.langId];
-  return { ...n, geo, ...projectGeo(geo, region) };
+  return { ...n, geo, ...proj.project(geo.lon, geo.lat) };
 });
 const byId = new Map(placed.map((p) => [p.id, p]));
 // Several names can share one homeland (e.g. three Arabic names for Jerusalem
@@ -80,16 +74,15 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 ---
 
 <div class="tmap-wrap">
-  <svg class="tmap-svg" viewBox={region.viewBox} role="img" aria-label={`Map of the names' homelands and transmission paths`}>
-    <path class="coast" d={region.path} />
+  <svg class="tmap-svg" viewBox={proj.viewBox} role="img" aria-label={`Map of the names' homelands and transmission paths`}>
+    <path class="coast" d={coastPath} />
     {arcs.map((arc) => (
       <path class="arc" d={arc.d} pathLength="1" data-start={arc.start} data-end={arc.end} />
     ))}
     {placedFanned.map((p) => (
       <a href={`#${p.anchor}`} class="map-node" data-start={p.start} data-end={p.end}>
-        <title>{p.langName} · {p.translit} · {p.geo.place}{p.pinned ? ' (beyond the map edge)' : ''} · {formatEra(p.start, p.end)}</title>
+        <title>{p.langName} · {p.translit} · {p.geo.place} · {formatEra(p.start, p.end)}</title>
         <circle cx={p.x} cy={p.y + p.oy} r="3.2" />
-        {p.pinned && <text class="offmark" x={p.x + 6} y={p.y + p.oy + 3.5}>{PIN_MARK[p.pinned]}</text>}
         <text
           class="map-label"
           x={p.x + (p.geo.dx ?? 7)}
@@ -173,7 +166,6 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     fill: var(--ink);
     transition: opacity 0.3s;
   }
-  .map-node .offmark { font-style: normal; fill: var(--ink-soft); }
   .map-node:hover circle, .map-node:focus circle { r: 4.5; }
   .map-node:hover text, .map-node:focus text { fill: var(--accent); opacity: 1; }
   .arc.future, .map-node.future { opacity: 0.1; }
