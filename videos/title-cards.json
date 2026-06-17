@@ -1,7 +1,66 @@
 [
-  { "slug": "carthage",  "script": "phoenician", "glyphs": "𐤒𐤓𐤕𐤇𐤃𐤔𐤕", "transliteration": "Qart-ḥadašt", "language": "Phoenician",     "label": "Carthage" },
-  { "slug": "phoenicia", "script": "phoenician", "glyphs": "𐤊𐤍𐤏𐤍",       "transliteration": "Kanaʿan",     "language": "Phoenician",     "label": "Phoenicia" },
-  { "slug": "israel",    "script": "hebrew",     "glyphs": "יִשְׂרָאֵל",    "transliteration": "Yiśrāʾēl",    "language": "Biblical Hebrew", "label": "Israel" },
-  { "slug": "judah",     "script": "hebrew",     "glyphs": "יְהוּדָה",      "transliteration": "Yĕhûdāh",     "language": "Biblical Hebrew", "label": "Judah" },
-  { "slug": "mitanni",   "script": "cuneiform",  "glyphs": "𒈪𒋫𒀭𒉌",     "transliteration": "Mittani",     "language": "Hurrian",        "label": "Mitanni" }
+  {
+    "slug": "carthage",
+    "script": "phoenician",
+    "glyphs": "𐤒𐤓𐤕𐤇𐤃𐤔𐤕",
+    "transliteration": "Qart-ḥadašt",
+    "language": "Phoenician",
+    "label": "Carthage"
+  },
+  {
+    "slug": "phoenicia",
+    "script": "phoenician",
+    "glyphs": "𐤊𐤍𐤏𐤍",
+    "transliteration": "Kanaʿan",
+    "language": "Phoenician",
+    "label": "Phoenicia"
+  },
+  {
+    "slug": "israel",
+    "script": "hebrew",
+    "glyphs": "יִשְׂרָאֵל",
+    "transliteration": "Yiśrāʾēl",
+    "language": "Biblical Hebrew",
+    "label": "Israel"
+  },
+  {
+    "slug": "judah",
+    "script": "hebrew",
+    "glyphs": "יְהוּדָה",
+    "transliteration": "Yĕhûdāh",
+    "language": "Biblical Hebrew",
+    "label": "Judah"
+  },
+  {
+    "slug": "mitanni",
+    "script": "cuneiform",
+    "glyphs": "𒈪𒋫𒀭𒉌",
+    "transliteration": "Mittani",
+    "language": "Hurrian",
+    "label": "Mitanni"
+  },
+  {
+    "slug": "macedon",
+    "script": "greek",
+    "glyphs": "Μακεδών",
+    "transliteration": "Makedṓn",
+    "language": "Ancient Greek",
+    "label": "Macedon"
+  },
+  {
+    "slug": "parthia",
+    "script": "inscriptional-parthian",
+    "glyphs": "𐭐𐭓𐭕𐭅",
+    "transliteration": "Parθaw",
+    "language": "Parthian",
+    "label": "Parthia"
+  },
+  {
+    "slug": "etruscans",
+    "script": "old-italic",
+    "glyphs": "𐌓𐌀𐌑𐌍𐌀",
+    "transliteration": "Raśna",
+    "language": "Etruscan",
+    "label": "The Etruscans"
+  }
 ]

@@ -6,6 +6,8 @@ region: Northeastern Iran
 era_start: -550
 era_end: 650
 summary: The northeastern Iranian land whose Arsacid dynasty built an empire that rivalled Rome, and whose name, by a sound change, became "Pahlavi."
+featured_image: /parthia-title.png
+og_image: /og/parthia-title.png
 ---
 
 Parthia was a region of northeastern Iran, southeast of the Caspian, that gave its name to one of the great empires of antiquity. A satrapy under the Achaemenids, it was the homeland of the Parni, the people whose Arsacid dynasty (c. 247 BCE to 224 CE) threw off Seleucid rule and built an empire stretching from the Euphrates to the Indus, the power that fought Rome to a standstill on the eastern frontier for nearly three centuries. After the Sasanians supplanted the Arsacids, the Parthian heartland lived on as a name and a noble tradition within the Persian world.

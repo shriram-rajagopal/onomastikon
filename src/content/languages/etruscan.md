@@ -7,6 +7,8 @@ lang_code: ett
 era_start: -700
 era_end: 50
 direction: rtl
+featured_image: /languages/etruscan-card.png
+og_image: /og/languages/etruscan-card.png
 ---
 
 Etruscan was the language of the Etruscans of ancient Italy, the most important non-Indo-European tongue of the pre-Roman peninsula. It is known from some thirteen thousand inscriptions, ranging from about 700 BCE to the first century CE, the great majority of them short funerary and votive texts; the long texts are few, chief among them the linen wrappings of the Zagreb mummy and the Pyrgi gold tablets, an Etruscan-Phoenician bilingual. With the Lemnian of a stele from that Aegean island and the Alpine Raetic it forms the small Tyrsenian family; beyond that it is an isolate, related to no other known language of the ancient world. Its alphabet was borrowed in the seventh century BCE from the Euboean Greeks of Cumae and adapted to Etruscan sounds, and it was normally written right to left.

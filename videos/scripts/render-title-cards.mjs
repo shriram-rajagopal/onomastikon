@@ -26,7 +26,7 @@ import { dirname, resolve, relative } from "node:path";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC_DIR = resolve(ROOT, "../public");
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const SCRIPTS = ["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "avestan", "greek", "latin"];
+const SCRIPTS = ["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "avestan", "old-italic", "inscriptional-parthian", "greek", "latin"];
 const rel = (p) => relative(ROOT, p).replace(/\\/g, "/");
 
 function fail(message) {

@@ -8,6 +8,8 @@ import { loadFont as loadCuneiform } from "@remotion/google-fonts/NotoSansCuneif
 import { loadFont as loadPhoenician } from "@remotion/google-fonts/NotoSansPhoenician";
 import { loadFont as loadHebrew } from "@remotion/google-fonts/NotoSerifHebrew";
 import { loadFont as loadAvestan } from "@remotion/google-fonts/NotoSansAvestan";
+import { loadFont as loadOldItalic } from "@remotion/google-fonts/NotoSansOldItalic";
+import { loadFont as loadParthian } from "@remotion/google-fonts/NotoSansInscriptionalParthian";
 
 // Data-driven version of the hand-built EgyptTitleCard / GreeceTitleCard /
 // PersiaTitleCard. Those three share an identical layout and differ only in four
@@ -50,6 +52,18 @@ const { fontFamily: avestan } = loadAvestan("normal", {
   weights: ["400"],
   subsets: ["avestan"],
 });
+// Old Italic carries Etruscan (Raśna). Its codepoints are bidi-L, so the glyphs
+// render left-to-right here, matching how the site presents Etruscan (logical order).
+const { fontFamily: oldItalic } = loadOldItalic("normal", {
+  weights: ["400"],
+  subsets: ["old-italic"],
+});
+// Inscriptional Parthian (Parθaw) is bidi-R, so it orders right-to-left without an
+// explicit direction, as Avestan/Hebrew/Phoenician do.
+const { fontFamily: parthian } = loadParthian("normal", {
+  weights: ["400"],
+  subsets: ["inscriptional-parthian"],
+});
 
 // Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
 // The card is filled with parchment rather than left transparent so the same PNG
@@ -71,12 +85,14 @@ const SCRIPTS = {
   phoenician: { fontFamily: phoenician, fontSize: 188, letterSpacing: 16, fontWeight: 400 },
   hebrew: { fontFamily: hebrew, fontSize: 208, letterSpacing: 0, fontWeight: 400 },
   avestan: { fontFamily: avestan, fontSize: 200, letterSpacing: 0, fontWeight: 400 },
+  "old-italic": { fontFamily: oldItalic, fontSize: 200, letterSpacing: 12, fontWeight: 400 },
+  "inscriptional-parthian": { fontFamily: parthian, fontSize: 200, letterSpacing: 12, fontWeight: 400 },
   greek: { fontFamily: garamond, fontSize: 200, letterSpacing: 0, fontWeight: 600 },
   latin: { fontFamily: garamond, fontSize: 168, letterSpacing: 0, fontWeight: 600 },
 } as const;
 
 export const titleCardSchema = z.object({
-  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "avestan", "greek", "latin"]),
+  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "avestan", "old-italic", "inscriptional-parthian", "greek", "latin"]),
   glyphs: z.string(), // the endonym in its original script (original_text)
   transliteration: z.string().optional(), // italic accent line (Kemet, Hellás, Pārsa); omit for Latin-script endonyms whose original IS the romanization (e.g. Roma)
   language: z.string(), // the endonym's language, shown below the transliteration (Middle Egyptian, Ancient Greek, Latin, ...)
