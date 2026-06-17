@@ -1,7 +1,7 @@
 ---
 english_name: Parthia
 type: civilization
-entry_status: developing
+entry_status: complete
 region: Northeastern Iran
 era_start: -550
 era_end: 650

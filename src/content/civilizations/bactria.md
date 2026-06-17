@@ -1,7 +1,7 @@
 ---
 english_name: Bactria
 type: civilization
-entry_status: developing
+entry_status: complete
 region: Central Asia (northern Afghanistan, the upper Oxus)
 era_start: -1500
 era_end: 650
