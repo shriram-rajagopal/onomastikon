@@ -278,6 +278,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Éphesos family',
     note: 'The name of Ephesus, the great Ionian city of the Temple of Artemis, Greek Éphesos (a pre-Greek Anatolian name) carried into Latin Ephesus, Syriac Efesos, and Arabic Afsūs; the Bronze Age Arzawan capital Apaša of the Hittite archives is widely, though not certainly, identified as its ancestor.',
   },
+  miletos: {
+    display: 'The Mílētos family',
+    note: 'The name of Miletus, the great Ionian city, Greek Mílētos (a pre-Greek Anatolian name) carried into Latin Miletus; uniquely it has two Bronze Age witnesses, the Hittite Milawanda of the Aḫḫiyawa texts and the Mycenaean Linear B mi-ra-ti-ja, "the Milesian women," of the Pylos tablets.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
