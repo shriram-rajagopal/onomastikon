@@ -36,6 +36,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'jewish-babylonian-aramaic': { lon: 43.77, lat: 33.36, place: 'Pumbedita', anchor: 'end', dx: -7, dy: -4 },
   'ancient-greek': { lon: 23.73, lat: 37.98, place: 'Athens', anchor: 'end', dx: -7 },
   latin: { lon: 12.49, lat: 41.9, place: 'Rome', dy: -6 },
+  etruscan: { lon: 11.76, lat: 42.25, place: 'Tarquinia', anchor: 'end', dx: -7, dy: -4 },
   'old-persian': { lon: 52.89, lat: 29.94, place: 'Persepolis', dy: 10 },
   'middle-persian': { lon: 44.58, lat: 33.1, place: 'Ctesiphon', anchor: 'middle', dx: 0, dy: -7 },
   parthian: { lon: 58.4, lat: 37.6, place: 'Nisa', dy: -6 },

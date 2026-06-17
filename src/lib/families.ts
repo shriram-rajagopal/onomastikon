@@ -234,6 +234,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Makedonía family',
     note: 'The land-name of Macedonia, Greek Makedonía (built on the ethnonym Makedṓn) and Latin Macedonia, taken east through the Greek of scripture as Syriac Maqedōniyā and Arabic Maqadūniya, all sharing the qōp̄/qof/qāf that marks the Aramaic route.',
   },
+  tyrsenoi: {
+    display: 'The Tyrrhēnoí family',
+    note: 'The outsiders\' name for the Etruscans, Greek Tyrrhēnoí (Ionic Tyrsēnoí) and Latin Etrūscī / Tuscī, both apparently built on a Mediterranean turs- root and quite distinct from the Etruscans\' own self-name Raśna; Latin Tuscī gives the modern "Tuscany," Greek Tyrrhēnía the Tyrrhenian Sea.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
