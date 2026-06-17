@@ -250,6 +250,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Mykēnai family',
     note: 'The name of the citadel of Mycenae, Greek Mykēnai (Homer\'s "well-built Mycenae, rich in gold") and Latin Mycēnae; a pre-Greek place-name that gave its name to the whole Mycenaean civilization and age.',
   },
+  knossos: {
+    display: 'The Knossos family',
+    note: 'The name of the great Cretan palace-city, attested in its own Linear B archive as ko-no-so and carried on into Greek Knōsós and Latin Cnosus; a pre-Greek name, recorded by the Mycenaeans who ruled Knossos centuries before Homer made it the city of Minos.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
