@@ -1,5 +1,5 @@
 ---
-english_name: Byzantium
+english_name: Byzantium / Constantinople
 type: city
 entry_status: developing
 region: The Bosphorus, between Europe and Asia (modern Istanbul)
