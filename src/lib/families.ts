@@ -298,6 +298,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Adrías family',
     note: 'The name of the Adriatic Sea, Greek Adrías and Latin Hadria / mare Hadriāticum, named after the Etruscan-and-Venetic port-city of Adria near the Po delta, since left inland by the silting of the coast.',
   },
+  olympos: {
+    display: 'The Ólympos family',
+    note: 'The name of Mount Olympus, Greek Ólympos and Latin Olympus; a pre-Greek substrate word (its -mp- cluster the mark, like the -nth- of Korinthos), meaning roughly "the high place" and reused for many mountains, but reserved in its most famous instance for the seat of the gods.',
+  },
+  ionios: {
+    display: 'The Iónios family',
+    note: 'The name of the Ionian Sea, Greek Iónios and Latin mare Ionium; the Greeks derived it from Io, the heifer-maiden who swam it fleeing Hera. It is NOT named after the Ionians of Ionia (the Iōnes, whose own name-family is separate), a coincidence of sound that has long confused the two.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
