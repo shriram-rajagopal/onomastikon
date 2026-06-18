@@ -31,10 +31,11 @@ if (!input) {
 // Africa northward to the Eurasian steppe. Wide enough that any in-scope
 // entity's homelands fall inside it with room for the map's padding.
 const DATA_BOX = { lonMin: -25, lonMax: 150, latMin: -12, latMax: 62 };
-// Douglas-Peucker tolerance in degrees: ~0.12 ≈ 13 km, fine for a small map.
-const SIMPLIFY = 0.12;
+// Douglas-Peucker tolerance in degrees (~0.03 ≈ 3 km). Kept fine so zoomed-in maps
+// have detail to show; the map component re-simplifies in pixel space per zoom.
+const SIMPLIFY = 0.03;
 // Rings smaller than this bounding span (degrees) are dropped as visual noise.
-const MIN_RING_SPAN = 0.5;
+const MIN_RING_SPAN = 0.15;
 
 // Sutherland-Hodgman polygon clipping against an axis-aligned lon/lat box.
 function clipRing(ring, box) {
@@ -121,8 +122,8 @@ for (const poly of land.features[0].geometry.coordinates) {
     }
     if (hi - lo < MIN_RING_SPAN && lb - la < MIN_RING_SPAN) continue;
     const rounded = simplified.map(([lon, lat]) => [
-      Math.round(lon * 10) / 10,
-      Math.round(lat * 10) / 10,
+      Math.round(lon * 100) / 100,
+      Math.round(lat * 100) / 100,
     ]);
     keptPoints += rounded.length;
     rings.push(rounded);

@@ -174,17 +174,59 @@ function clipRing(ring: ReadonlyArray<readonly [number, number]>, b: Bounds) {
 }
 
 /** Project the baked land rings into the given window as one SVG path string. */
+// Douglas-Peucker on a projected (pixel-space) ring. Run per map AFTER projecting,
+// so the coastline carries a constant level of on-screen detail at every zoom: a
+// wide map drops fine geographic detail (staying light and angular, as the maps look
+// today), while a zoomed-in map keeps it, since the same features now span more pixels
+// and fewer of their vertices fall under the pixel tolerance. Iterative (an explicit
+// stack) so a long clipped coastline can't overflow the call stack.
+const COAST_PIXEL_TOLERANCE = 1.1;
+function simplifyPixels(pts: ReadonlyArray<{ x: number; y: number }>, eps: number): Array<{ x: number; y: number }> {
+  const n = pts.length;
+  if (n < 3) return pts.slice();
+  const keep = new Uint8Array(n);
+  keep[0] = 1;
+  keep[n - 1] = 1;
+  const stack: Array<[number, number]> = [[0, n - 1]];
+  const eps2 = eps * eps;
+  while (stack.length) {
+    const [first, last] = stack.pop()!;
+    if (last - first < 2) continue;
+    const a = pts[first];
+    const b = pts[last];
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const len2 = dx * dx + dy * dy;
+    let dmax = -1;
+    let idx = -1;
+    for (let i = first + 1; i < last; i++) {
+      const p = pts[i];
+      const cross = (p.x - a.x) * dy - (p.y - a.y) * dx;
+      const d2 = len2 === 0 ? (p.x - a.x) ** 2 + (p.y - a.y) ** 2 : (cross * cross) / len2;
+      if (d2 > dmax) {
+        dmax = d2;
+        idx = i;
+      }
+    }
+    if (dmax > eps2 && idx > first) {
+      keep[idx] = 1;
+      stack.push([first, idx], [idx, last]);
+    }
+  }
+  const out: Array<{ x: number; y: number }> = [];
+  for (let i = 0; i < n; i++) if (keep[i]) out.push(pts[i]);
+  return out;
+}
+
 export function landPath(proj: Projection): string {
   const parts: string[] = [];
   for (const ring of LAND) {
     const clipped = clipRing(ring, proj.bounds);
     if (!clipped || clipped.length < 4) continue;
-    const d = clipped
-      .map(([lon, lat]) => {
-        const { x, y } = proj.project(lon, lat);
-        return `${x.toFixed(1)},${y.toFixed(1)}`;
-      })
-      .join('L');
+    const projected = clipped.map(([lon, lat]) => proj.project(lon, lat));
+    const thinned = simplifyPixels(projected, COAST_PIXEL_TOLERANCE);
+    if (thinned.length < 3) continue;
+    const d = thinned.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L');
     parts.push(`M${d}Z`);
   }
   return parts.join('');
