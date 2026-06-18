@@ -306,6 +306,50 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Iónios family',
     note: 'The name of the Ionian Sea, Greek Iónios and Latin mare Ionium; the Greeks derived it from Io, the heifer-maiden who swam it fleeing Hera. It is NOT named after the Ionians of Ionia (the Iōnes, whose own name-family is separate), a coincidence of sound that has long confused the two.',
   },
+  korinthos: {
+    display: 'The Kórinthos family',
+    note: 'The name of Corinth, Greek Kórinthos (a pre-Greek name, its -nth- cluster the substrate tell, like Olympos\'s -mp-), carried into Latin Corinthus and, through Paul\'s Epistles to the Corinthians, the Syriac Qurintos.',
+  },
+  thebai: {
+    display: 'The Thêbai family',
+    note: 'The name of Boeotian Thebes, the city of Oedipus and Cadmus, Greek Thêbai and Latin Thēbae; the Mycenaean Linear B te-qa (Thēgʷai) preserves the Bronze Age labiovelar that classical Greek later turned into the b of Thêbai.',
+  },
+  pella: {
+    display: 'The Pélla family',
+    note: 'The name of Pella, the Macedonian royal capital and birthplace of Alexander, Greek Pélla and Latin Pella; the name is sometimes connected to a word for stony ground, but the etymology is uncertain.',
+  },
+  neapolis: {
+    display: 'The Neápolis family',
+    note: 'The name of Naples, Greek Neápolis, "new city" (néos + pólis), and Latin Neapolis, whence the modern Napoli; the "new" city was founded beside an older settlement that bore the name Parthenópē.',
+  },
+  parthenope: {
+    display: 'The Parthenópē family',
+    note: 'The older name of Naples, Greek Parthenópē, after the Siren Parthenope, whose body was said to have washed ashore at the site; when the "new city" of Neápolis grew up beside it, the older town was called Palaepolis, "old city."',
+  },
+  taras: {
+    display: 'The Táras family',
+    note: 'The name of Tarentum, the only Spartan colony, Greek Táras after the hero Taras, son of Poseidon, saved by a dolphin; Latin Tarentum is built on the Greek oblique stem Tarant-, whence the modern Taranto.',
+  },
+  'magna-graecia': {
+    display: 'The Magna Graecia family',
+    note: 'The name of the Greek-colonized south of Italy, Greek Megálē Hellás, "Great Greece," and Latin Magna Graecia; unusually for this atlas the Latin is a calque of the Greek, not the other way round, the Greeks having named the density of their own colonies.',
+  },
+  latium: {
+    display: 'The Latium family',
+    note: 'The name of Latium, the plain of the Latins around Rome, Latin Latium and its Greek transcription Látion; derived in legend from where Saturn lay hidden (lateo) or from king Latinus, but most likely from latus, "the flat, broad land."',
+  },
+  sikelia: {
+    display: 'The Sikelía family',
+    note: 'The name of Sicily after the Sikeloi (Sicels), Greek Sikelía, carried into Latin Sicilia and, under the medieval emirate, the Arabic Ṣiqilliya; the mainline name, beside the older Sikanía and the shape-name Trinakría.',
+  },
+  sikania: {
+    display: 'The Sikanía family',
+    note: 'The older name of Sicily, Greek Sikanía, after the Sicani, the island\'s earlier inhabitants; Thucydides records that the whole island was once called Sikania before the Sikels gave it the name Sikelía.',
+  },
+  trinakria: {
+    display: 'The Trinakría family',
+    note: 'The shape-name of Sicily, Greek Trinakría, "three-cornered" (tri- + akra, for the island\'s three capes), reanalyzed from the older opaque Homeric Thrinakíē; carried into Latin as Trinacria.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
