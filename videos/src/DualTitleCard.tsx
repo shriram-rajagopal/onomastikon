@@ -5,6 +5,7 @@ import { loadFont as loadHieroglyphs } from "@remotion/google-fonts/NotoSansEgyp
 import { loadFont as loadOldPersian } from "@remotion/google-fonts/NotoSansOldPersian";
 import { loadFont as loadPahlavi } from "@remotion/google-fonts/NotoSansInscriptionalPahlavi";
 import { loadFont as loadCoptic } from "@remotion/google-fonts/NotoSansCoptic";
+import { loadFont as loadSC } from "@remotion/google-fonts/NotoSansSC";
 
 // PROTOTYPE — a two-column title card for entities with multiple endonyms across
 // time periods (e.g. Persia: Old Persian Pārsa and Middle Persian Ērān). Each
@@ -20,6 +21,7 @@ const { fontFamily: hieroglyphs } = loadHieroglyphs("normal", { weights: ["400"]
 const { fontFamily: oldPersian } = loadOldPersian("normal", { weights: ["400"], subsets: ["old-persian"] });
 const { fontFamily: pahlavi } = loadPahlavi("normal", { weights: ["400"], subsets: ["inscriptional-pahlavi"] });
 const { fontFamily: coptic } = loadCoptic("normal", { weights: ["400"], subsets: ["coptic"] });
+const { fontFamily: sc } = loadSC("normal", { weights: ["400"], subsets: ["chinese-simplified"] });
 
 const PARCHMENT = "#f5efe4";
 const INK = "#1a1a1a";
@@ -34,6 +36,7 @@ const SCRIPTS = {
   "old-persian": { fontFamily: oldPersian, fontSize: 140, letterSpacing: 10 },
   "inscriptional-pahlavi": { fontFamily: pahlavi, fontSize: 140, letterSpacing: 8 },
   coptic: { fontFamily: coptic, fontSize: 150, letterSpacing: 2 },
+  chinese: { fontFamily: sc, fontSize: 150, letterSpacing: 8 },
   greek: { fontFamily: garamond, fontSize: 150, letterSpacing: 0 },
   latin: { fontFamily: garamond, fontSize: 132, letterSpacing: 0 },
 } as const;

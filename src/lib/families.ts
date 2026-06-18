@@ -350,6 +350,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Trinakría family',
     note: 'The shape-name of Sicily, Greek Trinakría, "three-cornered" (tri- + akra, for the island\'s three capes), reanalyzed from the older opaque Homeric Thrinakíē; carried into Latin as Trinacria.',
   },
+  cina: {
+    display: 'The Cīna family',
+    note: 'The name of China from the Qín (秦) dynasty, carried out of India as Sanskrit Cīna and through Iran into Persian Čīn, Greek Sînai, Latin Sīnae, Arabic al-Ṣīn, and Syriac Bēth Sīnāyē; the source, through the sea-route form, of the English "China" and the prefix Sino-.',
+  },
+  seres: {
+    display: 'The Sêres family',
+    note: 'The Greco-Roman name for the China reached overland, the "silk people" (Greek Sêres, Latin Sēres) and their land Sērikḗ / Sērica, from Greek sḗr, "silk"; the overland twin of the maritime Sînai, and, through Latin sēricum, the hidden source of the word "silk."',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
