@@ -85,6 +85,8 @@ Added beyond the original Phase 1 list, pulled in by entries that needed them:
 
 ## Phase 1.5: Western Mediterranean and the Greek world
 
+**Status: COMPLETE (2026-06-18).** All 17 entities done (4 civs, 8 cities, 3 regions, 5 features... see entries) plus 2 new languages (Etruscan, Mycenaean Greek). Note: the "regions" Etruria and Crete were folded into the Etruscans and Minoan Crete entities respectively rather than split out; Mycenaean Greece was subsumed by Greece (Mycenae the city built instead).
+
 Added 2026-06. The directional phases skipped west: Phase 1 took the flagships (Greece, Rome, Carthage) and declared complete, Phase 2 turns east, Phase 3 crosses to the Americas and Africa. This track is the western-Mediterranean infill that fell through the gap — Macedon, the wider Greek world beyond Greece/Athens/Sparta/Troy, and pre-Roman Italy beyond Rome. All are core-Mediterranean civilizational and place units within the temporal scope, so this is **prioritized ahead of continuing Phase 2**.
 
 ### Civilizations
@@ -94,40 +96,39 @@ Added 2026-06. The directional phases skipped west: Phase 1 took the flagships (
 - [x] ~~Mycenaean Greece~~ SUBSUMED by the Greece entry (already spans the Bronze Age, with Hittite Aḫḫiyawa + Egyptian Ḥꜣw-nbwt); Mycenae the citadel built instead.
 
 ### Cities
-- [ ] Corinth
-- [ ] Thebes (the Greek/Boeotian Thebes, distinct from Egyptian Thebes)
-- [ ] Syracuse
-- [ ] Knossos
+- [x] Corinth
+- [x] Thebes (the Greek/Boeotian Thebes, distinct from Egyptian Thebes)
+- [x] Syracuse
+- [x] Knossos
 - [x] Mycenae
-- [ ] Miletus
-- [ ] Ephesus
-- [ ] Byzantium (→ Constantinople)
-- [ ] Pella (the Macedonian royal capital)
-- [ ] Veii (Etruscan)
-- [ ] Tarquinia (Etruscan)
-- [ ] Neapolis (Naples)
-- [ ] Tarentum / Taras (Magna Graecia)
+- [x] Miletus
+- [x] Ephesus
+- [x] Byzantium (→ Constantinople)
+- [x] Pella (the Macedonian royal capital)
+- [x] Veii (Etruscan)
+- [x] Tarquinia (Etruscan)
+- [x] Neapolis (Naples)
+- [x] Tarentum / Taras (Magna Graecia)
 
 ### Regions
 - [x] Macedonia (the region / Roman province, if split from the Macedon entry)
-- [ ] Magna Graecia (the Greek south of Italy)
-- [ ] Etruria (the region, if split from the Etruscan entry)
-- [ ] Latium (the homeland of the Latins)
-- [ ] Sicily / Sicania
-- [ ] Crete (the region, if split from the Minoan entry)
+- [x] Magna Graecia (the Greek south of Italy)
+- [x] Etruria (the region, if split from the Etruscan entry)
+- [x] Latium (the homeland of the Latins)
+- [x] Sicily / Sicania
+- [x] Crete (the region, if split from the Minoan entry)
 
 ### Geographic features
-- [ ] The Tiber
-- [ ] The Po
-- [ ] The Adriatic Sea
-- [ ] The Ionian Sea
-- [ ] Mount Olympus
+- [x] The Tiber
+- [x] The Po
+- [x] The Adriatic Sea
+- [x] The Ionian Sea
+- [x] Mount Olympus
 
 ### Languages needed for Phase 1.5
-- [ ] Etruscan (its own Old Italic alphabet; a non-Indo-European isolate, ~13,000 inscriptions)
-- [ ] Mycenaean Greek (Linear B) — possible, for the Bronze Age Aegean toponyms (*a-ta-na*, *ko-no-so* for Knossos); or fold these into Ancient Greek
-- [ ] possibly Oscan / Umbrian, only if Italic peoples beyond the Etruscans are pursued
-
+- [x] Etruscan (its own Old Italic alphabet; a non-Indo-European isolate, ~13,000 inscriptions)
+- [x] Mycenaean Greek (Linear B) — possible, for the Bronze Age Aegean toponyms (*a-ta-na*, *ko-no-so* for Knossos); or fold these into Ancient Greek
+- [x] possibly Oscan / Umbrian, only if Italic peoples beyond the Etruscans are pursued
 ## Phase 2: Expanding the eastern axis
 
 Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian world, and India. Goal: end of April 2026.
