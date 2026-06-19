@@ -446,6 +446,38 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Peleset family',
     note: 'The name of the Philistines and their coast, from Egyptian Peleset, the Sea People of the Medinet Habu reliefs, and Hebrew Pᵊlešet through Assyrian Palaštu to Greek Palaistínē, Latin Palaestina, and Arabic Filasṭīn; one Sea People\'s name generalized into the name of a land.',
   },
+  pontos: {
+    display: 'The Póntos family',
+    note: 'The Greek name of the Black Sea, Póntos Eúxeinos, "the Hospitable Sea," a superstitious euphemism replacing the older Áxeinos, "Inhospitable"; carried into Latin Pontus Euxinus and, through Póntos, the Arabic Baḥr Nīṭas.',
+  },
+  kaspia: {
+    display: 'The Kaspía family',
+    note: 'The Greek Kaspía and Latin Mare Caspium, the Caspian Sea named after the Caspii who lived on its shores, beside the rival Greek Hyrkanía that named it for the province of Hyrcania.',
+  },
+  halys: {
+    display: 'The Hálys family',
+    note: 'The Greek Hálys and Latin Halys, the great looping river of central Anatolia and the boundary of Croesus\'s kingdom, perhaps from Greek háls, "salt"; the Hittites knew it as the Marassantiya.',
+  },
+  ararat: {
+    display: 'The Ararat family',
+    note: 'The Hebrew Ăraraṭ and the Greek Ararát of the Septuagint, the mountains on which the ark came to rest; the same name as the Assyrian kingdom of Urarṭu, of which it is the Hebrew form.',
+  },
+  kaukasos: {
+    display: 'The Kaúkasos family',
+    note: 'The Greek Kaúkasos and Latin Caucasus, the great range between the Black Sea and the Caspian where Prometheus was chained; the name later doubled westward as the "Indian Caucasus," the Hindu Kush.',
+  },
+  hellespontos: {
+    display: 'The Hellḗspontos family',
+    note: 'The Greek Hellḗspontos, "sea of Helle," and Latin Hellespontus, the strait named for Helle, who fell from the golden ram into its water; the modern Dardanelles.',
+  },
+  bosporos: {
+    display: 'The Bósporos family',
+    note: 'The Greek Bósporos, "ox-ford," and Latin Bosporus, the strait named for Io, whom Hera had turned into a heifer and who swam across it in her wanderings.',
+  },
+  tauros: {
+    display: 'The Taûros family',
+    note: 'The Greek Taûros, "the Bull," and Latin Taurus, the mountain wall that divides the Anatolian plateau from the southern coast, pierced by the pass of the Cilician Gates.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
