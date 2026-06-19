@@ -1,5 +1,5 @@
 ---
-english_name: The Ganges
+english_name: The Ganges River
 type: geographic_feature
 entry_status: developing
 region: Northern India, the Gangetic plain

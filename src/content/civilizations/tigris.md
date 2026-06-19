@@ -1,5 +1,5 @@
 ---
-english_name: The Tigris
+english_name: The Tigris River
 type: geographic_feature
 region: Mesopotamia
 entry_status: complete

@@ -1,5 +1,5 @@
 ---
-english_name: The Jordan
+english_name: The Jordan River
 type: geographic_feature
 region: The Levant
 entry_status: complete

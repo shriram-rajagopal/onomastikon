@@ -1,5 +1,5 @@
 ---
-english_name: The Tiber
+english_name: The Tiber River
 type: geographic_feature
 entry_status: complete
 region: Latium and Etruria, central Italy

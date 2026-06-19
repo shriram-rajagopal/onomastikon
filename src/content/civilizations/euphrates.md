@@ -1,5 +1,5 @@
 ---
-english_name: The Euphrates
+english_name: The Euphrates River
 type: geographic_feature
 region: Mesopotamia
 entry_status: complete

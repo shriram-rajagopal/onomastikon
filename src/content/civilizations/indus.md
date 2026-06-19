@@ -1,5 +1,5 @@
 ---
-english_name: The Indus
+english_name: The Indus River
 type: geographic_feature
 entry_status: complete
 region: The Punjab and Sindh, northwest of the Indian subcontinent

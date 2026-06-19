@@ -1,5 +1,5 @@
 ---
-english_name: The Yamuna
+english_name: The Yamuna River
 type: geographic_feature
 entry_status: complete
 region: Northern India, the Gangetic plain

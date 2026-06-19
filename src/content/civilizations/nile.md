@@ -1,5 +1,5 @@
 ---
-english_name: The Nile
+english_name: The Nile River
 type: geographic_feature
 region: Northeast Africa
 entry_status: complete

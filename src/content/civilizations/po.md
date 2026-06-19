@@ -1,5 +1,5 @@
 ---
-english_name: The Po
+english_name: The Po River
 type: geographic_feature
 entry_status: complete
 region: Northern Italy (the plain of the Padan basin)
