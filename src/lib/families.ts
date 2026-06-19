@@ -358,6 +358,18 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Sêres family',
     note: 'The Greco-Roman name for the China reached overland, the "silk people" (Greek Sêres, Latin Sēres) and their land Sērikḗ / Sērica, from Greek sḗr, "silk"; the overland twin of the maritime Sînai, and, through Latin sēricum, the hidden source of the word "silk."',
   },
+  yamuna: {
+    display: 'The Yamunā family',
+    note: 'The name of the Yamuna, Sanskrit Yamunā (the river and the goddess, twin of Yama), which fragmented in every language that met it: two rival Greek spellings (Iōmánēs from Megasthenes, Diámouna from Ptolemy), Latin Iomanes, and a scatter of Chinese Buddhist transcriptions — the mirror of its sister Gaṅgā, whose name held intact everywhere.',
+  },
+  himalaya: {
+    display: 'The Himālaya family',
+    note: 'The name of the Himalayas, from the Sanskrit himá, "snow," inside both Himālaya ("abode of snow") and Himavat ("the snowy one," the personified mountain, father of Gaṅgā and Pārvatī); the Greeks and Romans caught the snow-word twice, as Imaus and Emodos, two names for one range that Pliny correctly glossed as meaning "snowy."',
+  },
+  dakshinapatha: {
+    display: 'The Dakṣiṇāpatha family',
+    note: 'The name of the Deccan, Sanskrit Dakṣiṇāpatha, "the southern road/region" (dakṣiṇa "south" + patha "road"), transcribed by the Greek merchant of the Periplus as Dachinabádēs with the correct gloss "dachanos means south"; the same dakṣiṇa, through Prakrit dakkhiṇa, gives the modern "Deccan."',
+  },
   ganga: {
     display: 'The Gaṅgā family',
     note: 'The name of the Ganges, Sanskrit Gaṅgā (the sacred river and its goddess), carried almost unchanged into Greek Gángēs and Latin Ganges and transcribed in the Chinese Buddhist canon as 恒河 (Hénghé); unlike the Indus, whose name fragmented across the languages that crossed it, the holy Ganges kept its name everywhere it traveled.',
