@@ -358,6 +358,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Sêres family',
     note: 'The Greco-Roman name for the China reached overland, the "silk people" (Greek Sêres, Latin Sēres) and their land Sērikḗ / Sērica, from Greek sḗr, "silk"; the overland twin of the maritime Sînai, and, through Latin sēricum, the hidden source of the word "silk."',
   },
+  sindhu: {
+    display: 'The Sindhu family',
+    note: 'The world\'s name for India, from the Indus river: Sanskrit Sindhu became Old Persian Hinduš, the Achaemenid frontier province generalized to the whole subcontinent, and forks into Elamite Hinduš and Babylonian Indû, Avestan Hapta Həṇdu, Greek Indía and Latin India, Hebrew Hōddû, Geʿez Hendekē, and the Iranian Hind that yields Syriac Hendu, Arabic al-Hind, and the Chinese transcriptions Shēndú, Tiānzhú, and Yìndù; the source of English "India" and, through Hinduš, the word "Hindu." India\'s own name for itself, Bhārata, stands outside it.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
