@@ -1,5 +1,5 @@
 ---
-english_name: The Aegean
+english_name: The Aegean Sea
 type: geographic_feature
 region: Between Greece and Anatolia
 entry_status: complete

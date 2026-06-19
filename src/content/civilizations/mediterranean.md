@@ -1,5 +1,5 @@
 ---
-english_name: The Mediterranean
+english_name: The Mediterranean Sea
 type: geographic_feature
 region: Between Europe, Africa, and Asia
 entry_status: complete
