@@ -84,7 +84,19 @@ const TRI = 5;
 const entTris = entity?.kind === 'mountains'
   ? ept.map((p) => `M${p.x.toFixed(1)},${(p.y - TRI * 1.3).toFixed(1)}L${(p.x - TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}L${(p.x + TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}Z`)
   : [];
+// Point locators: a city is a diamond, a civilization a star at its heartland.
+const isPoint = entity?.kind === 'city' || entity?.kind === 'civ';
+const P = isPoint ? ept[0] : null;
+const CD = 5; // city diamond half-size
+const entCity = P && entity?.kind === 'city'
+  ? `M${P.x.toFixed(1)},${(P.y - CD).toFixed(1)}L${(P.x + CD).toFixed(1)},${P.y.toFixed(1)}L${P.x.toFixed(1)},${(P.y + CD).toFixed(1)}L${(P.x - CD).toFixed(1)},${P.y.toFixed(1)}Z`
+  : '';
+const STAR: [number, number][] = [[0, -8], [2.3, -2.3], [8, 0], [2.3, 2.3], [0, 8], [-2.3, 2.3], [-8, 0], [-2.3, -2.3]];
+const entCiv = P && entity?.kind === 'civ'
+  ? 'M' + STAR.map(([dx, dy]) => `${(P.x + dx).toFixed(1)},${(P.y + dy).toFixed(1)}`).join('L') + 'Z'
+  : '';
 const entLabel = entity && ept.length ? { ...ept[Math.floor(ept.length / 2)], text: entity.label } : null;
+const entLabelDy = isPoint ? -12 : -9;
 
 const minYear = Math.min(...placed.map((p) => p.start));
 const maxYear = Math.max(...placed.map((p) => p.end));
@@ -102,7 +114,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
         {entRegionPath && <path class="ent-region" d={entRegionPath} />}
         {entTris.map((t) => <path class="ent-mtn-halo" d={t} />)}
         {entTris.map((t) => <path class="ent-mtn" d={t} />)}
-        {entLabel && <text class="ent-label" x={entLabel.x} y={entLabel.y - 9}>{entLabel.text}</text>}
+        {entLabel && !isPoint && <text class="ent-label" x={entLabel.x} y={entLabel.y + entLabelDy}>{entLabel.text}</text>}
       </g>
     )}
     {arcs.map((arc) => (
@@ -120,6 +132,15 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
         >{p.translit}</text>
       </a>
     ))}
+    {entity && isPoint && (
+      <g class="entity-pt" aria-hidden="true">
+        {entCity && <path class="ent-pt-halo" d={entCity} />}
+        {entCity && <path class="ent-city" d={entCity} />}
+        {entCiv && <path class="ent-pt-halo" d={entCiv} />}
+        {entCiv && <path class="ent-civ" d={entCiv} />}
+        {entLabel && <text class="ent-label" x={entLabel.x} y={entLabel.y + entLabelDy}>{entLabel.text}</text>}
+      </g>
+    )}
   </svg>
 </div>
 <div class="tmap-controls">
@@ -134,8 +155,14 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 </p>
 {entity && (
   <p class="tmap-locator">
-    <span class={`loc-swatch loc-${entity.kind}`}></span> {entity.label},
-    {entity.kind === 'river' ? ' its course' : entity.kind === 'mountains' ? ' the range' : ' the region'}
+    {entity.kind === 'city' ? <span class="loc-glyph">◆</span>
+      : entity.kind === 'civ' ? <span class="loc-glyph">✦</span>
+      : <span class={`loc-swatch loc-${entity.kind}`}></span>} {entity.label},
+    {entity.kind === 'river' ? ' its course'
+      : entity.kind === 'mountains' ? ' the range'
+      : entity.kind === 'region' ? ' the region'
+      : entity.kind === 'city' ? ' the city'
+      : ' the heartland'}
   </p>
 )}
 
@@ -255,6 +282,8 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   .ent-mtn { fill: color-mix(in srgb, var(--ink) 52%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
   .ent-region-halo { fill: none; stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.85; }
   .ent-region { fill: color-mix(in srgb, var(--ink) 12%, var(--parchment)); stroke: color-mix(in srgb, var(--ink) 42%, var(--parchment)); stroke-width: 1.1; stroke-dasharray: 4 3; stroke-linejoin: round; }
+  .ent-pt-halo { fill: var(--parchment); stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.9; }
+  .ent-city, .ent-civ { fill: color-mix(in srgb, var(--ink) 58%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
   .ent-label {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 12px;
@@ -276,4 +305,5 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   .loc-river { width: 14px; height: 0; border-top: 2px solid color-mix(in srgb, var(--ink) 52%, var(--parchment)); }
   .loc-mountains { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid color-mix(in srgb, var(--ink) 52%, var(--parchment)); }
   .loc-region { width: 11px; height: 8px; border: 1.5px dashed color-mix(in srgb, var(--ink) 42%, var(--parchment)); background: color-mix(in srgb, var(--ink) 12%, var(--parchment)); }
+  .loc-glyph { color: color-mix(in srgb, var(--ink) 58%, var(--parchment)); font-size: 0.95em; vertical-align: middle; }
 </style>

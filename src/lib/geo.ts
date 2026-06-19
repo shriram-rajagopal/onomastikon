@@ -51,13 +51,27 @@ export const LANG_GEO: Record<string, LangGeo> = {
 // --- Entity locators --------------------------------------------------------
 // Where the page's *subject* actually sits, drawn on its own transmission map so
 // a reader sees not only who named the thing (the language nodes, in accent) but
-// where it is (this geometry, in ink). Coordinates are coarse true lon/lat: a
-// river is its course as a polyline; a mountain range is a line of peaks (one
-// point = one peak, e.g. Olympus); a region is a rough hull. Only the current
-// entity's locator is drawn, so a map never carries more than one. Seas, cities,
-// and civilizations are not yet located here.
+// where it is (this geometry, in ink). Coordinates are coarse true lon/lat; only
+// the current entity's locator is drawn, so a map never carries more than one.
+//
+// RENDER STRATEGY BY KIND (the locator taxonomy — TransmissionMap.astro switches
+// on `kind`):
+//   line   — river: `points` are the course, drawn as a polyline.
+//   peaks  — mountains: `points` are peaks, each a triangle (one point = one
+//            peak, e.g. Olympus; many = a range).
+//   point  — city (a diamond) / civ (a star at the heartland): `points` is one
+//            coordinate.
+//   area   — region (and FUTURE areal features): `points` are a hull, drawn as a
+//            closed polygon. Future kinds (desert, plateau, plain, valley,
+//            forest/jungle, marsh, lake) reuse this hull and are told apart by a
+//            MONOCHROME INK FILL PATTERN, never by color: stipple = desert,
+//            horizontal hatch = plateau, scattered tree-dots = forest, short
+//            ticks = marsh, even wash = plain, wave-lines = lake. To add one:
+//            extend the kind union, add an SVG <pattern> + fill class, list it in
+//            the `area` branch. Seas stay unlocated (the coastline already shows
+//            the water; a label would be the move if ever wanted).
 export interface EntityGeo {
-  kind: 'river' | 'mountains' | 'region';
+  kind: 'river' | 'mountains' | 'region' | 'city' | 'civ';
   label: string;
   points: [number, number][];
 }
@@ -75,6 +89,60 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   himalayas: { kind: 'mountains', label: 'the Himalayas', points: [[74.0, 35.2], [77.5, 32.3], [80.5, 30.4], [83.5, 29.0], [86.9, 27.9], [89.5, 27.8], [92.5, 28.2], [95.0, 28.5]] },
   olympus: { kind: 'mountains', label: 'Olympus', points: [[22.35, 40.09]] },
   deccan: { kind: 'region', label: 'the Deccan', points: [[73.5, 19.0], [78.5, 18.5], [80.5, 15.5], [78.0, 12.5], [74.5, 14.0], [73.3, 16.5]] },
+
+  // Cities (a point at the site).
+  alexandria: { kind: 'city', label: 'Alexandria', points: [[29.92, 31.20]] },
+  athens: { kind: 'city', label: 'Athens', points: [[23.73, 37.98]] },
+  babylon: { kind: 'city', label: 'Babylon', points: [[44.42, 32.54]] },
+  byzantium: { kind: 'city', label: 'Byzantium', points: [[28.98, 41.01]] },
+  corinth: { kind: 'city', label: 'Corinth', points: [[22.88, 37.91]] },
+  damascus: { kind: 'city', label: 'Damascus', points: [[36.31, 33.51]] },
+  ephesus: { kind: 'city', label: 'Ephesus', points: [[27.34, 37.94]] },
+  jerusalem: { kind: 'city', label: 'Jerusalem', points: [[35.23, 31.78]] },
+  knossos: { kind: 'city', label: 'Knossos', points: [[25.16, 35.30]] },
+  memphis: { kind: 'city', label: 'Memphis', points: [[31.25, 29.85]] },
+  miletus: { kind: 'city', label: 'Miletus', points: [[27.28, 37.53]] },
+  mycenae: { kind: 'city', label: 'Mycenae', points: [[22.76, 37.73]] },
+  neapolis: { kind: 'city', label: 'Neapolis', points: [[14.27, 40.84]] },
+  nineveh: { kind: 'city', label: 'Nineveh', points: [[43.15, 36.36]] },
+  pella: { kind: 'city', label: 'Pella', points: [[22.52, 40.76]] },
+  persepolis: { kind: 'city', label: 'Persepolis', points: [[52.89, 29.94]] },
+  sidon: { kind: 'city', label: 'Sidon', points: [[35.37, 33.56]] },
+  sparta: { kind: 'city', label: 'Sparta', points: [[22.43, 37.07]] },
+  susa: { kind: 'city', label: 'Susa', points: [[48.25, 32.19]] },
+  syracuse: { kind: 'city', label: 'Syracuse', points: [[15.29, 37.07]] },
+  tarentum: { kind: 'city', label: 'Tarentum', points: [[17.24, 40.47]] },
+  tarquinia: { kind: 'city', label: 'Tarquinia', points: [[11.76, 42.25]] },
+  thebes: { kind: 'city', label: 'Thebes', points: [[23.32, 38.32]] },
+  troy: { kind: 'city', label: 'Troy', points: [[26.24, 39.96]] },
+  tyre: { kind: 'city', label: 'Tyre', points: [[35.20, 33.27]] },
+  ur: { kind: 'city', label: 'Ur', points: [[46.10, 30.96]] },
+  uruk: { kind: 'city', label: 'Uruk', points: [[45.64, 31.32]] },
+  veii: { kind: 'city', label: 'Veii', points: [[12.39, 42.03]] },
+
+  // Civilizations (a star at the heartland / seat — not a claim of borders).
+  akkad: { kind: 'civ', label: 'Akkad', points: [[44.40, 32.90]] },
+  assyria: { kind: 'civ', label: 'Assyria', points: [[43.26, 35.46]] },
+  babylonia: { kind: 'civ', label: 'Babylonia', points: [[44.42, 32.54]] },
+  bactria: { kind: 'civ', label: 'Bactria', points: [[66.90, 36.76]] },
+  carthage: { kind: 'civ', label: 'Carthage', points: [[10.32, 36.85]] },
+  china: { kind: 'civ', label: 'China', points: [[112.40, 34.60]] },
+  egypt: { kind: 'civ', label: 'Egypt', points: [[31.25, 29.85]] },
+  elam: { kind: 'civ', label: 'Elam', points: [[48.25, 32.19]] },
+  etruscans: { kind: 'civ', label: 'Etruria', points: [[11.70, 42.50]] },
+  greece: { kind: 'civ', label: 'Greece', points: [[23.50, 38.30]] },
+  hittites: { kind: 'civ', label: 'Ḫatti', points: [[34.62, 40.02]] },
+  india: { kind: 'civ', label: 'India', points: [[79.00, 26.00]] },
+  israel: { kind: 'civ', label: 'Israel', points: [[35.20, 32.28]] },
+  judah: { kind: 'civ', label: 'Judah', points: [[35.23, 31.78]] },
+  macedon: { kind: 'civ', label: 'Macedon', points: [[22.52, 40.76]] },
+  'minoan-crete': { kind: 'civ', label: 'Minoan Crete', points: [[25.16, 35.30]] },
+  mitanni: { kind: 'civ', label: 'Mitanni', points: [[40.00, 36.85]] },
+  parthia: { kind: 'civ', label: 'Parthia', points: [[58.40, 37.60]] },
+  persia: { kind: 'civ', label: 'Persia', points: [[53.00, 30.00]] },
+  phoenicia: { kind: 'civ', label: 'Phoenicia', points: [[35.40, 33.90]] },
+  rome: { kind: 'civ', label: 'Rome', points: [[12.50, 41.90]] },
+  sumer: { kind: 'civ', label: 'Sumer', points: [[45.80, 31.30]] },
 };
 
 // --- Per-map projection -----------------------------------------------------
