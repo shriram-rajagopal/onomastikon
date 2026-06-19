@@ -48,6 +48,35 @@ export const LANG_GEO: Record<string, LangGeo> = {
   geez: { lon: 38.72, lat: 14.13, place: 'Aksum' },
 };
 
+// --- Entity locators --------------------------------------------------------
+// Where the page's *subject* actually sits, drawn on its own transmission map so
+// a reader sees not only who named the thing (the language nodes, in accent) but
+// where it is (this geometry, in ink). Coordinates are coarse true lon/lat: a
+// river is its course as a polyline; a mountain range is a line of peaks (one
+// point = one peak, e.g. Olympus); a region is a rough hull. Only the current
+// entity's locator is drawn, so a map never carries more than one. Seas, cities,
+// and civilizations are not yet located here.
+export interface EntityGeo {
+  kind: 'river' | 'mountains' | 'region';
+  label: string;
+  points: [number, number][];
+}
+
+export const ENTITY_GEO: Record<string, EntityGeo> = {
+  nile: { kind: 'river', label: 'the Nile', points: [[32.9, 24.1], [32.6, 25.7], [31.2, 29.9], [31.1, 30.4], [31.5, 31.4]] },
+  tigris: { kind: 'river', label: 'the Tigris', points: [[40.2, 37.6], [42.4, 37.2], [43.1, 36.3], [44.4, 33.3], [45.8, 31.8], [47.4, 31.0]] },
+  euphrates: { kind: 'river', label: 'the Euphrates', points: [[38.7, 39.0], [38.3, 37.0], [40.0, 35.9], [42.4, 34.3], [44.3, 32.5], [46.1, 31.4], [47.4, 31.0]] },
+  jordan: { kind: 'river', label: 'the Jordan', points: [[35.62, 33.25], [35.57, 32.88], [35.57, 32.38], [35.55, 31.76], [35.50, 31.46]] },
+  po: { kind: 'river', label: 'the Po', points: [[7.7, 44.7], [8.9, 45.1], [10.3, 45.0], [11.6, 45.0], [12.3, 44.95]] },
+  tiber: { kind: 'river', label: 'the Tiber', points: [[12.4, 42.8], [12.5, 42.4], [12.6, 42.0], [12.48, 41.9], [12.25, 41.74]] },
+  indus: { kind: 'river', label: 'the Indus', points: [[74.5, 35.0], [72.8, 33.7], [71.3, 32.0], [70.6, 29.5], [68.9, 27.7], [68.0, 26.0], [67.45, 24.0]] },
+  ganges: { kind: 'river', label: 'the Ganges', points: [[78.2, 29.9], [80.3, 26.8], [81.9, 25.4], [83.0, 25.3], [85.8, 24.8], [88.0, 23.5], [89.5, 22.5]] },
+  yamuna: { kind: 'river', label: 'the Yamuna', points: [[77.7, 30.7], [77.2, 28.6], [77.7, 27.5], [79.5, 26.5], [81.9, 25.4]] },
+  himalayas: { kind: 'mountains', label: 'the Himalayas', points: [[74.0, 35.2], [77.5, 32.3], [80.5, 30.4], [83.5, 29.0], [86.9, 27.9], [89.5, 27.8], [92.5, 28.2], [95.0, 28.5]] },
+  olympus: { kind: 'mountains', label: 'Olympus', points: [[22.35, 40.09]] },
+  deccan: { kind: 'region', label: 'the Deccan', points: [[73.5, 19.0], [78.5, 18.5], [80.5, 15.5], [78.0, 12.5], [74.5, 14.0], [73.3, 16.5]] },
+};
+
 // --- Per-map projection -----------------------------------------------------
 // The map window is computed from the nodes it must show, then everything (the
 // coastline included) is projected into it. This is the fix for the old fixed

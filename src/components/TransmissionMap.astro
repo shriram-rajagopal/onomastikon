@@ -10,7 +10,7 @@
 // map is framed to its content and a far node sits at its true place rather than
 // pinned to a fixed frame's edge. Server-rendered SVG; the only script is the
 // slider and the motion-gated arc draw-in.
-import { LANG_GEO, fitProjection, landPath } from '../lib/geo';
+import { LANG_GEO, ENTITY_GEO, fitProjection, landPath } from '../lib/geo';
 import { formatEra } from '../lib/era';
 
 export interface MapNode {
@@ -31,8 +31,15 @@ interface Props {
 const { nodes, edges, civId } = Astro.props;
 
 const located = nodes.filter((n) => LANG_GEO[n.langId]);
+// The page's own subject, if we know where it sits, drawn as a locator below the
+// naming layer (its course / range / area). Its points join the fit so the entity
+// is always framed alongside the languages that named it.
+const entity = ENTITY_GEO[civId];
 // Fit the window to the nodes' true coordinates, then project everything into it.
-const proj = fitProjection(located.map((n) => LANG_GEO[n.langId]));
+const proj = fitProjection([
+  ...located.map((n) => LANG_GEO[n.langId]),
+  ...(entity ? entity.points.map(([lon, lat]) => ({ lon, lat })) : []),
+]);
 const coastPath = landPath(proj);
 const placed = located.map((n) => {
   const geo = LANG_GEO[n.langId];
@@ -68,6 +75,17 @@ const arcs = edges
       end: b.end,
     };
   });
+// Project the entity locator into the map: a river is a polyline of its course,
+// a range a line of peak-triangles, a region a closed hull.
+const ept = entity ? entity.points.map(([lon, lat]) => proj.project(lon, lat)) : [];
+const entRiverPath = entity?.kind === 'river' ? 'M' + ept.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L') : '';
+const entRegionPath = entity?.kind === 'region' ? 'M' + ept.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L') + 'Z' : '';
+const TRI = 5;
+const entTris = entity?.kind === 'mountains'
+  ? ept.map((p) => `M${p.x.toFixed(1)},${(p.y - TRI * 1.3).toFixed(1)}L${(p.x - TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}L${(p.x + TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}Z`)
+  : [];
+const entLabel = entity && ept.length ? { ...ept[Math.floor(ept.length / 2)], text: entity.label } : null;
+
 const minYear = Math.min(...placed.map((p) => p.start));
 const maxYear = Math.max(...placed.map((p) => p.end));
 const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} CE`);
@@ -76,6 +94,17 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 <div class="tmap-wrap">
   <svg class="tmap-svg" viewBox={proj.viewBox} role="img" aria-label={`Map of the names' homelands and transmission paths`}>
     <path class="coast" d={coastPath} />
+    {entity && (
+      <g class="entity-geo" aria-hidden="true">
+        {entRiverPath && <path class="ent-halo" d={entRiverPath} />}
+        {entRiverPath && <path class="ent-river" d={entRiverPath} />}
+        {entRegionPath && <path class="ent-region-halo" d={entRegionPath} />}
+        {entRegionPath && <path class="ent-region" d={entRegionPath} />}
+        {entTris.map((t) => <path class="ent-mtn-halo" d={t} />)}
+        {entTris.map((t) => <path class="ent-mtn" d={t} />)}
+        {entLabel && <text class="ent-label" x={entLabel.x} y={entLabel.y - 9}>{entLabel.text}</text>}
+      </g>
+    )}
     {arcs.map((arc) => (
       <path class="arc" d={arc.d} pathLength="1" data-start={arc.start} data-end={arc.end} />
     ))}
@@ -103,6 +132,12 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   <span class="leg-key leg-past"></span> formerly in use ·
   <span class="leg-key leg-future"></span> not yet attested
 </p>
+{entity && (
+  <p class="tmap-locator">
+    <span class={`loc-swatch loc-${entity.kind}`}></span> {entity.label},
+    {entity.kind === 'river' ? ' its course' : entity.kind === 'mountains' ? ' the range' : ' the region'}
+  </p>
+)}
 
 <script>
   for (const wrap of document.querySelectorAll('.tmap-controls')) {
@@ -210,4 +245,35 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   .leg-current { background: var(--accent); }
   .leg-past { border: 1.5px solid var(--accent); }
   .leg-future { background: var(--accent); opacity: 0.15; }
+
+  /* Entity locator: the page's own subject, in ink (the names travel in accent;
+     the thing itself sits in ink). A parchment halo keeps it legible over the
+     coast and under the naming layer at any map density. */
+  .ent-halo { fill: none; stroke: var(--parchment); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; }
+  .ent-river { fill: none; stroke: color-mix(in srgb, var(--ink) 52%, var(--parchment)); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ent-mtn-halo { fill: var(--parchment); stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.85; }
+  .ent-mtn { fill: color-mix(in srgb, var(--ink) 52%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
+  .ent-region-halo { fill: none; stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.85; }
+  .ent-region { fill: color-mix(in srgb, var(--ink) 12%, var(--parchment)); stroke: color-mix(in srgb, var(--ink) 42%, var(--parchment)); stroke-width: 1.1; stroke-dasharray: 4 3; stroke-linejoin: round; }
+  .ent-label {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 12px;
+    fill: color-mix(in srgb, var(--ink) 68%, var(--parchment));
+    paint-order: stroke;
+    stroke: var(--parchment);
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    text-anchor: middle;
+  }
+
+  .tmap-locator {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    color: var(--ink-soft);
+    margin: -1.6rem 0 2rem;
+  }
+  .loc-swatch { display: inline-block; vertical-align: middle; margin-right: 2px; }
+  .loc-river { width: 14px; height: 0; border-top: 2px solid color-mix(in srgb, var(--ink) 52%, var(--parchment)); }
+  .loc-mountains { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid color-mix(in srgb, var(--ink) 52%, var(--parchment)); }
+  .loc-region { width: 11px; height: 8px; border: 1.5px dashed color-mix(in srgb, var(--ink) 42%, var(--parchment)); background: color-mix(in srgb, var(--ink) 12%, var(--parchment)); }
 </style>
