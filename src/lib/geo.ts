@@ -47,6 +47,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'classical-chinese': { lon: 108.94, lat: 34.27, place: "Chang'an", anchor: 'end', dx: -7 },
   'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hejaz' },
   geez: { lon: 38.72, lat: 14.13, place: 'Aksum' },
+  lycian: { lon: 29.32, lat: 36.35, place: 'Xanthos', anchor: 'middle', dx: 0, dy: 12 },
 };
 
 // --- Entity locators --------------------------------------------------------
@@ -101,6 +102,14 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   'magna-graecia': { kind: 'region', label: 'Magna Graecia', points: [[14.0, 40.9], [17.5, 40.6], [18.4, 40.1], [16.4, 39.5], [15.9, 38.0], [15.6, 38.3], [15.0, 39.5], [14.5, 40.3]] },
   mesopotamia: { kind: 'region', label: 'Mesopotamia', points: [[39.5, 37.0], [42.5, 37.1], [45.5, 33.5], [47.4, 31.0], [47.9, 30.4], [45.0, 31.6], [43.4, 34.0], [40.0, 36.0], [38.6, 36.7]] },
   sicily: { kind: 'region', label: 'Sicily', points: [[12.43, 37.80], [13.9, 38.1], [15.5, 38.25], [15.6, 38.0], [15.1, 36.69], [13.9, 37.1]] },
+  syria: { kind: 'region', label: 'Syria', points: [[36.0, 36.5], [38.5, 36.6], [40.0, 35.0], [38.7, 33.6], [36.3, 33.4], [35.9, 34.8]] },
+  phrygia: { kind: 'region', label: 'Phrygia', points: [[29.5, 38.7], [31.2, 39.7], [33.0, 39.2], [32.6, 38.2], [30.6, 38.0], [29.6, 38.2]] },
+  lydia: { kind: 'region', label: 'Lydia', points: [[26.9, 38.0], [27.6, 39.0], [29.0, 38.9], [29.2, 38.1], [28.3, 37.7], [27.1, 37.7]] },
+  ionia: { kind: 'region', label: 'Ionia', points: [[26.4, 38.6], [27.4, 38.4], [27.6, 37.9], [27.2, 37.5], [26.6, 37.6], [26.4, 38.1]] },
+  cappadocia: { kind: 'region', label: 'Cappadocia', points: [[33.6, 39.2], [36.0, 38.9], [36.4, 38.0], [35.4, 37.4], [34.0, 37.8], [33.4, 38.5]] },
+  cilicia: { kind: 'region', label: 'Cilicia', points: [[33.4, 37.1], [34.6, 37.4], [36.2, 37.0], [36.2, 36.5], [34.9, 36.4], [33.6, 36.6]] },
+  lycia: { kind: 'region', label: 'Lycia', points: [[28.9, 36.9], [30.0, 36.9], [30.6, 36.5], [30.1, 36.1], [29.2, 36.1], [28.8, 36.5]] },
+  philistia: { kind: 'region', label: 'Philistia', points: [[34.25, 31.85], [34.95, 31.85], [34.75, 31.25], [34.4, 31.25], [34.2, 31.5]] },
 
   // Cities (a point at the site).
   alexandria: { kind: 'city', label: 'Alexandria', points: [[29.92, 31.20]] },

@@ -406,6 +406,46 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The lbn family',
     note: 'The Northwest Semitic name of Mount Lebanon, from the root lbn, "white," for its snow and pale limestone: Hebrew Lᵊḇānōn, Akkadian Labnānu, Ugaritic and Phoenician lbnn, Syriac Lebnān, Arabic Lubnān, and the Greek Líbanos and Latin Libanus borrowed from the Semitic; the cedar mountain named for its colour.',
   },
+  aram: {
+    display: 'The Aram family',
+    note: 'The Semitic name of the Arameans and their land, Hebrew Ărām, Aramaic Aram, Akkadian Aramu; the people\'s own name for inland Syria, distinct from the Greek Syria the outside world fixed on the same region.',
+  },
+  syria: {
+    display: 'The Syría family',
+    note: 'The Greek Syría and its heirs Latin Syria and Syriac Sūryā; widely held to be a clipped form of Assyria, the northern Mesopotamian power\'s name extended by the Greeks to the whole Aramean west, an identification the Çineköy bilingual supports.',
+  },
+  phrygia: {
+    display: 'The Phrygía family',
+    note: 'The Greek Phrygía and Latin Phrygia, the kingdom of Midas and Gordion in west-central Anatolia.',
+  },
+  mushku: {
+    display: 'The Mušku family',
+    note: 'The Assyrian Mušku and Hebrew Mešek for the Phrygians, the eastern name of the people whose king Mita (Midas) the Assyrian annals recorded, beside the Greek Phrygía.',
+  },
+  lydia: {
+    display: 'The Lydía family',
+    note: 'The Greek Lydía and Latin Lydia, the kingdom of the Mermnad kings and Croesus at Sardis; the Greeks knew its people in Homer as the Maeonians.',
+  },
+  luddu: {
+    display: 'The Luddu family',
+    note: 'The Assyrian Luddu and Hebrew Lud for Lydia, the eastern name of the kingdom of Sardis, whose king Gugu (Gyges) opened relations with Ashurbanipal.',
+  },
+  katpatuka: {
+    display: 'The Katpatuka family',
+    note: 'The Old Persian satrapy-name Katpatuka, taken into Greek as Kappadokía and Latin Cappadocia; an Achaemenid administrative name that became the region\'s name in the classical world.',
+  },
+  kilikia: {
+    display: 'The Kilikía family',
+    note: 'The Greek Kilikía and Latin Cilicia, the southeastern Anatolian coast, perhaps connected with the Assyrian Ḫilakku of the same rough country.',
+  },
+  lykia: {
+    display: 'The Lykía family',
+    note: 'The Greek Lykía and Latin Lycia, the outside world\'s name for the people who called themselves Trm̃mili; the exonym bears no resemblance to that endonym.',
+  },
+  peleset: {
+    display: 'The Peleset family',
+    note: 'The name of the Philistines and their coast, from Egyptian Peleset, the Sea People of the Medinet Habu reliefs, and Hebrew Pᵊlešet through Assyrian Palaštu to Greek Palaistínē, Latin Palaestina, and Arabic Filasṭīn; one Sea People\'s name generalized into the name of a land.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
