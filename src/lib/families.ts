@@ -378,6 +378,34 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Sindhu family',
     note: 'The world\'s name for India, from the Indus river: Sanskrit Sindhu became Old Persian Hinduš, the Achaemenid frontier province generalized to the whole subcontinent, and forks into Elamite Hinduš and Babylonian Indû, Avestan Hapta Həṇdu, Greek Indía and Latin India, Hebrew Hōddû, Geʿez Hendekē, and the Iranian Hind that yields Syriac Hendu, Arabic al-Hind, and the Chinese transcriptions Shēndú, Tiānzhú, and Yìndù; the source of English "India" and, through Hinduš, the word "Hindu." India\'s own name for itself, Bhārata, stands outside it.',
   },
+  'lower-sea': {
+    display: 'The Lower Sea',
+    note: 'The Mesopotamian name for the Persian Gulf by its position relative to the rivers, Sumerian a-ab-ba sig, "lower sea," calqued into Akkadian tâmtu šaplītu; paired with the "Upper Sea" of the Mediterranean, the two bracketing the land a king claimed to rule from edge to edge.',
+  },
+  'persian-sea': {
+    display: 'The Persian Sea',
+    note: 'The Gulf named for the land on its shore, from Darius\'s Old Persian "the sea that goes from Persia" through Greek Persikòs Kólpos and Latin Sinus Persicus to the Arabic Baḥr Fāris of the medieval geographers; the naming that prevailed and gives the modern Persian Gulf.',
+  },
+  suph: {
+    display: 'The Yam Sūph family',
+    note: 'The Hebrew name of the Red Sea, yam sūph, "sea of reeds" (or "of the end"), the water of the Exodus, carried into the Syriac Peshitta as yammā d-sōp; a name describing the marsh-reeds of its head, not the colour the Greeks saw.',
+  },
+  erythra: {
+    display: 'The Erythrà Thálassa family',
+    note: 'The Greek "Red Sea," Erythrà Thálassa, and its Latin renderings Mare Rubrum and Mare Erythraeum; classically the name spanned the whole north-western Indian Ocean, and the Greeks explained the colour by an eponymous king Erythras rather than the water itself.',
+  },
+  'salt-sea': {
+    display: 'The Salt Sea family',
+    note: 'The Hebrew name of the Dead Sea, yam ha-melaḥ, "sea of salt," rendered in the Aramaic Targum as yammā de-milḥā; a flat description of the one quality that made the water lifeless and the name that anchors the lake in the Hebrew Bible.',
+  },
+  asphaltitis: {
+    display: 'The Asphaltîtis family',
+    note: 'The Greco-Roman name of the Dead Sea by the bitumen that floated on it, Greek (Límnē) Asphaltîtis, "Asphalt Lake," and Latin Lacus Asphaltites; the classical world named the lake for the asphalt it traded out of it, beside the parallel "Dead Sea" of Pausanias and Galen.',
+  },
+  lbn: {
+    display: 'The lbn family',
+    note: 'The Northwest Semitic name of Mount Lebanon, from the root lbn, "white," for its snow and pale limestone: Hebrew Lᵊḇānōn, Akkadian Labnānu, Ugaritic and Phoenician lbnn, Syriac Lebnān, Arabic Lubnān, and the Greek Líbanos and Latin Libanus borrowed from the Semitic; the cedar mountain named for its colour.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
