@@ -9,6 +9,7 @@
 // their true place rather than being clamped to a fixed frame; no fake
 // coordinates belong here.
 import { LAND } from './coastline';
+import { RIVERS } from './rivers';
 
 export interface LangGeo {
   lon: number;
@@ -77,16 +78,18 @@ export interface EntityGeo {
 }
 
 export const ENTITY_GEO: Record<string, EntityGeo> = {
-  nile: { kind: 'river', label: 'the Nile', points: [[32.9, 24.1], [32.6, 25.7], [31.2, 29.9], [31.1, 30.4], [31.5, 31.4]] },
-  tigris: { kind: 'river', label: 'the Tigris', points: [[40.2, 37.6], [42.4, 37.2], [43.1, 36.3], [44.4, 33.3], [45.8, 31.8], [47.4, 31.0]] },
-  euphrates: { kind: 'river', label: 'the Euphrates', points: [[38.7, 39.0], [38.3, 37.0], [40.0, 35.9], [42.4, 34.3], [44.3, 32.5], [46.1, 31.4], [47.4, 31.0]] },
-  jordan: { kind: 'river', label: 'the Jordan', points: [[35.62, 33.25], [35.57, 32.88], [35.57, 32.38], [35.55, 31.76], [35.50, 31.46]] },
-  po: { kind: 'river', label: 'the Po', points: [[7.7, 44.7], [8.9, 45.1], [10.3, 45.0], [11.6, 45.0], [12.3, 44.95]] },
-  tiber: { kind: 'river', label: 'the Tiber', points: [[12.4, 42.8], [12.5, 42.4], [12.6, 42.0], [12.48, 41.9], [12.25, 41.74]] },
-  indus: { kind: 'river', label: 'the Indus', points: [[74.5, 35.0], [72.8, 33.7], [71.3, 32.0], [70.6, 29.5], [68.9, 27.7], [68.0, 26.0], [67.45, 24.0]] },
-  ganges: { kind: 'river', label: 'the Ganges', points: [[78.2, 29.9], [80.3, 26.8], [81.9, 25.4], [83.0, 25.3], [85.8, 24.8], [88.0, 23.5], [89.5, 22.5]] },
-  yamuna: { kind: 'river', label: 'the Yamuna', points: [[77.7, 30.7], [77.2, 28.6], [77.7, 27.5], [79.5, 26.5], [81.9, 25.4]] },
-  himalayas: { kind: 'mountains', label: 'the Himalayas', points: [[74.0, 35.2], [77.5, 32.3], [80.5, 30.4], [83.5, 29.0], [86.9, 27.9], [89.5, 27.8], [92.5, 28.2], [95.0, 28.5]] },
+  // River courses are accurate (Natural Earth 10m, baked into rivers.ts); the
+  // coastline stays stylized but a river traces its true bed.
+  nile: { kind: 'river', label: 'the Nile', points: RIVERS.nile },
+  tigris: { kind: 'river', label: 'the Tigris', points: RIVERS.tigris },
+  euphrates: { kind: 'river', label: 'the Euphrates', points: RIVERS.euphrates },
+  jordan: { kind: 'river', label: 'the Jordan', points: RIVERS.jordan },
+  po: { kind: 'river', label: 'the Po', points: RIVERS.po },
+  tiber: { kind: 'river', label: 'the Tiber', points: RIVERS.tiber },
+  indus: { kind: 'river', label: 'the Indus', points: RIVERS.indus },
+  ganges: { kind: 'river', label: 'the Ganges', points: RIVERS.ganges },
+  yamuna: { kind: 'river', label: 'the Yamuna', points: RIVERS.yamuna },
+  himalayas: { kind: 'mountains', label: 'the Himalayas', points: [[74.6, 35.2], [76.5, 34.5], [78.5, 33.0], [80.5, 30.8], [81.6, 30.3], [83.0, 29.2], [84.5, 28.6], [86.9, 27.9], [88.2, 27.7], [90.3, 28.0], [92.5, 28.0], [95.0, 29.1]] },
   olympus: { kind: 'mountains', label: 'Olympus', points: [[22.35, 40.09]] },
   deccan: { kind: 'region', label: 'the Deccan', points: [[73.5, 19.0], [78.5, 18.5], [80.5, 15.5], [78.0, 12.5], [74.5, 14.0], [73.3, 16.5]] },
   anatolia: { kind: 'region', label: 'Anatolia', points: [[26.5, 38.7], [29.0, 41.0], [35.0, 42.0], [41.0, 41.0], [43.5, 39.5], [40.0, 37.0], [36.0, 36.2], [31.0, 36.4], [27.2, 37.3]] },
