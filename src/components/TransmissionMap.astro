@@ -95,8 +95,53 @@ const STAR: [number, number][] = [[0, -8], [2.3, -2.3], [8, 0], [2.3, 2.3], [0, 
 const entCiv = P && entity?.kind === 'civ'
   ? 'M' + STAR.map(([dx, dy]) => `${(P.x + dx).toFixed(1)},${(P.y + dy).toFixed(1)}`).join('L') + 'Z'
   : '';
-const entLabel = entity && ept.length ? { ...ept[Math.floor(ept.length / 2)], text: entity.label } : null;
-const entLabelDy = isPoint ? -12 : -9;
+// Entity-label placement: the subject's name must stay clear of the namer dots
+// and their labels, so try eight positions around the locator and keep the one
+// that overlaps them least (preferring directly above on a tie).
+const entAnchor = entity && ept.length ? (isPoint && P ? P : ept[Math.floor(ept.length / 2)]) : null;
+let entLabelPos: { x: number; y: number; anchor: 'start' | 'middle' | 'end' } | null = null;
+if (entity && entAnchor) {
+  const obstacles: Array<{ x: number; y: number; w: number; h: number }> = [];
+  for (const p of placedFanned) {
+    obstacles.push({ x: p.x - 4, y: p.y + p.oy - 4, w: 8, h: 8 }); // the dot
+    const lx = p.x + (p.geo.dx ?? 7);
+    const ly = p.y + (p.geo.dy ?? 3.5) + p.oy;
+    const lw = p.translit.length * 6.4;
+    const an = p.geo.anchor ?? 'start';
+    const bx = an === 'end' ? lx - lw : an === 'middle' ? lx - lw / 2 : lx;
+    obstacles.push({ x: bx, y: ly - 11, w: lw, h: 14 }); // the label
+  }
+  const ew = entity.label.length * 6.4;
+  const cands: Array<{ dx: number; dy: number; anchor: 'start' | 'middle' | 'end' }> = [
+    { dx: 0, dy: -15, anchor: 'middle' },
+    { dx: 0, dy: 20, anchor: 'middle' },
+    { dx: 13, dy: 4.5, anchor: 'start' },
+    { dx: -13, dy: 4.5, anchor: 'end' },
+    { dx: 12, dy: -10, anchor: 'start' },
+    { dx: -12, dy: -10, anchor: 'end' },
+    { dx: 12, dy: 17, anchor: 'start' },
+    { dx: -12, dy: 17, anchor: 'end' },
+  ];
+  let best = cands[0];
+  let bestScore = Infinity;
+  for (const c of cands) {
+    const lx = entAnchor.x + c.dx;
+    const ly = entAnchor.y + c.dy;
+    const bx = c.anchor === 'end' ? lx - ew : c.anchor === 'middle' ? lx - ew / 2 : lx;
+    const box = { x: bx, y: ly - 11, w: ew, h: 14 };
+    let score = 0;
+    for (const o of obstacles) {
+      const ix = Math.min(box.x + box.w, o.x + o.w) - Math.max(box.x, o.x);
+      const iy = Math.min(box.y + box.h, o.y + o.h) - Math.max(box.y, o.y);
+      if (ix > 0 && iy > 0) score += ix * iy;
+    }
+    if (score < bestScore - 0.5) {
+      bestScore = score;
+      best = c;
+    }
+  }
+  entLabelPos = { x: entAnchor.x + best.dx, y: entAnchor.y + best.dy, anchor: best.anchor };
+}
 
 const minYear = Math.min(...placed.map((p) => p.start));
 const maxYear = Math.max(...placed.map((p) => p.end));
@@ -114,7 +159,6 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
         {entRegionPath && <path class="ent-region" d={entRegionPath} />}
         {entTris.map((t) => <path class="ent-mtn-halo" d={t} />)}
         {entTris.map((t) => <path class="ent-mtn" d={t} />)}
-        {entLabel && !isPoint && <text class="ent-label" x={entLabel.x} y={entLabel.y + entLabelDy}>{entLabel.text}</text>}
       </g>
     )}
     {arcs.map((arc) => (
@@ -132,13 +176,13 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
         >{p.translit}</text>
       </a>
     ))}
-    {entity && isPoint && (
-      <g class="entity-pt" aria-hidden="true">
+    {entity && (
+      <g class="entity-top" aria-hidden="true">
         {entCity && <path class="ent-pt-halo" d={entCity} />}
         {entCity && <path class="ent-city" d={entCity} />}
         {entCiv && <path class="ent-pt-halo" d={entCiv} />}
         {entCiv && <path class="ent-civ" d={entCiv} />}
-        {entLabel && <text class="ent-label" x={entLabel.x} y={entLabel.y + entLabelDy}>{entLabel.text}</text>}
+        {entLabelPos && <text class="ent-label" x={entLabelPos.x.toFixed(1)} y={entLabelPos.y.toFixed(1)} text-anchor={entLabelPos.anchor}>{entity.label}</text>}
       </g>
     )}
   </svg>
@@ -290,9 +334,8 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     fill: color-mix(in srgb, var(--ink) 68%, var(--parchment));
     paint-order: stroke;
     stroke: var(--parchment);
-    stroke-width: 3px;
+    stroke-width: 3.2px;
     stroke-linejoin: round;
-    text-anchor: middle;
   }
 
   .tmap-locator {
