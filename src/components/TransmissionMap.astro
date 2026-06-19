@@ -98,7 +98,13 @@ const entCiv = P && entity?.kind === 'civ'
 // Entity-label placement: the subject's name must stay clear of the namer dots
 // and their labels, so try eight positions around the locator and keep the one
 // that overlaps them least (preferring directly above on a tie).
-const entAnchor = entity && ept.length ? (isPoint && P ? P : ept[Math.floor(ept.length / 2)]) : null;
+const entAnchor = entity && ept.length
+  ? (isPoint && P
+      ? P
+      : entity.kind === 'region'
+        ? { x: ept.reduce((s, p) => s + p.x, 0) / ept.length, y: ept.reduce((s, p) => s + p.y, 0) / ept.length }
+        : ept[Math.floor(ept.length / 2)])
+  : null;
 let entLabelPos: { x: number; y: number; anchor: 'start' | 'middle' | 'end' } | null = null;
 if (entity && entAnchor) {
   const obstacles: Array<{ x: number; y: number; w: number; h: number }> = [];

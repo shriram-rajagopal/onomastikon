@@ -89,6 +89,14 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   himalayas: { kind: 'mountains', label: 'the Himalayas', points: [[74.0, 35.2], [77.5, 32.3], [80.5, 30.4], [83.5, 29.0], [86.9, 27.9], [89.5, 27.8], [92.5, 28.2], [95.0, 28.5]] },
   olympus: { kind: 'mountains', label: 'Olympus', points: [[22.35, 40.09]] },
   deccan: { kind: 'region', label: 'the Deccan', points: [[73.5, 19.0], [78.5, 18.5], [80.5, 15.5], [78.0, 12.5], [74.5, 14.0], [73.3, 16.5]] },
+  anatolia: { kind: 'region', label: 'Anatolia', points: [[26.5, 38.7], [29.0, 41.0], [35.0, 42.0], [41.0, 41.0], [43.5, 39.5], [40.0, 37.0], [36.0, 36.2], [31.0, 36.4], [27.2, 37.3]] },
+  canaan: { kind: 'region', label: 'Canaan', points: [[35.1, 33.4], [36.0, 33.2], [35.9, 31.4], [35.2, 30.6], [34.4, 31.4], [34.9, 32.6]] },
+  italia: { kind: 'region', label: 'Italia', points: [[7.7, 45.2], [12.8, 46.4], [13.8, 45.0], [16.2, 41.5], [18.4, 40.1], [16.4, 39.5], [15.9, 38.0], [15.5, 38.3], [13.5, 40.5], [12.4, 41.4], [11.0, 42.6], [9.5, 43.5], [8.0, 44.2]] },
+  latium: { kind: 'region', label: 'Latium', points: [[11.7, 42.3], [12.9, 42.0], [13.6, 41.5], [13.2, 41.2], [12.3, 41.2], [11.6, 41.8]] },
+  macedonia: { kind: 'region', label: 'Macedonia', points: [[20.8, 40.4], [21.4, 41.3], [23.5, 41.4], [24.6, 41.0], [24.2, 40.2], [22.6, 39.9], [21.0, 39.9]] },
+  'magna-graecia': { kind: 'region', label: 'Magna Graecia', points: [[14.0, 40.9], [17.5, 40.6], [18.4, 40.1], [16.4, 39.5], [15.9, 38.0], [15.6, 38.3], [15.0, 39.5], [14.5, 40.3]] },
+  mesopotamia: { kind: 'region', label: 'Mesopotamia', points: [[39.5, 37.0], [42.5, 37.1], [45.5, 33.5], [47.4, 31.0], [47.9, 30.4], [45.0, 31.6], [43.4, 34.0], [40.0, 36.0], [38.6, 36.7]] },
+  sicily: { kind: 'region', label: 'Sicily', points: [[12.43, 37.80], [13.9, 38.1], [15.5, 38.25], [15.6, 38.0], [15.1, 36.69], [13.9, 37.1]] },
 
   // Cities (a point at the site).
   alexandria: { kind: 'city', label: 'Alexandria', points: [[29.92, 31.20]] },
