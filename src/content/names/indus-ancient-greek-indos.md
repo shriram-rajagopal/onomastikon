@@ -7,7 +7,7 @@ ipa: /in.ˈdos/
 era_start: -440
 era_end: 400
 family: sindhu
-derived_from: india-old-persian-hindus
+derived_from: indus-old-persian-hindus
 confidence: attested
 sources:
   - citation: "Herodotus, *Histories* 4.44 (Scylax of Caryanda sailing down the Indós to the sea for Darius)."
