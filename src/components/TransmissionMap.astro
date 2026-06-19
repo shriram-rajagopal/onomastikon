@@ -209,7 +209,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
       : entity.kind === 'civ' ? <span class="loc-glyph">✦</span>
       : <span class={`loc-swatch loc-${entity.kind}`}></span>} {entity.label},
     {entity.kind === 'river' ? ' its course'
-      : entity.kind === 'mountains' ? ' the range'
+      : entity.kind === 'mountains' ? (entity.points.length === 1 ? ' the mountain' : ' the range')
       : entity.kind === 'region' ? ' the region'
       : entity.kind === 'city' ? ' the city'
       : ' the heartland'}
