@@ -478,6 +478,30 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Taûros family',
     note: 'The Greek Taûros, "the Bull," and Latin Taurus, the mountain wall that divides the Anatolian plateau from the southern coast, pierced by the pass of the Cilician Gates.',
   },
+  vaxshu: {
+    display: 'The Vaxšu family',
+    note: 'The Iranian river-name of the Oxus (Amu Darya): Avestan Vaxšu and its river-spirit, Sanskrit Vakṣu, carried into Greek Ōxos and Latin Oxus; the great river and northern boundary of Bactria.',
+  },
+  jaxartes: {
+    display: 'The Iaxártēs family',
+    note: 'The Greek Iaxártēs and Latin Iaxartes, the Syr Darya, the northern of the two great rivers of Central Asia, beyond which lay the steppe of the Saka.',
+  },
+  paropamisos: {
+    display: 'The Paropámisos family',
+    note: 'The Greek Paropámisos and Latin Paropamisus, the range Alexander\'s geographers also called the Indian Caucasus, the modern Hindu Kush.',
+  },
+  suguda: {
+    display: 'The Suguda family',
+    note: 'The name of Sogdiana: Old Persian Suguda, Avestan Suγδa of the Vendidad\'s list of lands, Greek Sogdianḗ, Latin Sogdiana, and Arabic al-Sughd; the land of Samarkand between the Oxus and the Jaxartes.',
+  },
+  gandhara: {
+    display: 'The Gandhāra family',
+    note: 'The name of Gandhāra: Sanskrit Gandhāra, Old Persian Gandāra, Greek Gandárioi, Latin Gandaris, and the Chinese Jiàntuóluó of the Buddhist pilgrims; the region of Taxila at the northwestern gate of India.',
+  },
+  panchanada: {
+    display: 'The Pañcanada family',
+    note: 'The "five rivers" of the Punjab, Sanskrit Pañcanada calqued into Persian Panjāb; the land of the five eastern tributaries of the Indus.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
