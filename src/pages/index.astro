@@ -227,6 +227,20 @@ const langs = await getCollection('languages');
        the centered wordmark and h1. */
     margin: 1rem auto 0;
   }
+  /* The heading and tagline settle in a beat after arrival, just behind the
+     masthead's own reveal, so the hero reads as "logo, then title" rather than
+     everything landing at once. Pure CSS on load (no dependency on the video,
+     which the static-image fallbacks don't play); fill-mode `both` holds them
+     hidden through the delay so there is no flash. Reduced-motion shows them
+     immediately, at rest. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1 { animation: hero-rise 0.6s ease 0.3s both; }
+    .hero .tagline { animation: hero-rise 0.6s ease 0.45s both; }
+  }
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
   /* Entities (left) and Languages (right) sit in parallel columns that both
      begin at the top, so the long Languages list is never buried beneath a
      growing stack of civilizations. Collapses to a single column on phones. */
