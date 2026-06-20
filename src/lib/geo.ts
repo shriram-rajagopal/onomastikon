@@ -222,8 +222,15 @@ const MAX_ASPECT = 0.82; // cap height/width; widen the lon window if too tall
 const MIN_ASPECT = 0.42; // floor height/width; add vertical context if too flat
 
 /** Fit an equirectangular window around the given coordinates and return a
-    projector into a VIEW_W-wide pixel space. */
-export function fitProjection(geos: Array<{ lon: number; lat: number }>): Projection {
+    projector into a VIEW_W-wide pixel space. `minLonSpan` is the floor on the
+    window's width: a sparse map (one or two names, clustered) passes a larger
+    floor than the default so enough of the surrounding coast and sea shows for a
+    reader to tell where on earth the place is, rather than zooming in on a lone
+    node with no recognizable context. */
+export function fitProjection(
+  geos: Array<{ lon: number; lat: number }>,
+  minLonSpan: number = MIN_LON_SPAN
+): Projection {
   let lonMin = Infinity;
   let lonMax = -Infinity;
   let latMin = Infinity;
@@ -244,10 +251,10 @@ export function fitProjection(geos: Array<{ lon: number; lat: number }>): Projec
   latMin -= padLat; latMax += padLat;
 
   let lonSpan = lonMax - lonMin;
-  if (lonSpan < MIN_LON_SPAN) {
-    const grow = (MIN_LON_SPAN - lonSpan) / 2;
+  if (lonSpan < minLonSpan) {
+    const grow = (minLonSpan - lonSpan) / 2;
     lonMin -= grow; lonMax += grow;
-    lonSpan = MIN_LON_SPAN;
+    lonSpan = minLonSpan;
   }
   let latSpan = latMax - latMin;
   if (latSpan > MAX_ASPECT * lonSpan) {

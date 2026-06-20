@@ -35,11 +35,20 @@ const located = nodes.filter((n) => LANG_GEO[n.langId]);
 // naming layer (its course / range / area). Its points join the fit so the entity
 // is always framed alongside the languages that named it.
 const entity = ENTITY_GEO[civId];
+// How many distinct languages name this place. A map named by only one or two,
+// all clustered, would otherwise zoom in on a lone node with no recognizable
+// context; widen the window floor by how sparse the naming is, so enough
+// surrounding coast and sea show for a reader to tell where on earth it is.
+const nameSpread = new Set(located.map((n) => n.langId)).size;
+const minLonSpan = nameSpread <= 1 ? 50 : nameSpread === 2 ? 34 : 20;
 // Fit the window to the nodes' true coordinates, then project everything into it.
-const proj = fitProjection([
-  ...located.map((n) => LANG_GEO[n.langId]),
-  ...(entity ? entity.points.map(([lon, lat]) => ({ lon, lat })) : []),
-]);
+const proj = fitProjection(
+  [
+    ...located.map((n) => LANG_GEO[n.langId]),
+    ...(entity ? entity.points.map(([lon, lat]) => ({ lon, lat })) : []),
+  ],
+  minLonSpan
+);
 const coastPath = landPath(proj);
 const placed = located.map((n) => {
   const geo = LANG_GEO[n.langId];

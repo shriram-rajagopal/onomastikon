@@ -16,13 +16,23 @@ import { ARTIFACTS } from '../../lib/artifacts';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
-  return civs.map((civ) => ({
+  // One ordered walk through the whole atlas for the prev/next pager: grouped by
+  // type (civilizations, then cities, regions, features), alphabetical within
+  // each group, matching the homepage index.
+  const typeOrder: Record<string, number> = { civilization: 0, city: 1, region: 2, geographic_feature: 3 };
+  const ordered = [...civs].sort((a, b) => {
+    const t = (typeOrder[a.data.type] ?? 9) - (typeOrder[b.data.type] ?? 9);
+    return t !== 0 ? t : a.data.english_name.localeCompare(b.data.english_name);
+  });
+  const nav = (e?: (typeof ordered)[number]) =>
+    e ? { id: e.id, name: e.data.english_name } : null;
+  return ordered.map((civ, i) => ({
     params: { slug: civ.id },
-    props: { civ },
+    props: { civ, prev: nav(ordered[i - 1]), next: nav(ordered[i + 1]) },
   }));
 }
 
-const { civ } = Astro.props;
+const { civ, prev, next } = Astro.props;
 const { Content } = await render(civ);
 
 const allNames = await getCollection('names');
@@ -295,6 +305,21 @@ const correctionUrl =
     <p class="suggest-correction">
       Spot an error on this page? <a href={correctionUrl}>Suggest a correction →</a>
     </p>
+
+    <nav class="pager" aria-label="Browse the atlas">
+      {prev ? (
+        <a class="pager-link pager-prev" href={`/civilizations/${prev.id}`} rel="prev">
+          <span class="pager-dir">← Previous</span>
+          <span class="pager-name" data-morph={`civilizations/${prev.id}`}>{prev.name}</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+      {next ? (
+        <a class="pager-link pager-next" href={`/civilizations/${next.id}`} rel="next">
+          <span class="pager-dir">Next →</span>
+          <span class="pager-name" data-morph={`civilizations/${next.id}`}>{next.name}</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+    </nav>
   </article>
 </BaseLayout>
 
@@ -550,4 +575,28 @@ const correctionUrl =
   .feedback-top { font-family: 'Inter', sans-serif; font-size: 0.875rem; margin: 1rem 0 0; }
   .feedback-top a { color: var(--accent); font-style: italic; text-decoration: none; }
   .feedback-top a:hover { text-decoration: underline; }
+
+  /* Prev/next pager: walk the whole atlas in the same grouped order as the
+     homepage index. Two cells so a missing neighbor (first/last entity) leaves
+     its side blank without shifting the other. */
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 3rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pager-link { display: flex; flex-direction: column; gap: 0.15rem; text-decoration: none; max-width: 48%; }
+  .pager-empty { visibility: hidden; }
+  .pager-next { text-align: right; margin-left: auto; }
+  .pager-dir {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .pager-name { font-size: 1.125rem; color: var(--accent); }
+  .pager-link:hover .pager-name { text-decoration: underline; }
 </style>
