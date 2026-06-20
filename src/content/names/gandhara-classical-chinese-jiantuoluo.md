@@ -6,6 +6,7 @@ transliteration: Jiàntuóluó
 era_start: 400
 era_end: 800
 family: gandhara
+derived_from: gandhara-sanskrit-gandhara
 confidence: attested
 sources:
   - citation: "Xuanzang, *Dà Táng Xīyù Jì* (Great Tang Records on the Western Regions), 646 CE."

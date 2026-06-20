@@ -7,6 +7,7 @@ ipa: /ʔaʃ.kəˈnaz/
 era_start: -700
 era_end: -200
 family: skuda
+derived_from: scythia-akkadian-ishkuza
 confidence: attested
 sources:
   - citation: "Genesis 10:3; 1 Chronicles 1:6; Jeremiah 51:27 (Ararat, Minni, and Ashkenaz summoned against Babylon)."

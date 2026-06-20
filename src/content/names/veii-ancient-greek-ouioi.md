@@ -8,6 +8,7 @@ literal_meaning: Veii
 era_start: -50
 era_end: 100
 family: veii
+derived_from: veii-latin-veii
 confidence: attested
 sources:
   - citation: "Dionysius of Halicarnassus, *Roman Antiquities* 2.54 (Οὐιοί); Strabo, *Geography* 5.2 (the variant Οὐηίοι)."

@@ -8,6 +8,7 @@ literal_meaning: Uruk (Akkadian form of Sumerian Unug)
 era_start: -2350
 era_end: -75
 family: unug
+derived_from: uruk-sumerian-unug
 confidence: attested
 sources:
   - citation: "*Reallexikon der Assyriologie und Vorderasiatischen Archäologie*, s.v. *Uruk*."

@@ -8,6 +8,7 @@ literal_meaning: Memphis
 era_start: -680
 era_end: -630
 family: mennefer
+derived_from: memphis-egyptian-mennefer
 confidence: attested
 sources:
   - citation: "Onasch, Hans-Ulrich. *Die assyrischen Eroberungen Ägyptens*. Wiesbaden: Harrassowitz, 1994."

@@ -8,6 +8,7 @@ literal_meaning: Memphis
 era_start: -700
 era_end: -400
 family: mennefer
+derived_from: memphis-egyptian-mennefer
 confidence: attested
 sources:
   - citation: "*Hebrew and Aramaic Lexicon of the Old Testament* (HALOT), Leiden: Brill, 1994–2000, s.v. *nōp*."

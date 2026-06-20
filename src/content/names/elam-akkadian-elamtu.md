@@ -8,6 +8,7 @@ literal_meaning: Elam (the highland country)
 era_start: -2350
 era_end: -540
 family: elam
+derived_from: elam-sumerian-elam
 confidence: attested
 sources:
   - citation: "*Chicago Assyrian Dictionary* (CAD), University of Chicago, Vol. E, s.v. *elamtu*, *elamû*."

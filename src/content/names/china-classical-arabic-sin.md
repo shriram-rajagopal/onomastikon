@@ -7,6 +7,7 @@ ipa: /asˤˈsˤiːn/
 era_start: 600
 era_end: 1000
 family: cina
+derived_from: china-middle-persian-cin
 confidence: attested
 sources:
   - citation: "*Akhbār al-Ṣīn wa-l-Hind* (Accounts of China and India), 851 CE. Sauvaget, Jean, ed. Paris: Les Belles Lettres, 1948."

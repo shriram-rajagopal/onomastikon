@@ -8,7 +8,6 @@ literal_meaning: Bactria
 era_start: -520
 era_end: -330
 family: baxtri
-derived_from: bactria-old-persian-baxtrish
 confidence: attested
 sources:
   - citation: "Kent, Roland G. *Old Persian: Grammar, Texts, Lexicon*. 2nd ed. New Haven: American Oriental Society, 1950, s.v. *Bāxtri-* (Akk. *ba-aḫ-tar*)."

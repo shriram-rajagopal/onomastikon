@@ -8,6 +8,7 @@ literal_meaning: Uruk, as known to the Greek geographers
 era_start: -50
 era_end: 200
 family: unug
+derived_from: uruk-akkadian-uruk
 confidence: attested
 sources:
   - citation: "Ptolemy, *Geography* 5.20."

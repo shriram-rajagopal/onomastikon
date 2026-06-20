@@ -8,6 +8,7 @@ literal_meaning: Babylon (city and Achaemenid satrapy, Elamite chancellery form)
 era_start: -520
 era_end: -330
 family: babili
+derived_from: babylon-akkadian-babilu
 confidence: attested
 sources:
   - citation: "Hinz, Walther, and Heidemarie Koch. *Elamisches Wörterbuch*. 2 vols. Berlin: Dietrich Reimer, 1987, s.v. *Babili*."

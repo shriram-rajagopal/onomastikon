@@ -8,6 +8,7 @@ literal_meaning: the Euphrates (Elamite rendering of Akkadian Purattu)
 era_start: -520
 era_end: -330
 family: euphrates
+derived_from: euphrates-akkadian-purattu
 confidence: attested
 sources:
   - citation: "Hinz, Walther, and Heidemarie Koch. *Elamisches Wörterbuch*. Berlin: Dietrich Reimer, 1987."

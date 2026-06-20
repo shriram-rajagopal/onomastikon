@@ -8,6 +8,7 @@ literal_meaning: Babylon (the city)
 era_start: 350
 era_end: 700
 family: babili
+derived_from: babylon-ancient-greek-babylon
 confidence: attested
 sources:
   - citation: "Psalm 137:1; Genesis 11:9 (Ethiopic Old Testament)."

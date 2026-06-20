@@ -8,6 +8,7 @@ literal_meaning: the Parthians (the Pahlavas of Indian texts)
 era_start: -150
 era_end: 600
 family: parthava
+derived_from: parthia-middle-persian-pahlaw
 confidence: attested
 sources:
   - citation: "Monier-Williams, Monier. *A Sanskrit-English Dictionary*. Oxford: Clarendon Press, 1899, s.v. *pahlava*."

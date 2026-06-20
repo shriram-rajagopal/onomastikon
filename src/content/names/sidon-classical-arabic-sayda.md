@@ -8,7 +8,6 @@ literal_meaning: Sidon (with an audible echo of ṣayd, "hunting, fishing")
 era_start: 700
 era_end: 1300
 family: sidon
-derived_from: sidon-phoenician-sidon
 confidence: attested
 sources:
   - citation: "Yāqūt al-Ḥamawī. *Muʿjam al-Buldān*, s.v. صيدا."

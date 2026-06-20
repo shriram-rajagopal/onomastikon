@@ -7,6 +7,7 @@ literal_meaning: the Ganges (the Gaṅgā river)
 era_start: 400
 era_end: 650
 family: ganga
+derived_from: ganges-sanskrit-ganga
 confidence: attested
 sources:
   - citation: "Xuanzang, *Da Tang Xiyu Ji* 大唐西域記 (646 CE), on the 恒河."

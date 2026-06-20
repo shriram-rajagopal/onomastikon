@@ -8,6 +8,7 @@ literal_meaning: Assyria; the land of Aššur (in Hittite diplomatic usage)
 era_start: -1320
 era_end: -1180
 family: ashur
+derived_from: assyria-akkadian-ashur
 confidence: attested
 sources:
   - citation: "Beckman, Gary M., Trevor R. Bryce, and Eric H. Cline. *The Ahhiyawa Texts*. Atlanta: Society of Biblical Literature, 2011 (Šaušgamuwa treaty, CTH 105)."

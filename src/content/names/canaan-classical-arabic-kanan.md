@@ -8,7 +8,6 @@ literal_meaning: Canaan
 era_start: 700
 era_end: 1300
 family: kanaan
-derived_from: canaan-biblical-hebrew-kenaan
 confidence: attested
 sources:
   - citation: "al-Ṭabarī. *Taʾrīkh al-rusul wa-l-mulūk*, on the descendants of Noah."

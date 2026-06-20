@@ -7,6 +7,7 @@ ipa: /ˈɔːk.sos/
 era_start: -330
 era_end: 600
 family: vaxshu
+derived_from: oxus-avestan-vaxshu
 confidence: attested
 sources:
   - citation: "Arrian, *Anabasis* 3.28–30; Strabo, *Geographica* 11.7.3, 11.11.5."

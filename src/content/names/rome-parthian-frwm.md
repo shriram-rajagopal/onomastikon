@@ -8,6 +8,7 @@ literal_meaning: Rome; the Roman empire
 era_start: 240
 era_end: 400
 family: roma
+derived_from: rome-ancient-greek-rhome
 confidence: attested
 sources:
   - citation: "Huyse, Philip. *Die dreisprachige Inschrift Šābuhrs I. an der Kaʿba-i Zardušt (ŠKZ)*. Corpus Inscriptionum Iranicarum III/1. London: SOAS, 1999."

@@ -7,6 +7,7 @@ ipa: "*ɡan.ˈdaː.ra"
 era_start: -520
 era_end: -330
 family: gandhara
+derived_from: gandhara-sanskrit-gandhara
 confidence: attested
 sources:
   - citation: "Darius I, Behistun inscription (DB) §6; the Daiva inscription and DNa (the satrapy *Gandāra*)."

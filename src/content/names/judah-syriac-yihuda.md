@@ -8,7 +8,7 @@ literal_meaning: Judah; Judaea
 era_start: 150
 era_end: 600
 family: yehudah
-derived_from: judah-biblical-hebrew-yehudah
+derived_from: judah-imperial-aramaic-yehud
 confidence: attested
 sources:
   - citation: "Peshitta, Genesis 29:35; Gospels, passim."

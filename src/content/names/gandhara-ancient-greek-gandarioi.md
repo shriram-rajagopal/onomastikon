@@ -7,6 +7,7 @@ ipa: /ɡan.ˈda.ri.oi̯/
 era_start: -450
 era_end: 600
 family: gandhara
+derived_from: gandhara-old-persian-gandara
 confidence: attested
 sources:
   - citation: "Herodotus, *Historiae* 3.91, 7.66 (the Gandarians in the satrapy and the army of Xerxes)."

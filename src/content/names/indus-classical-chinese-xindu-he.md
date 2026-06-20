@@ -7,6 +7,7 @@ literal_meaning: the Sindhu river
 era_start: 400
 era_end: 650
 family: sindhu
+derived_from: indus-sanskrit-sindhu
 confidence: disputed
 sources:
   - citation: "Xuanzang, *Da Tang Xiyu Ji* 大唐西域記 (Great Tang Records on the Western Regions) 2, 646 CE, the 信度河."
