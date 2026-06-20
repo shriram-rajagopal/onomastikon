@@ -40,6 +40,16 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         }
       })();
     </script>
+    <!-- Critical first-paint ground. The page's background and color-scheme
+         otherwise live in an external (render-blocked) stylesheet, so a
+         navigation can flash the browser's white canvas before it loads, in
+         both themes, including under a view transition. The boot script above
+         has already set data-theme, so painting the ground inline here, ahead
+         of the stylesheet, means the first frame of every page is parchment. -->
+    <style is:inline>
+      html { background: #f5efe4; color-scheme: light; }
+      html[data-theme='dark'] { background: #211e18; color-scheme: dark; }
+    </style>
     <!-- View-transition pairing. Static view-transition-names scatter: any
          named element without a match on the destination page exits as its
          own floating layer. Instead, tag exactly one element per side, per
@@ -119,7 +129,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="site-header-inner">
-        <a href="/" class="logo">Onomastikon</a>
+        <a href="/" class="logo" aria-label="Onomastikon, home">Onoma<span class="logo-sigma">Σ</span>tikon</a>
         <nav>
           <a href="/search">Search</a>
           <a href="/about">About</a>
@@ -208,6 +218,11 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         height: 100%;
         width: auto;
       }
+      /* The cross-document cross-fade can momentarily expose the browser's
+         default (white) canvas between the outgoing and incoming snapshots;
+         painting the transition root with the page ground keeps either theme
+         from flashing white on navigation (e.g. clicking the logo home). */
+      ::view-transition { background-color: var(--parchment); }
       /* Keyboard focus: a consistent, clearly visible ring in the accent color.
          :focus-visible keeps it off mouse clicks. */
       :focus-visible {
@@ -271,6 +286,9 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         color: var(--ink);
         letter-spacing: 0.02em;
       }
+      /* The signature sigma: the wordmark's Greek Σ for the s, in the oxblood
+         accent, the same mark as the masthead and the favicon. */
+      .logo-sigma { color: var(--accent); }
       .site-header nav { font-family: 'Inter', sans-serif; font-size: 0.875rem; }
       .site-header nav a {
         margin-left: 1.5rem;
