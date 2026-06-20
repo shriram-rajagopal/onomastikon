@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "pngjs": "^7.0.0",
+    "polygon-clipping": "^0.15.7",
     "topojson-client": "^3.1.0"
   }
 }
