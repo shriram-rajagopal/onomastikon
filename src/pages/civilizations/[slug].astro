@@ -138,6 +138,20 @@ const correctionUrl =
   }}
 >
   <article>
+    <nav class="pager pager-top" aria-label="Browse the atlas">
+      {prev ? (
+        <a class="pager-link pager-prev" href={`/civilizations/${prev.id}`} rel="prev">
+          <span class="pager-arrow" aria-hidden="true">←</span>
+          <span class="pager-name" data-morph={`civilizations/${prev.id}`}>{prev.name}</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+      {next ? (
+        <a class="pager-link pager-next" href={`/civilizations/${next.id}`} rel="next">
+          <span class="pager-name" data-morph={`civilizations/${next.id}`}>{next.name}</span>
+          <span class="pager-arrow" aria-hidden="true">→</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+    </nav>
     {civ.data.featured_image && (
       <img
         class="featured"
@@ -599,4 +613,14 @@ const correctionUrl =
   }
   .pager-name { font-size: 1.125rem; color: var(--accent); }
   .pager-link:hover .pager-name { text-decoration: underline; }
+
+  /* Compact echo of the pager at the top of the page, so the prev/next arrows
+     are reachable without scrolling to the foot. Single line, quieter than the
+     foot pager so it doesn't compete with the title below it. */
+  .pager-top { margin: 0 0 1.75rem; padding-top: 0; border-top: 0; font-family: 'Inter', sans-serif; }
+  .pager-top .pager-link { flex-direction: row; align-items: baseline; gap: 0.4rem; max-width: 46%; }
+  .pager-top .pager-name { font-size: 0.9rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pager-top .pager-link:hover .pager-name { color: var(--accent); text-decoration: none; }
+  .pager-arrow { color: var(--ink-soft); }
+  .pager-top .pager-link:hover .pager-arrow { color: var(--accent); }
 </style>
