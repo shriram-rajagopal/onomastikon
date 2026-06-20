@@ -6,6 +6,8 @@ entry_status: developing
 era_start: -800
 era_end: 300
 summary: The great arc of Iranian horse-nomads of the steppe, the Greeks' Scythians and the Persians' Saka, whose Assyrian name Iškuza surfaces in the Hebrew Bible as Ashkenaz.
+featured_image: /scythia-title.png
+og_image: /og/scythia-title.png
 ---
 
 Scythia is the world of the Iranian-speaking horse-nomads who held the Eurasian steppe through the first millennium BCE, from the Pontic grasslands north of the Black Sea, the Scythia that Herodotus devotes his fourth book to, eastward across Central Asia to the Saka of the Persian and Chinese frontiers. They left no writing of their own and are known almost entirely through their settled neighbors, but their kurgans, their gold, and their mounted archers made them the archetype of the barbarian for Greeks and Persians alike; it was steppe nomads who killed Cyrus the Great and whom Darius failed to subdue beyond the Danube.

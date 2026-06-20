@@ -62,5 +62,37 @@
     "transliteration": "Raśna",
     "language": "Etruscan",
     "label": "The Etruscans"
+  },
+  {
+    "slug": "scythia",
+    "script": "old-persian",
+    "glyphs": "𐎿𐎣𐎠",
+    "transliteration": "Sakā",
+    "language": "Old Persian",
+    "label": "Scythia"
+  },
+  {
+    "slug": "cimmerians",
+    "script": "cuneiform",
+    "glyphs": "𒄀𒈪𒅕𒊒",
+    "transliteration": "Gimirru",
+    "language": "Akkadian",
+    "label": "Cimmerians"
+  },
+  {
+    "slug": "xiongnu",
+    "script": "chinese",
+    "glyphs": "匈奴",
+    "transliteration": "Xiōngnú",
+    "language": "Classical Chinese",
+    "label": "Xiongnu"
+  },
+  {
+    "slug": "yuezhi",
+    "script": "chinese",
+    "glyphs": "月氏",
+    "transliteration": "Yuèzhī",
+    "language": "Classical Chinese",
+    "label": "Yuezhi"
   }
 ]

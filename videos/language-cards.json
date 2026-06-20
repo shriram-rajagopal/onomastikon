@@ -197,5 +197,13 @@
     "romanization": "Bavel",
     "name": "Jewish Babylonian Aramaic",
     "meta": "Hebrew square script · Eastern Aramaic · c. 200–1000 CE"
+  },
+  {
+    "slug": "lycian",
+    "script": "lycian",
+    "glyphs": "𐊗𐊕𐊐𐊎𐊆𐊍𐊆",
+    "romanization": "Trm̃mili",
+    "name": "Lycian",
+    "meta": "Lycian alphabet · Anatolian · c. 500–300 BCE"
   }
 ]
