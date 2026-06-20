@@ -118,12 +118,14 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <a href="/" class="logo">Onomastikon</a>
-      <nav>
-        <a href="/search">Search</a>
-        <a href="/about">About</a>
-        <button id="theme-toggle" type="button">◐ Dark mode</button>
-      </nav>
+      <div class="site-header-inner">
+        <a href="/" class="logo">Onomastikon</a>
+        <nav>
+          <a href="/search">Search</a>
+          <a href="/about">About</a>
+          <button id="theme-toggle" type="button">◐ Dark mode</button>
+        </nav>
+      </div>
     </header>
     <main id="main">
       <slot />
@@ -184,7 +186,8 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         background: transparent;
       }
       * { box-sizing: border-box; }
-      html { background: var(--parchment); color: var(--ink); scroll-behavior: smooth; }
+      /* scroll-padding-top keeps anchor jumps clear of the now-sticky header. */
+      html { background: var(--parchment); color: var(--ink); scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
       /* Cross-document view transitions: same-origin navigations cross-fade,
          and elements sharing a view-transition-name (entity and language
          names) morph between pages. Pure CSS; browsers without support, and
@@ -237,14 +240,29 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         font-size: 1.125rem;
         line-height: 1.6;
       }
+      /* The header rides along at the top of the viewport so search, about, and
+         the theme toggle stay reachable while a long index scrolls. It is clean
+         and borderless over the hero, then settles onto a parchment backdrop
+         with the page's hairline rule once content scrolls beneath it. */
       .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid transparent;
+        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .site-header.is-scrolled {
+        background: var(--parchment);
+        border-bottom-color: var(--rule);
+        box-shadow: 0 1px 14px rgba(0, 0, 0, 0.05);
+      }
+      .site-header-inner {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
         max-width: var(--max-width);
         margin: 0 auto;
-        padding: 2rem 1.5rem 1rem;
-        border-bottom: 1px solid var(--rule);
+        padding: 1.4rem 1.5rem;
       }
       .logo {
         font-size: 1.5rem;
@@ -341,6 +359,15 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         try { localStorage.setItem('theme', next); } catch {}
         reflect(next);
       });
+
+      // The sticky header is clean over the top of the page and gains its
+      // parchment backdrop + rule once anything scrolls beneath it.
+      const header = document.querySelector('.site-header');
+      if (header) {
+        const sync = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+        sync();
+        addEventListener('scroll', sync, { passive: true });
+      }
     </script>
   </body>
 </html>

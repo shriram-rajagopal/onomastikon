@@ -67,6 +67,10 @@ const langs = await getCollection('languages');
     </p>
   </section>
 
+  <!-- Marks the foot of the hero: the script reveals the Browse rail once this
+       scrolls above the viewport. -->
+  <div id="hero-sentinel" aria-hidden="true"></div>
+
   <div class="index-grid">
     <div class="index-col">
       {(() => {
@@ -88,7 +92,7 @@ const langs = await getCollection('languages');
         return order
           .filter((key) => grouped[key].length > 0)
           .map((key) => (
-            <>
+            <section class="index-cat">
               <h2 id={key}>{labels[key]}</h2>
               <ul class="index-list">
                 {grouped[key].map((entity) => (
@@ -100,23 +104,25 @@ const langs = await getCollection('languages');
                   </li>
                 ))}
               </ul>
-            </>
+            </section>
           ));
       })()}
     </div>
 
     <div class="index-col">
-      <h2 id="languages">Languages</h2>
-      <ul class="index-list">
-        {langs.map((lang) => (
-          <li>
-            <a href={`/languages/${lang.id}`}>
-              <span class="name" data-morph={`languages/${lang.id}`}>{lang.data.english_name}</span>
-              <span class="era">{lang.data.script}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <section class="index-cat">
+        <h2 id="languages">Languages</h2>
+        <ul class="index-list">
+          {langs.map((lang) => (
+            <li>
+              <a href={`/languages/${lang.id}`}>
+                <span class="name" data-morph={`languages/${lang.id}`}>{lang.data.english_name}</span>
+                <span class="era">{lang.data.script}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   </div>
 </BaseLayout>
@@ -137,6 +143,15 @@ const langs = await getCollection('languages');
     font-family: 'Inter', sans-serif;
     font-size: 0.875rem;
     z-index: 5;
+    /* Hidden on arrival so it never crowds the masthead and the fading-in
+       header; the script reveals it once the hero scrolls past. */
+    opacity: 0;
+    transform: translateX(-6px);
+    pointer-events: none;
+  }
+  .home-toc.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .home-toc { transition: opacity 0.45s ease, transform 0.45s ease; }
   }
   .home-toc-title {
     text-transform: uppercase;
@@ -230,7 +245,15 @@ const langs = await getCollection('languages');
     border-left: 1px solid var(--rule);
   }
   /* Align the two columns' first headings on the same baseline. */
-  .index-col > :first-child { margin-top: 0; }
+  .index-col > .index-cat:first-child h2 { margin-top: 0; }
+  /* Index categories fade up as they scroll into view, so the run of names
+     below the hero arrives in gentle waves rather than all at once. Opted in
+     by JS (the .anim class), so no-JS and reduced-motion show everything. */
+  .index-cat.anim { opacity: 0; transform: translateY(16px); }
+  .index-cat.anim.revealed { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .index-cat.anim { transition: opacity 0.55s ease, transform 0.55s ease; }
+  }
   @media (max-width: 640px) {
     .index-grid { grid-template-columns: 1fr; }
     /* No vertical divider once the columns stack. */
@@ -266,3 +289,39 @@ const langs = await getCollection('languages');
     flex-shrink: 0;
   }
 </style>
+
+<script>
+  // Reveal the Browse rail only once the hero has scrolled up out of the way,
+  // so it never appears beside the masthead and the settling header on arrival.
+  const toc = document.querySelector('.home-toc');
+  const sentinel = document.getElementById('hero-sentinel');
+  if (toc && sentinel && 'IntersectionObserver' in window) {
+    const railIO = new IntersectionObserver(
+      ([e]) => toc.classList.toggle('is-visible', e.boundingClientRect.top < window.innerHeight * 0.25),
+      { rootMargin: '-25% 0px 0px 0px', threshold: 0 }
+    );
+    railIO.observe(sentinel);
+  }
+
+  // Scroll-reveal the index categories: each fades up as it enters view, so the
+  // long run of names below the hero arrives in gentle waves. Opted in by JS
+  // (the .anim class) so no-JS and reduced-motion visitors see it all at once.
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const revealIO = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add('revealed');
+            revealIO.unobserve(e.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+    for (const cat of document.querySelectorAll('.index-cat')) {
+      cat.classList.add('anim');
+      revealIO.observe(cat);
+    }
+  }
+</script>
