@@ -29,11 +29,17 @@ const langs = await getCollection('languages');
 >
   <nav class="home-toc" aria-label="Contents">
     <span class="home-toc-title">Browse</span>
-    <a href="#civilization">Civilizations</a>
-    <a href="#city">Cities</a>
-    <a href="#region">Regions</a>
-    <a href="#geographic_feature">Features</a>
-    <a href="#languages">Languages</a>
+    <div class="home-toc-cols">
+      <div class="home-toc-col">
+        <a href="#civilization">Civilizations</a>
+        <a href="#city">Cities</a>
+        <a href="#region">Regions</a>
+        <a href="#geographic_feature">Features</a>
+      </div>
+      <div class="home-toc-col">
+        <a href="#languages">Languages</a>
+      </div>
+    </div>
   </nav>
 
   <section class="hero">
@@ -123,11 +129,11 @@ const langs = await getCollection('languages');
   .home-toc {
     position: fixed;
     top: 7.5rem;
-    left: calc((100vw - var(--max-width)) / 2 - 11rem);
-    width: 9.5rem;
+    left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
+    width: 13rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.55rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.875rem;
     z-index: 5;
@@ -137,9 +143,14 @@ const langs = await getCollection('languages');
     letter-spacing: 0.09em;
     font-size: 0.6875rem;
     color: var(--ink-soft);
-    margin-bottom: 0.15rem;
   }
+  /* Entity categories (left) and Languages (right) sit in parallel columns, the
+     same split as the index content below. */
+  .home-toc-cols { display: flex; gap: 0.9rem; align-items: start; }
+  .home-toc-col { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+  .home-toc-col:first-child { flex: 1 1 auto; }
   .home-toc a {
+    white-space: nowrap;
     text-decoration: none;
     color: var(--ink-soft);
     border-left: 2px solid var(--rule);
@@ -147,8 +158,9 @@ const langs = await getCollection('languages');
     transition: color 0.12s, border-color 0.12s;
   }
   .home-toc a:hover { color: var(--accent); border-left-color: var(--accent); }
-  /* Hide once the gutter can no longer hold the rail clear of the content. */
-  @media (max-width: 1120px) { .home-toc { display: none; } }
+  /* Hide once the gutter can no longer hold the wider two-column rail clear of
+     the content. */
+  @media (max-width: 1200px) { .home-toc { display: none; } }
   /* Anchor jumps land the heading clear of the top of the viewport. */
   .index-col h2 { scroll-margin-top: 1.5rem; }
 
