@@ -280,11 +280,14 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         padding: 1.4rem 1.5rem;
       }
       .logo {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 600;
         text-decoration: none;
         color: var(--ink);
-        letter-spacing: 0.02em;
+        /* All caps so the signature Σ sits among capitals as it does on the
+           masthead; caps want a little more tracking to breathe. */
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
       }
       /* The signature sigma: the wordmark's Greek Σ for the s, in the oxblood
          accent, the same mark as the masthead and the favicon. */
