@@ -502,6 +502,22 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Pañcanada family',
     note: 'The "five rivers" of the Punjab, Sanskrit Pañcanada calqued into Persian Panjāb; the land of the five eastern tributaries of the Indus.',
   },
+  skuda: {
+    display: 'The *Skuda family',
+    note: 'The western name-tradition for the Scythians, from an Iranian *Skuda: the Assyrian Iškuza and the Hebrew Aškenaz, the Greek Skýthai and Latin Scythae; the name by which the Near East and the Greeks knew the steppe nomads.',
+  },
+  saka: {
+    display: 'The Saka family',
+    note: 'The Iranian self-name *Saka of the eastern Scythians: Old Persian Sakā, Sanskrit Śaka, Chinese Sài, and Latin Sacae; the Achaemenid and Indian name for the steppe nomads, beside the Greek Skýthai.',
+  },
+  gomer: {
+    display: 'The Gomer family',
+    note: 'The name of the Cimmerians, from a single *Gimir-: the Assyrian Gimirru and Hebrew Gomer, the Greek Kimmérioi and Latin Cimmerii; the steppe raiders who broke into Anatolia in the early first millennium.',
+  },
+  tochari: {
+    display: 'The Tóchari family',
+    note: 'The Greek Tócharoi, Latin Tochari, and Sanskrit Tukhāra, the nomads who took Bactria from the Greeks, widely identified with the Chinese Yuèzhī; the source of the name Tokharistan.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {

@@ -182,6 +182,12 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   phoenicia: { kind: 'civ', label: 'Phoenicia', points: [[35.40, 33.90]] },
   rome: { kind: 'civ', label: 'Rome', points: [[12.50, 41.90]] },
   sumer: { kind: 'civ', label: 'Sumer', points: [[45.80, 31.30]] },
+
+  // Steppe peoples: a star at a representative seat, not a homeland border (nomads).
+  scythia: { kind: 'civ', label: 'Scythia', points: [[32.0, 48.0]] },
+  cimmerians: { kind: 'civ', label: 'Cimmeria', points: [[35.0, 46.0]] },
+  xiongnu: { kind: 'civ', label: 'Xiongnu', points: [[105.0, 47.0]] },
+  yuezhi: { kind: 'civ', label: 'Yuezhi', points: [[98.0, 39.0]] },
 };
 
 // --- Per-map projection -----------------------------------------------------
