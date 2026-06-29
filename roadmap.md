@@ -131,17 +131,17 @@ Added 2026-06. The directional phases skipped west: Phase 1 took the flagships (
 - [x] possibly Oscan / Umbrian, only if Italic peoples beyond the Etruscans are pursued
 ## Phase 2: Expanding the eastern axis
 
-Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian world, and India. Goal: end of April 2026.
+Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian world, and India. Goal: end of April 2026. **Status (2026-06-29): largely complete.** India, Parthia, Bactria, Scythia/Saka, and China are done; all four regions (Iran, Sogdiana, Punjab, Sindh) and all six features (Indus, Oxus, Ganges, Himalayas, Caspian, Black Sea) are done. India was built as ONE entity (the Bhārata endonym plus the Hinduš/Sindhu exonym family), folding the split below. **Remaining: civilizations Media, Armenia, Urartu/Biainili; cities Pataliputra, Taxila, Chang'an, Bactra; languages Sogdian, Pali, Urartian (and Classical Armenian for Armenia's endonym).** A large off-roadmap build in 2026-06 also added the Near-Eastern seas, the Levantine and Anatolian regions, the northern waters and mountains (Ararat among them), and a steppe-peoples set (Cimmerians, Xiongnu, Yuezhi beside Scythia), plus the Lycian language and coast-accurate region locators.
 
 ### Civilizations
-- [ ] India / Bhārata (separate entry from "Hinduš/India" — they refer to different conceptual units)
-- [ ] Hinduš / India (the geographic-Indus name as transmitted westward)
+- [x] India / Bhārata — built as one entity, with the Hinduš line folded in
+- [x] ~~Hinduš / India~~ — folded into the India entity (one page, the sindhu exonym family)
 - [ ] Media
-- [ ] Parthia
-- [ ] Bactria
-- [ ] Scythia / Saka
+- [x] Parthia
+- [x] Bactria
+- [x] Scythia / Saka
 - [ ] Armenia
-- [ ] China (Han / Zhōngguó)
+- [x] China (Han / Zhōngguó)
 - [ ] Urartu / Biainili
 
 ### Cities
@@ -151,26 +151,27 @@ Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian
 - [ ] Bactra / Balkh
 
 ### Regions
-- [ ] Iran (cultural-Iranian framing distinct from Persia/Pārsa)
-- [ ] Sogdiana
-- [ ] The Punjab
-- [ ] Sindh
+- [x] Iran (cultural-Iranian framing distinct from Persia/Pārsa)
+- [x] Sogdiana
+- [x] The Punjab
+- [x] Sindh
 
 ### Geographic features
-- [ ] The Indus
-- [ ] The Oxus / Amu Darya
-- [ ] The Ganges
-- [ ] The Himalayas
-- [ ] The Caspian Sea
-- [ ] The Black Sea / Pontus
+- [x] The Indus
+- [x] The Oxus / Amu Darya
+- [x] The Ganges
+- [x] The Himalayas
+- [x] The Caspian Sea
+- [x] The Black Sea / Pontus
 
 ### Languages needed for Phase 2
-- [ ] Avestan
+- [x] Avestan (added with Bactria; carries the Oxus, Sogdiana, and Iran endonyms)
 - [x] Middle Persian (Pahlavi) (added early, during Phase 1)
 - [ ] Sogdian
 - [ ] Pali
 - [x] Classical Chinese (added early, with the Rome and Persia entries)
 - [ ] Urartian
+- [ ] Classical Armenian (for Armenia's endonym Hayastan; not in the original list)
 
 ## Phase 3: The Americas, Africa, and edge cases
 
