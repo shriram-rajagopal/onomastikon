@@ -19,6 +19,7 @@ import { loadFont as loadParthian } from "@remotion/google-fonts/NotoSansInscrip
 import { loadFont as loadAvestan } from "@remotion/google-fonts/NotoSansAvestan";
 import { loadFont as loadOldItalic } from "@remotion/google-fonts/NotoSansOldItalic";
 import { loadFont as loadLycian } from "@remotion/google-fonts/NotoSansLycian";
+import { loadFont as loadArmenian } from "@remotion/google-fonts/NotoSerifArmenian";
 
 // Language entry title card. A thin sibling of the civ TitleCard: same parchment,
 // same vertical rhythm and tokens, but it leads with the LANGUAGE's own name
@@ -51,6 +52,7 @@ const { fontFamily: parthian } = loadParthian("normal", { weights: ["400"], subs
 const { fontFamily: avestan } = loadAvestan("normal", { weights: ["400"], subsets: ["avestan"] });
 const { fontFamily: oldItalic } = loadOldItalic("normal", { weights: ["400"], subsets: ["old-italic"] });
 const { fontFamily: lycian } = loadLycian("normal", { weights: ["400"], subsets: ["lycian"] });
+const { fontFamily: armenian } = loadArmenian("normal", { weights: ["400", "600"], subsets: ["armenian"] });
 
 const PARCHMENT = "#f5efe4";
 const INK = "#1a1a1a";
@@ -83,6 +85,7 @@ const SCRIPTS = {
   avestan: { fontFamily: avestan, fontSize: 150, letterSpacing: 0, fontWeight: 400, rtl: true },
   "old-italic": { fontFamily: oldItalic, fontSize: 140, letterSpacing: 6, fontWeight: 400, rtl: false },
   lycian: { fontFamily: lycian, fontSize: 150, letterSpacing: 12, fontWeight: 400, rtl: false },
+  armenian: { fontFamily: armenian, fontSize: 150, letterSpacing: 0, fontWeight: 400, rtl: false },
 } as const;
 
 export const languageCardSchema = z.object({
@@ -106,6 +109,7 @@ export const languageCardSchema = z.object({
     "avestan",
     "old-italic",
     "lycian",
+    "armenian",
   ]),
   glyphs: z.string(), // the language's own name in its own script (native_name)
   romanization: z.string().optional(), // italic accent line; omit for Latin-script endonyms (Lingua Latina)

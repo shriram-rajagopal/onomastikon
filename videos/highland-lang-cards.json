@@ -1,0 +1,4 @@
+[
+  { "slug": "classical-armenian", "script": "armenian", "glyphs": "Հայերէն", "romanization": "Hayerēn", "name": "Classical Armenian", "meta": "Armenian alphabet · Indo-European (Armenian) · c. 405–1300 CE" },
+  { "slug": "urartian", "script": "cuneiform", "glyphs": "𒁉𒀀𒄿𒉌𒇷", "romanization": "Biainili", "name": "Urartian", "meta": "Neo-Assyrian cuneiform · Hurro-Urartian · c. 830–590 BCE" }
+]

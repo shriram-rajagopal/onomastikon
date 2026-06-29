@@ -49,6 +49,8 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hejaz' },
   geez: { lon: 38.72, lat: 14.13, place: 'Aksum' },
   lycian: { lon: 29.32, lat: 36.35, place: 'Xanthos', anchor: 'middle', dx: 0, dy: 12 },
+  'classical-armenian': { lon: 44.55, lat: 39.95, place: 'Artašat', dy: -6 },
+  urartian: { lon: 43.36, lat: 38.49, place: 'Tušpa', anchor: 'end', dx: -7, dy: 4 },
 };
 
 // --- Entity locators --------------------------------------------------------
@@ -182,6 +184,9 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   phoenicia: { kind: 'civ', label: 'Phoenicia', points: [[35.40, 33.90]] },
   rome: { kind: 'civ', label: 'Rome', points: [[12.50, 41.90]] },
   sumer: { kind: 'civ', label: 'Sumer', points: [[45.80, 31.30]] },
+  media: { kind: 'civ', label: 'Media', points: [[48.51, 34.80]] },
+  armenia: { kind: 'civ', label: 'Armenia', points: [[44.50, 40.00]] },
+  urartu: { kind: 'civ', label: 'Urartu', points: [[43.36, 38.49]] },
 
   // Steppe peoples: a star at a representative seat, not a homeland border (nomads).
   scythia: { kind: 'civ', label: 'Scythia', points: [[32.0, 48.0]] },

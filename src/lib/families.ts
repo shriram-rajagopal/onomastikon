@@ -518,6 +518,18 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Tóchari family',
     note: 'The Greek Tócharoi, Latin Tochari, and Sanskrit Tukhāra, the nomads who took Bactria from the Greeks, widely identified with the Chinese Yuèzhī; the source of the name Tokharistan.',
   },
+  mada: {
+    display: 'The Māda family',
+    note: 'The name of the Medes, from the Old Persian Māda: the Elamite and Akkadian forms of the Achaemenid trilingual, the Hebrew Māday of Genesis 10, and the Greek Mēdía whence Latin Media; the people whose name fused with Persia in the formula "the Medes and the Persians."',
+  },
+  armina: {
+    display: 'The Armina family',
+    note: 'The exonym for Armenia, from the Old Persian Armina of the Behistun inscription: the Greek Armenía and Latin Armenia by which the land has always been known abroad, beside the native self-name Haykʿ.',
+  },
+  urartu: {
+    display: 'The Urarṭu family',
+    note: 'The Assyrian Urarṭu for the kingdom of Van, reaching the Hebrew Bible as Ararat; the Behistun Babylonian reused it (Uraštu) to render the Old Persian Armina, binding the old highland name to its successor.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {

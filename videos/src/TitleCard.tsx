@@ -13,6 +13,7 @@ import { loadFont as loadParthian } from "@remotion/google-fonts/NotoSansInscrip
 import { loadFont as loadDevanagari } from "@remotion/google-fonts/NotoSerifDevanagari";
 import { loadFont as loadSC } from "@remotion/google-fonts/NotoSansSC";
 import { loadFont as loadLycian } from "@remotion/google-fonts/NotoSansLycian";
+import { loadFont as loadArmenian } from "@remotion/google-fonts/NotoSerifArmenian";
 
 // Data-driven version of the hand-built EgyptTitleCard / GreeceTitleCard /
 // PersiaTitleCard. Those three share an identical layout and differ only in four
@@ -78,6 +79,8 @@ const { fontFamily: devanagari } = loadDevanagari("normal", {
 const { fontFamily: sc } = loadSC("normal", { weights: ["400"], subsets: ["chinese-simplified"] });
 // Lycian (Trm̃mili) is an alphabet, bidi-L, rendered left-to-right like Old Italic.
 const { fontFamily: lycian } = loadLycian("normal", { weights: ["400"], subsets: ["lycian"] });
+// Armenian (Hayerēn, Haykʿ) rides Noto Serif Armenian, a fully phonemic LTR alphabet.
+const { fontFamily: armenian } = loadArmenian("normal", { weights: ["400", "600"], subsets: ["armenian"] });
 
 // Onomastikon design tokens (mirrored from src/layouts/BaseLayout.astro :root).
 // The card is filled with parchment rather than left transparent so the same PNG
@@ -104,12 +107,13 @@ const SCRIPTS = {
   devanagari: { fontFamily: devanagari, fontSize: 208, letterSpacing: 0, fontWeight: 400 },
   chinese: { fontFamily: sc, fontSize: 168, letterSpacing: 8, fontWeight: 400 },
   lycian: { fontFamily: lycian, fontSize: 200, letterSpacing: 12, fontWeight: 400 },
+  armenian: { fontFamily: armenian, fontSize: 200, letterSpacing: 0, fontWeight: 400 },
   greek: { fontFamily: garamond, fontSize: 200, letterSpacing: 0, fontWeight: 600 },
   latin: { fontFamily: garamond, fontSize: 168, letterSpacing: 0, fontWeight: 600 },
 } as const;
 
 export const titleCardSchema = z.object({
-  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "avestan", "old-italic", "inscriptional-parthian", "devanagari", "chinese", "lycian", "greek", "latin"]),
+  script: z.enum(["egyptian-hieroglyphs", "old-persian", "cuneiform", "phoenician", "hebrew", "avestan", "old-italic", "inscriptional-parthian", "devanagari", "chinese", "lycian", "armenian", "greek", "latin"]),
   glyphs: z.string(), // the endonym in its original script (original_text)
   transliteration: z.string().optional(), // italic accent line (Kemet, Hellás, Pārsa); omit for Latin-script endonyms whose original IS the romanization (e.g. Roma)
   language: z.string(), // the endonym's language, shown below the transliteration (Middle Egyptian, Ancient Greek, Latin, ...)

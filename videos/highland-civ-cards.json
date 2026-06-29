@@ -1,0 +1,5 @@
+[
+  { "slug": "media", "script": "old-persian", "glyphs": "𐎶𐎠𐎭", "transliteration": "Māda", "language": "Old Persian", "label": "Media" },
+  { "slug": "armenia", "script": "armenian", "glyphs": "Հայք", "transliteration": "Haykʿ", "language": "Classical Armenian", "label": "Armenia" },
+  { "slug": "urartu", "script": "cuneiform", "glyphs": "𒁉𒀀𒄿𒉌𒇷", "transliteration": "Biainili", "language": "Urartian", "label": "Urartu" }
+]
