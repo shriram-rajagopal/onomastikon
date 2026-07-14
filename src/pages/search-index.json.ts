@@ -62,6 +62,9 @@ export const GET: APIRoute = async () => {
         ? { lang: l.data.lang_code, ...(l.data.direction === 'rtl' ? { dir: 'rtl' } : {}) }
         : {}),
       translit: n.data.transliteration,
+      // Carried as a field (not only in the haystack) so the homepage's
+      // name-of-the-day card can quote it.
+      ...(n.data.literal_meaning ? { meaning: n.data.literal_meaning } : {}),
       context: `${l?.data.english_name ?? ''} · ${c?.data.english_name ?? ''}`,
       url: `/civilizations/${c?.id}#${entryAnchor(n.id, c?.id ?? '')}`,
       h: fold(

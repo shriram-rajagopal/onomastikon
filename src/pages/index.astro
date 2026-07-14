@@ -78,20 +78,24 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
       called themselves — and what their neighbors called them. Original scripts,
       transliterations, pronunciations, and sources.
     </p>
-    <!-- Name of the day: filled by JS from the search index at idle (the same
-         fetch primes the cache for the search page). Absent without JS; the
-         min-height on .hero-daily reserves the line against layout shift. -->
-    <p class="hero-daily" id="daily" hidden>
-      <span class="daily-label">Name of the day</span>
-      <a id="daily-link" href="#"
-        ><span id="daily-orig" class="daily-orig"></span>
-        <em id="daily-translit"></em></a
-      >
-      <span id="daily-ctx" class="daily-ctx"></span>
-      <span class="daily-sep" aria-hidden="true">·</span>
-      <a id="daily-random" href="/search">Random name →</a>
-    </p>
   </section>
+
+  <!-- Name of the day: filled by JS from the search index (the same fetch
+       primes the cache for the search page). One name per Eastern-time day;
+       a per-cycle permutation gives every name one turn before any repeats.
+       Absent without JS; the slot's min-height reserves the space. -->
+  <div class="daily-slot">
+    <section class="daily-card" id="daily" hidden aria-label="Name of the day">
+      <span class="daily-legend">Name of the day</span>
+      <a id="daily-link" class="daily-link" href="#">
+        <span id="daily-orig" class="daily-orig"></span>
+        <em id="daily-translit" class="daily-translit"></em>
+      </a>
+      <p id="daily-meaning" class="daily-meaning" hidden></p>
+      <p id="daily-ctx" class="daily-ctx"></p>
+      <a id="daily-random" class="daily-random" href="/search">Random name →</a>
+    </section>
+  </div>
 
   <!-- Marks the foot of the hero: the script reveals the Browse rail once this
        scrolls above the viewport. -->
@@ -287,40 +291,75 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
        the centered wordmark and h1. */
     margin: 1rem auto 0;
   }
-  /* Name of the day: one quiet line under the tagline. min-height holds the
-     row whether or not JS fills it, so the index below never jumps. */
-  .hero-daily {
-    min-height: 2.2rem;
-    margin: 1.5rem auto 0;
-    font-size: 1.0625rem;
+  /* Name of the day: a legend-framed plate between the hero and the index —
+     hairline rule box with the label set into the top border and the random
+     link set into the bottom, both on parchment cutouts. The slot's
+     min-height reserves the space so the index doesn't jump when JS fills
+     the card in (or never does). */
+  .daily-slot { min-height: 15rem; margin: 0 0 2.5rem; }
+  .daily-card {
+    position: relative;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
   }
-  .daily-label {
+  .daily-legend {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--parchment);
+    padding: 0 0.8rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.6875rem;
     text-transform: uppercase;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.12em;
     color: var(--ink-soft);
-    margin-right: 0.5rem;
+    white-space: nowrap;
   }
-  .hero-daily a { text-decoration: none; }
-  .hero-daily a:hover { text-decoration: underline; }
+  .daily-link { display: block; text-decoration: none; color: var(--ink); }
+  .daily-link:hover .daily-translit { color: var(--accent); }
   /* Original-script text: same per-script font fallbacks as the entry pages. */
   .daily-orig {
+    display: block;
     font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', serif;
-    font-size: 1.25rem;
+    font-size: 3rem;
+    line-height: 1.15;
+  }
+  .daily-translit {
+    display: block;
+    font-size: 1.375rem;
+    margin-top: 0.35rem;
+    transition: color 0.12s;
+  }
+  .daily-meaning {
+    font-style: italic;
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+    margin: 0.75rem 0 0;
   }
   .daily-ctx {
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--ink-soft);
-    margin-left: 0.35rem;
+    margin: 0.9rem 0 0;
   }
-  .daily-sep { color: var(--rule); margin: 0 0.35rem; }
-  #daily-random {
+  .daily-random {
+    position: absolute;
+    bottom: 0;
+    right: 1.5rem;
+    transform: translateY(50%);
+    background: var(--parchment);
+    padding: 0 0.6rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
     color: var(--accent);
+    text-decoration: none;
   }
+  .daily-random:hover { text-decoration: underline; }
   /* The heading and tagline settle in a beat after arrival, just behind the
      masthead's own reveal, so the hero reads as "logo, then title" rather than
      everything landing at once. Pure CSS on load (no dependency on the video,
@@ -482,18 +521,41 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
       idle(() =>
         loadNames().then((names) => {
           if (!names.length) return;
-          // FNV-1a over YYYYMMDD: stable for the day, uniform across the corpus.
-          const now = new Date();
-          const key = `${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}`;
-          let h = 2166136261;
-          for (const ch of key) {
-            h ^= ch.charCodeAt(0);
-            h = Math.imul(h, 16777619);
+          // The day rolls at midnight US Eastern: format today's date in
+          // America/New_York (DST handled by the zone data) and convert it
+          // to a running day count.
+          const nyDate = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'America/New_York',
+          }).format(new Date());
+          const [y, m, d] = nyDate.split('-').map(Number);
+          const day = Math.floor(Date.UTC(y, m - 1, d) / 86400000);
+
+          // Every name gets one turn before any gets a second: each cycle of
+          // N days seeds its own Fisher-Yates shuffle of the URL-sorted list
+          // (deterministic, so every visitor sees the same name), and the day
+          // index walks that permutation. When the corpus grows, N changes
+          // and a fresh cycle starts; the one-turn-each guarantee holds
+          // within any one cycle.
+          const mulberry32 = (seed: number) => () => {
+            seed |= 0;
+            seed = (seed + 0x6d2b79f5) | 0;
+            let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+          const deck = [...names].sort((a, b) => a.url.localeCompare(b.url));
+          const N = deck.length;
+          const rand = mulberry32(Math.floor(day / N) + N * 0x9e3779b1);
+          for (let i = N - 1; i > 0; i--) {
+            const k = Math.floor(rand() * (i + 1));
+            [deck[i], deck[k]] = [deck[k], deck[i]];
           }
-          const pick = names[Math.abs(h) % names.length];
+          const pick = deck[day % N];
+
           const link = document.getElementById('daily-link') as HTMLAnchorElement;
           const orig = document.getElementById('daily-orig')!;
           const translit = document.getElementById('daily-translit')!;
+          const meaning = document.getElementById('daily-meaning')!;
           const ctx = document.getElementById('daily-ctx')!;
           link.href = pick.url;
           // label is original script when the entry has one (lang/dir carried
@@ -504,7 +566,12 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
             if (pick.dir) orig.setAttribute('dir', pick.dir);
             translit.textContent = pick.translit;
           } else {
+            orig.hidden = true;
             translit.textContent = pick.translit || pick.label;
+          }
+          if (pick.meaning) {
+            meaning.textContent = `“${pick.meaning}”`;
+            meaning.hidden = false;
           }
           ctx.textContent = pick.context || '';
           daily.hidden = false;
