@@ -12,7 +12,11 @@ const civilizations = defineCollection({
     // required if every entity is guaranteed to carry one.
     region: z.string().optional(),
     era_start: z.number(),
-    era_end: z.number(),
+    // era_end: null is the explicit "in continued use" claim (rendered as such
+    // by formatEra) for names/entities that never fell out of use — an
+    // editorial judgment applied per entry, not a default. Same on all three
+    // collections below.
+    era_end: z.number().nullable(),
     summary: z.string(),
     featured_image: z.string().optional(),
     // Opaque variant of the title card for Open Graph previews. featured_image
@@ -33,7 +37,7 @@ const languages = defineCollection({
     // on original-script text so screen readers and font selection behave.
     lang_code: z.string(),
     era_start: z.number(),
-    era_end: z.number(),
+    era_end: z.number().nullable(),
     direction: z.enum(['ltr', 'rtl', 'btt']).default('ltr'),
     // The language's endonym title card, rendered from LanguageTitleCard. Optional:
     // languages whose native_name is missing or stored romanized have no card yet.
@@ -68,8 +72,15 @@ const names = defineCollection({
     // descent, no asserted borrowing path) share a family but carry no edge.
     derived_from: reference('names').optional(),
     era_start: z.number(),
-    era_end: z.number(),
+    era_end: z.number().nullable(),
     confidence: z.enum(['attested', 'reconstructed', 'disputed']),
+    // Recorded pronunciation of the reconstructed form (a path under
+    // /public/audio/). Recordings only — never synthesized speech: TTS has no
+    // ground truth for these languages, and generated audio would be a
+    // fabricated primary claim. audio_note names who read it and on what
+    // published reconstruction, and renders beside the player.
+    audio: z.string().optional(),
+    audio_note: z.string().optional(),
     sources: z.array(z.object({
       citation: z.string(),
       page: z.string().optional(),

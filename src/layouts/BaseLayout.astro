@@ -1,4 +1,34 @@
 ---
+// Self-hosted fonts (Fontsource), replacing the render-blocking 20-family
+// Google Fonts stylesheet. Every @font-face below carries a unicode-range, so
+// a browser only downloads the script fonts a page actually renders: a
+// Latin-only page costs EB Garamond + Inter, and the cuneiform subset arrives
+// only when cuneiform is on screen. Same-origin, no third-party connections.
+import '@fontsource/eb-garamond/400.css';
+import '@fontsource/eb-garamond/400-italic.css';
+import '@fontsource/eb-garamond/600.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/noto-sans-egyptian-hieroglyphs/400.css';
+import '@fontsource/noto-sans-cuneiform/400.css';
+import '@fontsource/noto-sans-old-persian/400.css';
+import '@fontsource/noto-sans-avestan/400.css';
+import '@fontsource/noto-serif-devanagari/400.css';
+import '@fontsource/noto-serif-hebrew/400.css';
+import '@fontsource/noto-naskh-arabic/400.css';
+import '@fontsource/noto-sans-coptic/400.css';
+import '@fontsource/noto-sans-ethiopic/400.css';
+import '@fontsource/noto-sans-inscriptional-pahlavi/400.css';
+import '@fontsource/noto-sans-inscriptional-parthian/400.css';
+import '@fontsource/noto-sans-manichaean/400.css';
+import '@fontsource/noto-sans-syriac/400.css';
+import '@fontsource/noto-sans-phoenician/400.css';
+import '@fontsource/noto-sans-ugaritic/400.css';
+import '@fontsource/noto-sans-lycian/400.css';
+import '@fontsource/noto-serif-armenian/400.css';
+import '@fontsource/noto-sans-old-italic/400.css';
+import '@fontsource/noto-sans-linear-b/400.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -11,8 +41,15 @@ const { title, description, image, schema } = Astro.props;
 // Public-facing text is authored, never synthesized here: the description is an
 // entity's own summary (passed in) or the site tagline. The OG image is the
 // page's title card when it has one, otherwise the site-wide fallback card.
-const metaDescription = description ?? 'A digital atlas of ancient names.';
-const pageTitle = `${title} — Onomastikon`;
+const metaDescription =
+  description ??
+  'A digital atlas of ancient names — what the civilizations, cities, regions, and geographic features of antiquity called themselves, and what their neighbors called them.';
+// The homepage would otherwise render "Onomastikon — Onomastikon"; give it the
+// tagline as its suffix instead, so the search-result title line reads clean.
+const pageTitle =
+  title === 'Onomastikon'
+    ? 'Onomastikon — A digital atlas of ancient names'
+    : `${title} — Onomastikon`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
 ---
@@ -101,6 +138,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Onomastikon — new entries" href="/feed.xml" />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     <!-- Open Graph / Twitter social previews. Description mirrors the page's
@@ -117,13 +155,6 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImageURL} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&family=Noto+Sans+Egyptian+Hieroglyphs&family=Noto+Sans+Old+Persian&family=Noto+Sans+Avestan&family=Noto+Sans+Cuneiform&family=Noto+Serif+Devanagari&family=Noto+Serif+Hebrew&family=Noto+Naskh+Arabic&family=Noto+Sans+Coptic&family=Noto+Sans+Ethiopic&family=Noto+Sans+Inscriptional+Pahlavi&family=Noto+Sans+Inscriptional+Parthian&family=Noto+Sans+Manichaean&family=Noto+Sans+Syriac&family=Noto+Sans+Phoenician&family=Noto+Sans+Ugaritic&family=Noto+Sans+Lycian&family=Noto+Serif+Armenian&family=Noto+Sans+Old+Italic&family=Noto+Sans+Linear+B&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -131,7 +162,8 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       <div class="site-header-inner">
         <a href="/" class="logo" aria-label="Onomastikon, home">Onoma<span class="logo-sigma">Σ</span>tikon</a>
         <nav>
-          <a href="/search">Search</a>
+          <a href="/search" aria-keyshortcuts="/ Control+K" title="Search (press /)">Search</a>
+          <a href="/compare">Compare</a>
           <a href="/about">About</a>
           <button id="theme-toggle" type="button">◐ Dark mode</button>
         </nav>
@@ -140,10 +172,12 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
     <main id="main">
       <slot />
     </main>
+    <button type="button" id="back-to-top" hidden aria-label="Back to top">↑ Top</button>
     <footer class="site-footer">
       <p>
         Onomastikon · A digital atlas of ancient names ·
         <a href="/onomastikon.json">Data</a> ·
+        <a href="/feed.xml">RSS</a> ·
         <a href="https://github.com/shriram-rajagopal/onomastikon">GitHub</a> ·
         <a href="/feedback" id="site-feedback">Feedback</a>
       </p>
@@ -328,6 +362,27 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       /* When a top-of-page "send feedback" note jumps here, mark the footer
          Feedback link so the reader sees where to act. Mirrors the entry
          permalink highlight; the flash is motion-gated, the outline persists. */
+      /* Back-to-top: appears after roughly two screens of scroll, sits clear
+         of the reading column in the lower right. Hidden from print. */
+      #back-to-top {
+        position: fixed;
+        right: 1.25rem;
+        bottom: 1.25rem;
+        z-index: 15;
+        padding: 0.4rem 0.8rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+        background: var(--parchment);
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.07);
+      }
+      #back-to-top:hover { color: var(--accent); border-color: var(--accent); }
+      @media print {
+        #back-to-top { display: none; }
+      }
       #site-feedback { scroll-margin: 3rem; border-radius: 3px; }
       #site-feedback:target { outline: 2px solid var(--accent); outline-offset: 3px; color: var(--accent); }
       @media (prefers-reduced-motion: no-preference) {
@@ -381,6 +436,36 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         reflect(next);
       });
 
+      // Search from anywhere: "/" (outside form fields) or Cmd/Ctrl+K jumps to
+      // the search page; on the search page itself they focus the input. With
+      // prefetch on, the page-hop lands fast enough that no overlay is needed.
+      addEventListener('keydown', (e) => {
+        const t = e.target as HTMLElement | null;
+        const typing =
+          t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+        const slash = e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey && !typing;
+        const cmdK = e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey) && !e.altKey;
+        if (!slash && !cmdK) return;
+        e.preventDefault();
+        const input = document.getElementById('q');
+        if (input) input.focus();
+        else location.href = '/search';
+      });
+
+      // Arrow-key paging: ← and → follow the page's prev/next pager links
+      // (entity and language pages both mark them rel=prev/rel=next). Guarded
+      // by the same not-typing test, and by plain keypresses only, so
+      // browser/OS shortcuts like Alt+← history navigation stay untouched.
+      addEventListener('keydown', (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+        const t = e.target as HTMLElement | null;
+        if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+        const rel = e.key === 'ArrowLeft' ? 'prev' : e.key === 'ArrowRight' ? 'next' : null;
+        if (!rel) return;
+        const link = document.querySelector<HTMLAnchorElement>(`a[rel="${rel}"]`);
+        if (link) location.href = link.href;
+      });
+
       // The sticky header is clean over the top of the page and gains its
       // parchment backdrop + rule once anything scrolls beneath it.
       const header = document.querySelector('.site-header');
@@ -388,6 +473,17 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         const sync = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
         sync();
         addEventListener('scroll', sync, { passive: true });
+      }
+
+      // Back-to-top after ~two screens of scroll. scrollTo without a behavior
+      // option follows the page's CSS scroll-behavior, which is already
+      // reduced-motion-gated, so this stays smooth or instant appropriately.
+      const topBtn = document.getElementById('back-to-top');
+      if (topBtn) {
+        const syncTop = () => { topBtn.hidden = window.scrollY < window.innerHeight * 2; };
+        syncTop();
+        addEventListener('scroll', syncTop, { passive: true });
+        topBtn.addEventListener('click', () => window.scrollTo(0, 0));
       }
     </script>
   </body>

@@ -1,0 +1,254 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Comparison view: 2–4 entities side-by-side across the languages that name
+// them. The pickers are server-rendered from the collection; the name data
+// comes from the existing full-dataset export (/onomastikon.json), fetched
+// once client-side, so this page costs the build nothing and stays a single
+// static route with shareable ?a=&b= URLs.
+const civs = await getCollection('civilizations');
+const typeOrder: Record<string, number> = { civilization: 0, city: 1, region: 2, geographic_feature: 3 };
+const ordered = [...civs].sort((a, b) => {
+  const t = (typeOrder[a.data.type] ?? 9) - (typeOrder[b.data.type] ?? 9);
+  return t !== 0 ? t : a.data.english_name.localeCompare(b.data.english_name);
+});
+const SLOTS = ['a', 'b', 'c', 'd'] as const;
+---
+
+<BaseLayout
+  title="Compare"
+  description="Pick two to four entities of the ancient world and see their names side-by-side across the languages that named them."
+>
+  <h1>Compare</h1>
+  <p class="hint">
+    Pick two to four entities and see their names side-by-side, language by
+    language. Languages that name all of your picks sort first.
+  </p>
+
+  <form class="pickers" id="pickers">
+    {SLOTS.map((slot, i) => (
+      <label>
+        <span class="picker-label">{i < 2 ? `Entity ${slot.toUpperCase()}` : `Entity ${slot.toUpperCase()} (optional)`}</span>
+        <select id={`pick-${slot}`} data-slot={slot}>
+          <option value="">—</option>
+          {ordered.map((c) => (
+            <option value={c.id}>{c.data.english_name}</option>
+          ))}
+        </select>
+      </label>
+    ))}
+  </form>
+
+  <p id="compare-status" class="hint" aria-live="polite">Choose at least two entities to compare.</p>
+  <div class="compare-scroll">
+    <table id="compare-table" hidden>
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const SLOTS = ['a', 'b', 'c', 'd'];
+    const selects = SLOTS.map((s) => document.getElementById(`pick-${s}`) as HTMLSelectElement);
+    const table = document.getElementById('compare-table') as HTMLTableElement;
+    const status = document.getElementById('compare-status')!;
+
+    let dataPromise: Promise<any> | null = null;
+    const loadData = () => (dataPromise ??= fetch('/onomastikon.json').then((r) => r.json()));
+
+    // Restore picks from the URL (shareable ?a=egypt&b=greece links).
+    const params = new URLSearchParams(location.search);
+    SLOTS.forEach((s, i) => {
+      const v = params.get(s);
+      if (v) selects[i].value = v;
+    });
+
+    function syncURL(ids: string[]) {
+      const q = new URLSearchParams();
+      SLOTS.forEach((s, i) => {
+        if (ids[i]) q.set(s, ids[i]);
+      });
+      const qs = q.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    }
+
+    async function render() {
+      const ids = selects.map((s) => s.value);
+      syncURL(ids);
+      const picked = ids.filter(Boolean);
+      if (picked.length < 2) {
+        table.hidden = true;
+        status.hidden = false;
+        status.textContent = 'Choose at least two entities to compare.';
+        return;
+      }
+      const data = await loadData();
+      const entities = picked
+        .map((id) => data.entities.find((e: any) => e.id === id))
+        .filter(Boolean);
+      const langById = new Map(data.languages.map((l: any) => [l.id, l]));
+      // names[entity][language] — an entity can carry several forms in one
+      // language (successive eras); keep them all, era order as exported.
+      const cell = new Map<string, Map<string, any[]>>();
+      for (const n of data.names) {
+        if (!picked.includes(n.civilization)) continue;
+        if (!cell.has(n.civilization)) cell.set(n.civilization, new Map());
+        const byLang = cell.get(n.civilization)!;
+        if (!byLang.has(n.language)) byLang.set(n.language, []);
+        byLang.get(n.language)!.push(n);
+      }
+      // Rows: every language naming at least one pick; full-coverage rows
+      // first (that's the comparative payoff), then by coverage, then the
+      // dataset's language order.
+      const langIds = data.languages
+        .map((l: any) => l.id)
+        .filter((id: string) => entities.some((e: any) => cell.get(e.id)?.has(id)));
+      const coverage = (id: string) => entities.filter((e: any) => cell.get(e.id)?.has(id)).length;
+      langIds.sort((x: string, y: string) => coverage(y) - coverage(x));
+
+      const thead = table.tHead!;
+      const tbody = table.tBodies[0];
+      thead.textContent = '';
+      tbody.textContent = '';
+
+      const headRow = document.createElement('tr');
+      headRow.append(document.createElement('th')); // corner
+      for (const e of entities) {
+        const th = document.createElement('th');
+        th.scope = 'col';
+        const a = document.createElement('a');
+        a.href = `/civilizations/${e.id}`;
+        a.textContent = e.english_name;
+        th.append(a);
+        headRow.append(th);
+      }
+      thead.append(headRow);
+
+      for (const langId of langIds) {
+        const lang: any = langById.get(langId);
+        const tr = document.createElement('tr');
+        const th = document.createElement('th');
+        th.scope = 'row';
+        const a = document.createElement('a');
+        a.href = `/languages/${langId}`;
+        a.textContent = lang?.english_name ?? langId;
+        th.append(a);
+        tr.append(th);
+        for (const e of entities) {
+          const td = document.createElement('td');
+          const forms = cell.get(e.id)?.get(langId) ?? [];
+          if (!forms.length) {
+            td.textContent = '—';
+            td.className = 'empty';
+          }
+          for (const form of forms) {
+            const wrap = document.createElement('a');
+            wrap.className = 'form';
+            wrap.href = form.url;
+            if (form.original_text) {
+              const orig = document.createElement('span');
+              orig.className = 'form-original';
+              orig.textContent = form.original_text;
+              if (lang?.lang_code) orig.setAttribute('lang', lang.lang_code);
+              if (lang?.direction === 'rtl') orig.setAttribute('dir', 'rtl');
+              wrap.append(orig);
+            }
+            const tr2 = document.createElement('em');
+            tr2.className = 'form-translit';
+            tr2.textContent = form.transliteration;
+            wrap.append(tr2);
+            td.append(wrap);
+          }
+          tr.append(td);
+        }
+        tbody.append(tr);
+      }
+
+      table.hidden = false;
+      status.hidden = true;
+    }
+
+    for (const s of selects) s.addEventListener('change', render);
+    if (selects.filter((s) => s.value).length >= 2) render();
+  </script>
+</BaseLayout>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .hint { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0 0 1.5rem; }
+  .pickers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin: 0 0 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+  }
+  .pickers label { display: flex; flex-direction: column; gap: 0.3rem; }
+  .picker-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.6875rem;
+    color: var(--ink-soft);
+  }
+  .pickers select {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--ink);
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.3rem 0.4rem;
+    max-width: 11rem;
+  }
+  /* Wide comparisons scroll inside their own container. */
+  .compare-scroll { overflow-x: auto; }
+  #compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+  }
+  #compare-table :global(th),
+  #compare-table :global(td) {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.7rem 0.9rem 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    min-width: 8rem;
+  }
+  #compare-table :global(thead th) {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  #compare-table :global(thead a) { color: var(--ink); text-decoration: none; }
+  #compare-table :global(thead a:hover) { color: var(--accent); }
+  #compare-table :global(tbody th) {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    padding-top: 1rem;
+  }
+  #compare-table :global(tbody th a) { color: inherit; text-decoration: none; }
+  #compare-table :global(tbody th a:hover) { color: var(--accent); }
+  #compare-table :global(td.empty) { color: var(--rule); }
+  #compare-table :global(a.form) {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  #compare-table :global(a.form:hover) { color: var(--accent); }
+  #compare-table :global(.form-original) {
+    display: block;
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', serif;
+    font-size: 1.375rem;
+    line-height: 1.25;
+  }
+  #compare-table :global(.form-translit) {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+</style>

@@ -2,18 +2,30 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { formatEra } from '../lib/era';
+import { MACRO_REGION_OF, MACRO_REGION_LABELS, ERAS } from '../lib/macro-regions';
+// The generated endonym subset faces (scripts/subset-endonyms.mjs): the
+// languages column renders each self-name in its own script for a few KB.
+import '../styles/endonyms.css';
 
 const civs = await getCollection('civilizations');
 const langs = await getCollection('languages');
+
+// Region options for the filter row, limited to shelves that actually occur.
+const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
+  civs.some((c) => MACRO_REGION_OF[c.id] === key)
+);
 ---
 
 <BaseLayout
   title="Onomastikon"
+  description="What the civilizations, cities, regions, and geographic features of antiquity called themselves — and what their neighbors called them. Original scripts, transliterations, pronunciations, and sources for every name."
   schema={{
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Onomastikon',
     alternateName: 'Onomastikon: A Digital Atlas of Ancient Names',
+    description:
+      'What the civilizations, cities, regions, and geographic features of antiquity called themselves — and what their neighbors called them.',
     url: Astro.site?.href,
     author: { '@type': 'Person', name: 'Shriram Rajagopal' },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/',
@@ -44,6 +56,10 @@ const langs = await getCollection('languages');
 
   <section class="hero">
     <div class="masthead">
+      <!-- Sources are injected by JS only on hover-capable, wide, motion-OK
+           viewports: a display:none video with markup sources still downloads
+           in most engines, which spent ~130 KB on phones for pixels the CSS
+           below never shows. Without JS the poster frame stands in. -->
       <video
         class="masthead-motion"
         autoplay
@@ -51,25 +67,56 @@ const langs = await getCollection('languages');
         playsinline
         poster="/onomastikon-logo.png"
         aria-hidden="true"
-      >
-        <!-- Transparent (VP9 alpha) for Chromium/Firefox; opaque parchment MP4
-             fallback for Safari, which doesn't support WebM alpha. -->
-        <source src="/onomastikon-logo.webm" type="video/webm" />
-        <source src="/onomastikon-logo.mp4" type="video/mp4" />
-      </video>
-      <img class="masthead-static" src="/onomastikon-logo.png" alt="Onomastikon" />
+        data-webm="/onomastikon-logo.webm"
+        data-mp4="/onomastikon-logo.mp4"
+      ></video>
+      <img class="masthead-static" src="/onomastikon-logo.webp" alt="Onomastikon" width="1920" height="720" />
     </div>
     <h1>A digital atlas of ancient names</h1>
     <p class="tagline">
-      What the great civilizations of antiquity called themselves and what their
-      neighbors referred to them as. Original scripts, transliterations, pronunciations,
-      and sources.
+      What the civilizations, cities, regions, and geographic features of antiquity
+      called themselves — and what their neighbors called them. Original scripts,
+      transliterations, pronunciations, and sources.
+    </p>
+    <!-- Name of the day: filled by JS from the search index at idle (the same
+         fetch primes the cache for the search page). Absent without JS; the
+         min-height on .hero-daily reserves the line against layout shift. -->
+    <p class="hero-daily" id="daily" hidden>
+      <span class="daily-label">Name of the day</span>
+      <a id="daily-link" href="#"
+        ><span id="daily-orig" class="daily-orig"></span>
+        <em id="daily-translit"></em></a
+      >
+      <span id="daily-ctx" class="daily-ctx"></span>
+      <span class="daily-sep" aria-hidden="true">·</span>
+      <a id="daily-random" href="/search">Random name →</a>
     </p>
   </section>
 
   <!-- Marks the foot of the hero: the script reveals the Browse rail once this
        scrolls above the viewport. -->
   <div id="hero-sentinel" aria-hidden="true"></div>
+
+  <!-- Region/era filters for the entity index: pure client-side row-hiding
+       over data attributes already in the DOM. Hidden until JS removes the
+       attribute, so a no-JS visitor sees the plain full index. -->
+  <form class="filters" id="filters" hidden aria-label="Filter the index">
+    <label>
+      <span class="filters-label">Region</span>
+      <select id="filter-region">
+        <option value="">All regions</option>
+        {regionOptions.map(([key, label]) => <option value={key}>{label}</option>)}
+      </select>
+    </label>
+    <label>
+      <span class="filters-label">Era</span>
+      <select id="filter-era">
+        <option value="">All eras</option>
+        {ERAS.map((e) => <option value={`${e.start}:${e.end}`}>{e.label}</option>)}
+      </select>
+    </label>
+    <span class="filters-count" id="filters-count" aria-live="polite"></span>
+  </form>
 
   <div class="index-grid">
     <div class="index-col">
@@ -96,7 +143,11 @@ const langs = await getCollection('languages');
               <h2 id={key}>{labels[key]}</h2>
               <ul class="index-list">
                 {grouped[key].map((entity) => (
-                  <li>
+                  <li
+                    data-mregion={MACRO_REGION_OF[entity.id]}
+                    data-start={entity.data.era_start}
+                    data-end={entity.data.era_end ?? 9999}
+                  >
                     <a href={`/civilizations/${entity.id}`}>
                       <span class="name" data-morph={`civilizations/${entity.id}`}>{entity.data.english_name}</span>
                       <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
@@ -117,7 +168,16 @@ const langs = await getCollection('languages');
             <li>
               <a href={`/languages/${lang.id}`}>
                 <span class="name" data-morph={`languages/${lang.id}`}>{lang.data.english_name}</span>
-                <span class="era">{lang.data.script}</span>
+                {lang.data.native_name ? (
+                  <span
+                    class="era endonym"
+                    lang={lang.data.lang_code}
+                    dir={lang.data.direction === 'rtl' ? 'rtl' : undefined}
+                    title={lang.data.script}
+                  >{lang.data.native_name}</span>
+                ) : (
+                  <span class="era">{lang.data.script}</span>
+                )}
               </a>
             </li>
           ))}
@@ -227,6 +287,40 @@ const langs = await getCollection('languages');
        the centered wordmark and h1. */
     margin: 1rem auto 0;
   }
+  /* Name of the day: one quiet line under the tagline. min-height holds the
+     row whether or not JS fills it, so the index below never jumps. */
+  .hero-daily {
+    min-height: 2.2rem;
+    margin: 1.5rem auto 0;
+    font-size: 1.0625rem;
+  }
+  .daily-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-soft);
+    margin-right: 0.5rem;
+  }
+  .hero-daily a { text-decoration: none; }
+  .hero-daily a:hover { text-decoration: underline; }
+  /* Original-script text: same per-script font fallbacks as the entry pages. */
+  .daily-orig {
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', serif;
+    font-size: 1.25rem;
+  }
+  .daily-ctx {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+    margin-left: 0.35rem;
+  }
+  .daily-sep { color: var(--rule); margin: 0 0.35rem; }
+  #daily-random {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--accent);
+  }
   /* The heading and tagline settle in a beat after arrival, just behind the
      masthead's own reveal, so the hero reads as "logo, then title" rather than
      everything landing at once. Pure CSS on load (no dependency on the video,
@@ -241,6 +335,35 @@ const langs = await getCollection('languages');
     from { opacity: 0; transform: translateY(14px); }
     to { opacity: 1; transform: none; }
   }
+  /* Filter row: two quiet selects over the entity index. Styled to sit in the
+     page's small-sans register rather than as chrome. */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 1.5rem;
+    margin: 0 0 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+  }
+  .filters label { display: flex; align-items: baseline; gap: 0.5rem; }
+  .filters-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.6875rem;
+    color: var(--ink-soft);
+  }
+  .filters select {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--ink);
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.25rem 0.4rem;
+  }
+  .filters-count { color: var(--ink-soft); }
+
   /* Entities (left) and Languages (right) sit in parallel columns that both
      begin at the top, so the long Languages list is never buried beneath a
      growing stack of civilizations. Collapses to a single column on phones. */
@@ -302,9 +425,101 @@ const langs = await getCollection('languages');
     text-align: right;
     flex-shrink: 0;
   }
+  /* The language's self-name in its own script — the thesis, demonstrated on
+     arrival. 'Endonyms' is the few-KB subset face; the full script fonts
+     trail it so an endonym missing from the subset still renders. */
+  .endonym {
+    font-family: 'Endonyms', 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', serif;
+    font-size: 1.0625rem;
+    line-height: 1.3;
+  }
 </style>
 
 <script>
+  // Masthead motion: attach the video sources only where the CSS would show
+  // the video at all — hover-capable, fine-pointer, wide, motion-tolerant.
+  // Mirrors the media queries below so touch devices and reduced-motion
+  // visitors never download a video they'd never see.
+  {
+    const motion = document.querySelector<HTMLVideoElement>('.masthead-motion');
+    const showsMotion =
+      matchMedia('(hover: hover) and (pointer: fine) and (min-width: 641px)').matches &&
+      !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (motion && showsMotion) {
+      // Transparent (VP9 alpha) for Chromium/Firefox; opaque parchment MP4
+      // fallback for Safari, which doesn't support WebM alpha.
+      for (const [type, src] of [
+        ['video/webm', motion.dataset.webm],
+        ['video/mp4', motion.dataset.mp4],
+      ]) {
+        if (!src) continue;
+        const source = document.createElement('source');
+        source.type = type!;
+        source.src = src;
+        motion.append(source);
+      }
+      motion.load();
+    }
+  }
+
+  // Name of the day + random entry, from the same static index the search page
+  // uses. Fetched at idle so it costs the first paint nothing — and since the
+  // response caches, it doubles as a warm-up for /search. Date-hash pick is
+  // deterministic for the day; "Random name" re-rolls per click.
+  {
+    const daily = document.getElementById('daily');
+    const namesFrom = (d: Array<Record<string, string>>) => d.filter((r) => r.type === 'name');
+    let indexPromise: Promise<Array<Record<string, string>>> | null = null;
+    const loadNames = () =>
+      (indexPromise ??= fetch('/search-index.json').then((r) => r.json()).then(namesFrom));
+    if (daily) {
+      // The timeout matters: without it, Chrome can starve idle callbacks
+      // indefinitely in background tabs, and the module would never fill in.
+      const idle: (cb: () => void) => void =
+        'requestIdleCallback' in window
+          ? (cb) => requestIdleCallback(cb, { timeout: 1500 })
+          : (cb) => setTimeout(cb, 1500);
+      idle(() =>
+        loadNames().then((names) => {
+          if (!names.length) return;
+          // FNV-1a over YYYYMMDD: stable for the day, uniform across the corpus.
+          const now = new Date();
+          const key = `${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}`;
+          let h = 2166136261;
+          for (const ch of key) {
+            h ^= ch.charCodeAt(0);
+            h = Math.imul(h, 16777619);
+          }
+          const pick = names[Math.abs(h) % names.length];
+          const link = document.getElementById('daily-link') as HTMLAnchorElement;
+          const orig = document.getElementById('daily-orig')!;
+          const translit = document.getElementById('daily-translit')!;
+          const ctx = document.getElementById('daily-ctx')!;
+          link.href = pick.url;
+          // label is original script when the entry has one (lang/dir carried
+          // in the index), otherwise it already is the transliteration.
+          if (pick.translit && pick.label !== pick.translit) {
+            orig.textContent = pick.label;
+            if (pick.lang) orig.setAttribute('lang', pick.lang);
+            if (pick.dir) orig.setAttribute('dir', pick.dir);
+            translit.textContent = pick.translit;
+          } else {
+            translit.textContent = pick.translit || pick.label;
+          }
+          ctx.textContent = pick.context || '';
+          daily.hidden = false;
+        })
+      );
+      document.getElementById('daily-random')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadNames().then((names) => {
+          if (!names.length) return;
+          location.href = names[Math.floor(Math.random() * names.length)].url;
+        });
+      });
+    }
+  }
+
   // Reveal the Browse rail only once the hero has scrolled up out of the way,
   // so it never appears beside the masthead and the settling header on arrival.
   const toc = document.querySelector('.home-toc');
@@ -315,6 +530,43 @@ const langs = await getCollection('languages');
       { rootMargin: '-25% 0px 0px 0px', threshold: 0 }
     );
     railIO.observe(sentinel);
+  }
+
+  // Region/era filters: hide entity rows that don't match, then hide any
+  // category whose rows are all hidden. Languages are untouched. The form is
+  // server-rendered hidden and revealed here, so no-JS gets the plain index.
+  {
+    const form = document.getElementById('filters');
+    const regionSel = document.getElementById('filter-region') as HTMLSelectElement | null;
+    const eraSel = document.getElementById('filter-era') as HTMLSelectElement | null;
+    const count = document.getElementById('filters-count');
+    // Entity rows are the ones carrying era data; language rows never match.
+    const rows = [...document.querySelectorAll<HTMLLIElement>('.index-list li[data-start]')];
+    if (form && regionSel && eraSel && rows.length) {
+      form.hidden = false;
+      const apply = () => {
+        const region = regionSel.value;
+        const [eraStart, eraEnd] = eraSel.value ? eraSel.value.split(':').map(Number) : [null, null];
+        let shown = 0;
+        for (const row of rows) {
+          const okRegion = !region || row.dataset.mregion === region;
+          const okEra =
+            eraStart === null ||
+            (Number(row.dataset.start) <= eraEnd! && Number(row.dataset.end) >= eraStart!);
+          const on = okRegion && okEra;
+          row.hidden = !on;
+          if (on) shown++;
+        }
+        // A category with nothing left to show disappears wholesale.
+        for (const cat of document.querySelectorAll<HTMLElement>('.index-col:first-child .index-cat')) {
+          cat.hidden = !cat.querySelector('li:not([hidden])');
+        }
+        const filtering = region || eraStart !== null;
+        if (count) count.textContent = filtering ? `${shown} of ${rows.length} shown` : '';
+      };
+      regionSel.addEventListener('change', apply);
+      eraSel.addEventListener('change', apply);
+    }
   }
 
   // Scroll-reveal the index categories: each fades up as it enters view, so the

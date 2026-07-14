@@ -2,17 +2,22 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { entryAnchor } from '../../lib/entry';
+import { cardSrc } from '../../lib/cards';
 import CiteThis from '../../components/CiteThis.astro';
 
 export async function getStaticPaths() {
   const langs = await getCollection('languages');
-  return langs.map((lang) => ({
+  // Prev/next pager walks the languages in the same order the homepage lists
+  // them (collection order), mirroring the entity pages' atlas walk.
+  const nav = (l?: (typeof langs)[number]) =>
+    l ? { id: l.id, name: l.data.english_name } : null;
+  return langs.map((lang, i) => ({
     params: { slug: lang.id },
-    props: { lang },
+    props: { lang, prev: nav(langs[i - 1]), next: nav(langs[i + 1]) },
   }));
 }
 
-const { lang } = Astro.props;
+const { lang, prev, next } = Astro.props;
 const { Content } = await render(lang);
 
 const allNames = await getCollection('names');
@@ -27,6 +32,25 @@ const enriched = await Promise.all(
     return { name: n, civilization: civ };
   })
 );
+
+// Entries grouped by entity type, in the homepage's order; drives both the
+// listing and the compact contents strip.
+const grouped = {
+  civilization: enriched.filter(({ civilization }) => civilization?.data.type === 'civilization' || !civilization?.data.type),
+  city: enriched.filter(({ civilization }) => civilization?.data.type === 'city'),
+  region: enriched.filter(({ civilization }) => civilization?.data.type === 'region'),
+  geographic_feature: enriched.filter(({ civilization }) => civilization?.data.type === 'geographic_feature'),
+};
+const labels = {
+  civilization: 'Civilizations',
+  city: 'Cities',
+  region: 'Regions',
+  geographic_feature: 'Geographic features',
+};
+const order = ['civilization', 'city', 'region', 'geographic_feature'] as const;
+const sections = order
+  .filter((key) => grouped[key].length > 0)
+  .map((key) => ({ key, label: labels[key], count: grouped[key].length }));
 
 const correctionUrl =
   'https://github.com/shriram-rajagopal/onomastikon/issues/new?template=correction.yml' +
@@ -50,11 +74,28 @@ const correctionUrl =
   }}
 >
   <article>
+    <nav class="pager pager-top" aria-label="Browse the languages">
+      {prev ? (
+        <a class="pager-link pager-prev" href={`/languages/${prev.id}`} rel="prev">
+          <span class="pager-arrow" aria-hidden="true">←</span>
+          <span class="pager-name" data-morph={`languages/${prev.id}`}>{prev.name}</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+      {next ? (
+        <a class="pager-link pager-next" href={`/languages/${next.id}`} rel="next">
+          <span class="pager-name" data-morph={`languages/${next.id}`}>{next.name}</span>
+          <span class="pager-arrow" aria-hidden="true">→</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+    </nav>
     {lang.data.featured_image && (
       <img
         class="featured"
-        src={lang.data.featured_image}
+        src={cardSrc(lang.data.featured_image)}
         alt={`${lang.data.english_name} endonym card`}
+        width="1920"
+        height="720"
+        fetchpriority="high"
       />
     )}
     <p class="eyebrow">Language</p>
@@ -76,25 +117,17 @@ const correctionUrl =
 
     {enriched.length === 0 && <p><em>No entries yet.</em></p>}
 
-    {(() => {
-      const grouped = {
-        civilization: enriched.filter(({ civilization }) => civilization?.data.type === 'civilization' || !civilization?.data.type),
-        city: enriched.filter(({ civilization }) => civilization?.data.type === 'city'),
-        region: enriched.filter(({ civilization }) => civilization?.data.type === 'region'),
-        geographic_feature: enriched.filter(({ civilization }) => civilization?.data.type === 'geographic_feature'),
-      };
-      const labels = {
-        civilization: 'Civilizations',
-        city: 'Cities',
-        region: 'Regions',
-        geographic_feature: 'Geographic features',
-      };
-      const order = ['civilization', 'city', 'region', 'geographic_feature'] as const;
-      return order
-        .filter((key) => grouped[key].length > 0)
-        .map((key) => (
+    {sections.length > 1 && (
+      <nav class="lang-contents" aria-label="Contents">
+        {sections.map(({ key, label, count }) => (
+          <a href={`#${key}`}>{label} <span class="lang-contents-count">({count})</span></a>
+        ))}
+      </nav>
+    )}
+
+    {sections.map(({ key, label }) => (
           <>
-            <h2>{labels[key]} named in this language</h2>
+            <h2 id={key}>{label} named in this language</h2>
             <ul class="name-list">
               {grouped[key].map(({ name, civilization }) => (
                 <li>
@@ -111,13 +144,27 @@ const correctionUrl =
               ))}
             </ul>
           </>
-        ));
-    })()}
+    ))}
 
     <CiteThis title={lang.data.english_name} path={`/languages/${lang.id}`} />
     <p class="suggest-correction">
       Spot an error on this page? <a href={correctionUrl}>Suggest a correction →</a>
     </p>
+
+    <nav class="pager" aria-label="Browse the languages">
+      {prev ? (
+        <a class="pager-link pager-prev" href={`/languages/${prev.id}`} rel="prev">
+          <span class="pager-dir">← Previous</span>
+          <span class="pager-name" data-morph={`languages/${prev.id}`}>{prev.name}</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+      {next ? (
+        <a class="pager-link pager-next" href={`/languages/${next.id}`} rel="next">
+          <span class="pager-dir">Next →</span>
+          <span class="pager-name" data-morph={`languages/${next.id}`}>{next.name}</span>
+        </a>
+      ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
+    </nav>
   </article>
 </BaseLayout>
 
@@ -145,4 +192,47 @@ const correctionUrl =
   .original { font-family: 'EB Garamond','Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', serif; font-size: 1.75rem; line-height: 1.2; margin: 0.5rem 0 1rem; }
   .translit { color: var(--ink-soft); }
   .civ-name { font-family: 'Inter', sans-serif; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); }
+
+  /* Compact contents strip: one line of section links with counts, enough
+     in-page navigation for a four-section listing without a full rail. */
+  .lang-contents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    margin: 0 0 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+  }
+  .lang-contents a { color: var(--ink-soft); text-decoration: none; }
+  .lang-contents a:hover { color: var(--accent); }
+  .lang-contents-count { color: var(--ink-soft); opacity: 0.75; }
+  h2[id] { scroll-margin-top: 2rem; }
+
+  /* Prev/next pager, same construction as the entity pages'. */
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 3rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .pager-link { display: flex; flex-direction: column; gap: 0.15rem; text-decoration: none; max-width: 48%; }
+  .pager-empty { visibility: hidden; }
+  .pager-next { text-align: right; margin-left: auto; }
+  .pager-dir {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .pager-name { font-size: 1.125rem; color: var(--accent); }
+  .pager-link:hover .pager-name { text-decoration: underline; }
+  .pager-top { margin: 0 0 1.75rem; padding-top: 0; border-top: 0; font-family: 'Inter', sans-serif; }
+  .pager-top .pager-link { flex-direction: row; align-items: baseline; gap: 0.4rem; max-width: 46%; }
+  .pager-top .pager-name { font-size: 0.9rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pager-top .pager-link:hover .pager-name { color: var(--accent); text-decoration: none; }
+  .pager-arrow { color: var(--ink-soft); }
+  .pager-top .pager-link:hover .pager-arrow { color: var(--accent); }
 </style>

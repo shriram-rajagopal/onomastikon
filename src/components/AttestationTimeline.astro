@@ -4,14 +4,15 @@
 // positions computed at build time, so labels keep their size at any
 // viewport (SVG text would scale with the viewBox). Rows link to the entry
 // anchors; the grow-in animation is opt-in by script and motion-gated.
-import { formatEra } from '../lib/era';
+import { formatEra, SCOPE_END } from '../lib/era';
 
 export interface TimelineEntry {
   anchor: string;
   label: string;
   translit: string;
   start: number;
-  end: number;
+  /** null = in continued use; the bar clamps to the scope's end. */
+  end: number | null;
 }
 
 interface Props {
@@ -19,8 +20,11 @@ interface Props {
 }
 const { entries } = Astro.props;
 
+// Open-ended ranges ("in continued use") draw to the atlas's temporal scope
+// end; the tooltip via formatEra still states the open end honestly.
+const endOf = (e: TimelineEntry) => e.end ?? SCOPE_END;
 const min = Math.min(...entries.map((e) => e.start));
-const max = Math.max(...entries.map((e) => e.end));
+const max = Math.max(...entries.map((e) => endOf(e)));
 // Pick the smallest round tick step that keeps the axis to ~7 labels.
 const step = [100, 200, 250, 500, 1000].find((s) => (max - min) / s <= 7) ?? 1000;
 const domainMin = Math.floor(min / step) * step;
@@ -54,7 +58,7 @@ const grid = ticks
       <span class="tl-track" style={`background-image: ${grid}`}>
         <span
           class="tl-bar"
-          style={`left: ${pct(e.start).toFixed(3)}%; width: ${Math.max(100 * (e.end - e.start) / span, 0.8).toFixed(3)}%; --reveal-delay: ${Math.min(i * 60, 700)}ms`}
+          style={`left: ${pct(e.start).toFixed(3)}%; width: ${Math.max(100 * (endOf(e) - e.start) / span, 0.8).toFixed(3)}%; --reveal-delay: ${Math.min(i * 60, 700)}ms`}
         ></span>
       </span>
     </a>

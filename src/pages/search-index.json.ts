@@ -7,7 +7,8 @@ import { entryAnchor } from '../lib/entry';
 const fold = (s?: string | null) =>
   (s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-const era = (y: number) => (y < 0 ? `${Math.abs(y)} bce` : `${y} ce`);
+// null era_end = "in continued use"; contributes no year token to the haystack.
+const era = (y: number | null) => (y === null ? '' : y < 0 ? `${Math.abs(y)} bce` : `${y} ce`);
 
 // A single static index served at /search-index.json, built at compile time.
 // It carries entity, language, AND name records, because the search facets span

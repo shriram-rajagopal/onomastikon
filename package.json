@@ -7,22 +7,49 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/subset-endonyms.mjs",
     "build": "astro build",
+    "fonts:endonyms": "node scripts/subset-endonyms.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "new:name": "node scripts/new-name.mjs",
     "new:civ": "node scripts/new-entity.mjs civilization",
     "new:lang": "node scripts/new-entity.mjs language",
     "lint:content": "node scripts/lint-content.mjs",
-    "strip:cards": "node scripts/strip-card-background.mjs"
+    "dates:update": "node scripts/generate-entry-dates.mjs",
+    "strip:cards": "node scripts/strip-card-background.mjs",
+    "cards:webp": "node scripts/convert-cards-webp.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/eb-garamond": "^5.2.7",
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/noto-naskh-arabic": "^5.2.11",
+    "@fontsource/noto-sans-avestan": "^5.2.6",
+    "@fontsource/noto-sans-coptic": "^5.2.7",
+    "@fontsource/noto-sans-cuneiform": "^5.2.6",
+    "@fontsource/noto-sans-egyptian-hieroglyphs": "^5.2.6",
+    "@fontsource/noto-sans-ethiopic": "^5.2.7",
+    "@fontsource/noto-sans-inscriptional-pahlavi": "^5.2.7",
+    "@fontsource/noto-sans-inscriptional-parthian": "^5.2.7",
+    "@fontsource/noto-sans-linear-b": "^5.2.6",
+    "@fontsource/noto-sans-lycian": "^5.2.6",
+    "@fontsource/noto-sans-manichaean": "^5.2.6",
+    "@fontsource/noto-sans-old-italic": "^5.2.6",
+    "@fontsource/noto-sans-old-persian": "^5.2.6",
+    "@fontsource/noto-sans-phoenician": "^5.2.6",
+    "@fontsource/noto-sans-syriac": "^5.2.8",
+    "@fontsource/noto-sans-ugaritic": "^5.2.6",
+    "@fontsource/noto-serif-armenian": "^5.2.8",
+    "@fontsource/noto-serif-devanagari": "^5.2.10",
+    "@fontsource/noto-serif-hebrew": "^5.2.8",
     "astro": "^6.3.7"
   },
   "devDependencies": {
     "pngjs": "^7.0.0",
     "polygon-clipping": "^0.15.7",
+    "subset-font": "^2.5.0",
     "topojson-client": "^3.1.0"
   }
 }

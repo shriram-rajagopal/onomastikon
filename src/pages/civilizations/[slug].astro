@@ -11,8 +11,10 @@ import CiteThis from '../../components/CiteThis.astro';
 import AttestationTimeline from '../../components/AttestationTimeline.astro';
 import TransmissionMap from '../../components/TransmissionMap.astro';
 import ArtifactViewer from '../../components/ArtifactViewer.astro';
+import LocatorMap from '../../components/LocatorMap.astro';
 import { LANG_GEO } from '../../lib/geo';
 import { ARTIFACTS } from '../../lib/artifacts';
+import { cardSrc } from '../../lib/cards';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -155,8 +157,11 @@ const correctionUrl =
     {civ.data.featured_image && (
       <img
         class="featured"
-        src={civ.data.featured_image}
+        src={cardSrc(civ.data.featured_image)}
         alt={`${civ.data.english_name} title card`}
+        width="1920"
+        height="720"
+        fetchpriority="high"
       />
     )}
     <p class="eyebrow">{
@@ -171,9 +176,18 @@ const correctionUrl =
       <span class={`status status-${civ.data.entry_status}`}>{civ.data.entry_status}</span>
     </p>
 
+    {/* Orients the reader on arrival; the transmission map further down plots
+        language homelands, not the entity itself, so the two don't compete. */}
+    <LocatorMap civId={civ.id} />
+
     {enriched.length > 0 && (
       <p class="aka">
-        Also known as: {enriched.map(({ name }) => name.data.transliteration).join(', ')}
+        Also known as: {enriched.map(({ name }, i) => (
+          <>
+            {i > 0 && ', '}
+            <a class="aka-link" href={`#${entryAnchor(name.id, civ.id)}`}>{name.data.transliteration}</a>
+          </>
+        ))}
       </p>
     )}
 
@@ -184,21 +198,26 @@ const correctionUrl =
     </p>
 
     <nav class="toc" aria-label="Contents">
-      <p class="toc-title">Contents</p>
-      <ol class="toc-list">
-        {contents.map((c) => (
-          <li>
-            <a href={c.href}>{c.label}</a>
-            {c.href === '#names' && (
-              <ol class="toc-langs">
-                {enriched.map(({ name, language }) => (
-                  <li><a href={`#${entryAnchor(name.id, civ.id)}`}>{language?.data.english_name}</a></li>
-                ))}
-              </ol>
-            )}
-          </li>
-        ))}
-      </ol>
+      <!-- details makes the block collapsible where it sits in-flow (narrow
+           viewports, where an entry with fifteen languages costs a screenful
+           before any content); it stays open by default everywhere. -->
+      <details class="toc-drawer" open>
+        <summary class="toc-title">Contents</summary>
+        <ol class="toc-list">
+          {contents.map((c) => (
+            <li>
+              <a href={c.href}>{c.label}</a>
+              {c.href === '#names' && (
+                <ol class="toc-langs">
+                  {enriched.map(({ name, language }) => (
+                    <li><a href={`#${entryAnchor(name.id, civ.id)}`}>{language?.data.english_name}</a></li>
+                  ))}
+                </ol>
+              )}
+            </li>
+          ))}
+        </ol>
+      </details>
     </nav>
 
     {showFamilies && (
@@ -261,7 +280,16 @@ const correctionUrl =
             href={`#${entryAnchor(name.id, civ.id)}`}
             aria-label={`Permalink to the ${language?.data.english_name} entry`}
           >#</a>
+          <button
+            type="button"
+            class="entry-copy"
+            data-copy={`${entryAnchor(name.id, civ.id)}-copytext`}
+            aria-label={`Copy the ${language?.data.english_name} form and transliteration`}
+          >copy</button>
         </h3>
+        <span hidden id={`${entryAnchor(name.id, civ.id)}-copytext`}>{
+          [name.data.original_text, name.data.transliteration].filter(Boolean).join(' ')
+        }</span>
         {name.data.original_text && (
           <p
             class="original"
@@ -271,7 +299,25 @@ const correctionUrl =
         )}
         <dl>
           <dt>Transliteration</dt><dd><em>{name.data.transliteration}</em></dd>
-          {name.data.ipa && (<><dt>IPA</dt><dd>{name.data.ipa}</dd></>)}
+          {(name.data.ipa || name.data.audio) && (
+            <>
+              <dt>IPA</dt>
+              <dd>
+                {name.data.ipa}
+                {name.data.audio && (
+                  <button
+                    type="button"
+                    class="audio-play"
+                    data-audio={name.data.audio}
+                    aria-label={`Play the reconstructed pronunciation of ${name.data.transliteration}`}
+                  >▶</button>
+                )}
+                {name.data.audio && name.data.audio_note && (
+                  <span class="audio-note">{name.data.audio_note}</span>
+                )}
+              </dd>
+            </>
+          )}
           {name.data.literal_meaning && (<><dt>Meaning</dt><dd>“{name.data.literal_meaning}”</dd></>)}
           {name.data.derived_from && byId.get(name.data.derived_from.id) && (
             <>
@@ -417,6 +463,35 @@ const correctionUrl =
 </script>
 
 <script>
+  // Pronunciation players: an <audio> is created on first press (preload
+  // costs nothing until then), one plays at a time, and the button reflects
+  // playing state.
+  let playing: { el: HTMLAudioElement; btn: HTMLButtonElement } | null = null;
+  const stop = () => {
+    if (!playing) return;
+    playing.el.pause();
+    playing.el.currentTime = 0;
+    playing.btn.textContent = '▶';
+    playing = null;
+  };
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('.audio-play')) {
+    let el: HTMLAudioElement | null = null;
+    btn.addEventListener('click', () => {
+      if (playing?.btn === btn) {
+        stop();
+        return;
+      }
+      stop();
+      el ??= new Audio(btn.dataset.audio!);
+      el.onended = stop;
+      playing = { el, btn };
+      btn.textContent = '⏸';
+      el.play().catch(stop);
+    });
+  }
+</script>
+
+<script>
   // Sources live inside collapsed <details>, which print as just the summary
   // line. Open them for printing and restore the reader's state afterwards.
   let openedForPrint: HTMLDetailsElement[] = [];
@@ -455,6 +530,10 @@ const correctionUrl =
   .status-developing { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
   .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
   .aka { font-style: italic; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  /* Each form links to its entry below; dressed as the surrounding prose so
+     the line stays a sentence, not a link farm. */
+  .aka-link { color: inherit; text-decoration: none; }
+  .aka-link:hover, .aka-link:focus { color: var(--accent); text-decoration: underline; }
   .summary { margin: 1.5rem 0 2rem; }
   /* Contents: an in-flow block under the summary; on wide viewports it
      becomes a sticky rail in the right margin with scrollspy highlighting. */
@@ -472,7 +551,10 @@ const correctionUrl =
     letter-spacing: 0.08em;
     color: var(--ink-soft);
     margin: 0 0 0.5rem;
+    cursor: pointer;
   }
+  .toc-title:hover { color: var(--accent); }
+  .toc-drawer:not([open]) .toc-title { margin-bottom: 0; }
   .toc-list { list-style: none; margin: 0; padding: 0; }
   .toc-list > li { margin: 0.35rem 0; }
   .toc a { color: var(--ink-soft); text-decoration: none; }
@@ -537,6 +619,24 @@ const correctionUrl =
      which a partially transparent reveal would not. */
   .name-entry:hover .entry-anchor { opacity: 1; }
   .entry-anchor:hover, .entry-anchor:focus { opacity: 1; color: var(--accent); }
+  /* Copy affordance beside the permalink: same reveal-on-hover contract, and
+     it rides the CiteThis [data-copy] wiring (clipboard + "Copied" feedback). */
+  .entry-copy {
+    margin-left: 0.5rem;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .name-entry:hover .entry-copy, .entry-copy:focus { opacity: 1; }
+  .entry-copy:hover { color: var(--accent); }
   /* When deep-linked, mark the entry with a persistent accent border so the
      reader can see which one they landed on; the flash is motion-gated. */
   .name-entry:target { border-color: var(--accent); }
@@ -568,12 +668,37 @@ const correctionUrl =
   dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1.5rem; margin: 1rem 0; font-size: 1rem; }
   dt { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); padding-top: 0.2rem; }
   dd { margin: 0; }
+  /* Pronunciation player: a single small control beside the IPA; the note
+     says who read it and on what reconstruction. Recordings only, never TTS. */
+  .audio-play {
+    margin-left: 0.5rem;
+    padding: 0 0.45rem;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    color: var(--accent);
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .audio-play:hover { border-color: var(--accent); }
+  .audio-note {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    margin-top: 0.2rem;
+  }
+  @media print {
+    .audio-play { display: none; }
+  }
   .confidence { font-family: 'Inter', sans-serif; font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
   .confidence-attested { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
   .confidence-reconstructed { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
   .confidence-disputed { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
   @media print {
-    .entry-anchor { display: none; }
+    .entry-anchor, .entry-copy { display: none; }
     .name-entry { break-inside: avoid; }
   }
   .sources { margin-top: 1rem; font-size: 0.9375rem; }

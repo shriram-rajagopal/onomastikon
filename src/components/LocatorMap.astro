@@ -1,0 +1,97 @@
+---
+// Mini locator: a small static map orienting the reader on pages that don't
+// qualify for the full transmission map. Reuses the map stack wholesale —
+// ENTITY_GEO geometry, fitProjection window, landPath coastline — with a wide
+// minimum span so even a lone city shows recognizable coast around it.
+// Static SVG, no interaction; seas have no ENTITY_GEO entry and get no
+// locator (the sea would be the whole window).
+import { ENTITY_GEO, fitProjection, landPath } from '../lib/geo';
+
+interface Props {
+  civId: string;
+}
+const { civId } = Astro.props;
+
+const geo = ENTITY_GEO[civId];
+const proj = geo
+  ? fitProjection(
+      geo.points.map(([lon, lat]) => ({ lon, lat })),
+      34
+    )
+  : null;
+const coast = proj ? landPath(proj) : '';
+const projected = geo && proj ? geo.points.map(([lon, lat]) => proj.project(lon, lat)) : [];
+const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
+  'M' + pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L') + (close ? 'Z' : '');
+---
+
+{geo && proj && (
+  <figure class="locator">
+    <svg
+      viewBox={proj.viewBox}
+      role="img"
+      aria-label={`Locator map: ${geo.label}`}
+    >
+      <path class="locator-land" d={coast} />
+      {geo.kind === 'region' && projected.length > 2 && (
+        <path class="locator-region" d={pathOf(projected, true)} />
+      )}
+      {(geo.kind === 'river' || geo.kind === 'mountains') && projected.length > 1 && (
+        <path class="locator-line" d={pathOf(projected, false)} />
+      )}
+      {projected.length === 1 && <circle class="locator-dot" cx={projected[0].x} cy={projected[0].y} r="5" />}
+    </svg>
+    <figcaption>{geo.label}</figcaption>
+  </figure>
+)}
+
+<style>
+  .locator {
+    float: right;
+    width: 220px;
+    margin: 0.25rem 0 0.75rem 1.25rem;
+  }
+  .locator svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    /* The sea: barely off the parchment, so land reads as land. */
+    background: color-mix(in srgb, var(--ink) 3%, var(--parchment));
+  }
+  .locator-land {
+    fill: var(--parchment);
+    stroke: var(--rule);
+    stroke-width: 1;
+  }
+  .locator-region {
+    fill: color-mix(in srgb, var(--accent) 18%, transparent);
+    stroke: var(--accent);
+    stroke-width: 1.2;
+  }
+  .locator-line {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .locator-dot { fill: var(--accent); }
+  .locator figcaption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 0.35rem;
+  }
+  /* Stacked, not floated, once the column is narrow. */
+  @media (max-width: 640px) {
+    .locator { float: none; margin: 1rem auto; }
+  }
+  @media print {
+    .locator { break-inside: avoid; }
+  }
+</style>

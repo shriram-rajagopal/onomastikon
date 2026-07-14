@@ -11,7 +11,7 @@
 // pinned to a fixed frame's edge. Server-rendered SVG; the only script is the
 // slider and the motion-gated arc draw-in.
 import { LANG_GEO, ENTITY_GEO, fitProjection, landPath } from '../lib/geo';
-import { formatEra } from '../lib/era';
+import { formatEra, SCOPE_END } from '../lib/era';
 
 export interface MapNode {
   id: string;
@@ -20,8 +20,14 @@ export interface MapNode {
   langId: string;
   langName: string;
   start: number;
-  end: number;
+  /** null = in continued use; the node never goes 'past' on the slider. */
+  end: number | null;
 }
+
+// Open-ended data-end sentinel: far beyond any slider year, so an
+// in-continued-use name stays solid at every position. The slider's own max
+// is computed from real end years (clamped to the scope), not the sentinel.
+const OPEN_END = 9999;
 
 interface Props {
   nodes: MapNode[];
@@ -159,7 +165,7 @@ if (entity && entAnchor) {
 }
 
 const minYear = Math.min(...placed.map((p) => p.start));
-const maxYear = Math.max(...placed.map((p) => p.end));
+const maxYear = Math.max(...placed.map((p) => p.end ?? SCOPE_END));
 const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} CE`);
 ---
 
@@ -177,10 +183,10 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
       </g>
     )}
     {arcs.map((arc) => (
-      <path class="arc" d={arc.d} pathLength="1" data-start={arc.start} data-end={arc.end} />
+      <path class="arc" d={arc.d} pathLength="1" data-start={arc.start} data-end={arc.end ?? OPEN_END} />
     ))}
     {placedFanned.map((p) => (
-      <a href={`#${p.anchor}`} class="map-node" data-start={p.start} data-end={p.end}>
+      <a href={`#${p.anchor}`} class="map-node" data-start={p.start} data-end={p.end ?? OPEN_END}>
         <title>{p.langName} · {p.translit} · {p.geo.place} · {formatEra(p.start, p.end)}</title>
         <circle cx={p.x} cy={p.y + p.oy} r="3.2" />
         <text

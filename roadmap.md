@@ -212,11 +212,11 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 - [ ] Pin Onomastikon on GitHub profile
 - [ ] `modern_etymology` field per civilization, populated as entries are added or revisited
 - [x] Client-side search across English names, transliterations, and original scripts
-- [ ] Polished homepage hero with rotating "name of the day"
-- [ ] Browse by region or era (filtered views of existing data)
+- [x] Polished homepage hero with rotating "name of the day" (client-side from the search index, with a "random name" link; 2026-07-14)
+- [x] Browse by region or era (filtered views of existing data) (homepage region/era filters over a slug→shelf map in src/lib/macro-regions.ts; 2026-07-14)
 
 ### Mid-term (after ~20-25 entities)
-- [ ] Comparison view: pick 2-4 entities, see them side-by-side across shared languages
+- [x] Comparison view: pick 2-4 entities, see them side-by-side across shared languages (/compare, shareable ?a=&b= URLs; 2026-07-14)
 - [ ] Timeline visualization: horizontal axis showing when each name for an entity was in use
 - [ ] Improved mobile design (responsive CSS pass)
 - [ ] Simple JSON API at predictable URLs (e.g., `/api/civilizations/egypt.json`)
@@ -224,7 +224,7 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 - [ ] Possibly: relationships between entities (Nile *flows through* Egypt; Babylon *capital of* Babylonia)
 
 ### Long-term, only if the project grows
-- [ ] Audio pronunciations (commissioned from scholars or graduate students)
+- [ ] Audio pronunciations (commissioned from scholars or graduate students) — the plumbing shipped 2026-07-14 (optional audio/audio_note per name entry, player beside the IPA, recordings only, never TTS); what remains is the recordings themselves
 - [ ] Maps integration with Pleiades coordinates
 - [ ] User submissions and editorial review via GitHub PRs (only after 2-3 unsolicited correction PRs arrive)
 - [ ] Browser extension for highlighting ancient names on any webpage
