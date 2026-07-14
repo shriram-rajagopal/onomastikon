@@ -500,7 +500,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
             actx = new AudioContext();
             const lp = actx.createBiquadFilter();
             lp.type = 'lowpass';
-            lp.frequency.value = 2400;
+            lp.frequency.value = 2800;
             lp.Q.value = 0.4;
             bus = actx.createGain();
             bus.gain.value = 0.06;
@@ -555,21 +555,26 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
           s.stop(t0 + dur + 0.03);
         };
 
-        // The palette. Warm, downward, brief — a quiet study, not an interface.
+        // Per-play pitch jitter (±4%): repeated interactions land a hair
+        // apart, like real objects, instead of stamping the identical sample.
+        const j = () => 1 + (Math.random() - 0.5) * 0.08;
+
+        // The palette. Warm, brief, a quiet study — pitched a third or so
+        // above the original set so the cues sit lighter, still nowhere sharp.
         const sfx = {
           // Leaving for another page: a soft page-turn breath with low body.
-          nav: () => { breath(0.16, 1100, 0.5); sine(150, 110, 0.13, 0.35); },
+          nav: () => { const v = j(); breath(0.16, 1400 * v, 0.5); sine(190 * v, 140 * v, 0.13, 0.35); },
           // Jumping within the page: the same gesture, smaller.
-          anchor: () => sine(240, 195, 0.06, 0.55),
+          anchor: () => { const v = j(); sine(300 * v, 245 * v, 0.06, 0.55); },
           // Any button: a felt tap.
-          tap: () => { sine(200, 150, 0.07, 0.9); breath(0.03, 900, 0.3); },
+          tap: () => { const v = j(); sine(260 * v, 195 * v, 0.07, 0.9); breath(0.03, 1150 * v, 0.3); },
           // A choice made (selects) or a state confirmed: gentle upward third.
-          confirm: () => sine(262, 330, 0.1, 0.65),
+          confirm: () => { const v = j(); sine(330 * v, 415 * v, 0.1, 0.65); },
           // Drawers: two soft tones, rising to open, falling to close.
-          open: () => { sine(220, 220, 0.06, 0.55); sine(294, 294, 0.08, 0.55, 0.05); },
-          close: () => { sine(294, 294, 0.06, 0.55); sine(220, 220, 0.08, 0.55, 0.05); },
+          open: () => { const v = j(); sine(277 * v, 277 * v, 0.06, 0.55); sine(370 * v, 370 * v, 0.08, 0.55, 0.05); },
+          close: () => { const v = j(); sine(370 * v, 370 * v, 0.06, 0.55); sine(277 * v, 277 * v, 0.08, 0.55, 0.05); },
           // Keystrokes and slider steps: the faintest muffled tick.
-          tick: () => breath(0.018, 1400, 0.25),
+          tick: () => breath(0.018, 1750 * j(), 0.25),
         };
 
         // Print prep programmatically opens every <details> on the page; that

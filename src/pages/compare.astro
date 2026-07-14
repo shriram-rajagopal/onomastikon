@@ -14,6 +14,19 @@ const ordered = [...civs].sort((a, b) => {
   return t !== 0 ? t : a.data.english_name.localeCompare(b.data.english_name);
 });
 const SLOTS = ['a', 'b', 'c', 'd'] as const;
+const TYPES = [
+  ['civilization', 'Civilization'],
+  ['city', 'City'],
+  ['region', 'Region'],
+  ['geographic_feature', 'Geographic feature'],
+] as const;
+// Slim index for the pickers: the type filter rebuilds each entity list
+// client-side, so the dropdown is one type's worth of names, not all ~110.
+const entityIndex = ordered.map((c) => ({
+  id: c.id,
+  name: c.data.english_name,
+  type: c.data.type,
+}));
 ---
 
 <BaseLayout
@@ -26,19 +39,32 @@ const SLOTS = ['a', 'b', 'c', 'd'] as const;
     language. Languages that name all of your picks sort first.
   </p>
 
+  <!-- Two-step pickers: choose the kind first, so the entity list stays one
+       type long. Server-rendered optgroups are the no-JS fallback; the script
+       rebuilds each entity list to the chosen type. -->
   <form class="pickers" id="pickers">
     {SLOTS.map((slot, i) => (
-      <label>
+      <div class="picker">
         <span class="picker-label">{i < 2 ? `Entity ${slot.toUpperCase()}` : `Entity ${slot.toUpperCase()} (optional)`}</span>
-        <select id={`pick-${slot}`} data-slot={slot}>
-          <option value="">—</option>
-          {ordered.map((c) => (
-            <option value={c.id}>{c.data.english_name}</option>
-          ))}
-        </select>
-      </label>
+        <div class="picker-row">
+          <select class="pick-type" id={`type-${slot}`} aria-label={`Entity ${slot.toUpperCase()} kind`}>
+            {TYPES.map(([value, label]) => <option value={value}>{label}</option>)}
+          </select>
+          <select id={`pick-${slot}`} data-slot={slot} aria-label={`Entity ${slot.toUpperCase()}`}>
+            <option value="">—</option>
+            {TYPES.map(([value, label]) => (
+              <optgroup label={`${label}s`}>
+                {entityIndex.filter((c) => c.type === value).map((c) => (
+                  <option value={c.id}>{c.name}</option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </div>
+      </div>
     ))}
   </form>
+  <script type="application/json" id="entity-index" set:html={JSON.stringify(entityIndex)} />
 
   <p id="compare-status" class="hint" aria-live="polite">Choose at least two entities to compare.</p>
   <div class="compare-scroll">
@@ -51,16 +77,47 @@ const SLOTS = ['a', 'b', 'c', 'd'] as const;
   <script>
     const SLOTS = ['a', 'b', 'c', 'd'];
     const selects = SLOTS.map((s) => document.getElementById(`pick-${s}`) as HTMLSelectElement);
+    const typeSelects = SLOTS.map((s) => document.getElementById(`type-${s}`) as HTMLSelectElement);
     const table = document.getElementById('compare-table') as HTMLTableElement;
     const status = document.getElementById('compare-status')!;
+
+    // The slim build-time index drives the type-filtered entity lists.
+    const entityIndex: Array<{ id: string; name: string; type: string }> = JSON.parse(
+      document.getElementById('entity-index')!.textContent!
+    );
+    const typeOf = new Map(entityIndex.map((e) => [e.id, e.type]));
+
+    // Rebuild a slot's entity list to its chosen kind, keeping the current
+    // pick when it still belongs; the server-rendered optgroups (the no-JS
+    // fallback) are replaced by the one-type list on first rebuild.
+    function rebuild(i: number) {
+      const kind = typeSelects[i].value;
+      const keep = selects[i].value;
+      selects[i].textContent = '';
+      const blank = document.createElement('option');
+      blank.value = '';
+      blank.textContent = '—';
+      selects[i].append(blank);
+      for (const e of entityIndex) {
+        if (e.type !== kind) continue;
+        const o = document.createElement('option');
+        o.value = e.id;
+        o.textContent = e.name;
+        selects[i].append(o);
+      }
+      selects[i].value = typeOf.get(keep) === kind ? keep : '';
+    }
 
     let dataPromise: Promise<any> | null = null;
     const loadData = () => (dataPromise ??= fetch('/onomastikon.json').then((r) => r.json()));
 
-    // Restore picks from the URL (shareable ?a=egypt&b=greece links).
+    // Restore picks from the URL (shareable ?a=egypt&b=greece links): set the
+    // kind from the entity itself, then rebuild and select it.
     const params = new URLSearchParams(location.search);
     SLOTS.forEach((s, i) => {
       const v = params.get(s);
+      if (v && typeOf.has(v)) typeSelects[i].value = typeOf.get(v)!;
+      rebuild(i);
       if (v) selects[i].value = v;
     });
 
@@ -170,6 +227,7 @@ const SLOTS = ['a', 'b', 'c', 'd'] as const;
     }
 
     for (const s of selects) s.addEventListener('change', render);
+    typeSelects.forEach((t, i) => t.addEventListener('change', () => { rebuild(i); render(); }));
     if (selects.filter((s) => s.value).length >= 2) render();
   </script>
 </BaseLayout>
@@ -185,7 +243,8 @@ const SLOTS = ['a', 'b', 'c', 'd'] as const;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
   }
-  .pickers label { display: flex; flex-direction: column; gap: 0.3rem; }
+  .picker { display: flex; flex-direction: column; gap: 0.3rem; }
+  .picker-row { display: flex; gap: 0.4rem; }
   .picker-label {
     text-transform: uppercase;
     letter-spacing: 0.08em;
