@@ -2,13 +2,30 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { formatEra } from '../lib/era';
+import { entryAnchor } from '../lib/entry';
 import { MACRO_REGION_OF, MACRO_REGION_LABELS, ERAS } from '../lib/macro-regions';
 // The generated endonym subset faces (scripts/subset-endonyms.mjs): the
 // languages column renders each self-name in its own script for a few KB.
 import '../styles/endonyms.css';
+// The committed name-of-the-day ledger (scripts/generate-daily-schedule.mjs):
+// picks are frozen once dealt, so corpus growth can't cost anyone their turn.
+import dailySchedule from '../data/daily-schedule.json';
 
 const civs = await getCollection('civilizations');
 const langs = await getCollection('languages');
+
+// Inline the schedule as indices into the URL-sorted name list (the same
+// ordering the client rebuilds from the search index), a fraction of the
+// URLs' size. Plain codepoint sort everywhere — collation must not vary.
+const names = await getCollection('names');
+const nameUrls = names
+  .map((n) => `/civilizations/${n.data.civilization.id}#${entryAnchor(n.id, n.data.civilization.id)}`)
+  .sort();
+const urlIndex = new Map(nameUrls.map((u, i) => [u, i]));
+const dailyRounds = dailySchedule.rounds.map((r) => ({
+  s: r.start,
+  p: r.picks.map((u) => urlIndex.get(u) ?? -1),
+}));
 
 // Region options for the filter row, limited to shelves that actually occur.
 const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
@@ -96,6 +113,7 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
       <a id="daily-random" class="daily-random" href="/search">Random name →</a>
     </section>
   </div>
+  <script type="application/json" id="daily-schedule" set:html={JSON.stringify(dailyRounds)} />
 
   <!-- Marks the foot of the hero: the script reveals the Browse rail once this
        scrolls above the viewport. -->
@@ -530,27 +548,41 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
           const [y, m, d] = nyDate.split('-').map(Number);
           const day = Math.floor(Date.UTC(y, m - 1, d) / 86400000);
 
-          // Every name gets one turn before any gets a second: each cycle of
-          // N days seeds its own Fisher-Yates shuffle of the URL-sorted list
-          // (deterministic, so every visitor sees the same name), and the day
-          // index walks that permutation. When the corpus grows, N changes
-          // and a fresh cycle starts; the one-turn-each guarantee holds
-          // within any one cycle.
-          const mulberry32 = (seed: number) => () => {
-            seed |= 0;
-            seed = (seed + 0x6d2b79f5) | 0;
-            let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-          };
-          const deck = [...names].sort((a, b) => a.url.localeCompare(b.url));
+          // Every name gets one turn before any gets a second, and the
+          // guarantee survives corpus growth: today's pick comes from the
+          // committed schedule ledger (inlined as indices into the URL-sorted
+          // list), whose dealt days are frozen at build time — new names are
+          // only ever inserted into undealt days. See
+          // scripts/generate-daily-schedule.mjs for the dealing rules.
+          // Plain codepoint sort, matching the ledger and the inliner.
+          const deck = [...names].sort((a, b) => (a.url < b.url ? -1 : a.url > b.url ? 1 : 0));
           const N = deck.length;
-          const rand = mulberry32(Math.floor(day / N) + N * 0x9e3779b1);
-          for (let i = N - 1; i > 0; i--) {
-            const k = Math.floor(rand() * (i + 1));
-            [deck[i], deck[k]] = [deck[k], deck[i]];
+          let pick: (typeof deck)[number] | undefined;
+          try {
+            const rounds: Array<{ s: number; p: number[] }> = JSON.parse(
+              document.getElementById('daily-schedule')?.textContent ?? '[]'
+            );
+            const round = rounds.find((r) => r.s <= day && day < r.s + r.p.length);
+            if (round) pick = deck[round.p[day - round.s]];
+          } catch {}
+          // Fallback for days beyond the schedule horizon (a site left
+          // undeployed for over a year): the old per-cycle permutation.
+          if (!pick) {
+            const mulberry32 = (seed: number) => () => {
+              seed |= 0;
+              seed = (seed + 0x6d2b79f5) | 0;
+              let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+              t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+              return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+            };
+            const rand = mulberry32(Math.floor(day / N) + N * 0x9e3779b1);
+            for (let i = N - 1; i > 0; i--) {
+              const k = Math.floor(rand() * (i + 1));
+              [deck[i], deck[k]] = [deck[k], deck[i]];
+            }
+            pick = deck[day % N];
           }
-          const pick = deck[day % N];
+          if (!pick) return;
 
           const link = document.getElementById('daily-link') as HTMLAnchorElement;
           const orig = document.getElementById('daily-orig')!;
