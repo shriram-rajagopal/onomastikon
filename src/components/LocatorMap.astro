@@ -28,16 +28,59 @@ if (geo) {
   );
   minLonSpan = extent < 2 ? 48 : extent < 8 ? 36 : 24;
 }
-const proj = geo
-  ? fitProjection(
-      geo.points.map(([lon, lat]) => ({ lon, lat })),
-      minLonSpan
-    )
-  : null;
-const coast = proj ? landPath(proj) : '';
+// Landlocked subjects (the Hindu Kush, the Caucasus) can fit a window that
+// catches almost no coastline at all — an accent mark floating on blank
+// parchment orients nobody. Refit at successively wider floors until the
+// clipped coast carries real ink; the path-string length is a cheap proxy.
+let proj = null;
+let coast = '';
+if (geo) {
+  const pts = geo.points.map(([lon, lat]) => ({ lon, lat }));
+  for (const floor of [minLonSpan, 48, 60, 76]) {
+    if (floor < minLonSpan) continue;
+    proj = fitProjection(pts, floor);
+    coast = landPath(proj);
+    if (coast.length > 3000) break;
+  }
+}
 const projected = geo && proj ? geo.points.map(([lon, lat]) => proj.project(lon, lat)) : [];
 const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
   'M' + pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L') + (close ? 'Z' : '');
+// Inland context: deep Central Asia has no coastline to orient by, but it has
+// rivers — the Oxus and the Indus place the Hindu Kush better than any coast.
+// Underlay every known river course crossing the window (except the subject
+// itself) as faint rule-colored lines.
+const riverContext =
+  geo && proj
+    ? Object.values(ENTITY_GEO)
+        .filter((e) => e.kind === 'river' && e.points !== geo.points)
+        .map((e) => {
+          const b = proj!.bounds;
+          const segs: string[] = [];
+          let run: Array<{ x: number; y: number }> = [];
+          for (const [lon, lat] of e.points) {
+            if (lon >= b.lonMin && lon <= b.lonMax && lat >= b.latMin && lat <= b.latMax) {
+              run.push(proj!.project(lon, lat));
+            } else {
+              if (run.length > 1) segs.push(pathOf(run, false));
+              run = [];
+            }
+          }
+          if (run.length > 1) segs.push(pathOf(run, false));
+          return segs.join('');
+        })
+        .filter(Boolean)
+    : [];
+// Ranges render as the transmission map draws them — a line of peak
+// triangles — not as a thin squiggle that vanishes at locator scale.
+const TRI = 6;
+const mtnTris =
+  geo?.kind === 'mountains'
+    ? projected.map(
+        (p) =>
+          `M${p.x.toFixed(1)},${(p.y - TRI * 1.3).toFixed(1)}L${(p.x - TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}L${(p.x + TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}Z`
+      )
+    : [];
 ---
 
 {geo && proj && (
@@ -48,13 +91,15 @@ const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
       aria-label={`Locator map: ${geo.label}`}
     >
       <path class="locator-land" d={coast} />
+      {riverContext.map((d) => <path class="locator-river-ctx" d={d} />)}
       {geo.kind === 'region' && projected.length > 2 && (
         <path class="locator-region" d={pathOf(projected, true)} />
       )}
-      {(geo.kind === 'river' || geo.kind === 'mountains') && projected.length > 1 && (
+      {geo.kind === 'river' && projected.length > 1 && (
         <path class="locator-line" d={pathOf(projected, false)} />
       )}
-      {projected.length === 1 && (
+      {mtnTris.map((t) => <path class="locator-mtn" d={t} />)}
+      {geo.kind !== 'mountains' && projected.length === 1 && (
         <>
           <circle class="locator-halo" cx={projected[0].x} cy={projected[0].y} r="14" />
           <circle class="locator-dot" cx={projected[0].x} cy={projected[0].y} r="6" />
@@ -85,6 +130,16 @@ const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
     stroke: var(--rule);
     stroke-width: 1;
   }
+  /* Context rivers: quiet lines beneath the subject. The 800-unit viewBox
+     renders at ~320px, a 0.4x scale, so widths here run ~2.5x what the same
+     visual weight needs at full size. */
+  .locator-river-ctx {
+    fill: none;
+    stroke: color-mix(in srgb, var(--ink) 32%, var(--parchment));
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
   .locator-region {
     fill: color-mix(in srgb, var(--accent) 18%, transparent);
     stroke: var(--accent);
@@ -98,6 +153,14 @@ const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
     stroke-linejoin: round;
   }
   .locator-dot { fill: var(--accent); }
+  /* Peak triangles for ranges, the transmission map's mountain mark in the
+     locator's accent voice. */
+  .locator-mtn {
+    fill: var(--accent);
+    stroke: var(--parchment);
+    stroke-width: 0.8;
+    stroke-linejoin: round;
+  }
   /* Soft ring behind a lone point, so a city dot carries on the wide window. */
   .locator-halo {
     fill: color-mix(in srgb, var(--accent) 18%, transparent);
