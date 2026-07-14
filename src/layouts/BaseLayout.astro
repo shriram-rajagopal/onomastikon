@@ -166,6 +166,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
           <a href="/compare">Compare</a>
           <a href="/about">About</a>
           <button id="theme-toggle" type="button">◐ Dark mode</button>
+          <button id="sfx-toggle" type="button">♪ Sound off</button>
         </nav>
       </div>
     </header>
@@ -333,7 +334,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         color: var(--ink-soft);
       }
       .site-header nav a:hover { color: var(--accent); }
-      #theme-toggle {
+      #theme-toggle, #sfx-toggle {
         margin-left: 1.5rem;
         padding: 0;
         background: none;
@@ -344,7 +345,10 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         line-height: 1;
         color: var(--ink-soft);
       }
-      #theme-toggle:hover { color: var(--accent); }
+      #theme-toggle:hover, #sfx-toggle:hover { color: var(--accent); }
+      @media print {
+        #sfx-toggle { display: none; }
+      }
       main {
         max-width: var(--max-width);
         margin: 0 auto;
@@ -465,6 +469,182 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         const link = document.querySelector<HTMLAnchorElement>(`a[rel="${rel}"]`);
         if (link) location.href = link.href;
       });
+
+      // ------------------------------------------------------------------
+      // Interaction sound: tiny synthesized cues for every interaction —
+      // navigation, buttons, toggles, selects, typing. Everything is built
+      // from soft sines and low-passed noise under a 2.4 kHz master filter,
+      // so nothing in the palette can read as sharp; the whole layer sits at
+      // whisper level (master gain 0.06). No samples, no network cost.
+      // Persisted like the theme; the ♪ button in the header mutes it.
+      {
+        const KEY = 'sfx';
+        let stored = null;
+        try { stored = localStorage.getItem(KEY); } catch {}
+        let soundOn = stored !== 'off';
+        const sfxBtn = document.getElementById('sfx-toggle');
+        // Labeled with the action it performs, matching the theme button.
+        const reflectSfx = () => {
+          if (sfxBtn) sfxBtn.textContent = soundOn ? '♪ Sound off' : '♪ Sound on';
+        };
+        reflectSfx();
+
+        // The context is created lazily inside the first user gesture (every
+        // sound below responds to one), which also satisfies autoplay policy.
+        let actx: AudioContext | null = null;
+        let bus: GainNode | null = null;
+        let noiseBuf: AudioBuffer | null = null;
+        const ensure = () => {
+          if (!actx) {
+            actx = new AudioContext();
+            const lp = actx.createBiquadFilter();
+            lp.type = 'lowpass';
+            lp.frequency.value = 2400;
+            lp.Q.value = 0.4;
+            bus = actx.createGain();
+            bus.gain.value = 0.06;
+            bus.connect(lp);
+            lp.connect(actx.destination);
+          }
+          if (actx.state === 'suspended') actx.resume();
+          return actx;
+        };
+        // Fast attack, exponential decay: the shape of a felt hammer, never a click.
+        const env = (g: GainNode, t0: number, peak: number, dur: number) => {
+          g.gain.setValueAtTime(0, t0);
+          g.gain.linearRampToValueAtTime(peak, t0 + 0.008);
+          g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        };
+        const sine = (from: number, to: number, dur: number, peak = 1, delay = 0) => {
+          const c = ensure();
+          if (!bus) return;
+          const t0 = c.currentTime + delay;
+          const o = c.createOscillator();
+          o.type = 'sine';
+          o.frequency.setValueAtTime(from, t0);
+          o.frequency.exponentialRampToValueAtTime(Math.max(to, 1), t0 + dur);
+          const g = c.createGain();
+          env(g, t0, peak, dur);
+          o.connect(g);
+          g.connect(bus);
+          o.start(t0);
+          o.stop(t0 + dur + 0.03);
+        };
+        const breath = (dur: number, cutoff: number, peak = 1) => {
+          const c = ensure();
+          if (!bus) return;
+          if (!noiseBuf) {
+            noiseBuf = c.createBuffer(1, c.sampleRate, c.sampleRate);
+            const d = noiseBuf.getChannelData(0);
+            for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+          }
+          const s = c.createBufferSource();
+          s.buffer = noiseBuf;
+          s.loop = true;
+          const f = c.createBiquadFilter();
+          f.type = 'lowpass';
+          f.frequency.value = cutoff;
+          const g = c.createGain();
+          const t0 = c.currentTime;
+          env(g, t0, peak, dur);
+          s.connect(f);
+          f.connect(g);
+          g.connect(bus);
+          s.start(t0);
+          s.stop(t0 + dur + 0.03);
+        };
+
+        // The palette. Warm, downward, brief — a quiet study, not an interface.
+        const sfx = {
+          // Leaving for another page: a soft page-turn breath with low body.
+          nav: () => { breath(0.16, 1100, 0.5); sine(150, 110, 0.13, 0.35); },
+          // Jumping within the page: the same gesture, smaller.
+          anchor: () => sine(240, 195, 0.06, 0.55),
+          // Any button: a felt tap.
+          tap: () => { sine(200, 150, 0.07, 0.9); breath(0.03, 900, 0.3); },
+          // A choice made (selects) or a state confirmed: gentle upward third.
+          confirm: () => sine(262, 330, 0.1, 0.65),
+          // Drawers: two soft tones, rising to open, falling to close.
+          open: () => { sine(220, 220, 0.06, 0.55); sine(294, 294, 0.08, 0.55, 0.05); },
+          close: () => { sine(294, 294, 0.06, 0.55); sine(220, 220, 0.08, 0.55, 0.05); },
+          // Keystrokes and slider steps: the faintest muffled tick.
+          tick: () => breath(0.018, 1400, 0.25),
+        };
+
+        // Print prep programmatically opens every <details> on the page; that
+        // burst of toggle events must stay silent.
+        let printMute = false;
+        addEventListener('beforeprint', () => { printMute = true; });
+        addEventListener('afterprint', () => setTimeout(() => { printMute = false; }, 400));
+
+        // One global rate limiter so drags, held keys, and event pairs can't
+        // machine-gun the palette; per-call minimum gaps tune it down further.
+        let lastPlay = 0;
+        const play = (fn: () => void, minGap = 50) => {
+          if (!soundOn || printMute) return;
+          const now = performance.now();
+          if (now - lastPlay < minGap) return;
+          lastPlay = now;
+          try { fn(); } catch { /* audio is garnish; never let it throw */ }
+        };
+
+        // Pointer taps on links play at pointerdown for headroom before the
+        // page unloads; keyboard activation (click with detail 0) is covered
+        // in the click handler below.
+        addEventListener('pointerdown', (e) => {
+          if (e.button !== 0) return;
+          const a = (e.target as Element).closest?.('a[href]');
+          if (!a) return;
+          const href = a.getAttribute('href') ?? '';
+          play(href.startsWith('#') ? sfx.anchor : sfx.nav);
+        }, { capture: true, passive: true });
+
+        addEventListener('click', (e) => {
+          const t = e.target as Element;
+          if (e.detail === 0) {
+            const a = t.closest?.('a[href]');
+            if (a) {
+              const href = a.getAttribute('href') ?? '';
+              play(href.startsWith('#') ? sfx.anchor : sfx.nav);
+              return;
+            }
+          }
+          if (t.closest?.('summary')) return; // the toggle listener sounds these
+          const b = t.closest?.('button');
+          if (b && b.id !== 'sfx-toggle') play(sfx.tap);
+        }, true);
+
+        // toggle doesn't bubble; capture still reaches it.
+        document.addEventListener('toggle', (e) => {
+          const d = e.target;
+          if (d instanceof HTMLDetailsElement) play(d.open ? sfx.open : sfx.close);
+        }, true);
+
+        addEventListener('change', (e) => {
+          if ((e.target as Element).matches?.('select')) play(sfx.confirm);
+        }, true);
+
+        addEventListener('input', (e) => {
+          const t = e.target as Element;
+          if (t.matches?.('input[type="search"], input[type="text"]')) play(sfx.tick, 40);
+          else if (t.matches?.('input[type="range"]')) play(sfx.tick, 70);
+        }, true);
+
+        // Result-list walking on the search page.
+        addEventListener('keydown', (e) => {
+          if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && (e.target as Element).matches?.('[role="combobox"]')) {
+            play(sfx.tick, 40);
+          }
+        }, true);
+
+        sfxBtn?.addEventListener('click', () => {
+          soundOn = !soundOn;
+          try { localStorage.setItem(KEY, soundOn ? 'on' : 'off'); } catch {}
+          reflectSfx();
+          // Turning on confirms audibly; turning off is, fittingly, silent.
+          if (soundOn) play(sfx.confirm);
+        });
+      }
 
       // The sticky header is clean over the top of the page and gains its
       // parchment backdrop + rule once anything scrolls beneath it.

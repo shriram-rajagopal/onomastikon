@@ -192,6 +192,14 @@ not repeated here except where they've grown teeth.
 
 3. **No UI sounds.** Interface chimes are wrong for the identity; the site
    should stay silent except where a human voice is itself the content.
+   **Overridden by the author (2026-07-14):** interaction sound shipped, on
+   the author's direction, with the constraints that made it defensible —
+   synthesized-only (no samples, no payload), everything under a 2.4 kHz
+   low-pass so nothing can read as sharp, whisper-level master gain, a ♪
+   mute toggle in the header persisted like the theme, and silence during
+   print prep. The palette is warm and brief: a page-turn breath for
+   navigation, felt taps for buttons, rising/falling tone pairs for drawers,
+   near-inaudible ticks for keystrokes.
 
 ## Suggested sequencing
 
