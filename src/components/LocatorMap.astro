@@ -13,10 +13,25 @@ interface Props {
 const { civId } = Astro.props;
 
 const geo = ENTITY_GEO[civId];
+// Context floor, mirroring the transmission map's sparse-map rule: the less
+// the entity's own geometry spans, the wider the window must open so
+// recognizable coastline and sea surround it — a lone city dot on a tight
+// crop orients nobody. Extent-based rather than node-count-based, since a
+// locator has exactly one subject of varying size.
+let minLonSpan = 24;
+if (geo) {
+  const lons = geo.points.map(([lon]) => lon);
+  const lats = geo.points.map(([, lat]) => lat);
+  const extent = Math.max(
+    Math.max(...lons) - Math.min(...lons),
+    Math.max(...lats) - Math.min(...lats)
+  );
+  minLonSpan = extent < 2 ? 48 : extent < 8 ? 36 : 24;
+}
 const proj = geo
   ? fitProjection(
       geo.points.map(([lon, lat]) => ({ lon, lat })),
-      34
+      minLonSpan
     )
   : null;
 const coast = proj ? landPath(proj) : '';
@@ -39,7 +54,12 @@ const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
       {(geo.kind === 'river' || geo.kind === 'mountains') && projected.length > 1 && (
         <path class="locator-line" d={pathOf(projected, false)} />
       )}
-      {projected.length === 1 && <circle class="locator-dot" cx={projected[0].x} cy={projected[0].y} r="5" />}
+      {projected.length === 1 && (
+        <>
+          <circle class="locator-halo" cx={projected[0].x} cy={projected[0].y} r="14" />
+          <circle class="locator-dot" cx={projected[0].x} cy={projected[0].y} r="6" />
+        </>
+      )}
     </svg>
     <figcaption>{geo.label}</figcaption>
   </figure>
@@ -48,8 +68,8 @@ const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
 <style>
   .locator {
     float: right;
-    width: 220px;
-    margin: 0.25rem 0 0.75rem 1.25rem;
+    width: min(320px, 48%);
+    margin: 0.25rem 0 0.9rem 1.5rem;
   }
   .locator svg {
     display: block;
@@ -78,6 +98,12 @@ const pathOf = (pts: Array<{ x: number; y: number }>, close: boolean) =>
     stroke-linejoin: round;
   }
   .locator-dot { fill: var(--accent); }
+  /* Soft ring behind a lone point, so a city dot carries on the wide window. */
+  .locator-halo {
+    fill: color-mix(in srgb, var(--accent) 18%, transparent);
+    stroke: color-mix(in srgb, var(--accent) 45%, transparent);
+    stroke-width: 1;
+  }
   .locator figcaption {
     font-family: 'Inter', sans-serif;
     font-size: 0.6875rem;
