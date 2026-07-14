@@ -554,9 +554,14 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
           // list), whose dealt days are frozen at build time — new names are
           // only ever inserted into undealt days. See
           // scripts/generate-daily-schedule.mjs for the dealing rules.
-          // Plain codepoint sort, matching the ledger and the inliner.
+          // Plain codepoint sort, matching the ledger and the inliner. The
+          // deck stays the FULL name list — schedule indices point into it —
+          // while eligibility (original script present; the index carries
+          // lang only for original-script labels) gates the fallback and the
+          // random link, mirroring the generator's pool rule.
           const deck = [...names].sort((a, b) => (a.url < b.url ? -1 : a.url > b.url ? 1 : 0));
-          const N = deck.length;
+          const eligible = deck.filter((r) => r.lang);
+          const N = eligible.length;
           let pick: (typeof deck)[number] | undefined;
           try {
             const rounds: Array<{ s: number; p: number[] }> = JSON.parse(
@@ -578,9 +583,9 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
             const rand = mulberry32(Math.floor(day / N) + N * 0x9e3779b1);
             for (let i = N - 1; i > 0; i--) {
               const k = Math.floor(rand() * (i + 1));
-              [deck[i], deck[k]] = [deck[k], deck[i]];
+              [eligible[i], eligible[k]] = [eligible[k], eligible[i]];
             }
-            pick = deck[day % N];
+            pick = eligible[day % N];
           }
           if (!pick) return;
 
@@ -612,8 +617,10 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
       document.getElementById('daily-random')?.addEventListener('click', (e) => {
         e.preventDefault();
         loadNames().then((names) => {
-          if (!names.length) return;
-          location.href = names[Math.floor(Math.random() * names.length)].url;
+          // Same eligibility as the daily pick: original script only.
+          const pool = names.filter((r) => r.lang);
+          if (!pool.length) return;
+          location.href = pool[Math.floor(Math.random() * pool.length)].url;
         });
       });
     }

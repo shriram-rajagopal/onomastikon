@@ -127,6 +127,11 @@ export function updateSchedule(ledger, pool, today) {
 // ---------------------------------------------------------------------------
 // Pool: the same URLs the search index emits for name records, in the same
 // URL-sorted order the homepage resolves indices against.
+//
+// Eligibility: only names with an original-script form. The card leads with
+// the script at 3rem; a name whose original is unencodable (empty
+// original_text — Demotic and kin) would open the day with a blank plate,
+// so those stay out of the rotation entirely.
 
 const anchorOf = (nameId, civId) =>
   nameId.startsWith(`${civId}-`) ? nameId.slice(civId.length + 1) : nameId;
@@ -136,8 +141,12 @@ export function readPool() {
   const urls = [];
   for (const file of readdirSync(dir).filter((f) => f.endsWith('.md'))) {
     const id = file.replace(/\.md$/, '');
-    const civ = readFileSync(join(dir, file), 'utf8').match(/^civilization:\s*(\S+)\s*$/m)?.[1];
-    if (civ) urls.push(`/civilizations/${civ}#${anchorOf(id, civ)}`);
+    const fm = readFileSync(join(dir, file), 'utf8');
+    const civ = fm.match(/^civilization:\s*(\S+)\s*$/m)?.[1];
+    const original = (fm.match(/^original_text:\s*(.*)$/m)?.[1] ?? '')
+      .trim()
+      .replace(/^["']|["']$/g, '');
+    if (civ && original) urls.push(`/civilizations/${civ}#${anchorOf(id, civ)}`);
   }
   // Plain codepoint order, NOT localeCompare: collation varies by build
   // machine locale, and the homepage resolves schedule indices against a
