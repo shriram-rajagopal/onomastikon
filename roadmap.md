@@ -131,7 +131,7 @@ Added 2026-06. The directional phases skipped west: Phase 1 took the flagships (
 - [x] possibly Oscan / Umbrian, only if Italic peoples beyond the Etruscans are pursued
 ## Phase 2: Expanding the eastern axis
 
-Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian world, and India. Goal: end of April 2026. **Status (2026-06-29): all civilizations done.** India, Parthia, Bactria, Scythia/Saka, China, and now the highland powers Media, Armenia, and Urartu are complete; all four regions (Iran, Sogdiana, Punjab, Sindh) and all six features (Indus, Oxus, Ganges, Himalayas, Caspian, Black Sea) are done. India was built as ONE entity (the Bhārata endonym plus the Hinduš/Sindhu exonym family), folding the split below. The highland cluster added the Classical Armenian and Urartian languages and backfilled Classical Armenian Masis onto the Ararat feature. **Remaining: cities Pataliputra, Taxila, Chang'an, Bactra; languages Sogdian, Pali.** A large off-roadmap build in 2026-06 also added the Near-Eastern seas, the Levantine and Anatolian regions, the northern waters and mountains (Ararat among them), and a steppe-peoples set (Cimmerians, Xiongnu, Yuezhi beside Scythia), plus the Lycian language and coast-accurate region locators.
+Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian world, and India. Goal: end of April 2026. **Status (2026-06-29): all civilizations done.** India, Parthia, Bactria, Scythia/Saka, China, and now the highland powers Media, Armenia, and Urartu are complete; all four regions (Iran, Sogdiana, Punjab, Sindh) and all six features (Indus, Oxus, Ganges, Himalayas, Caspian, Black Sea) are done. India was built as ONE entity (the Bhārata endonym plus the Hinduš/Sindhu exonym family), folding the split below. The highland cluster added the Classical Armenian and Urartian languages and backfilled Classical Armenian Masis onto the Ararat feature. **Phase 2 COMPLETE (2026-07-14): the last four cities (Pataliputra, Taxila, Chang'an, Bactra) and the languages Sogdian and Pali landed together as the "eastern termini" chunk, with Pali backfills (Ganges, Himalayas, India, Deccan) and the Sogdiana endonym swγδ.** A large off-roadmap build in 2026-06 also added the Near-Eastern seas, the Levantine and Anatolian regions, the northern waters and mountains (Ararat among them), and a steppe-peoples set (Cimmerians, Xiongnu, Yuezhi beside Scythia), plus the Lycian language and coast-accurate region locators.
 
 ### Civilizations
 - [x] India / Bhārata — built as one entity, with the Hinduš line folded in
@@ -145,10 +145,10 @@ Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian
 - [x] Urartu / Biainili
 
 ### Cities
-- [ ] Pataliputra
-- [ ] Taxila
-- [ ] Chang'an
-- [ ] Bactra / Balkh
+- [x] Pataliputra
+- [x] Taxila
+- [x] Chang'an
+- [x] Bactra / Balkh
 
 ### Regions
 - [x] Iran (cultural-Iranian framing distinct from Persia/Pārsa)
@@ -167,8 +167,8 @@ Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian
 ### Languages needed for Phase 2
 - [x] Avestan (added with Bactria; carries the Oxus, Sogdiana, and Iran endonyms)
 - [x] Middle Persian (Pahlavi) (added early, during Phase 1)
-- [ ] Sogdian
-- [ ] Pali
+- [x] Sogdian
+- [x] Pali
 - [x] Classical Chinese (added early, with the Rome and Persia entries)
 - [x] Urartian
 - [x] Classical Armenian (for Armenia's endonym Haykʿ; not in the original list)

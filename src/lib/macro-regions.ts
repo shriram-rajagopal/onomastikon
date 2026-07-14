@@ -119,6 +119,7 @@ export const MACRO_REGION_OF: Record<string, string> = {
   susa: 'iran-caucasus',
   urartu: 'iran-caucasus',
   // Central Asia & the Steppe
+  bactra: 'central-asia',
   bactria: 'central-asia',
   cimmerians: 'central-asia',
   'hindu-kush': 'central-asia',
@@ -130,6 +131,8 @@ export const MACRO_REGION_OF: Record<string, string> = {
   yuezhi: 'central-asia',
   // South Asia
   deccan: 'south-asia',
+  pataliputra: 'south-asia',
+  taxila: 'south-asia',
   gandhara: 'south-asia',
   ganges: 'south-asia',
   himalayas: 'south-asia',
@@ -139,6 +142,7 @@ export const MACRO_REGION_OF: Record<string, string> = {
   sindh: 'south-asia',
   yamuna: 'south-asia',
   // East Asia
+  'chang-an': 'east-asia',
   china: 'east-asia',
 };
 

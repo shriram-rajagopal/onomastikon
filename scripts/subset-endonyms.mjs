@@ -42,6 +42,8 @@ const PACKAGES = [
   'noto-serif-armenian',
   'noto-sans-old-italic',
   'noto-sans-linear-b',
+  'noto-sans-brahmi',
+  'noto-sans-old-sogdian',
 ];
 
 // Union of endonym characters, in both compositions so precomposed and

@@ -169,3 +169,19 @@
   src: url(/fonts/endonyms-noto-sans-old-italic-old-italic.woff2) format('woff2');
   unicode-range: U+10300-1032F;
 }
+@font-face {
+  font-family: 'Endonyms';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/endonyms-noto-sans-brahmi-brahmi.woff2) format('woff2');
+  unicode-range: U+200C-200D,U+25CC,U+11000-1107F;
+}
+@font-face {
+  font-family: 'Endonyms';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/endonyms-noto-sans-old-sogdian-old-sogdian.woff2) format('woff2');
+  unicode-range: U+10F00-10F27;
+}

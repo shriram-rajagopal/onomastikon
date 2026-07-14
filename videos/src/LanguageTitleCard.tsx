@@ -20,6 +20,8 @@ import { loadFont as loadAvestan } from "@remotion/google-fonts/NotoSansAvestan"
 import { loadFont as loadOldItalic } from "@remotion/google-fonts/NotoSansOldItalic";
 import { loadFont as loadLycian } from "@remotion/google-fonts/NotoSansLycian";
 import { loadFont as loadArmenian } from "@remotion/google-fonts/NotoSerifArmenian";
+import { loadFont as loadBrahmi } from "@remotion/google-fonts/NotoSansBrahmi";
+import { loadFont as loadOldSogdian } from "@remotion/google-fonts/NotoSansOldSogdian";
 
 // Language entry title card. A thin sibling of the civ TitleCard: same parchment,
 // same vertical rhythm and tokens, but it leads with the LANGUAGE's own name
@@ -53,6 +55,8 @@ const { fontFamily: avestan } = loadAvestan("normal", { weights: ["400"], subset
 const { fontFamily: oldItalic } = loadOldItalic("normal", { weights: ["400"], subsets: ["old-italic"] });
 const { fontFamily: lycian } = loadLycian("normal", { weights: ["400"], subsets: ["lycian"] });
 const { fontFamily: armenian } = loadArmenian("normal", { weights: ["400", "600"], subsets: ["armenian"] });
+const { fontFamily: brahmi } = loadBrahmi("normal", { weights: ["400"], subsets: ["brahmi"] });
+const { fontFamily: oldSogdian } = loadOldSogdian("normal", { weights: ["400"], subsets: ["old-sogdian"] });
 
 const PARCHMENT = "#f5efe4";
 const INK = "#1a1a1a";
@@ -86,6 +90,9 @@ const SCRIPTS = {
   "old-italic": { fontFamily: oldItalic, fontSize: 140, letterSpacing: 6, fontWeight: 400, rtl: false },
   lycian: { fontFamily: lycian, fontSize: 150, letterSpacing: 12, fontWeight: 400, rtl: false },
   armenian: { fontFamily: armenian, fontSize: 150, letterSpacing: 0, fontWeight: 400, rtl: false },
+  brahmi: { fontFamily: brahmi, fontSize: 150, letterSpacing: 4, fontWeight: 400, rtl: false },
+  // Old Sogdian reads right-to-left; modest tracking keeps the tall letters distinct.
+  "old-sogdian": { fontFamily: oldSogdian, fontSize: 150, letterSpacing: 6, fontWeight: 400, rtl: true },
 } as const;
 
 export const languageCardSchema = z.object({
@@ -108,6 +115,8 @@ export const languageCardSchema = z.object({
     "inscriptional-parthian",
     "avestan",
     "old-italic",
+    "brahmi",
+    "old-sogdian",
     "lycian",
     "armenian",
   ]),

@@ -526,6 +526,18 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Armina family',
     note: 'The exonym for Armenia, from the Old Persian Armina of the Behistun inscription: the Greek Armenía and Latin Armenia by which the land has always been known abroad, beside the native self-name Haykʿ.',
   },
+  pataliputra: {
+    display: 'The Pāṭaliputra family',
+    note: 'The name of the Mauryan capital in every register of contact: Sanskrit Pāṭaliputra and Pali Pāṭaliputta at home, the Greek Palíbothra of Megasthenes’ embassy and its Latin echo, and the Chinese Bāliánfú of the pilgrim Faxian.',
+  },
+  takshashila: {
+    display: 'The Takṣaśilā family',
+    note: 'The city of Gandhāra as Sanskrit Takṣaśilā and Pali Takkasilā, clipped by Alexander’s historians to the Greek Táxila that Latin and modern archaeology inherited, and transcribed by Faxian with the Buddhist legend of the severed head attached.',
+  },
+  khumdan: {
+    display: 'The Khumdān family',
+    note: 'The road’s name for Chang’an: the Sogdian ʾxwmtʾn of the Ancient Letters, echoed across Asia in the Byzantine Greek Khoubdán; an Iranian name of disputed origin that the West knew better than the city’s own.',
+  },
   urartu: {
     display: 'The Urarṭu family',
     note: 'The Assyrian Urarṭu for the kingdom of Van, reaching the Hebrew Bible as Ararat; the Behistun Babylonian reused it (Uraštu) to render the Old Persian Armina, binding the old highland name to its successor.',

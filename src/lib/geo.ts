@@ -22,6 +22,8 @@ export interface LangGeo {
 }
 
 export const LANG_GEO: Record<string, LangGeo> = {
+  pali: { lon: 85.14, lat: 25.61, place: 'Pāṭaliputta', dy: 12 },
+  sogdian: { lon: 66.98, lat: 39.65, place: 'Samarkand', dy: -6 },
   egyptian: { lon: 31.25, lat: 29.85, place: 'Memphis', anchor: 'end', dx: -7, dy: 9 },
   demotic: { lon: 30.4, lat: 31.0, place: 'Sais', anchor: 'end', dx: -7, dy: -5 },
   coptic: { lon: 32.65, lat: 25.7, place: 'Thebes' },
@@ -133,6 +135,10 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
 
   // Cities (a point at the site).
   alexandria: { kind: 'city', label: 'Alexandria', points: [[29.92, 31.20]] },
+  pataliputra: { kind: 'city', label: 'Pāṭaliputra', points: [[85.14, 25.61]] },
+  taxila: { kind: 'city', label: 'Taxila', points: [[72.82, 33.74]] },
+  bactra: { kind: 'city', label: 'Bactra', points: [[66.90, 36.76]] },
+  'chang-an': { kind: 'city', label: "Chang'an", points: [[108.86, 34.30]] },
   athens: { kind: 'city', label: 'Athens', points: [[23.73, 37.98]] },
   babylon: { kind: 'city', label: 'Babylon', points: [[44.42, 32.54]] },
   byzantium: { kind: 'city', label: 'Byzantium', points: [[28.98, 41.01]] },

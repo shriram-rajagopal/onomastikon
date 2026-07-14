@@ -47,6 +47,8 @@ const SCRIPTS = [
   "avestan",
   "old-italic",
   "lycian",
+  "brahmi",
+  "old-sogdian",
   "armenian",
 ];
 const rel = (p) => relative(ROOT, p).replace(/\\/g, "/");
