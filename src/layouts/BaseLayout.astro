@@ -166,7 +166,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
           <a href="/compare">Compare</a>
           <a href="/about">About</a>
           <button id="theme-toggle" type="button">◐ Dark mode</button>
-          <button id="sfx-toggle" type="button">♪ Sound off</button>
+          <button id="sfx-toggle" type="button">♪ Mute</button>
         </nav>
       </div>
     </header>
@@ -483,9 +483,10 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         try { stored = localStorage.getItem(KEY); } catch {}
         let soundOn = stored !== 'off';
         const sfxBtn = document.getElementById('sfx-toggle');
-        // Labeled with the action it performs, matching the theme button.
+        // Mute/Unmute are unambiguous actions; "Sound off" read as a state
+        // and made the default-on layer look disabled.
         const reflectSfx = () => {
-          if (sfxBtn) sfxBtn.textContent = soundOn ? '♪ Sound off' : '♪ Sound on';
+          if (sfxBtn) sfxBtn.textContent = soundOn ? '♪ Mute' : '♪ Unmute';
         };
         reflectSfx();
 
