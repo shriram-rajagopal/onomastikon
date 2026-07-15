@@ -127,13 +127,16 @@ const popData = Object.fromEntries(
       <img class="masthead-static" src="/onomastikon-logo.webp" alt="Onomastikon" width="1920" height="720" />
     </div>
     <div class="hero-intro" id="hero-intro">
-      <div class="hero-intro-inner">
-        <h1>A digital atlas of ancient names</h1>
-        <p class="tagline">
-          What the civilizations, cities, regions, and geographic features of antiquity
-          called themselves — and what their neighbors called them. Original scripts,
-          transliterations, pronunciations, and sources.
-        </p>
+      <div class="hero-rule" aria-hidden="true"></div>
+      <div class="hero-clip">
+        <div class="hero-intro-inner">
+          <h1>A digital atlas of ancient names</h1>
+          <p class="tagline">
+            What the civilizations, cities, regions, and geographic features of antiquity
+            called themselves — and what their neighbors called them. Original scripts,
+            transliterations, pronunciations, and sources.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -533,35 +536,45 @@ const popData = Object.fromEntries(
   #daily-details :global(.dn-prose p:first-child) { margin-top: 0; }
   #daily-details :global(.dn-sources) { margin: 0; padding-left: 1.1rem; }
   #daily-details :global(.dn-sources li) { margin: 0.2rem 0; }
-  /* The intro sequence. The wordmark's own animation pops the letters and
-     extends its underline; the title and tagline then rise in below, hold
-     long enough to read, and fly up with an accelerating curve, disappearing
-     BEHIND that underline: the clip container's top edge sits at the line,
-     so the text exits through it. The container then folds its height away,
-     leaving the wordmark alone for the rest of the visit; a reload (or the
-     header wordmark, which is one) replays it. Reduced-motion readers keep
-     the title at rest instead.
-
-     Both transform animations target the inner flyer: rise's fill holds
-     translateY(0) until flyup (later in the list, so it wins) carries the
-     text up past the clip edge. */
+  /* The intro sequence. The wordmark pops its letters; the accent midline
+     draws itself beneath; the title and tagline rise in, hold a beat, then
+     fly up on an accelerating curve and dissolve as they slip behind the
+     midline (the clip container's top edge sits just under the rule). The
+     container then folds away, midline included, leaving the wordmark alone
+     for the rest of the visit; a reload replays it. Reduced-motion readers
+     keep the composition at rest. */
   .hero-intro { overflow: hidden; max-height: 24rem; }
+  .hero-clip { overflow: hidden; }
+  .hero-rule {
+    width: min(26rem, 72%);
+    height: 2px;
+    margin: 0.3rem auto 0.9rem;
+    background: var(--accent);
+    transform-origin: center;
+  }
   @media (prefers-reduced-motion: no-preference) {
+    .hero-rule {
+      transform: scaleX(0);
+      animation: hero-rule-draw 0.55s ease 0.4s both;
+    }
     .hero-intro-inner {
       animation:
-        hero-rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) 1.05s both,
-        hero-flyup 0.85s cubic-bezier(0.6, -0.05, 0.85, 0.4) 3.1s forwards;
+        hero-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.85s both,
+        hero-flyup 0.65s cubic-bezier(0.6, -0.05, 0.85, 0.4) 2.15s forwards;
     }
-    .hero-intro { animation: hero-collapse 0.55s ease 3.6s forwards; }
+    .hero-intro { animation: hero-collapse 0.45s ease 2.7s forwards; }
+  }
+  @keyframes hero-rule-draw {
+    to { transform: scaleX(1); }
   }
   @keyframes hero-rise {
     from { opacity: 0; transform: translateY(30px); }
   }
   @keyframes hero-flyup {
-    to { transform: translateY(-118%); }
+    to { transform: translateY(-115%); opacity: 0; }
   }
   @keyframes hero-collapse {
-    to { max-height: 0; margin: 0; }
+    to { max-height: 0; margin: 0; opacity: 0; }
   }
   /* Filter row: two quiet selects over the entity index. Styled to sit in the
      page's small-sans register rather than as chrome. */
