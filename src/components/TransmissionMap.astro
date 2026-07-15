@@ -260,13 +260,18 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     height: auto;
     border: 1px solid var(--rule);
     border-radius: 4px;
-    /* The sea: a wash of the water color, so the land reads clearly. */
-    background: color-mix(in srgb, var(--water) 26%, var(--parchment));
+    /* The sea: the theme's water fill (a wash on parchment in light mode, a
+       deep blue-black in dark mode), so the land reads clearly. */
+    background: var(--sea);
   }
   .coast {
     fill: color-mix(in srgb, var(--ink) 8%, var(--parchment));
     stroke: color-mix(in srgb, var(--water) 90%, var(--parchment));
     stroke-width: 1;
+  }
+  /* Dark mode lifts the land well off the deep sea (night-chart polarity). */
+  :global(:root[data-theme='dark']) .coast {
+    fill: color-mix(in srgb, var(--ink) 20%, var(--parchment));
   }
   .arc {
     fill: none;
