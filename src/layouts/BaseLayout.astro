@@ -195,6 +195,10 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
         --ink-soft: #4a4a4a;
         --rule: #d8cfbf;
         --accent: #6b3a2a;
+        /* Water: the maps' third color, a muted cartographic slate-blue used
+           for coastline strokes and a faint wash on the sea, so land and
+           water separate without leaning on ink tints alone. */
+        --water: #4a6f82;
         --max-width: 720px;
         --badge-developing-bg: #d9e2ec; --badge-developing-fg: #334e68;
         --badge-complete-bg: #d8e7d6; --badge-complete-fg: #2c5a3a;
@@ -226,6 +230,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
         --ink-soft: #b8b0a2;
         --rule: #403a30;
         --accent: #d29978;
+        --water: #8db0c2;
         --badge-developing-bg: #2c3a47; --badge-developing-fg: #b9d2e8;
         --badge-complete-bg: #2b3b2b; --badge-complete-fg: #b4d6bc;
         --conf-attested-bg: #313f2a; --conf-attested-fg: #bfd9a3;
@@ -479,13 +484,13 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
         height: auto;
         border: 1px solid var(--rule-strong);
         border-radius: 4px;
-        background: color-mix(in srgb, var(--ink) 7%, var(--parchment));
+        background: color-mix(in srgb, var(--water) 26%, var(--parchment));
         box-shadow: var(--shadow-soft);
       }
-      .locator-land { fill: var(--parchment); stroke: color-mix(in srgb, var(--ink) 32%, var(--parchment)); stroke-width: 1; }
+      .locator-land { fill: var(--parchment); stroke: color-mix(in srgb, var(--water) 85%, var(--parchment)); stroke-width: 1.1; }
       .locator-river-ctx {
         fill: none;
-        stroke: color-mix(in srgb, var(--ink) 42%, var(--parchment));
+        stroke: color-mix(in srgb, var(--water) 70%, var(--parchment));
         stroke-width: 2.6;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -520,6 +525,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
           --ink-soft: #4a4a4a;
           --rule: #d8cfbf;
           --accent: #6b3a2a;
+          --water: #4a6f82;
         }
         /* Most browsers omit backgrounds when printing; keep text plain ink. */
         html { background: #fff; }

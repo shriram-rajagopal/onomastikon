@@ -260,13 +260,13 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     height: auto;
     border: 1px solid var(--rule);
     border-radius: 4px;
-    /* The sea: barely off the page ground, so the land reads clearly. */
-    background: color-mix(in srgb, var(--ink) 1%, var(--parchment));
+    /* The sea: a wash of the water color, so the land reads clearly. */
+    background: color-mix(in srgb, var(--water) 26%, var(--parchment));
   }
   .coast {
-    fill: color-mix(in srgb, var(--ink) 18%, var(--parchment));
-    stroke: color-mix(in srgb, var(--ink) 45%, var(--parchment));
-    stroke-width: 0.9;
+    fill: color-mix(in srgb, var(--ink) 8%, var(--parchment));
+    stroke: color-mix(in srgb, var(--water) 90%, var(--parchment));
+    stroke-width: 1;
   }
   .arc {
     fill: none;
@@ -284,7 +284,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     stroke-width: 1.1;
     transition: opacity 0.3s;
   }
-  .map-node.past circle { fill: color-mix(in srgb, var(--ink) 1%, var(--parchment)); }
+  .map-node.past circle { fill: var(--parchment); }
   .map-node.past text { opacity: 0.85; }
   .map-node text {
     font-family: 'EB Garamond', Georgia, serif;
