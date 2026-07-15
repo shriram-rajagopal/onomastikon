@@ -1,0 +1,122 @@
+---
+// A small floating "?" on the right edge that pops out a quick legend for the
+// current page. Content comes through the slot; the button, panel, wiring,
+// and diagram styles live here so both the homepage and the entity pages
+// present the same affordance.
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<button class="help-btn" id="help-btn" type="button" aria-expanded="false" aria-controls="help-panel" title="What am I looking at?">?</button>
+<aside class="help-panel corner-ticks" id="help-panel" hidden>
+  <h3>{title}</h3>
+  <slot />
+</aside>
+
+<script>
+  const btn = document.getElementById('help-btn');
+  const panel = document.getElementById('help-panel');
+  if (btn && panel) {
+    const setOpen = (open: boolean) => {
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.classList.toggle('open', open);
+    };
+    btn.addEventListener('click', () => setOpen(panel.hidden));
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) setOpen(false);
+    });
+    addEventListener('pointerdown', (e) => {
+      if (!panel.hidden && !panel.contains(e.target as Node) && e.target !== btn) setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .help-btn {
+    position: fixed;
+    right: 1.1rem;
+    top: 6.2rem;
+    z-index: 25;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    border: 1px solid var(--rule-strong);
+    background: var(--parchment);
+    color: var(--accent);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+  }
+  .help-btn:hover, .help-btn.open { border-color: var(--accent); }
+  .help-panel {
+    position: fixed;
+    right: 1.1rem;
+    top: 8.6rem;
+    z-index: 25;
+    width: min(330px, calc(100vw - 2.2rem));
+    max-height: min(34rem, calc(100vh - 10rem));
+    overflow-y: auto;
+    background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
+    background-image: var(--grain);
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    box-shadow: var(--shadow-lift);
+    padding: 1rem 1.15rem 1.1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .help-panel { animation: help-pop 0.2s ease; }
+  }
+  @keyframes help-pop {
+    from { opacity: 0; transform: translateY(-6px); }
+  }
+  .help-panel h3 {
+    margin: 0 0 0.6rem;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.1rem;
+  }
+  .help-panel :global(ul) { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+  .help-panel :global(li) { margin: 0.35rem 0; }
+  .help-panel :global(p) { margin: 0.5rem 0; }
+  /* The mini diagram: a mock index row with legend chips beneath. */
+  .help-panel :global(.hd-row) {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.45rem 0.6rem;
+    margin: 0.6rem 0 0.35rem;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 0.9375rem;
+  }
+  .help-panel :global(.hd-era) { margin-left: auto; font-family: 'Inter', sans-serif; font-size: 0.6875rem; color: var(--ink-soft); }
+  .help-panel :global(.hd-chip) {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 600;
+    padding: 0 0.4rem;
+    border-radius: 999px;
+  }
+  .help-panel :global(.hd-green) { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
+  .help-panel :global(.hd-blue) { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
+  .help-panel :global(.hd-tree) {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.45rem 0.6rem;
+    margin: 0.6rem 0 0.35rem;
+    font-size: 0.75rem;
+  }
+  .help-panel :global(.hd-tree div + div) { padding-left: 1.1rem; border-left: 2px solid var(--rule-strong); margin-left: 0.3rem; }
+  @media print {
+    .help-btn, .help-panel { display: none; }
+  }
+</style>

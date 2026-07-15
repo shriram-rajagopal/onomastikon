@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { formatEra } from '../lib/era';
 import { entryAnchor } from '../lib/entry';
@@ -51,24 +51,27 @@ const days: Array<{
   date: string;
   url: string;
   n: (typeof names)[number];
+  Content: any;
   langName: string;
   civName: string;
 }> = [];
 for (const round of dailySchedule.rounds) {
-  round.picks.forEach((url, i) => {
+  for (let i = 0; i < round.picks.length; i++) {
     const day = round.start + i;
-    if (day > RENDER_THROUGH) return;
-    const n = byUrl.get(url);
-    if (!n) return; // a since-deleted historical pick keeps its day blank
+    if (day > RENDER_THROUGH) continue;
+    const n = byUrl.get(round.picks[i]);
+    if (!n) continue; // a since-deleted historical pick keeps its day blank
+    const { Content } = await render(n);
     days.push({
       day,
       date: dateLabel(day),
-      url,
+      url: round.picks[i],
       n,
+      Content,
       langName: langById.get(n.data.language.id)?.data.english_name ?? '',
       civName: civById.get(n.data.civilization.id)?.data.english_name ?? '',
     });
-  });
+  }
 }
 days.sort((a, b) => b.day - a.day); // newest first
 ---
@@ -84,7 +87,7 @@ days.sort((a, b) => b.day - a.day); // newest first
   </p>
 
   <ol class="dn-list" id="dn-list" data-render-through={RENDER_THROUGH}>
-    {days.map(({ day, date, url, n, langName, civName }) => {
+    {days.map(({ day, date, url, n, Content, langName, civName }) => {
       const lang = langById.get(n.data.language.id);
       return (
         <li class="dn-card corner-ticks" data-day={day}>
@@ -104,6 +107,7 @@ days.sort((a, b) => b.day - a.day); // newest first
             <button class="dn-expand" type="button" aria-expanded="false" title="Show this entry's details">▾</button>
           </div>
           <div class="dn-details" hidden>
+            <div class="dn-prose"><Content /></div>
             <dl>
               {n.data.ipa && (<><dt>IPA</dt><dd>{n.data.ipa}</dd></>)}
               {n.data.literal_meaning && (<><dt>Meaning</dt><dd>“{n.data.literal_meaning}”</dd></>)}
@@ -223,6 +227,8 @@ days.sort((a, b) => b.day - a.day); // newest first
     border-top: 1px solid var(--rule);
     font-size: 0.9375rem;
   }
+  .dn-prose { font-size: 0.9375rem; line-height: 1.6; color: var(--ink); margin-bottom: 0.9rem; }
+  .dn-prose :global(p:first-child) { margin-top: 0; }
   .dn-details dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1.2rem; margin: 0; }
   .dn-details dt {
     font-family: 'Inter', sans-serif;

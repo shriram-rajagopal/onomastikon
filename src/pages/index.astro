@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HelpTip from '../components/HelpTip.astro';
 import { formatEra } from '../lib/era';
 import { entryAnchor } from '../lib/entry';
 import { MACRO_REGION_OF, MACRO_REGION_LABELS, ERAS } from '../lib/macro-regions';
@@ -82,6 +83,16 @@ const popData = Object.fromEntries(
     },
   }}
 >
+  <HelpTip title="Reading this page">
+    <p>Two pillars: <strong>entities</strong> (civilizations, cities, regions, features) on the left, the <strong>languages</strong> that named them on the right. Every row is a page.</p>
+    <div class="hd-row"><span>Babylon</span><span class="hd-chip hd-green">14</span><span class="hd-era">c. 2300 BCE – 651 CE</span></div>
+    <ul>
+      <li>The number counts the page's name entries; <span class="hd-chip hd-green">green</span> means coverage is complete, <span class="hd-chip hd-blue">blue</span> still developing.</li>
+      <li>Filters combine freely: any set of regions with any set of eras.</li>
+      <li>Rest your cursor on an entity row and a panel opens with its summary and a locator map (wide screens).</li>
+      <li>The name of the day changes at midnight Eastern; every name gets a turn before any repeats. The ▾ opens the full entry, and “Past names” is the archive.</li>
+    </ul>
+  </HelpTip>
   <nav class="home-toc" aria-label="Contents">
     <span class="home-toc-title">Browse</span>
     <div class="home-toc-cols">
@@ -115,12 +126,15 @@ const popData = Object.fromEntries(
       ></video>
       <img class="masthead-static" src="/onomastikon-logo.webp" alt="Onomastikon" width="1920" height="720" />
     </div>
-    <h1>A digital atlas of ancient names</h1>
-    <p class="tagline">
-      What the civilizations, cities, regions, and geographic features of antiquity
-      called themselves — and what their neighbors called them. Original scripts,
-      transliterations, pronunciations, and sources.
-    </p>
+    <div class="hero-intro" id="hero-intro">
+      <div class="hero-rule" aria-hidden="true"></div>
+      <h1>A digital atlas of ancient names</h1>
+      <p class="tagline">
+        What the civilizations, cities, regions, and geographic features of antiquity
+        called themselves — and what their neighbors called them. Original scripts,
+        transliterations, pronunciations, and sources.
+      </p>
+    </div>
   </section>
 
   <!-- Name of the day: filled by JS from the search index (the same fetch
@@ -292,11 +306,30 @@ const popData = Object.fromEntries(
     white-space: nowrap;
     text-decoration: none;
     color: var(--ink-soft);
-    border-left: 2px solid var(--rule);
+    border-left: 2px solid var(--rule-strong);
     padding: 0.1rem 0 0.1rem 0.6rem;
     transition: color 0.12s, border-color 0.12s;
   }
+  /* Each rail link wears its section's lozenge and, on hover, its color —
+     the same palette as the headings and chips it points at. */
+  .home-toc a::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 0.45rem;
+    transform: rotate(45deg);
+    background: var(--accent);
+  }
+  .home-toc a[href='#city']::before { background: var(--badge-developing-fg); }
+  .home-toc a[href='#region']::before { background: var(--conf-attested-fg); }
+  .home-toc a[href='#geographic_feature']::before { background: var(--conf-reconstructed-fg); }
+  .home-toc a[href='#languages']::before { background: var(--conf-disputed-fg); }
   .home-toc a:hover { color: var(--accent); border-left-color: var(--accent); }
+  .home-toc a[href='#city']:hover { color: var(--badge-developing-fg); border-left-color: var(--badge-developing-fg); }
+  .home-toc a[href='#region']:hover { color: var(--conf-attested-fg); border-left-color: var(--conf-attested-fg); }
+  .home-toc a[href='#geographic_feature']:hover { color: var(--conf-reconstructed-fg); border-left-color: var(--conf-reconstructed-fg); }
+  .home-toc a[href='#languages']:hover { color: var(--conf-disputed-fg); border-left-color: var(--conf-disputed-fg); }
   /* Hide once the gutter can no longer hold the wider two-column rail clear of
      the content. */
   @media (max-width: 1200px) { .home-toc { display: none; } }
@@ -493,21 +526,44 @@ const popData = Object.fromEntries(
   #daily-details :global(.conf-attested) { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
   #daily-details :global(.conf-reconstructed) { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
   #daily-details :global(.conf-disputed) { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
-  #daily-details :global(.dd-link) { font-family: 'Inter', sans-serif; font-size: 0.8125rem; }
-  /* The heading and tagline settle in a beat after arrival, just behind the
-     masthead's own reveal, so the hero reads as "logo, then title" rather than
-     everything landing at once. Pure CSS on load (no dependency on the video,
-     which the static-image fallbacks don't play); fill-mode `both` holds them
-     hidden through the delay so there is no flash. Reduced-motion shows them
-     immediately, at rest. */
-  @media (prefers-reduced-motion: no-preference) {
-    .hero h1 { animation: hero-rise 0.6s ease 0.3s both; }
-    .hero .tagline { animation: hero-rise 0.6s ease 0.45s both; }
+  #daily-details :global(.dd-link),
+  #daily-details :global(.dn-link) { display: inline-block; margin-top: 0.7rem; font-family: 'Inter', sans-serif; font-size: 0.8125rem; }
+  #daily-details :global(.dn-prose) { font-size: 0.9375rem; line-height: 1.6; margin-bottom: 0.9rem; }
+  #daily-details :global(.dn-prose p:first-child) { margin-top: 0; }
+  #daily-details :global(.dn-sources) { margin: 0; padding-left: 1.1rem; }
+  #daily-details :global(.dn-sources li) { margin: 0.2rem 0; }
+  /* The intro sequence: the wordmark lands, a rule draws itself beneath it,
+     and the title and tagline shoot up into the line from below. Fill-mode
+     `both` holds everything hidden through its delay; reduced-motion shows
+     the finished state immediately. */
+  .hero-rule {
+    width: min(26rem, 72%);
+    height: 2px;
+    margin: 0.3rem auto 0.9rem;
+    background: var(--accent);
+    transform-origin: center;
   }
-  @keyframes hero-rise {
-    from { opacity: 0; transform: translateY(14px); }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-rule { animation: hero-rule-draw 0.7s ease 0.45s both; }
+    .hero-intro h1 { animation: hero-shoot 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) 1.05s both; }
+    .hero-intro .tagline { animation: hero-shoot 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) 1.22s both; }
+  }
+  @keyframes hero-rule-draw {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes hero-shoot {
+    from { opacity: 0; transform: translateY(46px) scale(0.98); }
     to { opacity: 1; transform: none; }
   }
+  /* Seen once, the intro folds away for the rest of the visit: scrolling back
+     up shows the wordmark alone; only a reload (or the header wordmark, which
+     is one) brings the title back. */
+  .hero-intro { overflow: hidden; max-height: 24rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-intro { transition: max-height 0.6s ease, opacity 0.45s ease, margin 0.6s ease; }
+  }
+  .hero-intro.folded { max-height: 0; opacity: 0; margin: 0; }
   /* Filter row: two quiet selects over the entity index. Styled to sit in the
      page's small-sans register rather than as chrome. */
   .filters {
@@ -517,6 +573,12 @@ const popData = Object.fromEntries(
     margin: 0 0 1.5rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
+    /* The filters govern the entity pillar only, so they sit flush over it:
+       same width as the left column of the grid below. */
+    width: calc(50% - 0.75rem);
+  }
+  @media (max-width: 640px) {
+    .filters { width: 100%; }
   }
   .filters label { display: flex; align-items: baseline; gap: 0.5rem; }
   .filters-label {
@@ -636,6 +698,12 @@ const popData = Object.fromEntries(
   #region { color: var(--conf-attested-fg); }
   #geographic_feature { color: var(--conf-reconstructed-fg); }
   #languages { color: var(--conf-disputed-fg); }
+  /* Globe for the entity sections, scroll for languages, seated on the rule
+     where the hedera sits elsewhere. Theme-tinted via the icon variables. */
+  #civilization::after, #city::after, #region::after, #geographic_feature::after {
+    content: var(--icon-globe);
+  }
+  #languages::after { content: var(--icon-scroll); }
   .index-cat h2::before {
     content: '';
     display: inline-block;
@@ -833,18 +901,21 @@ const popData = Object.fromEntries(
           }
           ctx.textContent = pick.context || '';
           daily.dataset.url = pick.url;
+          daily.dataset.day = String(day);
           daily.hidden = false;
         })
       );
-      // The expander arrow pops down the full entry record (IPA, meaning,
-      // era, confidence, sources) from the dataset export, fetched once on
-      // first use; the same export feeds the compare page.
+      // The expander arrow pops down the full entry: the archive page renders
+      // every day's card with prose and details server-side, so the homepage
+      // fetches it once and clones today's details block. One source of
+      // truth; the prose, dl, badges, and sources arrive ready-made.
       const expandBtn = document.getElementById('daily-expand');
       const detailsEl = document.getElementById('daily-details');
-      let datasetPromise: Promise<any> | null = null;
-      const loadDataset = () =>
-        (datasetPromise ??= fetch('/onomastikon.json').then((r) => r.json()));
-      const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : `${y} CE`);
+      let archivePromise: Promise<Document> | null = null;
+      const loadArchive = () =>
+        (archivePromise ??= fetch('/names-of-the-day')
+          .then((r) => r.text())
+          .then((t) => new DOMParser().parseFromString(t, 'text/html')));
       expandBtn?.addEventListener('click', async () => {
         const open = !detailsEl!.hidden;
         if (open) {
@@ -853,47 +924,21 @@ const popData = Object.fromEntries(
           expandBtn.setAttribute('aria-expanded', 'false');
           return;
         }
-        const url = daily!.dataset.url;
-        if (!url) return;
-        const data = await loadDataset();
-        const rec = data.names.find((n: any) => n.url.endsWith(url) || n.url === url);
-        if (!rec) return;
-        const lang = data.languages.find((l: any) => l.id === rec.language);
-        const civ = data.entities.find((c: any) => c.id === rec.civilization);
-        const era =
-          rec.era_end === null
-            ? `c. ${fmtYear(rec.era_start)} – in continued use`
-            : `c. ${fmtYear(rec.era_start)} – ${fmtYear(rec.era_end)}`;
-        const dl = document.createElement('dl');
-        const row = (dt: string, dd: Node | string) => {
-          const t = document.createElement('dt');
-          t.textContent = dt;
-          const d = document.createElement('dd');
-          if (typeof dd === 'string') d.textContent = dd;
-          else d.append(dd);
-          dl.append(t, d);
-        };
-        row('Language', lang?.english_name ?? rec.language);
-        row('Entity', civ?.english_name ?? rec.civilization);
-        if (rec.ipa) row('IPA', rec.ipa);
-        if (rec.literal_meaning) row('Meaning', `“${rec.literal_meaning}”`);
-        row('Attested', era);
-        const conf = document.createElement('span');
-        conf.className = `conf conf-${rec.confidence}`;
-        conf.textContent = rec.confidence;
-        row('Confidence', conf);
-        if (rec.sources?.length) {
-          row(
-            'Sources',
-            rec.sources.map((s: any) => s.citation.replaceAll('*', '')).join(' · ')
-          );
-        }
-        const link = document.createElement('a');
-        link.className = 'dd-link';
-        link.href = rec.url;
-        link.textContent = 'Read the full entry →';
         detailsEl!.textContent = '';
-        detailsEl!.append(dl, document.createElement('br'), link);
+        const doc = await loadArchive();
+        const src = doc.querySelector(`.dn-card[data-day="${daily.dataset.day}"] .dn-details`);
+        if (src) {
+          const node = document.importNode(src, true) as HTMLElement;
+          node.hidden = false;
+          node.removeAttribute('class');
+          detailsEl!.append(...node.childNodes);
+        } else {
+          const a = document.createElement('a');
+          a.className = 'dd-link';
+          a.href = daily.dataset.url ?? '/';
+          a.textContent = 'Read the full entry →';
+          detailsEl!.append(a);
+        }
         detailsEl!.hidden = false;
         expandBtn.classList.add('open');
         expandBtn.setAttribute('aria-expanded', 'true');
@@ -987,9 +1032,20 @@ const popData = Object.fromEntries(
   // so it never appears beside the masthead and the settling header on arrival.
   const toc = document.querySelector('.home-toc');
   const sentinel = document.getElementById('hero-sentinel');
-  if (toc && sentinel && 'IntersectionObserver' in window) {
+  const intro = document.getElementById('hero-intro');
+  let introFolded = false;
+  if (sentinel && 'IntersectionObserver' in window) {
     const railIO = new IntersectionObserver(
-      ([e]) => toc.classList.toggle('is-visible', e.boundingClientRect.top < window.innerHeight * 0.25),
+      ([e]) => {
+        const past = e.boundingClientRect.top < window.innerHeight * 0.25;
+        toc?.classList.toggle('is-visible', past);
+        // First full pass over the hero folds the intro away for the rest of
+        // the visit; the wordmark stands alone from here on.
+        if (past && intro && !introFolded) {
+          introFolded = true;
+          intro.classList.add('folded');
+        }
+      },
       { rootMargin: '-25% 0px 0px 0px', threshold: 0 }
     );
     railIO.observe(sentinel);

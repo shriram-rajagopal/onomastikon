@@ -12,6 +12,7 @@ import AttestationTimeline from '../../components/AttestationTimeline.astro';
 import TransmissionMap from '../../components/TransmissionMap.astro';
 import ArtifactViewer from '../../components/ArtifactViewer.astro';
 import LocatorMap from '../../components/LocatorMap.astro';
+import HelpTip from '../../components/HelpTip.astro';
 import { LANG_GEO } from '../../lib/geo';
 import { ARTIFACTS } from '../../lib/artifacts';
 import { cardSrc } from '../../lib/cards';
@@ -140,6 +141,19 @@ const correctionUrl =
   }}
 >
   <article>
+    <HelpTip title="Reading this entry">
+      <ul>
+        <li>The small map locates the subject; on it, rivers are context lines and the accent mark is the entity itself.</li>
+        <li><strong>Name families</strong> group cognate forms by shared root. An indented form was borrowed from the one above it; forms at one level are parallel descendants.</li>
+      </ul>
+      <div class="hd-tree"><div>Akkadian <em>Miṣru</em> (the root)</div><div>Hebrew <em>Miṣrayim</em> (borrowed from it)</div></div>
+      <ul>
+        <li>The <strong>transmission map</strong> plots each form at its language's homeland; slide the year and forms show as in use, former, or not yet attested.</li>
+        <li><strong>Timeline</strong> bars span each name's attestation, not the language's lifespan.</li>
+        <li>Confidence: green = attested in sources, tan = reconstructed (starred forms), rust = disputed reading.</li>
+        <li>Hover any entry for its # permalink and a copy button; sources sit in each entry's drawer.</li>
+      </ul>
+    </HelpTip>
     <nav class="pager pager-top" aria-label="Browse the atlas">
       {prev ? (
         <a class="pager-link pager-prev" href={`/civilizations/${prev.id}`} rel="prev">
