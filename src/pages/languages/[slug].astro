@@ -2,7 +2,6 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { entryAnchor } from '../../lib/entry';
-import { cardSrc } from '../../lib/cards';
 import CiteThis from '../../components/CiteThis.astro';
 
 export async function getStaticPaths() {
@@ -60,13 +59,11 @@ const correctionUrl =
 
 <BaseLayout
   title={lang.data.english_name}
-  image={lang.data.og_image ?? lang.data.featured_image}
   schema={{
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: lang.data.english_name,
     url: new URL(`/languages/${lang.id}`, Astro.site).href,
-    ...(lang.data.og_image ? { image: new URL(lang.data.og_image, Astro.site).href } : {}),
     author: { '@type': 'Person', name: 'Shriram Rajagopal' },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/',
     inLanguage: 'en',
@@ -88,16 +85,6 @@ const correctionUrl =
         </a>
       ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
     </nav>
-    {lang.data.featured_image && (
-      <img
-        class="featured"
-        src={cardSrc(lang.data.featured_image)}
-        alt={`${lang.data.english_name} endonym card`}
-        width="1920"
-        height="720"
-        fetchpriority="high"
-      />
-    )}
     <p class="eyebrow">Language</p>
     <h1>{lang.data.english_name}</h1>
     {lang.data.native_name && (
@@ -169,15 +156,14 @@ const correctionUrl =
 </BaseLayout>
 
 <style>
-  .featured { display: block; width: 100%; height: auto; aspect-ratio: 1920 / 720; margin: 0 0 1rem; }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .suggest-correction { margin-top: 1.5rem; font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); }
   .feedback-top { font-family: 'Inter', sans-serif; font-size: 0.875rem; margin: 1rem 0 0; }
   .feedback-top a { color: var(--accent); font-style: italic; text-decoration: none; }
   .feedback-top a:hover { text-decoration: underline; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1.5rem; }
-  /* The language's self-name in its own script, as selectable text rather than
-     only pixels in the title card. Same script font stack as .original. */
+  /* The language's self-name in its own script, as selectable text. Same
+     script font stack as .original. */
   .native {
     font-family: 'EB Garamond','Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', 'Noto Sans Brahmi', 'Noto Sans Old Sogdian', serif;
     font-size: 1.75rem;

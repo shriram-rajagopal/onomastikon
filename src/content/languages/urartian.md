@@ -7,8 +7,6 @@ lang_code: xur
 era_start: -830
 era_end: -590
 direction: ltr
-featured_image: /languages/urartian-card.png
-og_image: /og/languages/urartian-card.png
 ---
 
 The language of the kingdom of Urartu, centered on Lake Van in the Armenian highland from the ninth to the sixth century BCE. Urartian is not Indo-European but the close relative of Hurrian, the two forming the small Hurro-Urartian family; it has no relation to the Armenian that later settled the same land. It survives in several hundred royal inscriptions, chiefly the building and campaign records of kings such as Argišti and Sarduri, carved on stone across the highland.

@@ -6,8 +6,6 @@ region: Anatolia (centered on Hattusa)
 era_start: -1650
 era_end: -1180
 summary: The Bronze Age empire of Anatolia, centered on Hattusa, a great power of Hatti alongside Egypt, Babylonia, and Assyria.
-featured_image: /hittites-title.png
-og_image: /og/hittites-title.png
 ---
 
 The Hittites were the great Bronze Age power of Anatolia, an Indo-European-speaking people who built an empire from their capital at Hattusa on the central plateau and contended on equal terms with Egypt, Babylonia, Assyria, and Mitanni. From the Old Kingdom of Hattusili I in the seventeenth century BCE through the empire of Šuppiluliuma I and the clash with Ramesses II at Kadesh, they were one of the Great Kingdoms of the age, until Hattusa fell amid the wider collapse of the Late Bronze Age around 1180 BCE. They left the earliest substantial records of any Indo-European language, written in cuneiform on clay tablets recovered from their capital.

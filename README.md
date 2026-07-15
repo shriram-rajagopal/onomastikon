@@ -41,7 +41,7 @@ Onomastikon is built as a static site using [Astro](https://astro.build). All co
                              # compare, names-of-the-day, about, feed.xml,
                              # onomastikon.json, per-entity locator SVGs
 
-The schema enforces that every name entry has a civilization, a language, a transliteration, a confidence label, and at least one source. Maintenance runs through npm scripts: `new:civ` / `new:lang` / `new:name` scaffold entries, `lint:content` enforces the editorial rules the schema cannot, `dates:update` and the prebuild schedule generator keep the committed ledgers current, and `cards:webp` / `strip:cards` / `fonts:endonyms` maintain the generated assets.
+The schema enforces that every name entry has a civilization, a language, a transliteration, a confidence label, and at least one source. Maintenance runs through npm scripts: `new:civ` / `new:lang` / `new:name` scaffold entries, `lint:content` enforces the editorial rules the schema cannot, `dates:update` and the prebuild schedule generator keep the committed ledgers current, and `fonts:endonyms` maintains the generated endonym webfont.
 
 ## Contributing
 

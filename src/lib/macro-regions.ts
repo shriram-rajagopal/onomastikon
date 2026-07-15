@@ -27,7 +27,9 @@ export const MACRO_REGION_OF: Record<string, string> = {
   assyria: 'mesopotamia',
   babylon: 'mesopotamia',
   babylonia: 'mesopotamia',
+  dilmun: 'mesopotamia',
   euphrates: 'mesopotamia',
+  magan: 'mesopotamia',
   mesopotamia: 'mesopotamia',
   mitanni: 'mesopotamia',
   nineveh: 'mesopotamia',
@@ -131,6 +133,7 @@ export const MACRO_REGION_OF: Record<string, string> = {
   yuezhi: 'central-asia',
   // South Asia
   deccan: 'south-asia',
+  meluhha: 'south-asia',
   pataliputra: 'south-asia',
   taxila: 'south-asia',
   gandhara: 'south-asia',

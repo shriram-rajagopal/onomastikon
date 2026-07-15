@@ -7,8 +7,6 @@ lang_code: xpr
 era_start: -250
 era_end: 400
 direction: rtl
-featured_image: /languages/parthian-card.png
-og_image: /og/languages/parthian-card.png
 ---
 
 Parthian is the Northwest Iranian language of the Arsacid empire, which ruled the Iranian plateau and Mesopotamia from the third century BCE to the early third century CE. It is a close sister of Middle Persian, the two diverging as the western and eastern members of the Middle Iranian group, and the political succession of the Sasanians to the Arsacids left the two languages in contact long enough that Parthian forms are embedded in early Middle Persian usage. Parthian is attested in the ostraca of the Arsacid treasury at Nisa, on coinage, in the early Sasanian royal inscriptions where it appears beside Middle Persian and Greek, and in the substantial Manichaean literature recovered from Turfan, which carried the language on as a confessional medium for centuries after Arsacid rule had ended.

@@ -4,8 +4,8 @@
 
 Implemented in one pass, all build- and browser-verified: every item below
 **except** the era_end convention (QoL 6 — awaiting an editorial decision),
-dark-mode title cards (Visual 3 — deferred behind the title-card gate, as
-proposed), and the audio *recordings* themselves (Audio 1 — the schema
+dark-mode title cards (Visual 3 — mooted 2026-07-15 when the title-card
+system was removed entirely), and the audio *recordings* themselves (Audio 1 — the schema
 fields, player UI, and no-TTS rule are in place; the pilot needs recorded
 readings). Notable deltas from the proposal text: the search shortcut is a
 page-hop, not an overlay; region filtering uses an explicit slug→shelf map in
@@ -129,14 +129,11 @@ not repeated here except where they've grown teeth.
    never shown. Gate it in JS (inject the `<source>`s only when the
    hover/pointer media queries pass) or use `preload="none"` + scripted play.
 
-5. **Recompress the title cards.** The `*-title.png` set runs 40–80 KB each and
-   `public/og` is 3.2 MB total. Lossless-to-WebP (alpha preserved) typically
-   halves these; keep PNG for the OG copies (some scrapers still dislike WebP)
-   and switch only the on-page `featured` images. Low priority, pure bytes.
+5. ~~Recompress the title cards.~~ Mooted 2026-07-15: the title-card system
+   was removed entirely.
 
-6. **`fetchpriority="high"` on the featured card**, which is the LCP element on
-   every entity page, and explicit `width`/`height` alongside the existing
-   `aspect-ratio` so the hint costs nothing.
+6. ~~`fetchpriority="high"` on the featured card.~~ Mooted with the same
+   removal.
 
 ## Visual additions
 
@@ -155,13 +152,9 @@ not repeated here except where they've grown teeth.
    (fewer than 2 mapped languages). Reuses `lib/geo` + `lib/coastline`
    wholesale.
 
-3. **True dark-mode title cards, eventually.** The invert-plus-hue-rotate
-   filter is a good trick but visibly cooler than the light-mode parchment
-   ink. The Remotion setup in `videos/` can render a dark variant per card;
-   `<picture>` + `prefers-color-scheme` can't key off the manual toggle, so
-   it would be a `data-theme`-driven `src` swap. Defer behind the title-card
-   gate (content depth before feature breadth) — listed so it's a decision,
-   not a surprise.
+3. ~~True dark-mode title cards, eventually.~~ Mooted 2026-07-15: the
+   title-card system (cards, `videos/` renderer, OG images) was removed
+   entirely.
 
 4. **Comparison view** (roadmap mid-term) remains the largest visual feature
    worth building: 2–4 entities side-by-side across shared languages. Natural

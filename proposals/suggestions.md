@@ -58,7 +58,7 @@ and the rest below.
    lands, not to check back).
 
 7. **Sync `roadmap.md`.** It predates Parthian/Syriac/Classical Chinese and the
-   language title cards; the open-work memory note and the roadmap currently
+   language title cards (since removed entirely, 2026-07-15); the open-work memory note and the roadmap currently
    disagree. (Tracked already; listing here so it doesn't get lost.)
 
 8. **`era_end` display for ongoing-relevance entries.** `formatEra` renders

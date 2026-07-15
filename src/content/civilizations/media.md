@@ -6,8 +6,6 @@ entry_status: complete
 era_start: -700
 era_end: 300
 summary: The first great Iranian power, the kingdom of the Medes in the northwestern Zagros, whose name the Achaemenids carried into their trilingual inscriptions and the Bible bound forever to Persia in the phrase "the Medes and the Persians."
-featured_image: /media-title.png
-og_image: /og/media-title.png
 ---
 
 Media was the land of the Medes, an Iranian people settled across the northwestern Zagros around their capital Ecbatana, modern Hamadan. In the late seventh century they built the first empire ruled from the Iranian plateau, sharing in the destruction of Assyria, and for two generations they were the dominant power of the region until Cyrus the Persian, himself partly Median by descent, absorbed their kingdom into the Achaemenid Empire around 550 BCE. Median thereafter ceased to be a state and became a province, but the Medes remained the senior partner in the imperial imagination: Greeks called the Persian Wars *ta Mēdiká*, "the Median affair," and a Greek who took the Persian side was said to "Medize."

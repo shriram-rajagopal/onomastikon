@@ -58,8 +58,7 @@ if (!existsSync(resolve(CIV_DIR, `${civ}.md`))) {
       `    entry_status    (developing | complete, default developing)\n` +
       `    era_start       (number, negative = BCE)\n` +
       `    era_end         (number)\n` +
-      `    summary         (string)\n` +
-      `    featured_image  (string, optional)`
+      `    summary         (string)`
   );
 }
 

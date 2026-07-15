@@ -7,8 +7,6 @@ lang_code: pi
 era_start: -300
 era_end: 600
 direction: ltr
-featured_image: /languages/pali-card.png
-og_image: /og/languages/pali-card.png
 ---
 
 Pali is the Middle Indo-Aryan language of the Theravāda Buddhist canon, a literary vernacular younger than Sanskrit's classical grammar but descended from the same Old Indo-Aryan speech, smoothed by the sound changes of everyday use: clusters assimilate (*Takṣaśilā* becomes *Takkasilā*), and the crisp edges of the older language soften. The canon it carries was composed orally in northern India from roughly the fourth century BCE and first written down in Sri Lanka in the first century BCE; the great commentaries followed in the fifth century CE. The name *pāli* originally meant simply "the text," and only later came to name the language of the text; the tradition itself called the language *Māgadhī*, the speech of Magadha, though modern scholarship places its dialect base further west.

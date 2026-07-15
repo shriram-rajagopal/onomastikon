@@ -542,6 +542,22 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Urarṭu family',
     note: 'The Assyrian Urarṭu for the kingdom of Van, reaching the Hebrew Bible as Ararat; the Behistun Babylonian reused it (Uraštu) to render the Old Persian Armina, binding the old highland name to its successor.',
   },
+  dilmun: {
+    display: 'The Dilmun family',
+    note: 'The name of the Gulf trade-land, among the oldest toponyms in writing: the Sumerian Dilmun of the archaic Uruk tablets and the Akkadian Tilmun that carried the name through two millennia of commerce and annals.',
+  },
+  tylos: {
+    display: 'The Týlos pair',
+    note: 'The classical name of Bahrain, the Greek Týlos of Alexander’s surveyors and its Latin echo in Pliny; generally taken as old Tilmun in Greek dress, the Bronze Age name crossing into the alphabet.',
+  },
+  magan: {
+    display: 'The Magan family',
+    note: 'The name of the Bronze Age copper-land of the Oman peninsula: Sumerian Magan and Akkadian Makkan, one name in the two languages of the Gulf trade, later archaized by Assyrian scribes to mean Egypt.',
+  },
+  meluhha: {
+    display: 'The Meluḫḫa family',
+    note: 'The name of the farthest Bronze Age trade-land, most likely the Indus civilization, shared by Sumerian and Akkadian; possibly the only surviving name the Indus world was called while it lived.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {

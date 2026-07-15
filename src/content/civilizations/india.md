@@ -6,8 +6,6 @@ region: The Indian subcontinent, south of the Himalayas
 era_start: -1500
 era_end: 1100
 summary: The civilization of the Indian subcontinent, known to itself as Bhārata and to the world by the name of the river Sindhu, the Indus.
-featured_image: /india-title.png
-og_image: /og/india-title.png
 ---
 
 India is the civilization of the subcontinent that lies south of the Himalayas and east of the Indus, the land of the Vedas and the epics, of the Mauryan and Gupta empires, and of the religious traditions, Vedic, Buddhist, and Jain, that radiated from it across Asia. Its onomastic situation is one of the cleanest illustrations of a pattern that recurs throughout this atlas: the gulf between what a civilization calls itself and what its neighbors call it. India's own name for its land is *Bhārata*, the realm of the legendary king Bharata, a name that looks inward to dynasty and descent. Every other name on this page looks instead at a single river. Sanskrit *Sindhu*, "the river," meaning the Indus and the borderland it watered, became Old Persian *Hinduš*, the easternmost province of Darius's empire, and from that Achaemenid frontier-district the name was generalized, first by the Persians and then by the Greeks, to the entire subcontinent beyond.

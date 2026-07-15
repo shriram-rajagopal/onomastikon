@@ -17,9 +17,7 @@
     "new:civ": "node scripts/new-entity.mjs civilization",
     "new:lang": "node scripts/new-entity.mjs language",
     "lint:content": "node scripts/lint-content.mjs",
-    "dates:update": "node scripts/generate-entry-dates.mjs",
-    "strip:cards": "node scripts/strip-card-background.mjs",
-    "cards:webp": "node scripts/convert-cards-webp.mjs"
+    "dates:update": "node scripts/generate-entry-dates.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

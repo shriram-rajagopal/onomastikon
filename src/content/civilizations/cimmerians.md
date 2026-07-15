@@ -6,8 +6,6 @@ entry_status: complete
 era_start: -800
 era_end: -600
 summary: The first steppe raiders to break into the ancient Near East, Homer's misty Kimmérioi and the Assyrians' Gimirru, whom the Hebrew table of nations remembers as Gomer.
-featured_image: /cimmerians-title.png
-og_image: /og/cimmerians-title.png
 ---
 
 The Cimmerians were the first of the great steppe peoples to crash into the settled Near East. Pushed out of the Pontic grasslands by the advancing Scythians, as Herodotus tells it, they poured through the Caucasus into Anatolia in the late eighth and seventh centuries BCE, destroyed the kingdom of Phrygia and its king Midas, harried Lydia and Urartu, and fought the Assyrians, whose annals record the *Gimirru* as a deadly new enemy from the north. Within a century they had spent themselves and vanished, the opening act of a pattern the Scythians, Xiongnu, and Huns would each repeat.

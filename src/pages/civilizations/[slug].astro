@@ -15,7 +15,6 @@ import LocatorMap from '../../components/LocatorMap.astro';
 import HelpTip from '../../components/HelpTip.astro';
 import { LANG_GEO } from '../../lib/geo';
 import { ARTIFACTS } from '../../lib/artifacts';
-import { cardSrc } from '../../lib/cards';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -126,14 +125,12 @@ const correctionUrl =
 <BaseLayout
   title={civ.data.english_name}
   description={civ.data.summary}
-  image={civ.data.og_image ?? civ.data.featured_image}
   schema={{
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: civ.data.english_name,
     description: civ.data.summary,
     url: new URL(`/civilizations/${civ.id}`, Astro.site).href,
-    ...(civ.data.og_image ? { image: new URL(civ.data.og_image, Astro.site).href } : {}),
     author: { '@type': 'Person', name: 'Shriram Rajagopal' },
     license: 'https://creativecommons.org/licenses/by-sa/4.0/',
     inLanguage: 'en',
@@ -168,16 +165,6 @@ const correctionUrl =
         </a>
       ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
     </nav>
-    {civ.data.featured_image && (
-      <img
-        class="featured"
-        src={cardSrc(civ.data.featured_image)}
-        alt={`${civ.data.english_name} title card`}
-        width="1920"
-        height="720"
-        fetchpriority="high"
-      />
-    )}
     <p class="eyebrow">{
       civ.data.type === 'civilization' ? 'Civilization' :
       civ.data.type === 'city' ? 'City' :
@@ -520,15 +507,6 @@ const correctionUrl =
 </script>
 
 <style>
-  /* Title card is a transparent PNG; the parchment page shows through. The
-     aspect-ratio reserves space to avoid layout shift while it loads. */
-  .featured {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1920 / 720;
-    margin: 0 0 1rem;
-  }
   .eyebrow { font-family: 'Inter', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); margin: 0 0 0.5rem; }
   .meta { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.25rem 0 1rem; }
   .status {

@@ -7,8 +7,6 @@ lang_code: syc
 era_start: 100
 era_end: 700
 direction: rtl
-featured_image: /languages/syriac-card.png
-og_image: /og/languages/syriac-card.png
 ---
 
 Syriac is the Eastern Aramaic dialect of Edessa that became the principal literary and liturgical language of Aramaic-speaking Christianity in Late Antiquity. From the second century CE it carried a vast body of writing, scriptural, theological, historical, and scientific, that made it the third great language of the late antique Near East beside Greek and Latin, and the medium through which much of Greek learning later passed into Arabic. As a form of Aramaic it stands in direct continuity with the older Imperial Aramaic of the Achaemenid chancelleries, and it preserves, in a Christian and Late Antique register, the same Northwest Semitic stock that the project's Hebrew, Phoenician, and Aramaic entries draw on.

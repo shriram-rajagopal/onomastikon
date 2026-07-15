@@ -6,8 +6,6 @@ region: Upper Mesopotamia (the upper Tigris)
 era_start: -2025
 era_end: -609
 summary: The Upper-Mesopotamian empire centered on the city of Aššur, the dominant Near Eastern power of the early first millennium BCE.
-featured_image: /assyria-title.png
-og_image: /og/assyria-title.png
 ---
 
 Assyria was the empire of northern Mesopotamia, taking both its name and its patron god from the city of Aššur on the upper Tigris. From a second-millennium city-state known for the merchant colonies it planted in Anatolia, the Old Assyrian *kārum* at Kaneš chief among them, it grew through the Middle Assyrian kingdom into the Neo-Assyrian Empire of the ninth through seventh centuries BCE, the largest state the Near East had yet seen, reaching at its height from the Persian Gulf to the Nile. Its royal seat moved north and west over the centuries, from Aššur to Kalḫu, Dūr-Šarrukīn, and finally Nineveh, which fell to a coalition of Medes and Babylonians in 612 BCE; the last Assyrian resistance at Harran was extinguished by 609.

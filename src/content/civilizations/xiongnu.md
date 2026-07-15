@@ -6,8 +6,6 @@ entry_status: developing
 era_start: -300
 era_end: 100
 summary: The first great steppe empire, the nomad confederation north of Han China against which the Great Wall was raised, known almost entirely by the names the Chinese gave them.
-featured_image: /xiongnu-title.png
-og_image: /og/xiongnu-title.png
 ---
 
 The Xiongnu were the first true steppe empire, a confederation of mounted nomads welded together on the Mongolian plateau under their ruler the Chanyu and, for two centuries, the great antagonist of Han China. It was largely against them that the Great Wall was joined into one line; the Han bought peace with tribute and marriage-alliances, the *heqin*, before turning to conquest, and Sima Qian gave them a chapter of his *Shiji* that is the founding ethnography of the steppe. Their own language is barely recorded, and almost everything we call them is Chinese: the name *Xiōngnú* itself, and the archaic *Xiǎnyǔn* and *Xūnyù* with which the Chinese tradition, tracing the nomads back to legendary antiquity, identified them.

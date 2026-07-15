@@ -7,8 +7,6 @@ lang_code: peo
 era_start: -550
 era_end: -330
 direction: ltr
-featured_image: /languages/old-persian-card.png
-og_image: /og/languages/old-persian-card.png
 ---
 
 The language of the Achaemenid royal inscriptions, written in a simplified, semi-alphabetic cuneiform script developed under Darius I. Old Persian is attested almost exclusively in monumental royal contexts; for administrative purposes the Achaemenids used Aramaic.

@@ -6,8 +6,6 @@ region: The central highlands of Canaan (Samaria)
 era_start: -930
 era_end: -720
 summary: The northern Israelite kingdom, centered on Samaria, known to the Assyrians as the House of Omri.
-featured_image: /israel-title.png
-og_image: /og/israel-title.png
 ---
 
 Israel was the northern of the two Israelite kingdoms, formed when the united monarchy of David and Solomon split around 930 BCE, with its heartland in the central highlands and its capital eventually at Samaria. The larger, wealthier, and more cosmopolitan of the two, it was ruled by a succession of dynasties, the most powerful founded by Omri in the ninth century, until the Neo-Assyrian Empire destroyed it: Samaria fell to Sargon II around 720 BCE and its population was deported, ending the kingdom and giving rise to the tradition of the "lost tribes." The name *Israel* also carries a wider sense, older and longer-lived than the northern state, denoting the whole people descended from the patriarch Jacob, who was renamed Israel.

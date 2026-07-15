@@ -7,8 +7,6 @@ lang_code: phn
 era_start: -1050
 era_end: -150
 direction: rtl
-featured_image: /languages/phoenician-card.png
-og_image: /og/languages/phoenician-card.png
 ---
 
 The language of the Phoenician city-states of the Levantine coast and of the Mediterranean network of colonies and trading posts they established between the eleventh and second centuries BCE. Phoenician is closely related to Hebrew and to the other Canaanite languages, and its speakers consistently called themselves and their language Canaanite (*kn'nm*); the modern name "Phoenician" derives from Greek *Phoiníkē*, an exonym of contested etymology.

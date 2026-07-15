@@ -6,8 +6,6 @@ region: Southern Mesopotamia
 era_start: -1894
 era_end: -539
 summary: The southern Mesopotamian kingdom centered on Babylon, dominant under Hammurabi and again under the Neo-Babylonian empire.
-featured_image: /babylonia-title.png
-og_image: /og/babylonia-title.png
 ---
 
 Babylonia was the kingdom of southern Mesopotamia, the alluvial land between the lower Tigris and Euphrates that the Greeks named after its great city, Babylon. It rose under the Amorite First Dynasty of Babylon, whose sixth king, Hammurabi, united the south in the eighteenth century BCE; passed through nearly four centuries of Kassite rule, when the kingdom was known internationally as Karduniaš; and reached its last height as the Neo-Babylonian or Chaldean empire of Nebuchadnezzar II, which destroyed Jerusalem and carried Judah into exile, before falling to Cyrus the Great in 539 BCE. Throughout, its high culture remained continuous with the older Sumerian and Akkadian world it inherited, and Akkadian in its Babylonian dialect was the language of its law, literature, and administration.

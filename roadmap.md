@@ -221,8 +221,8 @@ Regions that were always inside the 3100 BCE window but never made the roadmap; 
 - [ ] Saba / Sheba (Sabaic *Sbʾ*; Hebrew *Šəḇāʾ*, Greek *Sabaîoi*; opens Old South Arabian)
 - [ ] Himyar (candidate; may fold into a single South Arabia treatment under the name-thread rule)
 - [ ] Nabataea (Petra's kingdom; Nabataean Aramaic epigraphy plus Greek and Latin)
-- [ ] Dilmun (Sumerian and Akkadian attested from the third millennium; Bahrain)
-- [ ] Magan and Meluhha (the Mesopotamian trade horizons; disputed identifications with Oman and the Indus, handled honestly; Meluhha may partly fold into the India page)
+- [x] Dilmun (Sumerian and Akkadian attested from the third millennium; Bahrain; built 2026-07-15 with the Tylos/Awāl continuity)
+- [x] Magan and Meluhha (built 2026-07-15 as separate pages; the disputed Maka/Maketa thread on the Magan page, the Meluhha page standing beside rather than inside India; Elamite Makkaš left as a documented gap)
 - [ ] Gaul / the Gauls (Gallia and Galatia; the Celtic civilizational unit; opens Gaulish)
 - [ ] Thrace
 - [ ] Illyria (candidate; thin direct attestation)
@@ -247,8 +247,7 @@ Regions that were always inside the 3100 BCE window but never made the roadmap; 
 - [ ] Sarmatia (candidate; may fold into the Scythia page's thread)
 
 ### Geographic features
-- [ ] The Red Sea (the ancient Erythraean thread starts here)
-- [ ] The Persian Gulf
+- [x] ~~The Red Sea~~ and ~~the Persian Gulf~~ — already built in the 2026-06 off-roadmap Near-Eastern-seas batch; listed here in error in the 2026-07-15 revision
 - [ ] The Rhine
 - [ ] The Danube (*Istros* / *Danubius*; a two-name river, which is itself the story)
 - [ ] The Alps
@@ -522,8 +521,7 @@ The hardest phase evidentially, and deliberately last: no external attestation e
 ### Soon (after ~10-15 entities)
 - [ ] Mobile font fix for missing characters (note: cuneiform/Old Persian/Devanagari rendering on some mobile devices needs verification; webfonts now load for all scripts in the inventory, including Inscriptional Parthian, Manichaean, and Syriac, but device verification is still owed)
 - [x] Custom favicon (the wordmark's sigma in oxblood on a parchment tile, dark-scheme variant in the SVG, plus a 180×180 apple-touch-icon; replaced the Astro starter rocket that had silently shipped)
-- [x] Open Graph preview image for social link sharing (per-entity title cards with a site-wide fallback)
-- [x] Endonym title cards for all language pages (rendered through the Remotion setup in videos/)
+- ~~Open Graph preview images and endonym title cards~~ — the title-card system (per-entity and language cards, the Remotion `videos/` project, and the OG image renders) was removed entirely on 2026-07-15; social previews are text-only now
 - [ ] DNS cleanup to Vercel's recommended new records
 - [ ] LinkedIn Featured + Projects entries (no feed post yet)
 - [ ] Pin Onomastikon on GitHub profile

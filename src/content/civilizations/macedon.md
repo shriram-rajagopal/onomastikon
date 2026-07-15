@@ -6,8 +6,6 @@ region: The southern Balkans (northern Greece)
 era_start: -700
 era_end: -146
 summary: The kingdom of the Argead and Antigonid dynasties on the northern edge of the Greek world, whose kings Philip II and Alexander the Great conquered Greece and then the Persian empire, carrying the Greek language and Macedonian arms to the Indus.
-featured_image: /macedon-title.png
-og_image: /og/macedon-title.png
 ---
 
 Macedon was the kingdom of the Argead dynasty on the northern marches of the Greek world, a land of cattle and timber and hard highland infantry that rose under Philip II to master the Greek city-states and under his son Alexander to overthrow the Persian empire and reach the Indus. Its people, the *Makedónes*, spoke a form of Greek and worshipped the Olympian gods, but were long held at arm's length by the southern Greeks as half-barbarian; their kings claimed descent from Heracles and the Argive line. After Alexander's death the kingdom passed to the Antigonids and remained a great power until Rome broke it at Pydna in 168 BCE.

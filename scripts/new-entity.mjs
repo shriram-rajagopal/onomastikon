@@ -89,9 +89,7 @@ entry_status: developing # developing | complete (promote only once every in-inv
 region: ""              # TODO geographic anchor shown in the page meta line
 era_start: 0            # TODO start year of the entity's span (negative = BCE)
 era_end: 0              # TODO end year
-summary: ""             # TODO one-sentence summary for cards and meta tags
-# featured_image: "/${slug}-title.png"   # optional title-card image
----
+summary: ""             # TODO one-sentence summary for cards and meta tags---
 
 <!-- Entity-level summary: a longer prose overview, comparable in depth to the name
      entries that will appear below it. Cover what the entity is, its span, and its

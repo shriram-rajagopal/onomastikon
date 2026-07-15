@@ -7,8 +7,6 @@ lang_code: arc
 era_start: -700
 era_end: -200
 direction: rtl
-featured_image: /languages/imperial-aramaic-card.png
-og_image: /og/languages/imperial-aramaic-card.png
 ---
 
 The standardized form of Aramaic used as the administrative lingua franca of the Achaemenid Empire from roughly the seventh through the third centuries BCE. Imperial Aramaic is attested in inscriptions, papyri, and ostraca from across the Persian world, from Egypt to Bactria. Its prestige as an administrative language outlasted the empire itself, surviving into the Hellenistic period as a continuing medium of regional record-keeping. The Elephantine papyri, an archive from a Jewish military colony in Egypt dating to the fifth century BCE, constitute one of the largest single corpora of Imperial Aramaic.

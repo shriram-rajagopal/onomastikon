@@ -7,8 +7,6 @@ lang_code: tmr
 era_start: 200
 era_end: 1000
 direction: rtl
-featured_image: /languages/jewish-babylonian-aramaic-card.png
-og_image: /og/languages/jewish-babylonian-aramaic-card.png
 ---
 
 Jewish Babylonian Aramaic is the Eastern Aramaic vernacular of the Jewish communities of Sasanian Babylonia, and above all the language of the Babylonian Talmud, the *Bavli*, whose discussions were carried on in it and redacted into their received form around the sixth and seventh centuries CE. It is one of the great Aramaic literary languages of Late Antiquity, standing beside Syriac and Mandaic as a branch of Eastern Aramaic, and distinct both from the older Imperial Aramaic of the Achaemenid chancelleries and from the Western dialects of Palestine. Its vast corpus, centered on the academies of Sura and Pumbedita, preserves the names of the ancient world as they were known in the rabbinic East. The standard reference is Sokoloff's *A Dictionary of Jewish Babylonian Aramaic*.

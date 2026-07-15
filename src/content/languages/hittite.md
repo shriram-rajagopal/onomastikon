@@ -7,8 +7,6 @@ lang_code: hit
 era_start: -1650
 era_end: -1180
 direction: ltr
-featured_image: /languages/hittite-card.png
-og_image: /og/languages/hittite-card.png
 ---
 
 The earliest attested Indo-European language and the principal language of the kingdom of Hatti, centered on the Anatolian plateau in what is now central Turkey. Hittite is preserved in tens of thousands of cuneiform tablets recovered from the Hittite capital Hattusa, ranging from royal annals and ritual texts to legal codes and the diplomatic correspondence that linked the Late Bronze Age Near East. Hittite scribes called their own language *Nešili* or *Nešumnili*, "the language of Nesa," after an early Hittite center; the modern name "Hittite" derives instead from *Hatti*, the older indigenous name for the region that the Hittites adopted as the designation of their kingdom.

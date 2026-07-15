@@ -7,8 +7,6 @@ lang_code: xhu
 era_start: -2300
 era_end: -1000
 direction: ltr
-featured_image: /languages/hurrian-card.png
-og_image: /og/languages/hurrian-card.png
 ---
 
 Hurrian was the language of the Hurrians, a people attested in northern Mesopotamia and Syria from about 2300 BCE and largely vanished by 1000 BCE; it was the spoken language of the kingdom of Mitanni, whose Indo-Aryan ruling class governed a predominantly Hurrian population. With its later relative Urartian it forms the small Hurro-Urartian family, whose wider connections are unsettled; Hurrian is otherwise an isolate, related to no other known tongue of the ancient Near East. It was written in the Mesopotamian cuneiform script, adapted to its own sounds, and at Ugarit also in the local alphabetic cuneiform.

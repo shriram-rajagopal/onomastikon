@@ -7,8 +7,6 @@ lang_code: sog
 era_start: 100
 era_end: 1000
 direction: rtl
-featured_image: /languages/sogdian-card.png
-og_image: /og/languages/sogdian-card.png
 ---
 
 Sogdian is the Eastern Middle Iranian language of Sogdiana, the land of Samarkand between the Oxus and the Jaxartes, and the working language of the Silk Road at its height: for most of the first millennium CE, a trader's letter from the Chinese frontier to Samarkand was written in Sogdian. Its earliest substantial documents are the Ancient Letters, a mailbag of private correspondence abandoned in a watchtower west of Dunhuang around 313 CE; after them come inscriptions, contracts, and a large religious literature, Buddhist, Manichaean, and Christian, reaching into the tenth century. The language gave way to Persian and Turkic after the Islamic conquest, surviving today only in the Yaghnobi speech of a Tajik mountain valley.

@@ -7,8 +7,6 @@ lang_code: xcl
 era_start: 405
 era_end: 1300
 direction: ltr
-featured_image: /languages/classical-armenian-card.png
-og_image: /og/languages/classical-armenian-card.png
 ---
 
 The literary language of ancient and medieval Armenia, called *Grabar*, "the written tongue," attested from the early fifth century CE, when Mesrop Maštocʿ devised the Armenian alphabet to render it. Classical Armenian forms its own independent branch of Indo-European, a single-member subfamily, heavily overlaid with Iranian loanwords after centuries under Persian rule. It is the language of the Armenian Bible, of the historians Agatʿangelos and Movsēs Xorenacʿi, and of a large patristic and historiographic literature, and it remained the written standard for well over a thousand years.

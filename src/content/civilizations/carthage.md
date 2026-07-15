@@ -6,8 +6,6 @@ region: North Africa (the Gulf of Tunis)
 era_start: -814
 era_end: -146
 summary: The Phoenician colony on the North African coast that grew into Rome's great maritime rival.
-featured_image: /carthage-title.png
-og_image: /og/carthage-title.png
 ---
 
 Carthage was the greatest of the Phoenician colonies, founded by settlers from Tyre on the North African coast at the Gulf of Tunis, traditionally in 814 BCE. From a trading post it grew into the dominant maritime power of the western Mediterranean, commanding a network of ports and colonies across North Africa, Sardinia, Sicily, and Spain, until its long contest with Rome in the three Punic Wars ended in its destruction in 146 BCE. Its people spoke Punic, the western dialect of Phoenician, and carried the Canaanite language and gods a thousand miles from their Levantine homeland.
