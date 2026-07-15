@@ -31,6 +31,32 @@ const dailyRounds = dailySchedule.rounds.map((r) => ({
 const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
   civs.some((c) => MACRO_REGION_OF[c.id] === key)
 );
+
+// Entry counts per entity and language, shown as chips in the index so a
+// reader can see at a glance which pages are most fleshed out.
+const countByCiv = new Map<string, number>();
+const countByLang = new Map<string, number>();
+for (const n of names) {
+  countByCiv.set(n.data.civilization.id, (countByCiv.get(n.data.civilization.id) ?? 0) + 1);
+  countByLang.set(n.data.language.id, (countByLang.get(n.data.language.id) ?? 0) + 1);
+}
+
+// Long-hover popover data: summary, subheading parts, status, count. The
+// minimap is fetched lazily from /locators/<slug>.svg and injected inline so
+// the page's theme variables style it.
+const popData = Object.fromEntries(
+  civs.map((c) => [
+    c.id,
+    {
+      n: c.data.english_name,
+      s: c.data.summary,
+      r: c.data.region ?? '',
+      e: formatEra(c.data.era_start, c.data.era_end),
+      st: c.data.entry_status,
+      c: countByCiv.get(c.id) ?? 0,
+    },
+  ])
+);
 ---
 
 <BaseLayout
@@ -102,7 +128,7 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
        a per-cycle permutation gives every name one turn before any repeats.
        Absent without JS; the slot's min-height reserves the space. -->
   <div class="daily-slot">
-    <section class="daily-card" id="daily" hidden aria-label="Name of the day">
+    <section class="daily-card corner-ticks" id="daily" hidden aria-label="Name of the day">
       <span class="daily-legend">Name of the day</span>
       <a id="daily-link" class="daily-link" href="#">
         <span id="daily-orig" class="daily-orig"></span>
@@ -113,6 +139,14 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
       <a id="daily-random" class="daily-random" href="/search">Random name →</a>
     </section>
   </div>
+  <aside id="entity-pop" class="corner-ticks" hidden>
+    <h3 id="pop-name"></h3>
+    <p class="pop-sub"><span id="pop-region"></span> · <span id="pop-era"></span></p>
+    <p class="pop-badges"><span id="pop-status" class="status"></span><span id="pop-count" class="pop-count"></span></p>
+    <div id="pop-map" class="pop-map" aria-hidden="true"></div>
+    <p id="pop-summary" class="pop-summary"></p>
+  </aside>
+  <script type="application/json" id="entity-pop-data" set:html={JSON.stringify(popData)} />
   <script type="application/json" id="daily-schedule" set:html={JSON.stringify(dailyRounds)} />
 
   <!-- Marks the foot of the hero: the script reveals the Browse rail once this
@@ -141,7 +175,7 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
   </form>
 
   <div class="index-grid">
-    <div class="index-col">
+    <div class="index-col corner-ticks">
       {(() => {
         const byName = (a: typeof civs[number], b: typeof civs[number]) =>
           a.data.english_name.localeCompare(b.data.english_name);
@@ -166,13 +200,17 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
               <ul class="index-list">
                 {grouped[key].map((entity) => (
                   <li
+                    data-slug={entity.id}
                     data-mregion={MACRO_REGION_OF[entity.id]}
                     data-start={entity.data.era_start}
                     data-end={entity.data.era_end ?? 9999}
                   >
                     <a href={`/civilizations/${entity.id}`}>
                       <span class="name" data-morph={`civilizations/${entity.id}`}>{entity.data.english_name}</span>
-                      <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
+                      <span class="row-meta">
+                        <span class={`count count-${entity.data.type}`} title={`${countByCiv.get(entity.id) ?? 0} name entries`}>{countByCiv.get(entity.id) ?? 0}</span>
+                        <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
+                      </span>
                     </a>
                   </li>
                 ))}
@@ -182,7 +220,7 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
       })()}
     </div>
 
-    <div class="index-col">
+    <div class="index-col corner-ticks">
       <section class="index-cat">
         <h2 id="languages">Languages</h2>
         <ul class="index-list">
@@ -190,16 +228,19 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
             <li>
               <a href={`/languages/${lang.id}`}>
                 <span class="name" data-morph={`languages/${lang.id}`}>{lang.data.english_name}</span>
-                {lang.data.native_name ? (
-                  <span
-                    class="era endonym"
-                    lang={lang.data.lang_code}
-                    dir={lang.data.direction === 'rtl' ? 'rtl' : undefined}
-                    title={lang.data.script}
-                  >{lang.data.native_name}</span>
-                ) : (
-                  <span class="era">{lang.data.script}</span>
-                )}
+                <span class="row-meta">
+                  <span class="count count-language" title={`${countByLang.get(lang.id) ?? 0} name entries`}>{countByLang.get(lang.id) ?? 0}</span>
+                  {lang.data.native_name ? (
+                    <span
+                      class="era endonym"
+                      lang={lang.data.lang_code}
+                      dir={lang.data.direction === 'rtl' ? 'rtl' : undefined}
+                      title={lang.data.script}
+                    >{lang.data.native_name}</span>
+                  ) : (
+                    <span class="era">{lang.data.script}</span>
+                  )}
+                </span>
               </a>
             </li>
           ))}
@@ -317,8 +358,10 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
   .daily-slot { min-height: 15rem; margin: 0 0 2.5rem; }
   .daily-card {
     position: relative;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    background-image: var(--grain);
+    box-shadow: var(--shadow-soft);
     padding: 2.5rem 1.5rem 2rem;
     text-align: center;
   }
@@ -415,9 +458,10 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
     font-size: 0.8125rem;
     color: var(--ink);
     background: var(--parchment);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-strong);
     border-radius: 4px;
     padding: 0.25rem 0.4rem;
+    box-shadow: var(--shadow-soft);
   }
   .filters-count { color: var(--ink-soft); }
 
@@ -427,16 +471,18 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
   .index-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
+    gap: 1.5rem;
     align-items: start;
   }
-  /* A rule centered in the gutter divides entities from languages. The two
-     columns each take half the 2.5rem gutter as inner padding, and the border
-     sits on the boundary between them. */
-  .index-col:first-child { padding-right: 1.25rem; }
-  .index-col:last-child {
-    padding-left: 1.25rem;
-    border-left: 1px solid var(--rule);
+  /* Each column is a defined panel: strong rule, soft shadow, faint paper
+     grain, corner ticks (class in markup). */
+  .index-col {
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
+    background-image: var(--grain);
+    box-shadow: var(--shadow-soft);
+    padding: 0 1.25rem 1rem;
   }
   /* Align the two columns' first headings on the same baseline. */
   .index-col > .index-cat:first-child h2 { margin-top: 0; }
@@ -450,9 +496,6 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
   }
   @media (max-width: 640px) {
     .index-grid { grid-template-columns: 1fr; }
-    /* No vertical divider once the columns stack. */
-    .index-col:first-child { padding-right: 0; }
-    .index-col:last-child { padding-left: 0; border-left: 0; }
   }
   .index-list {
     list-style: none;
@@ -460,16 +503,104 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
     margin: 1rem 0 2rem;
   }
   .index-list li { border-bottom: 1px solid var(--rule); }
+  .index-list li:last-child { border-bottom: 0; }
   .index-list a {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 0.75rem;
-    padding: 0.875rem 0;
+    padding: 0.875rem 0.4rem;
+    margin: 0 -0.4rem;
+    border-left: 3px solid transparent;
     text-decoration: none;
     color: var(--ink);
   }
-  .index-list a:hover { color: var(--accent); }
+  /* Hover emphasis: the row under the cursor grows and lights; because the
+     padding animates, rows swelling and settling as the cursor rides a
+     scrolling list is the intended effect. */
+  @media (prefers-reduced-motion: no-preference) {
+    .index-list a { transition: background 0.16s ease, padding 0.2s ease, border-color 0.16s ease; }
+  }
+  .index-list a:hover, .index-list a:focus-visible {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 80%);
+    padding-top: 1.05rem;
+    padding-bottom: 1.05rem;
+    padding-left: 0.7rem;
+  }
+  .row-meta { display: flex; align-items: baseline; gap: 0.55rem; flex-shrink: 0; }
+  /* Entry-count chips, tinted by entity type: the page's color variation is
+     drawn from the existing badge palette so both themes are already tuned. */
+  .count {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    padding: 0 0.5rem;
+    border-radius: 999px;
+  }
+  .count-civilization { background: color-mix(in srgb, var(--accent) 16%, var(--parchment)); color: var(--accent); }
+  .count-city { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
+  .count-region { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
+  .count-geographic_feature { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
+  .count-language { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
+  /* Section headings carry a small type-colored lozenge, echoing the chips. */
+  .index-cat h2::before {
+    content: '';
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin-right: 0.55rem;
+    transform: rotate(45deg);
+    background: var(--accent);
+  }
+  #city::before { background: var(--badge-developing-fg); }
+  #region::before { background: var(--conf-attested-fg); }
+  #geographic_feature::before { background: var(--conf-reconstructed-fg); }
+  #languages::before { background: var(--conf-disputed-fg); }
+
+  /* Long-hover popover: a lifted panel in the right gutter with the entity's
+     summary, minimap, subheading, status, and count. Fixed-position, filled
+     and revealed by script; wide hover-capable screens only. */
+  #entity-pop {
+    position: fixed;
+    left: calc(50% + 380px);
+    width: 300px;
+    z-index: 30;
+    background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
+    background-image: var(--grain);
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    padding: 1rem 1.15rem 1.1rem;
+    box-shadow: var(--shadow-lift);
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    #entity-pop { transition: opacity 0.22s ease, transform 0.22s ease; }
+  }
+  #entity-pop.show { opacity: 1; transform: none; pointer-events: auto; }
+  #entity-pop h3 { margin: 0; font-size: 1.25rem; }
+  .pop-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0.25rem 0 0.5rem; }
+  .pop-badges { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; }
+  #entity-pop .status {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+  }
+  #entity-pop .status-developing { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
+  #entity-pop .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
+  .pop-count { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); }
+  .pop-map { margin: 0 0 0.6rem; }
+  .pop-summary { font-size: 0.9375rem; line-height: 1.55; margin: 0; color: var(--ink); }
+  @media (max-width: 1439px), (hover: none) {
+    #entity-pop { display: none; }
+  }
   /* min-width:0 lets the name shrink and wrap instead of forcing the row over
      width, which had pushed the script label off the right edge in the narrow
      two-column layout. */
@@ -623,6 +754,78 @@ const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
           location.href = pool[Math.floor(Math.random() * pool.length)].url;
         });
       });
+    }
+  }
+
+  // Long-hover popover: rest the cursor on an entity row for a beat and a
+  // panel slides out beside the index with the entry's summary, minimap,
+  // subheading, and status. Wide hover-capable screens only; the minimap SVG
+  // is fetched once per entity and injected inline so theme variables apply.
+  {
+    const pop = document.getElementById('entity-pop');
+    const wants = matchMedia('(min-width: 1440px) and (hover: hover)').matches;
+    if (pop && wants) {
+      const data = JSON.parse(document.getElementById('entity-pop-data')!.textContent!);
+      const mapCache = new Map<string, string>();
+      const el = (id: string) => document.getElementById(id)!;
+      let showTimer = 0;
+      let hideTimer = 0;
+      let shownFor: string | null = null;
+
+      const hide = () => {
+        pop.classList.remove('show');
+        shownFor = null;
+        // Keep it in the tree for the exit transition, then drop it.
+        window.setTimeout(() => { if (!shownFor) pop.hidden = true; }, 240);
+      };
+
+      const show = async (slug: string, row: HTMLElement) => {
+        const d = data[slug];
+        if (!d) return;
+        el('pop-name').textContent = d.n;
+        el('pop-region').textContent = d.r;
+        el('pop-era').textContent = d.e;
+        const status = el('pop-status');
+        status.textContent = d.st;
+        status.className = `status status-${d.st}`;
+        el('pop-count').textContent = `${d.c} name ${d.c === 1 ? 'entry' : 'entries'}`;
+        el('pop-summary').textContent = d.s;
+        const holder = el('pop-map');
+        holder.innerHTML = '';
+        if (!mapCache.has(slug)) {
+          try {
+            const r = await fetch(`/locators/${slug}.svg`);
+            mapCache.set(slug, r.ok ? await r.text() : '');
+          } catch {
+            mapCache.set(slug, '');
+          }
+        }
+        holder.innerHTML = mapCache.get(slug) ?? '';
+        // Align to the hovered row, clamped inside the viewport.
+        pop.hidden = false;
+        const rect = row.getBoundingClientRect();
+        const top = Math.min(Math.max(rect.top - 8, 76), innerHeight - pop.offsetHeight - 16);
+        pop.style.top = `${top}px`;
+        shownFor = slug;
+        requestAnimationFrame(() => pop.classList.add('show'));
+      };
+
+      for (const li of document.querySelectorAll<HTMLElement>('.index-list li[data-slug]')) {
+        li.addEventListener('mouseenter', () => {
+          window.clearTimeout(showTimer);
+          window.clearTimeout(hideTimer);
+          showTimer = window.setTimeout(() => show(li.dataset.slug!, li), 550);
+        });
+        li.addEventListener('mouseleave', () => {
+          window.clearTimeout(showTimer);
+          hideTimer = window.setTimeout(hide, 180);
+        });
+      }
+      // Let the reader mouse into the panel (to read the summary) without it
+      // vanishing under them.
+      pop.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
+      pop.addEventListener('mouseleave', () => { hideTimer = window.setTimeout(hide, 180); });
+      addEventListener('scroll', () => { if (shownFor) hide(); }, { passive: true });
     }
   }
 

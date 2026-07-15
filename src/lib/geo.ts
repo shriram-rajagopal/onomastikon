@@ -80,7 +80,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
 //            the `area` branch. Seas stay unlocated (the coastline already shows
 //            the water; a label would be the move if ever wanted).
 export interface EntityGeo {
-  kind: 'river' | 'mountains' | 'region' | 'city' | 'civ';
+  kind: 'river' | 'mountains' | 'region' | 'city' | 'civ' | 'sea';
   label: string;
   points: [number, number][];
 }
@@ -107,6 +107,22 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   caucasus: { kind: 'mountains', label: 'the Caucasus', points: [[40.0, 43.5], [41.5, 43.4], [43.0, 42.9], [44.5, 42.6], [45.8, 42.5], [47.3, 41.6]] },
   taurus: { kind: 'mountains', label: 'the Taurus', points: [[29.7, 37.0], [31.5, 37.1], [33.0, 37.3], [34.5, 37.6], [35.8, 37.8], [37.2, 38.0]] },
   'hindu-kush': { kind: 'mountains', label: 'the Hindu Kush', points: [[67.0, 36.3], [68.5, 36.0], [70.0, 35.6], [71.3, 35.7], [72.5, 36.1]] },
+
+  // Seas and straits: extent points that frame the water (the coastline the
+  // window catches IS the picture); a single point marks a strait or lake.
+  // The locator draws an open ring at the centroid rather than a solid mark,
+  // since the subject is the space between the coasts.
+  mediterranean: { kind: 'sea', label: 'the Mediterranean', points: [[-4, 37], [15, 44], [35, 31]] },
+  aegean: { kind: 'sea', label: 'the Aegean', points: [[23.5, 35.5], [27.5, 40.5]] },
+  adriatic: { kind: 'sea', label: 'the Adriatic', points: [[12.5, 44.5], [19.5, 40.5]] },
+  'ionian-sea': { kind: 'sea', label: 'the Ionian Sea', points: [[16, 36], [21, 39.5]] },
+  'black-sea': { kind: 'sea', label: 'the Black Sea', points: [[28.5, 43.5], [41.5, 42], [33, 46.5]] },
+  'caspian-sea': { kind: 'sea', label: 'the Caspian', points: [[49, 41], [54, 45.5], [51, 38]] },
+  'red-sea': { kind: 'sea', label: 'the Red Sea', points: [[33, 27.5], [42, 15]] },
+  'persian-gulf': { kind: 'sea', label: 'the Persian Gulf', points: [[48.5, 29.5], [56, 26]] },
+  'dead-sea': { kind: 'sea', label: 'the Dead Sea', points: [[35.5, 31.5]] },
+  bosporus: { kind: 'sea', label: 'the Bosporus', points: [[29.05, 41.15]] },
+  hellespont: { kind: 'sea', label: 'the Hellespont', points: [[26.4, 40.2]] },
 
   // Regions: coast-accurate outlines baked into regions.ts (each cultural hull
   // clipped to real land; coastal edges trace the true coast, inland stay coarse).
