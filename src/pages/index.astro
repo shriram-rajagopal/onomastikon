@@ -109,25 +109,16 @@ const popData = Object.fromEntries(
   </nav>
 
   <section class="hero">
-    <div class="masthead">
-      <!-- Sources are injected by JS only on hover-capable, wide, motion-OK
-           viewports: a display:none video with markup sources still downloads
-           in most engines, which spent ~130 KB on phones for pixels the CSS
-           below never shows. Without JS the poster frame stands in. -->
-      <video
-        class="masthead-motion"
-        autoplay
-        muted
-        playsinline
-        poster="/onomastikon-logo.png"
-        aria-hidden="true"
-        data-webm="/onomastikon-logo.webm"
-        data-mp4="/onomastikon-logo.mp4"
-      ></video>
-      <img class="masthead-static" src="/onomastikon-logo.webp" alt="Onomastikon" width="1920" height="720" />
-    </div>
+    <!-- The wordmark as live text: letters pop in sequence, the sigma in the
+         accent, and the accent rule below is the wordmark's underline — it
+         draws itself and stays after the intro text dissolves behind it. -->
+    <p class="masthead-word" aria-label="Onomastikon">
+      {['O','N','O','M','A','Σ','T','I','K','O','N'].map((ch, i) => (
+        <span class={ch === 'Σ' ? 'letter letter-sigma' : 'letter'} style={`--i: ${i}`} aria-hidden="true">{ch}</span>
+      ))}
+    </p>
+    <div class="hero-rule" aria-hidden="true"></div>
     <div class="hero-intro" id="hero-intro">
-      <div class="hero-rule" aria-hidden="true"></div>
       <div class="hero-clip">
         <div class="hero-intro-inner">
           <h1>A digital atlas of ancient names</h1>
@@ -340,45 +331,26 @@ const popData = Object.fromEntries(
   /* Anchor jumps land the heading clear of the top of the viewport. */
   .index-col h2 { scroll-margin-top: 1.5rem; }
 
-  .hero { margin: 1rem 0 3rem; text-align: center; }
-  .masthead {
-    margin: 0 0 1.5rem;
+  .hero { margin: 1.5rem 0 3rem; text-align: center; container-type: inline-size; }
+  /* Sized against the container so the eleven letters always sit on one line:
+     ~8.6em of glyphs and tracking across 100cqw. */
+  .masthead-word {
+    margin: 1.5rem 0 0;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: min(4.6rem, 10.6cqw);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.05;
+    white-space: nowrap;
+    color: var(--ink);
   }
-  /* The video background is the same parchment as the page, so it blends in
-     seamlessly. aspect-ratio reserves the space to avoid layout shift. */
-  .masthead-motion {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1920 / 720;
-    /* The video is transparent; this guarantees an exact-match backdrop. */
-    background: var(--parchment);
+  .letter { display: inline-block; }
+  .letter-sigma { color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .letter { animation: letter-pop 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--i) * 0.055s) both; }
   }
-  /* Static fallback shown only to visitors who prefer reduced motion. */
-  .masthead-static {
-    display: none;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1920 / 720;
-    background: var(--parchment);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .masthead-motion { display: none; }
-    .masthead-static { display: block; }
-  }
-  /* The masthead video renders unreliably on mobile WebKit: iOS Safari plays the
-     VP9 WebM but ignores its alpha channel, painting the transparent areas black.
-     Hide it on any touch device (so both orientations are covered — a landscape
-     phone is wider than a width breakpoint) and on narrow windows, showing the
-     static wordmark instead. */
-  @media (hover: none), (pointer: coarse), (max-width: 640px) {
-    .masthead-motion { display: none; }
-    .masthead-static { display: block; }
-  }
-  /* Print the static wordmark, never the video element. */
-  @media print {
-    .masthead-motion { display: none; }
-    .masthead-static { display: block; }
+  @keyframes letter-pop {
+    from { opacity: 0; transform: translateY(26px); }
   }
   .tagline {
     font-size: 1.25rem;
@@ -548,21 +520,21 @@ const popData = Object.fromEntries(
   .hero-rule {
     width: min(26rem, 72%);
     height: 2px;
-    margin: 0.3rem auto 0.9rem;
+    margin: 0.75rem auto 0.9rem;
     background: var(--accent);
     transform-origin: center;
   }
   @media (prefers-reduced-motion: no-preference) {
     .hero-rule {
       transform: scaleX(0);
-      animation: hero-rule-draw 0.55s ease 0.4s both;
+      animation: hero-rule-draw 0.55s ease 1.05s both;
     }
     .hero-intro-inner {
       animation:
-        hero-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.85s both,
-        hero-flyup 0.65s cubic-bezier(0.6, -0.05, 0.85, 0.4) 2.15s forwards;
+        hero-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 1.35s both,
+        hero-flyup 0.65s cubic-bezier(0.6, -0.05, 0.85, 0.4) 2.65s forwards;
     }
-    .hero-intro { animation: hero-collapse 0.45s ease 2.7s forwards; }
+    .hero-intro { animation: hero-collapse 0.45s ease 3.2s forwards; }
   }
   @keyframes hero-rule-draw {
     to { transform: scaleX(1); }
@@ -794,32 +766,6 @@ const popData = Object.fromEntries(
 </style>
 
 <script>
-  // Masthead motion: attach the video sources only where the CSS would show
-  // the video at all — hover-capable, fine-pointer, wide, motion-tolerant.
-  // Mirrors the media queries below so touch devices and reduced-motion
-  // visitors never download a video they'd never see.
-  {
-    const motion = document.querySelector<HTMLVideoElement>('.masthead-motion');
-    const showsMotion =
-      matchMedia('(hover: hover) and (pointer: fine) and (min-width: 641px)').matches &&
-      !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (motion && showsMotion) {
-      // Transparent (VP9 alpha) for Chromium/Firefox; opaque parchment MP4
-      // fallback for Safari, which doesn't support WebM alpha.
-      for (const [type, src] of [
-        ['video/webm', motion.dataset.webm],
-        ['video/mp4', motion.dataset.mp4],
-      ]) {
-        if (!src) continue;
-        const source = document.createElement('source');
-        source.type = type!;
-        source.src = src;
-        motion.append(source);
-      }
-      motion.load();
-    }
-  }
-
   // Name of the day + random entry, from the same static index the search page
   // uses. Fetched at idle so it costs the first paint nothing — and since the
   // response caches, it doubles as a warm-up for /search. Date-hash pick is

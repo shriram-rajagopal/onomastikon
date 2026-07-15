@@ -237,17 +237,8 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       /* Title cards and the masthead are ink-on-transparent renders authored for
          parchment; invert-plus-hue-rotate re-aims them at the dark ground while
          keeping the warm accent warm. */
-      :root[data-theme='dark'] .featured,
-      :root[data-theme='dark'] .masthead-motion,
-      :root[data-theme='dark'] .masthead-static {
+      :root[data-theme='dark'] .featured {
         filter: invert(0.88) hue-rotate(180deg);
-      }
-      /* The masthead's parchment CSS backdrop would invert to a light plate;
-         drop it in dark mode so the filtered glyphs sit on the page ground.
-         (Transparent pixels stay transparent under filter.) */
-      :root[data-theme='dark'] .masthead-motion,
-      :root[data-theme='dark'] .masthead-static {
-        background: transparent;
       }
       * { box-sizing: border-box; }
       /* scroll-padding-top keeps anchor jumps clear of the now-sticky header. */
@@ -532,9 +523,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
           --rule: #d8cfbf;
           --accent: #6b3a2a;
         }
-        :root[data-theme='dark'] .featured,
-        :root[data-theme='dark'] .masthead-motion,
-        :root[data-theme='dark'] .masthead-static { filter: none; }
+        :root[data-theme='dark'] .featured { filter: none; }
         /* Most browsers omit backgrounds when printing; keep text plain ink. */
         html { background: #fff; }
         a { color: var(--ink); text-decoration: none; }
