@@ -2,7 +2,7 @@
 
 **A digital atlas of ancient names.**
 
-What the great civilizations of antiquity called themselves and what their neighbors referred to them as. Each entry records the original script, transliteration, IPA pronunciation, literal meaning, and primary sources, with explicit attention to uncertainty and reconstruction.
+What the civilizations, cities, regions, and geographic features of antiquity called themselves, and what their neighbors called them. Each entry records the original script, transliteration, IPA pronunciation, literal meaning, and primary sources, with explicit attention to uncertainty and reconstruction. The temporal scope runs from the Bronze Age to the fall of Constantinople (roughly 3100 BCE to 1453 CE).
 
 **Live site:** [onomastikon.org](https://onomastikon.org)
 
@@ -10,7 +10,9 @@ What the great civilizations of antiquity called themselves and what their neigh
 
 ## What this is
 
-Onomastikon catalogues the names of ancient civilizations across the languages of antiquity all on one page. The unit of interest is the name itself as a linguistic artifact, presented with the rigor of a scholarly lexicon and the navigability of a modern atlas.
+Onomastikon catalogues the names of ancient entities across the languages of antiquity, all on one page per entity. The unit of interest is the name itself as a linguistic artifact, presented with the rigor of a scholarly lexicon and the navigability of a modern atlas. At present the atlas holds over a hundred entities and some seven hundred name entries across more than thirty ancient languages, from Egyptian hieroglyphs and cuneiform to Brahmi and Old Sogdian.
+
+Entity pages derive their apparatus automatically from the entry data: name-family trees (borrowings indented under their sources, cognates side by side), a transmission map with an era scrubber, an attestation timeline, and a locator map. Site-wide features include client-side search across scripts and transliterations, a comparison view for two to four entities across shared languages, a name-of-the-day with a fairness-guaranteed rotation and a self-updating archive, region and era filters with a proportional timeline, an RSS feed of new entries, and a machine-readable export of the full dataset.
 
 The project is intended for students, language enthusiasts, history teachers, and anyone curious about how civilizations identified themselves and one another in the ancient world.
 
@@ -28,14 +30,18 @@ Onomastikon is built as a static site using [Astro](https://astro.build). All co
 
     src/
     ├── content/
-    │   ├── civilizations/   # one Markdown file per civilization
+    │   ├── civilizations/   # one Markdown file per entity (all four types)
     │   ├── languages/       # one Markdown file per language
     │   └── names/           # one Markdown file per attested name
     ├── content.config.ts    # the schema for all three collections
+    ├── data/                # committed ledgers (entry dates, daily-name schedule)
     ├── layouts/             # shared page chrome
-    └── pages/               # routes (homepage, civilization pages, language pages, about)
+    ├── lib/                 # era/geo/citation/locator/family helpers
+    └── pages/               # routes: index, entity & language pages, search,
+                             # compare, names-of-the-day, about, feed.xml,
+                             # onomastikon.json, per-entity locator SVGs
 
-The schema enforces that every name entry has a civilization, a language, a transliteration, a confidence label, and at least one source.
+The schema enforces that every name entry has a civilization, a language, a transliteration, a confidence label, and at least one source. Maintenance runs through npm scripts: `new:civ` / `new:lang` / `new:name` scaffold entries, `lint:content` enforces the editorial rules the schema cannot, `dates:update` and the prebuild schedule generator keep the committed ledgers current, and `cards:webp` / `strip:cards` / `fonts:endonyms` maintain the generated assets.
 
 ## Contributing
 

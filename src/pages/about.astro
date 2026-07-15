@@ -1,5 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// The atlas in numbers, computed from the content at every build so the
+// figures can never go stale.
+const [civs, langs, names] = await Promise.all([
+  getCollection('civilizations'),
+  getCollection('languages'),
+  getCollection('names'),
+]);
+const citations = names.reduce((n, e) => n + e.data.sources.length, 0);
+const complete = civs.filter((c) => c.data.entry_status === 'complete').length;
 ---
 
 <BaseLayout title="About" description="Methodology and editorial conventions of Onomastikon.">
@@ -15,12 +26,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       sources, with attention to uncertainty.
     </p>
 
+    <ul class="stats" aria-label="The atlas in numbers">
+      <li><strong>{civs.length}</strong> entities<br /><span>{complete} complete</span></li>
+      <li><strong>{langs.length}</strong> languages<br /><span>ancient scripts rendered</span></li>
+      <li><strong>{names.length}</strong> name entries<br /><span>two-paragraph treatments</span></li>
+      <li><strong>{citations}</strong> citations<br /><span>sources on every entry</span></li>
+    </ul>
+
     <h2>Editorial scope</h2>
     <p>
       The project covers entities of the ancient world, including civilizations, cities, regions, 
       and geographic features. The temporal scope runs from the Bronze Age to the fall of Constantinople in 1453.
       Each entry focuses on its subject as a primarily linguistic but also historical record.
       Readers seeking detailed historical context should consult the standard reference works cited in each entry.
+    </p>
+    <h3>One page per name-thread</h3>
+    <p>
+      Entities are split by name-tradition, not by polity. Egypt spans thirty
+      dynasties on one page because <em>Kemet</em> is one continuous thread;
+      Persia carries <em>Pārsa</em> from the Achaemenids through the Sasanians,
+      while the Sasanian state-name <em>Ērānšahr</em> belongs to the separate
+      Iran entry. A polity earns its own page only where it introduced a
+      genuinely new endonym thread, never one page per dynasty.
     </p>
     <h3>Regions and identification across languages</h3>
     <p>
@@ -186,6 +213,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     margin: 1.5rem 0 2.5rem;
   }
   .prose p { margin: 1rem 0; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: 0.9rem;
+    list-style: none;
+    padding: 1rem 1.1rem;
+    margin: 0 0 2.5rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    background-image: var(--grain);
+    box-shadow: var(--shadow-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .stats strong {
+    display: block;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.1;
+  }
   .prose h3 {
     font-family: 'Inter', sans-serif;
     font-size: 0.875rem;

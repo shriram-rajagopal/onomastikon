@@ -53,6 +53,11 @@ const pageTitle =
     ? 'Onomastikon — A digital atlas of ancient names'
     : `${title} — Onomastikon`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+// Footer provenance stamp: corpus size and build month, refreshed on every
+// deploy — a quiet signal that the reference is maintained.
+import { getCollection } from 'astro:content';
+const nameCount = (await getCollection('names')).length;
+const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date());
 const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
 ---
 
@@ -183,6 +188,10 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         <a href="/feed.xml">RSS</a> ·
         <a href="https://github.com/shriram-rajagopal/onomastikon">GitHub</a> ·
         <a href="/feedback" id="site-feedback">Feedback</a>
+      </p>
+      <p class="footer-provenance">
+        {nameCount} name entries, every one sourced · updated {builtStamp} ·
+        content <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
       </p>
     </footer>
 
@@ -399,6 +408,7 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       @media print {
         #back-to-top { display: none; }
       }
+      .footer-provenance { margin-top: 0.4rem; font-size: 0.75rem; color: var(--ink-soft); }
       #site-feedback { scroll-margin: 3rem; border-radius: 3px; }
       #site-feedback:target { outline: 2px solid var(--accent); outline-offset: 3px; color: var(--accent); }
       @media (prefers-reduced-motion: no-preference) {
