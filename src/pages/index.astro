@@ -116,7 +116,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     <div class="hd-row"><span>Babylon</span><span class="hd-chip hd-green">14</span><span class="hd-era">c. 2300 BCE – 651 CE</span></div>
     <ul>
       <li>The number counts the page's name entries; <span class="hd-chip hd-green">green</span> means coverage is complete, <span class="hd-chip hd-blue">blue</span> still developing.</li>
-      <li>Region chips filter the index; the era names above the timeline open a short portrait of each age, with links into the atlas.</li>
+      <li>Region chips filter the index; picking an era name above the timeline filters to that age and opens a short portrait of it, with links into the atlas.</li>
       <li>Rest your cursor on an entity row and a panel opens with its summary and a locator map (wide screens).</li>
       <li>The name of the day changes at midnight Eastern; every name gets a turn before any repeats. The ▾ opens the full entry, and “Past names” is the archive.</li>
     </ul>
@@ -220,6 +220,8 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
                   type="button"
                   class="era-name"
                   data-era={e.key}
+                  data-start={e.start}
+                  data-end={e.end}
                   aria-expanded="false"
                   aria-controls={`era-note-${e.key}`}
                   title={e.label}
@@ -703,6 +705,22 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     line-height: 1.6;
     color: var(--ink);
   }
+  /* On wide screens the portrait floats in the right gutter beside the index
+     (the same shelf as the row popover) instead of pushing the entity lists
+     down, so the filtered rows stay in view while the note is read. */
+  @media (min-width: 1440px) {
+    .era-note {
+      position: fixed;
+      left: calc(50% + 380px);
+      top: 7.5rem;
+      width: 300px;
+      max-height: calc(100vh - 9.5rem);
+      overflow-y: auto;
+      margin-top: 0;
+      z-index: 24;
+      box-shadow: var(--shadow-lift);
+    }
+  }
   .era-note-head { display: flex; align-items: baseline; gap: 0.6rem; margin: 0 0 0.2rem; }
   .era-note-head strong { font-family: 'EB Garamond', Georgia, serif; font-size: 1.15rem; font-weight: 600; }
   .era-note-span { font-family: 'Inter', sans-serif; font-size: 0.6875rem; color: var(--ink-soft); }
@@ -1184,31 +1202,6 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     }
   }
 
-  // Era portraits: the period names above the timeline (and the timeline
-  // segments themselves) toggle the matching age's note open, one at a time.
-  {
-    const names = [...document.querySelectorAll<HTMLButtonElement>('.era-name')];
-    const notes = new Map(
-      [...document.querySelectorAll<HTMLElement>('.era-note')].map((n) => [n.id.replace('era-note-', ''), n])
-    );
-    if (names.length && notes.size) {
-      let open: string | null = null;
-      const setOpen = (key: string | null) => {
-        open = key;
-        for (const btn of names) btn.setAttribute('aria-expanded', String(btn.dataset.era === key));
-        for (const [k, n] of notes) n.hidden = k !== key;
-      };
-      document.getElementById('filter-era')?.addEventListener('click', (e) => {
-        const t = (e.target as Element).closest<HTMLElement>('[data-era]');
-        if (!t) return;
-        if (t.classList.contains('era-note-close')) return setOpen(null);
-        setOpen(open === t.dataset.era ? null : t.dataset.era!);
-      });
-      addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && open) setOpen(null);
-      });
-    }
-  }
 
   // The hero title flies up on the reader's first scroll (not a timer); once
   // flown it stays gone for the visit. Reduced-motion keeps the title at rest.
@@ -1236,23 +1229,28 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     railIO.observe(sentinel);
   }
 
-  // Region filter: hide entity rows outside the chosen regions, then hide any
-  // category whose rows are all hidden. Languages are untouched. The form is
-  // server-rendered hidden and revealed here, so no-JS gets the plain index.
-  // (The era strip below the chips explains rather than filters.)
+  // Filters and era portraits. Region chips multi-select and union; the era
+  // names above the timeline single-select: picking one filters the index to
+  // rows overlapping that age AND opens its portrait, and deselecting (click
+  // again, the close button, or Escape) clears both. Across dimensions the
+  // filters intersect. The form is server-rendered hidden and revealed here,
+  // so no-JS gets the plain index.
   {
     const form = document.getElementById('filters');
     const count = document.getElementById('filters-count');
     const rows = [...document.querySelectorAll<HTMLLIElement>('.index-list li[data-start]')];
     if (form && rows.length) {
       form.hidden = false;
-      // Multi-select: chips toggle in and out of the set, and the selections
-      // union (Mesopotamia OR South Asia). An empty set means unfiltered.
       const regions = new Set<string>();
+      let eraRange: [number, number] | null = null;
       const apply = () => {
         let shown = 0;
         for (const row of rows) {
-          const on = regions.size === 0 || regions.has(row.dataset.mregion ?? '');
+          const okRegion = regions.size === 0 || regions.has(row.dataset.mregion ?? '');
+          const okEra =
+            !eraRange ||
+            (Number(row.dataset.start) <= eraRange[1] && Number(row.dataset.end) >= eraRange[0]);
+          const on = okRegion && okEra;
           row.hidden = !on;
           if (on) shown++;
         }
@@ -1260,7 +1258,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
         for (const cat of document.querySelectorAll<HTMLElement>('.index-col:first-child .index-cat')) {
           cat.hidden = !cat.querySelector('li:not([hidden])');
         }
-        if (count) count.textContent = regions.size ? `${shown} of ${rows.length} shown` : '';
+        if (count) count.textContent = regions.size || eraRange ? `${shown} of ${rows.length} shown` : '';
       };
       document.getElementById('filter-region')?.addEventListener('click', (e) => {
         const btn = (e.target as Element).closest<HTMLButtonElement>('[data-value]');
@@ -1270,6 +1268,29 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
         regions[on ? 'add' : 'delete'](v);
         btn.setAttribute('aria-pressed', String(on));
         apply();
+      });
+
+      const names = [...document.querySelectorAll<HTMLButtonElement>('.era-name')];
+      const notes = new Map(
+        [...document.querySelectorAll<HTMLElement>('.era-note')].map((n) => [n.id.replace('era-note-', ''), n])
+      );
+      let open: string | null = null;
+      const setOpen = (key: string | null) => {
+        open = key;
+        const active = names.find((b) => b.dataset.era === key);
+        for (const btn of names) btn.setAttribute('aria-expanded', String(btn === active));
+        for (const [k, n] of notes) n.hidden = k !== key;
+        eraRange = active ? [Number(active.dataset.start), Number(active.dataset.end)] : null;
+        apply();
+      };
+      document.getElementById('filter-era')?.addEventListener('click', (e) => {
+        const t = (e.target as Element).closest<HTMLElement>('[data-era]');
+        if (!t) return;
+        if (t.classList.contains('era-note-close')) return setOpen(null);
+        setOpen(open === t.dataset.era ? null : t.dataset.era!);
+      });
+      addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && open) setOpen(null);
       });
     }
   }
