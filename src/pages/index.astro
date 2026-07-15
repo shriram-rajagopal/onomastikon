@@ -160,20 +160,18 @@ const popData = Object.fromEntries(
        over data attributes already in the DOM. Hidden until JS removes the
        attribute, so a no-JS visitor sees the plain full index. -->
   <form class="filters" id="filters" hidden aria-label="Filter the index">
-    <label>
-      <span class="filters-label">Region</span>
-      <select id="filter-region">
-        <option value="">All regions</option>
-        {regionOptions.map(([key, label]) => <option value={key}>{label}</option>)}
-      </select>
-    </label>
-    <label>
-      <span class="filters-label">Era</span>
-      <select id="filter-era">
-        <option value="">All eras</option>
-        {ERAS.map((e) => <option value={`${e.start}:${e.end}`}>{e.label}</option>)}
-      </select>
-    </label>
+    <fieldset class="filter-group" id="filter-region">
+      <legend class="filters-label">Region</legend>
+      {regionOptions.map(([key, label]) => (
+        <button type="button" class="chip" data-value={key} aria-pressed="false">{label}</button>
+      ))}
+    </fieldset>
+    <fieldset class="filter-group" id="filter-era">
+      <legend class="filters-label">Era</legend>
+      {ERAS.map((e) => (
+        <button type="button" class="chip" data-value={`${e.start}:${e.end}`} aria-pressed="false" title={e.label}>{e.label.split(' (')[0]}</button>
+      ))}
+    </fieldset>
     <span class="filters-count" id="filters-count" aria-live="polite"></span>
   </form>
 
@@ -514,9 +512,8 @@ const popData = Object.fromEntries(
      page's small-sans register rather than as chrome. */
   .filters {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.75rem 1.5rem;
+    flex-direction: column;
+    gap: 0.6rem;
     margin: 0 0 1.5rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
@@ -528,15 +525,27 @@ const popData = Object.fromEntries(
     font-size: 0.6875rem;
     color: var(--ink-soft);
   }
-  .filters select {
+  .filter-group { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+  .filter-group legend { float: left; margin-right: 0.2rem; padding: 0; }
+  .chip {
     font-family: 'Inter', sans-serif;
-    font-size: 0.8125rem;
-    color: var(--ink);
+    font-size: 0.75rem;
+    color: var(--ink-soft);
     background: var(--parchment);
     border: 1px solid var(--rule-strong);
-    border-radius: 4px;
-    padding: 0.25rem 0.4rem;
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+    cursor: pointer;
     box-shadow: var(--shadow-soft);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip { transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip[aria-pressed='true'] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--parchment);
   }
   .filters-count { color: var(--ink-soft); }
 
@@ -991,22 +1000,27 @@ const popData = Object.fromEntries(
   // server-rendered hidden and revealed here, so no-JS gets the plain index.
   {
     const form = document.getElementById('filters');
-    const regionSel = document.getElementById('filter-region') as HTMLSelectElement | null;
-    const eraSel = document.getElementById('filter-era') as HTMLSelectElement | null;
     const count = document.getElementById('filters-count');
     // Entity rows are the ones carrying era data; language rows never match.
     const rows = [...document.querySelectorAll<HTMLLIElement>('.index-list li[data-start]')];
-    if (form && regionSel && eraSel && rows.length) {
+    if (form && rows.length) {
       form.hidden = false;
+      // Multi-select: chips toggle in and out of each set. Within a dimension
+      // the selections union (Mesopotamia OR South Asia); across dimensions
+      // they intersect (in those regions AND overlapping a chosen era). An
+      // empty set means the dimension is unfiltered.
+      const regions = new Set<string>();
+      const eras = new Set<string>();
       const apply = () => {
-        const region = regionSel.value;
-        const [eraStart, eraEnd] = eraSel.value ? eraSel.value.split(':').map(Number) : [null, null];
         let shown = 0;
         for (const row of rows) {
-          const okRegion = !region || row.dataset.mregion === region;
+          const okRegion = regions.size === 0 || regions.has(row.dataset.mregion ?? '');
           const okEra =
-            eraStart === null ||
-            (Number(row.dataset.start) <= eraEnd! && Number(row.dataset.end) >= eraStart!);
+            eras.size === 0 ||
+            [...eras].some((v) => {
+              const [lo, hi] = v.split(':').map(Number);
+              return Number(row.dataset.start) <= hi && Number(row.dataset.end) >= lo;
+            });
           const on = okRegion && okEra;
           row.hidden = !on;
           if (on) shown++;
@@ -1015,11 +1029,21 @@ const popData = Object.fromEntries(
         for (const cat of document.querySelectorAll<HTMLElement>('.index-col:first-child .index-cat')) {
           cat.hidden = !cat.querySelector('li:not([hidden])');
         }
-        const filtering = region || eraStart !== null;
-        if (count) count.textContent = filtering ? `${shown} of ${rows.length} shown` : '';
+        if (count) count.textContent = regions.size || eras.size ? `${shown} of ${rows.length} shown` : '';
       };
-      regionSel.addEventListener('change', apply);
-      eraSel.addEventListener('change', apply);
+      const wire = (groupId: string, set: Set<string>) => {
+        document.getElementById(groupId)?.addEventListener('click', (e) => {
+          const chip = (e.target as Element).closest<HTMLButtonElement>('.chip');
+          if (!chip) return;
+          const v = chip.dataset.value!;
+          const on = !set.has(v);
+          set[on ? 'add' : 'delete'](v);
+          chip.setAttribute('aria-pressed', String(on));
+          apply();
+        });
+      };
+      wire('filter-region', regions);
+      wire('filter-era', eras);
     }
   }
 
