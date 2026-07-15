@@ -155,4 +155,5 @@ export const ERAS: Array<{ key: string; label: string; start: number; end: numbe
   { key: 'iron', label: 'Iron Age (c. 1200–550 BCE)', start: -1200, end: -550 },
   { key: 'classical', label: 'Classical & Hellenistic (c. 550–30 BCE)', start: -550, end: -30 },
   { key: 'late', label: 'Roman & Late Antique (c. 30 BCE–600 CE)', start: -30, end: 600 },
+  { key: 'medieval', label: 'Medieval (c. 600–1453 CE)', start: 600, end: 1453 },
 ];

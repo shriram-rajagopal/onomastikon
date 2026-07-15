@@ -9,6 +9,7 @@ export function formatEra(start: number, end: number | null): string {
   return end === null ? `c. ${fmt(start)} – in continued use` : `c. ${fmt(start)} – ${fmt(end)}`;
 }
 
-// Where the atlas's temporal scope closes (Late Antiquity); open-ended ranges
-// clamp here for timeline/map geometry so the axes stay within scope.
-export const SCOPE_END = 600;
+// Where the atlas's temporal scope closes (the fall of Constantinople);
+// open-ended ranges clamp here for timeline/map geometry so the axes stay
+// within scope.
+export const SCOPE_END = 1453;

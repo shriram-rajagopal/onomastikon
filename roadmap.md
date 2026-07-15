@@ -8,7 +8,7 @@ Onomastikon catalogues the named entities of the ancient world — civilizations
 
 ## Temporal scope
 
-Bronze Age through Late Antiquity (roughly 3100 BCE to c. 600 CE), with later attestations included where they preserve continuity with ancient naming traditions (Sasanian Persian, Byzantine Greek, Late Antique Coptic, Classic Maya). Modern reflexes of ancient names are noted per entry where they descend directly from the ancient form, but modern names are not first-class subjects.
+Bronze Age through the fall of Constantinople (roughly 3100 BCE to 1453 CE) — expanded from the original Late Antiquity boundary on 2026-07-15. The medieval half of the range admits the polities that carry the ancient naming threads forward (the Byzantines' Rhōmanía, Sasanian Ērānšahr, the caliphates and sultanates); post-1453 attestations are included only where they preserve continuity with older naming traditions. Modern reflexes of ancient names are noted per entry where they descend directly from the older form, but modern names are not first-class subjects.
 
 ## Phase 1: Core Mediterranean and Near East
 
@@ -200,6 +200,17 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 - [ ] Quechua
 - [ ] Mayan languages / glyphic Maya
 
+## Phase 4 (candidate): the medieval continuation
+
+Unlocked by the 1453 boundary (2026-07-15); to be planned properly after Phase 3.
+Subjects qualify by the name-thread rule: a new page only where a polity carried
+a genuinely new endonym thread, never one page per dynasty.
+
+- [ ] The Byzantines (endonym *Rhōmaîoi* / *Rhōmanía*; the Rūm/Hrōm exonym family; distinct thread from both Rome and Greece)
+- [ ] Ērānšahr enrichment of the Iran page (the Sasanian state-name thread; mostly in scope already)
+- [ ] The Caliphate (Rashidun through Abbasid as one *Khilāfa* thread, if the sources support it)
+- [ ] Candidate languages: Middle Chinese, Old Turkic, Old Church Slavonic, Norse — added only as name entries demand them
+
 ## Feature roadmap
 
 ### Soon (after ~10-15 entities)
@@ -233,7 +244,7 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 
 ## Editorial discipline
 
-- **The boundary:** Don't expand temporal scope past Late Antiquity. Don't expand entity types beyond civilization/city/region/geographic feature without serious justification.
+- **The boundary:** Don't expand temporal scope past the fall of Constantinople (1453). Don't expand entity types beyond civilization/city/region/geographic feature without serious justification.
 - **The audience:** Onomastikon is for students, language enthusiasts, history teachers, and anyone curious. Assume an intelligent reader who appreciates nuance but is not already a specialist.
 
 ## Things deliberately out of scope
