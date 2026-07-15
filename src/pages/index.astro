@@ -948,7 +948,8 @@ const popData = Object.fromEntries(
           const a = document.createElement('a');
           a.className = 'dd-link';
           a.href = daily.dataset.url ?? '/';
-          a.textContent = 'Read the full entry →';
+          const entity = document.getElementById('daily-ctx')?.textContent?.split(' · ').pop();
+          a.textContent = entity ? `View the entire ${entity.replace(/^The /, 'the ')} page →` : 'View the entity page →';
           detailsEl!.append(a);
         }
         detailsEl!.hidden = false;
