@@ -180,6 +180,34 @@ const popData = Object.fromEntries(
       {ERAS.map((e) => (
         <button type="button" class="chip" data-value={`${e.start}:${e.end}`} aria-pressed="false" title={e.label}>{e.label.split(' (')[0]}</button>
       ))}
+      {(() => {
+        const t0 = ERAS[0].start;
+        const t1 = ERAS[ERAS.length - 1].end;
+        const span = t1 - t0;
+        const pct = (y: number) => ((y - t0) / span) * 100;
+        const fmt = (y: number) => (y < 0 ? `${-y} BCE` : `${y} CE`);
+        return (
+          <>
+            <div class="era-line">
+              {ERAS.map((e, i) => (
+                <button
+                  type="button"
+                  class="era-seg"
+                  data-value={`${e.start}:${e.end}`}
+                  aria-pressed="false"
+                  title={e.label}
+                  style={`width: ${(((e.end - e.start) / span) * 100).toFixed(2)}%; --tint: ${8 + i * 7}%`}
+                ></button>
+              ))}
+            </div>
+            <div class="era-years" aria-hidden="true">
+              {[ERAS[0].start, ...ERAS.map((e) => e.end)].map((y) => (
+                <span style={`left: ${pct(y).toFixed(2)}%`}>{fmt(y)}</span>
+              ))}
+            </div>
+          </>
+        );
+      })()}
     </fieldset>
     <span class="filters-count" id="filters-count" aria-live="polite"></span>
   </form>
@@ -560,12 +588,6 @@ const popData = Object.fromEntries(
     margin: 0 0 1.5rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
-    /* The filters govern the entity pillar only, so they sit flush over it:
-       same width as the left column of the grid below. */
-    width: calc(50% - 0.75rem);
-  }
-  @media (max-width: 640px) {
-    .filters { width: 100%; }
   }
   .filters label { display: flex; align-items: baseline; gap: 0.5rem; }
   .filters-label {
@@ -596,6 +618,40 @@ const popData = Object.fromEntries(
     border-color: var(--accent);
     color: var(--parchment);
   }
+  /* The era timeline: the four ages in true proportion, boundaries labeled,
+     each segment clickable in unison with its chip above. */
+  .era-line {
+    display: flex;
+    width: 100%;
+    height: 13px;
+    margin-top: 0.4rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+  .era-seg {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: color-mix(in srgb, var(--accent) var(--tint), var(--parchment));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .era-seg { transition: background 0.15s ease; }
+  }
+  .era-seg + .era-seg { border-left: 1px solid var(--rule-strong); }
+  .era-seg:hover { background: color-mix(in srgb, var(--accent) 45%, var(--parchment)); }
+  .era-seg[aria-pressed='true'] { background: var(--accent); }
+  .era-years {
+    position: relative;
+    width: 100%;
+    height: 1rem;
+    font-size: 0.625rem;
+    color: var(--ink-soft);
+  }
+  .era-years span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .era-years span:first-child { transform: none; }
+  .era-years span:last-child { transform: translateX(-100%); }
   .filters-count { color: var(--ink-soft); }
 
   /* Entities (left) and Languages (right) sit in parallel columns that both
@@ -1053,13 +1109,18 @@ const popData = Object.fromEntries(
         if (count) count.textContent = regions.size || eras.size ? `${shown} of ${rows.length} shown` : '';
       };
       const wire = (groupId: string, set: Set<string>) => {
-        document.getElementById(groupId)?.addEventListener('click', (e) => {
-          const chip = (e.target as Element).closest<HTMLButtonElement>('.chip');
-          if (!chip) return;
-          const v = chip.dataset.value!;
+        const group = document.getElementById(groupId);
+        group?.addEventListener('click', (e) => {
+          const btn = (e.target as Element).closest<HTMLButtonElement>('[data-value]');
+          if (!btn) return;
+          const v = btn.dataset.value!;
           const on = !set.has(v);
           set[on ? 'add' : 'delete'](v);
-          chip.setAttribute('aria-pressed', String(on));
+          // A value may have two controls (era chip + timeline segment);
+          // keep them pressed in unison.
+          for (const el of group.querySelectorAll(`[data-value="${v}"]`)) {
+            el.setAttribute('aria-pressed', String(on));
+          }
           apply();
         });
       };
