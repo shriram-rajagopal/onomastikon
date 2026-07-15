@@ -136,6 +136,9 @@ const popData = Object.fromEntries(
       </a>
       <p id="daily-meaning" class="daily-meaning" hidden></p>
       <p id="daily-ctx" class="daily-ctx"></p>
+      <button id="daily-expand" class="daily-expand" type="button" aria-expanded="false" aria-controls="daily-details" title="Show this entry's details">▾</button>
+      <div id="daily-details" class="daily-details" hidden></div>
+      <a id="daily-archive" class="daily-archive" href="/names-of-the-day">Past names →</a>
       <a id="daily-random" class="daily-random" href="/search">Random name →</a>
     </section>
   </div>
@@ -208,7 +211,7 @@ const popData = Object.fromEntries(
                     <a href={`/civilizations/${entity.id}`}>
                       <span class="name" data-morph={`civilizations/${entity.id}`}>{entity.data.english_name}</span>
                       <span class="row-meta">
-                        <span class={`count count-${entity.data.type}`} title={`${countByCiv.get(entity.id) ?? 0} name entries`}>{countByCiv.get(entity.id) ?? 0}</span>
+                        <span class={`count count-${entity.data.entry_status}`} title={`${countByCiv.get(entity.id) ?? 0} name entries (${entity.data.entry_status})`}>{countByCiv.get(entity.id) ?? 0}</span>
                         <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
                       </span>
                     </a>
@@ -421,6 +424,78 @@ const popData = Object.fromEntries(
     text-decoration: none;
   }
   .daily-random:hover { text-decoration: underline; }
+  /* The archive link mirrors the random link on the opposite corner. */
+  .daily-archive {
+    position: absolute;
+    bottom: 0;
+    left: 1.5rem;
+    transform: translateY(50%);
+    background: var(--parchment);
+    padding: 0 0.6rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .daily-archive:hover { text-decoration: underline; }
+  /* The expander arrow pops down the full entry details in place. */
+  .daily-expand {
+    display: block;
+    margin: 0.6rem auto 0;
+    padding: 0 0.7rem;
+    background: none;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+  }
+  .daily-expand:hover { border-color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .daily-expand { transition: transform 0.2s ease; }
+  }
+  .daily-expand.open { transform: rotate(180deg); }
+  .daily-details {
+    max-width: 30rem;
+    margin: 0.8rem auto 0;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--rule);
+    text-align: left;
+    font-size: 0.9375rem;
+    overflow: hidden;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .daily-details { animation: daily-unfold 0.28s ease; }
+  }
+  @keyframes daily-unfold {
+    from { opacity: 0; transform: translateY(-6px); }
+  }
+  /* The detail nodes are created at runtime, so they carry no scoped-style
+     attribute; anchor on the static container and reach them with :global. */
+  #daily-details :global(dl) { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1.2rem; margin: 0; }
+  #daily-details :global(dt) {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    padding-top: 0.15rem;
+  }
+  #daily-details :global(dd) { margin: 0; }
+  #daily-details :global(.conf) {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.45rem;
+    border-radius: 3px;
+  }
+  #daily-details :global(.conf-attested) { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
+  #daily-details :global(.conf-reconstructed) { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
+  #daily-details :global(.conf-disputed) { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
+  #daily-details :global(.dd-link) { font-family: 'Inter', sans-serif; font-size: 0.8125rem; }
   /* The heading and tagline settle in a beat after arrival, just behind the
      masthead's own reveal, so the hero reads as "logo, then title" rather than
      everything landing at once. Pure CSS on load (no dependency on the video,
@@ -540,12 +615,18 @@ const popData = Object.fromEntries(
     padding: 0 0.5rem;
     border-radius: 999px;
   }
-  .count-civilization { background: color-mix(in srgb, var(--accent) 16%, var(--parchment)); color: var(--accent); }
-  .count-city { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
-  .count-region { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
-  .count-geographic_feature { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
+  /* Entity chips are colored by entry status, so the count and the badge on
+     the entity page agree: green = complete, blue = still developing. */
+  .count-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
+  .count-developing { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
   .count-language { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
-  /* Section headings carry a small type-colored lozenge, echoing the chips. */
+  /* Section headings wear their section color in the text itself, matching
+     the lozenge beside them. */
+  #civilization { color: var(--accent); }
+  #city { color: var(--badge-developing-fg); }
+  #region { color: var(--conf-attested-fg); }
+  #geographic_feature { color: var(--conf-reconstructed-fg); }
+  #languages { color: var(--conf-disputed-fg); }
   .index-cat h2::before {
     content: '';
     display: inline-block;
@@ -742,9 +823,73 @@ const popData = Object.fromEntries(
             meaning.hidden = false;
           }
           ctx.textContent = pick.context || '';
+          daily.dataset.url = pick.url;
           daily.hidden = false;
         })
       );
+      // The expander arrow pops down the full entry record (IPA, meaning,
+      // era, confidence, sources) from the dataset export, fetched once on
+      // first use; the same export feeds the compare page.
+      const expandBtn = document.getElementById('daily-expand');
+      const detailsEl = document.getElementById('daily-details');
+      let datasetPromise: Promise<any> | null = null;
+      const loadDataset = () =>
+        (datasetPromise ??= fetch('/onomastikon.json').then((r) => r.json()));
+      const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : `${y} CE`);
+      expandBtn?.addEventListener('click', async () => {
+        const open = !detailsEl!.hidden;
+        if (open) {
+          detailsEl!.hidden = true;
+          expandBtn.classList.remove('open');
+          expandBtn.setAttribute('aria-expanded', 'false');
+          return;
+        }
+        const url = daily!.dataset.url;
+        if (!url) return;
+        const data = await loadDataset();
+        const rec = data.names.find((n: any) => n.url.endsWith(url) || n.url === url);
+        if (!rec) return;
+        const lang = data.languages.find((l: any) => l.id === rec.language);
+        const civ = data.entities.find((c: any) => c.id === rec.civilization);
+        const era =
+          rec.era_end === null
+            ? `c. ${fmtYear(rec.era_start)} – in continued use`
+            : `c. ${fmtYear(rec.era_start)} – ${fmtYear(rec.era_end)}`;
+        const dl = document.createElement('dl');
+        const row = (dt: string, dd: Node | string) => {
+          const t = document.createElement('dt');
+          t.textContent = dt;
+          const d = document.createElement('dd');
+          if (typeof dd === 'string') d.textContent = dd;
+          else d.append(dd);
+          dl.append(t, d);
+        };
+        row('Language', lang?.english_name ?? rec.language);
+        row('Entity', civ?.english_name ?? rec.civilization);
+        if (rec.ipa) row('IPA', rec.ipa);
+        if (rec.literal_meaning) row('Meaning', `“${rec.literal_meaning}”`);
+        row('Attested', era);
+        const conf = document.createElement('span');
+        conf.className = `conf conf-${rec.confidence}`;
+        conf.textContent = rec.confidence;
+        row('Confidence', conf);
+        if (rec.sources?.length) {
+          row(
+            'Sources',
+            rec.sources.map((s: any) => s.citation.replaceAll('*', '')).join(' · ')
+          );
+        }
+        const link = document.createElement('a');
+        link.className = 'dd-link';
+        link.href = rec.url;
+        link.textContent = 'Read the full entry →';
+        detailsEl!.textContent = '';
+        detailsEl!.append(dl, document.createElement('br'), link);
+        detailsEl!.hidden = false;
+        expandBtn.classList.add('open');
+        expandBtn.setAttribute('aria-expanded', 'true');
+      });
+
       document.getElementById('daily-random')?.addEventListener('click', (e) => {
         e.preventDefault();
         loadNames().then((names) => {

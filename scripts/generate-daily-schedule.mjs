@@ -77,8 +77,10 @@ export const nyDay = (now = new Date()) => {
 
 export function updateSchedule(ledger, pool, today) {
   const poolSet = new Set(pool);
-  // Keep the round containing today and everything after; completed rounds
-  // are history the round-fairness guarantee no longer needs.
+  // Completed rounds are kept verbatim: they are the name-of-the-day archive,
+  // append-only history that the /names-of-the-day page renders. Only the
+  // round containing today and the future rounds are synced.
+  const history = (ledger?.rounds ?? []).filter((r) => r.start + r.picks.length <= today);
   let rounds = (ledger?.rounds ?? []).filter((r) => r.start + r.picks.length > today);
   if (!rounds.length || rounds[0].start > today) {
     rounds = [{ start: today, picks: shuffled(pool, today) }];
@@ -121,7 +123,7 @@ export function updateSchedule(ledger, pool, today) {
     rounds.push({ start: end, picks: shuffled(pool, end) });
     end += pool.length;
   }
-  return { rounds };
+  return { rounds: [...history, ...rounds] };
 }
 
 // ---------------------------------------------------------------------------

@@ -1,0 +1,254 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatEra } from '../lib/era';
+import { entryAnchor } from '../lib/entry';
+import { citationParts } from '../lib/citation';
+import dailySchedule from '../data/daily-schedule.json';
+
+// The name-of-the-day archive. The committed schedule ledger keeps completed
+// rounds as append-only history, so this page can render every scheduled day
+// with its full entry details at build time; a small script then hides the
+// days that have not yet arrived (US-Eastern reckoning, matching the
+// homepage). New names appear as their days pass, with no rebuild — the page
+// self-updates daily by revelation, not regeneration.
+const [civs, langs, names] = await Promise.all([
+  getCollection('civilizations'),
+  getCollection('languages'),
+  getCollection('names'),
+]);
+const civById = new Map(civs.map((c) => [c.id, c]));
+const langById = new Map(langs.map((l) => [l.id, l]));
+const byUrl = new Map(
+  names.map((n) => [
+    `/civilizations/${n.data.civilization.id}#${entryAnchor(n.id, n.data.civilization.id)}`,
+    n,
+  ])
+);
+
+// Render days from the schedule's first day through a buffer past the build
+// day; the client hides the not-yet days. The buffer keeps the page current
+// through quiet stretches without a deploy.
+const nyDay = (() => {
+  const [y, m, d] = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' })
+    .format(new Date())
+    .split('-')
+    .map(Number);
+  return Math.floor(Date.UTC(y, m - 1, d) / 86400000);
+})();
+const RENDER_THROUGH = nyDay + 90;
+
+const dateLabel = (day: number) =>
+  new Intl.DateTimeFormat('en-US', {
+    timeZone: 'UTC',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(day * 86400000));
+
+const days: Array<{
+  day: number;
+  date: string;
+  url: string;
+  n: (typeof names)[number];
+  langName: string;
+  civName: string;
+}> = [];
+for (const round of dailySchedule.rounds) {
+  round.picks.forEach((url, i) => {
+    const day = round.start + i;
+    if (day > RENDER_THROUGH) return;
+    const n = byUrl.get(url);
+    if (!n) return; // a since-deleted historical pick keeps its day blank
+    days.push({
+      day,
+      date: dateLabel(day),
+      url,
+      n,
+      langName: langById.get(n.data.language.id)?.data.english_name ?? '',
+      civName: civById.get(n.data.civilization.id)?.data.english_name ?? '',
+    });
+  });
+}
+days.sort((a, b) => b.day - a.day); // newest first
+---
+
+<BaseLayout
+  title="Names of the day"
+  description="Every name of the day so far: one name from the atlas per day, each with its original script, transliteration, and full entry details."
+>
+  <h1>Names of the day</h1>
+  <p class="hint">
+    One name from the atlas each day, newest first. The rotation gives every
+    name a turn before any name repeats.
+  </p>
+
+  <ol class="dn-list" id="dn-list" data-render-through={RENDER_THROUGH}>
+    {days.map(({ day, date, url, n, langName, civName }) => {
+      const lang = langById.get(n.data.language.id);
+      return (
+        <li class="dn-card corner-ticks" data-day={day}>
+          <p class="dn-date">{date}</p>
+          <div class="dn-main">
+            <a class="dn-name" href={url}>
+              {n.data.original_text && (
+                <span
+                  class="dn-orig"
+                  lang={lang?.data.lang_code}
+                  dir={lang?.data.direction === 'rtl' ? 'rtl' : undefined}
+                >{n.data.original_text}</span>
+              )}
+              <em class="dn-translit">{n.data.transliteration}</em>
+            </a>
+            <p class="dn-ctx">{langName} · {civName}</p>
+            <button class="dn-expand" type="button" aria-expanded="false" title="Show this entry's details">▾</button>
+          </div>
+          <div class="dn-details" hidden>
+            <dl>
+              {n.data.ipa && (<><dt>IPA</dt><dd>{n.data.ipa}</dd></>)}
+              {n.data.literal_meaning && (<><dt>Meaning</dt><dd>“{n.data.literal_meaning}”</dd></>)}
+              <dt>Attested</dt><dd>{formatEra(n.data.era_start, n.data.era_end)}</dd>
+              <dt>Confidence</dt>
+              <dd><span class={`conf conf-${n.data.confidence}`}>{n.data.confidence}</span></dd>
+              <dt>Sources</dt>
+              <dd>
+                <ol class="dn-sources">
+                  {n.data.sources.map((s) => (
+                    <li>{citationParts(s.citation).map((part) => (part.em ? <em>{part.text}</em> : part.text))}{s.page && <>, p. {s.page}</>}</li>
+                  ))}
+                </ol>
+              </dd>
+            </dl>
+            <a class="dn-link" href={url}>Read the full entry →</a>
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+  <p id="dn-empty" hidden class="hint">The archive begins today; check back tomorrow.</p>
+
+  <script>
+    // Reveal only the days that have arrived, US-Eastern reckoning (the same
+    // clock the homepage pick uses). Future days are rendered but hidden, so
+    // the page gains one card a day with no rebuild.
+    const [y, m, d] = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' })
+      .format(new Date())
+      .split('-')
+      .map(Number);
+    const today = Math.floor(Date.UTC(y, m - 1, d) / 86400000);
+    let shown = 0;
+    for (const card of document.querySelectorAll<HTMLElement>('.dn-card')) {
+      const day = Number(card.dataset.day);
+      if (day > today) card.hidden = true;
+      else shown++;
+    }
+    if (!shown) document.getElementById('dn-empty')!.hidden = false;
+
+    // Expanders: each card's arrow pops down the entry's details.
+    document.getElementById('dn-list')?.addEventListener('click', (e) => {
+      const btn = (e.target as Element).closest<HTMLButtonElement>('.dn-expand');
+      if (!btn) return;
+      const details = btn.closest('.dn-card')!.querySelector<HTMLElement>('.dn-details')!;
+      const open = !details.hidden;
+      details.hidden = open;
+      btn.classList.toggle('open', !open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  h1 { margin-bottom: 0.25rem; }
+  .hint { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0 0 1.75rem; }
+  .dn-list { list-style: none; margin: 0; padding: 0; }
+  .dn-card {
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
+    background-image: var(--grain);
+    box-shadow: var(--shadow-soft);
+    padding: 1rem 1.25rem;
+    margin: 0 0 1.1rem;
+  }
+  .dn-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-soft);
+    margin: 0 0 0.4rem;
+  }
+  .dn-main { display: flex; align-items: center; gap: 1rem; }
+  .dn-name { flex: 1; display: flex; align-items: baseline; gap: 0.9rem; text-decoration: none; color: var(--ink); min-width: 0; }
+  .dn-name:hover .dn-translit { color: var(--accent); }
+  .dn-orig {
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', 'Noto Sans Brahmi', 'Noto Sans Old Sogdian', serif;
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  .dn-translit { font-size: 1.125rem; transition: color 0.12s; }
+  .dn-ctx {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-soft);
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .dn-expand {
+    flex-shrink: 0;
+    padding: 0 0.6rem;
+    background: none;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    color: var(--accent);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+  }
+  .dn-expand:hover { border-color: var(--accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .dn-expand { transition: transform 0.2s ease; }
+    .dn-details { animation: dn-unfold 0.28s ease; }
+  }
+  .dn-expand.open { transform: rotate(180deg); }
+  @keyframes dn-unfold {
+    from { opacity: 0; transform: translateY(-6px); }
+  }
+  .dn-details {
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9375rem;
+  }
+  .dn-details dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1.2rem; margin: 0; }
+  .dn-details dt {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    padding-top: 0.15rem;
+  }
+  .dn-details dd { margin: 0; }
+  .conf {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.45rem;
+    border-radius: 3px;
+  }
+  .conf-attested { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
+  .conf-reconstructed { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
+  .conf-disputed { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
+  .dn-sources { margin: 0; padding-left: 1.1rem; }
+  .dn-sources li { margin: 0.2rem 0; }
+  .dn-link { display: inline-block; margin-top: 0.7rem; font-family: 'Inter', sans-serif; font-size: 0.8125rem; }
+  @media (max-width: 560px) {
+    .dn-main { flex-wrap: wrap; gap: 0.5rem; }
+    .dn-ctx { width: 100%; order: 3; }
+  }
+</style>
