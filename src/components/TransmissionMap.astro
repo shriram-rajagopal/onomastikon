@@ -264,15 +264,15 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     background: color-mix(in srgb, var(--ink) 1%, var(--parchment));
   }
   .coast {
-    fill: color-mix(in srgb, var(--ink) 12%, var(--parchment));
-    stroke: color-mix(in srgb, var(--ink) 30%, var(--parchment));
-    stroke-width: 0.8;
+    fill: color-mix(in srgb, var(--ink) 18%, var(--parchment));
+    stroke: color-mix(in srgb, var(--ink) 45%, var(--parchment));
+    stroke-width: 0.9;
   }
   .arc {
     fill: none;
     stroke: var(--accent);
-    stroke-width: 1.2;
-    opacity: 0.55;
+    stroke-width: 1.4;
+    opacity: 0.75;
     transition: opacity 0.3s;
   }
   /* Formerly in use: dashed path, open circle. Dash units are fractions of
@@ -285,7 +285,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     transition: opacity 0.3s;
   }
   .map-node.past circle { fill: color-mix(in srgb, var(--ink) 1%, var(--parchment)); }
-  .map-node.past text { opacity: 0.75; }
+  .map-node.past text { opacity: 0.85; }
   .map-node text {
     font-family: 'EB Garamond', Georgia, serif;
     font-style: italic;
@@ -295,7 +295,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   }
   .map-node:hover circle, .map-node:focus circle { r: 4.5; }
   .map-node:hover text, .map-node:focus text { fill: var(--accent); opacity: 1; }
-  .arc.future, .map-node.future { opacity: 0.1; }
+  .arc.future, .map-node.future { opacity: 0.18; }
   .map-node.future { pointer-events: none; }
   /* Draw the arcs in when the section scrolls into view (script-opted). The
      keyframes pin a solid dash during the draw, then release to the static
@@ -336,23 +336,23 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   }
   .leg-current { background: var(--accent); }
   .leg-past { border: 1.5px solid var(--accent); }
-  .leg-future { background: var(--accent); opacity: 0.15; }
+  .leg-future { background: var(--accent); opacity: 0.18; }
 
   /* Entity locator: the page's own subject, in ink (the names travel in accent;
      the thing itself sits in ink). A parchment halo keeps it legible over the
      coast and under the naming layer at any map density. */
   .ent-halo { fill: none; stroke: var(--parchment); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; }
-  .ent-river { fill: none; stroke: color-mix(in srgb, var(--ink) 52%, var(--parchment)); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ent-river { fill: none; stroke: color-mix(in srgb, var(--ink) 66%, var(--parchment)); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .ent-mtn-halo { fill: var(--parchment); stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.85; }
-  .ent-mtn { fill: color-mix(in srgb, var(--ink) 52%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
+  .ent-mtn { fill: color-mix(in srgb, var(--ink) 66%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
   .ent-region-halo { fill: none; stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.85; }
-  .ent-region { fill: color-mix(in srgb, var(--ink) 12%, var(--parchment)); stroke: color-mix(in srgb, var(--ink) 42%, var(--parchment)); stroke-width: 1.1; stroke-dasharray: 4 3; stroke-linejoin: round; }
+  .ent-region { fill: color-mix(in srgb, var(--ink) 27%, var(--parchment)); stroke: color-mix(in srgb, var(--ink) 58%, var(--parchment)); stroke-width: 1.1; stroke-dasharray: 4 3; stroke-linejoin: round; }
   .ent-pt-halo { fill: var(--parchment); stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.9; }
-  .ent-city, .ent-civ { fill: color-mix(in srgb, var(--ink) 58%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
+  .ent-city, .ent-civ { fill: color-mix(in srgb, var(--ink) 72%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
   .ent-label {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 12px;
-    fill: color-mix(in srgb, var(--ink) 68%, var(--parchment));
+    fill: color-mix(in srgb, var(--ink) 82%, var(--parchment));
     paint-order: stroke;
     stroke: var(--parchment);
     stroke-width: 3.2px;
@@ -366,8 +366,8 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     margin: -1.6rem 0 2rem;
   }
   .loc-swatch { display: inline-block; vertical-align: middle; margin-right: 2px; }
-  .loc-river { width: 14px; height: 0; border-top: 2px solid color-mix(in srgb, var(--ink) 52%, var(--parchment)); }
-  .loc-mountains { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid color-mix(in srgb, var(--ink) 52%, var(--parchment)); }
-  .loc-region { width: 11px; height: 8px; border: 1.5px dashed color-mix(in srgb, var(--ink) 42%, var(--parchment)); background: color-mix(in srgb, var(--ink) 12%, var(--parchment)); }
-  .loc-glyph { color: color-mix(in srgb, var(--ink) 58%, var(--parchment)); font-size: 0.95em; vertical-align: middle; }
+  .loc-river { width: 14px; height: 0; border-top: 2px solid color-mix(in srgb, var(--ink) 66%, var(--parchment)); }
+  .loc-mountains { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid color-mix(in srgb, var(--ink) 66%, var(--parchment)); }
+  .loc-region { width: 11px; height: 8px; border: 1.5px dashed color-mix(in srgb, var(--ink) 58%, var(--parchment)); background: color-mix(in srgb, var(--ink) 27%, var(--parchment)); }
+  .loc-glyph { color: color-mix(in srgb, var(--ink) 72%, var(--parchment)); font-size: 0.95em; vertical-align: middle; }
 </style>

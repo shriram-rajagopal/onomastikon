@@ -492,21 +492,21 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
         height: auto;
         border: 1px solid var(--rule-strong);
         border-radius: 4px;
-        background: color-mix(in srgb, var(--ink) 3%, var(--parchment));
+        background: color-mix(in srgb, var(--ink) 7%, var(--parchment));
         box-shadow: var(--shadow-soft);
       }
-      .locator-land { fill: var(--parchment); stroke: var(--rule); stroke-width: 1; }
+      .locator-land { fill: var(--parchment); stroke: color-mix(in srgb, var(--ink) 32%, var(--parchment)); stroke-width: 1; }
       .locator-river-ctx {
         fill: none;
-        stroke: color-mix(in srgb, var(--ink) 32%, var(--parchment));
+        stroke: color-mix(in srgb, var(--ink) 42%, var(--parchment));
         stroke-width: 2.6;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
       .locator-region {
-        fill: color-mix(in srgb, var(--accent) 18%, transparent);
+        fill: color-mix(in srgb, var(--accent) 26%, transparent);
         stroke: var(--accent);
-        stroke-width: 1.2;
+        stroke-width: 1.4;
       }
       .locator-line {
         fill: none;
@@ -518,11 +518,11 @@ const ogImageURL = new URL(image ?? '/og-default.png', Astro.site).href;
       .locator-mtn { fill: var(--accent); stroke: var(--parchment); stroke-width: 0.8; stroke-linejoin: round; }
       .locator-dot { fill: var(--accent); }
       .locator-halo {
-        fill: color-mix(in srgb, var(--accent) 18%, transparent);
-        stroke: color-mix(in srgb, var(--accent) 45%, transparent);
+        fill: color-mix(in srgb, var(--accent) 26%, transparent);
+        stroke: color-mix(in srgb, var(--accent) 60%, transparent);
         stroke-width: 1;
       }
-      .locator-ring { fill: none; stroke: var(--accent); stroke-width: 2.4; opacity: 0.85; }
+      .locator-ring { fill: none; stroke: var(--accent); stroke-width: 2.4; }
       a { color: var(--accent); }
       @media print {
         .skip-link, .site-header nav { display: none; }
