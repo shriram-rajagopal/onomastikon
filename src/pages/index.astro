@@ -58,6 +58,34 @@ const popData = Object.fromEntries(
     },
   ])
 );
+
+// The five ages written out: clicking a period name above the timeline opens
+// a short portrait of the age. Entity mentions link to their entries and
+// carry the same hover popover as the index rows.
+const L = (slug: string, text: string) =>
+  `<a class="ent-link" data-slug="${slug}" href="/civilizations/${slug}">${text}</a>`;
+const ERA_NOTES: Record<string, { span: string; html: string }> = {
+  bronze: {
+    span: 'c. 3500–1200 BCE',
+    html: `<p>The age of the first cities and the first writing. Along the ${L('nile', 'Nile')}, the ${L('tigris', 'Tigris')}, and the ${L('euphrates', 'Euphrates')}, irrigation farming fed the first urban societies: ${L('sumer', 'Sumer')}, where ${L('uruk', 'Uruk')} grew into a city of tens of thousands; ${L('egypt', 'Egypt')} under its god-kings; the ${L('indus', 'Indus')} cities that Mesopotamian ledgers call ${L('meluhha', 'Meluhha')}. Nearly everyone farmed. Money did not yet exist, so palace and temple ran the economy, collecting grain, wool, and labor and paying them back out as rations; kingship was a sacred office, answerable to the gods for canal and harvest, and ${L('akkad', 'Akkad')} stretched that kingship into the first empire.</p><p>Bronze itself explains the age's reach: copper from ${L('magan', 'Magan')} and tin from far mountains had to travel, so routes ran the ${L('persian-gulf', 'Persian Gulf')} through ${L('dilmun', 'Dilmun')}, and ships wove ${L('minoan-crete', 'Minoan Crete')}, the ${L('aegean', 'Aegean')}, and ${L('mycenae', 'Mycenae')} into the eastern trade. The great courts of Egypt, the ${L('hittites', 'Hittites')}, ${L('babylonia', 'Babylonia')}, and ${L('assyria', 'Assyria')} exchanged letters, brides, and gifts in a first international system, and fought with the age's prestige weapon, the horse-drawn chariot. Cuneiform and hieroglyphic scribes kept the records; temple festivals kept the calendar. Around 1200 BCE the whole network burned down in a collapse remembered ever after in the legend of ${L('troy', 'Troy')}.</p>`,
+  },
+  iron: {
+    span: 'c. 1200–550 BCE',
+    html: `<p>Iron remade life from below. Ore was common where copper and tin were rare, so metal tools and weapons reached ordinary farmers and soldiers, and villages cleared land the Bronze Age never touched. The alphabet, carried by the merchants of ${L('phoenicia', 'Phoenicia')} out of ${L('tyre', 'Tyre')} and ${L('sidon', 'Sidon')}, did for writing what iron did for metal and took literacy out of the scribal schools. In the space the fallen empires left grew small kingdoms with strong identities: ${L('israel', 'Israel')} and ${L('judah', 'Judah')}, Aramaean ${L('damascus', 'Damascus')}, ${L('phrygia', 'Phrygia')} and ${L('lydia', 'Lydia')} in ${L('anatolia', 'Anatolia')}, where the first coins were struck. ${L('carthage', 'Carthage')} and the city-states of ${L('greece', 'Greece')} planted colonies from ${L('sicily', 'Sicily')} to the ${L('black-sea', 'Black Sea')}, and the sea became a single marketplace of oil, wine, grain, and slaves.</p><p>The age's superpower was ${L('assyria', 'Assyria')}: professional armies, siege engineering, imperial roads, mass deportations, and at ${L('nineveh', 'Nineveh')} a royal library that tried to hold all knowledge. ${L('babylonia', 'Babylonia')} and ${L('media', 'Media')} divided its empire between them. On the steppe, ${L('scythia', 'Scythia')} and the ${L('cimmerians', 'Cimmerians')} made the mounted archer the new fact of war. Worldviews sharpened with the borders: the prophets of Judah preached one God over all nations, ${L('iran', 'Iran')}'s seers framed the world as a war of truth against the lie, and the Greeks wrote Homer down. Iron, alphabet, and coin were the kit every later empire picked up.</p>`,
+  },
+  classical: {
+    span: 'c. 550–30 BCE',
+    html: `<p>${L('persia', 'Persia')} joined the world into its first superstate, satrapies from the ${L('nile', 'Nile')} to the ${L('indus', 'Indus')} bound by royal roads, standard coin, and a chancellery that proclaimed the king's peace in three languages from ${L('persepolis', 'Persepolis')} and ${L('susa', 'Susa')}. Against it the small cities of ${L('greece', 'Greece')} defined a rival ideal: the armed citizen, the public assembly, and in ${L('athens', 'Athens')} drama, history, and philosophy as civic arts, with ${L('sparta', 'Sparta')} as the severe counter-model. ${L('macedon', 'Macedon')} fused the two worlds when Alexander took the Persian empire whole, and the successor kingdoms made Greek the language of power from ${L('alexandria', 'Alexandria')} to ${L('bactria', 'Bactria')}.</p><p>Coined money now paid soldiers, taxed harvests, and moved grain across the ${L('mediterranean', 'Mediterranean')}, while slave-worked estates and mines concentrated wealth as never before. In ${L('india', 'India')} the Mauryas ruled from ${L('pataliputra', 'Pataliputra')} and sent Buddhist teaching through ${L('taxila', 'Taxila')} toward the mountain passes; in ${L('china', 'China')} the warring kingdoms hammered themselves into one state that would outlast them all. Armies were the age's laboratories: phalanx, war elephant, siege engine, and, as ${L('rome', 'Rome')} and ${L('carthage', 'Carthage')} fought for the west at ${L('syracuse', 'Syracuse')} and beyond, the legion. Civic temples still anchored public life, but mystery cults, Buddhism, and the philosophical schools now offered individuals a destiny of their own.</p>`,
+  },
+  late: {
+    span: 'c. 30 BCE–600 CE',
+    html: `<p>${L('rome', 'Rome')} ringed the ${L('mediterranean', 'Mediterranean')} and called it "our sea": one law and coinage, roads, aqueducts, and cities with baths and theaters from ${L('italia', 'Italia')} to ${L('syria', 'Syria')}. Most people still farmed, but they farmed inside a single market; the grain of ${L('egypt', 'Egypt')} fed the capital, and oil and wine crossed the sea in bulk. Professional legions held a walled frontier for centuries against ${L('parthia', 'Parthia')} and then Sasanian ${L('iran', 'Iran')}, the rival superpower that never fell. Beyond the empires, caravans through ${L('sogdiana', 'Sogdiana')} and ${L('bactria', 'Bactria')} and monsoon fleets out of the ${L('red-sea', 'Red Sea')} tied Rome to ${L('india', 'India')} and Han ${L('china', 'China')}; silk moved west, silver east, and the world was more connected than it would be again for a thousand years.</p><p>The deepest change was religious. Christianity spread from ${L('jerusalem', 'Jerusalem')} through the cities into the state itself; Zoroastrianism ordered Iran; Buddhism rode the caravan roads into China. Law was codified, and learning gathered at ${L('alexandria', 'Alexandria')}. From the late fourth century, steppe migrations and plague broke the western provinces into successor kingdoms, but the east held: Constantine's new capital at ${L('byzantium', 'Byzantium')} carried the empire on, and its Greek-speaking citizens went on calling themselves Romans for another thousand years.</p>`,
+  },
+  medieval: {
+    span: 'c. 600–1453 CE',
+    html: `<p>Islam rose in Arabia, and within a century the caliphs, ruling first from ${L('damascus', 'Damascus')}, governed from the western ${L('mediterranean', 'Mediterranean')} to the ${L('oxus', 'Oxus')}. Theirs was the hub economy of the age: gold coin and paper credit, dhows riding the monsoon from the ${L('red-sea', 'Red Sea')} and the ${L('persian-gulf', 'Persian Gulf')} to ${L('india', 'India')} and beyond, caravans through ${L('sogdiana', 'Sogdiana')} to Tang ${L('china', 'China')}. Western Europe contracted to the manor, peasants owing labor to armored lords in a pyramid of oaths, while ${L('byzantium', 'Byzantium')} held the Roman line under its old name. Faith organized everything: mosque, church, and monastery served as school, archive, bank, and court at once, and ${L('jerusalem', 'Jerusalem')} drew pilgrims and crusaders of three faiths.</p><p>Steppe power redrew the map twice, first through the Turks, then through the Mongols, whose empire briefly joined China to the ${L('black-sea', 'Black Sea')} in one commercial world under a single passport. Along those roads technology moved west: paper, the compass, gunpowder. Europe raised windmills, heavy plows, cathedrals, and universities, and recovered Greek philosophy through Arabic translation. In 1453 Ottoman guns breached the Theodosian walls, Constantinople fell, and the age this atlas covers closes where naming began: with an ancient city under a new name.</p>`,
+  },
+};
 ---
 
 <BaseLayout
@@ -88,7 +116,7 @@ const popData = Object.fromEntries(
     <div class="hd-row"><span>Babylon</span><span class="hd-chip hd-green">14</span><span class="hd-era">c. 2300 BCE – 651 CE</span></div>
     <ul>
       <li>The number counts the page's name entries; <span class="hd-chip hd-green">green</span> means coverage is complete, <span class="hd-chip hd-blue">blue</span> still developing.</li>
-      <li>Filters combine freely: any set of regions with any set of eras.</li>
+      <li>Region chips filter the index; the era names above the timeline open a short portrait of each age, with links into the atlas.</li>
       <li>Rest your cursor on an entity row and a panel opens with its summary and a locator map (wide screens).</li>
       <li>The name of the day changes at midnight Eastern; every name gets a turn before any repeats. The ▾ opens the full entry, and “Past names” is the archive.</li>
     </ul>
@@ -175,28 +203,40 @@ const popData = Object.fromEntries(
         <button type="button" class="chip" data-value={key} aria-pressed="false">{label}</button>
       ))}
     </fieldset>
-    <fieldset class="filter-group" id="filter-era">
+    <fieldset class="filter-group era-group" id="filter-era">
       <legend class="filters-label">Era</legend>
-      {ERAS.map((e) => (
-        <button type="button" class="chip" data-value={`${e.start}:${e.end}`} aria-pressed="false" title={e.label}>{e.label.split(' (')[0]}</button>
-      ))}
       {(() => {
         const t0 = ERAS[0].start;
         const t1 = ERAS[ERAS.length - 1].end;
         const span = t1 - t0;
         const pct = (y: number) => ((y - t0) / span) * 100;
         const fmt = (y: number) => (y < 0 ? `${-y} BCE` : `${y} CE`);
+        const w = (e: (typeof ERAS)[number]) => (((e.end - e.start) / span) * 100).toFixed(2);
         return (
-          <>
+          <div class="era-wrap">
+            <div class="era-names" role="group" aria-label="The ages of the atlas">
+              {ERAS.map((e) => (
+                <button
+                  type="button"
+                  class="era-name"
+                  data-era={e.key}
+                  aria-expanded="false"
+                  aria-controls={`era-note-${e.key}`}
+                  title={e.label}
+                  style={`width: ${w(e)}%`}
+                >{e.label.split(' (')[0]}</button>
+              ))}
+            </div>
             <div class="era-line">
               {ERAS.map((e, i) => (
                 <button
                   type="button"
                   class="era-seg"
-                  data-value={`${e.start}:${e.end}`}
-                  aria-pressed="false"
+                  data-era={e.key}
+                  tabindex="-1"
+                  aria-hidden="true"
                   title={e.label}
-                  style={`width: ${(((e.end - e.start) / span) * 100).toFixed(2)}%; --tint: ${8 + i * 7}%`}
+                  style={`width: ${w(e)}%; --tint: ${8 + i * 7}%`}
                 ></button>
               ))}
             </div>
@@ -205,7 +245,17 @@ const popData = Object.fromEntries(
                 <span style={`left: ${pct(y).toFixed(2)}%`}>{fmt(y)}</span>
               ))}
             </div>
-          </>
+            {ERAS.map((e) => (
+              <div class="era-note corner-ticks" id={`era-note-${e.key}`} hidden>
+                <div class="era-note-head">
+                  <strong>{e.label.split(' (')[0]}</strong>
+                  <span class="era-note-span">{ERA_NOTES[e.key].span}</span>
+                  <button type="button" class="era-note-close" data-era={e.key} aria-label="Close">×</button>
+                </div>
+                <div class="era-note-body" set:html={ERA_NOTES[e.key].html} />
+              </div>
+            ))}
+          </div>
         );
       })()}
     </fieldset>
@@ -618,8 +668,62 @@ const popData = Object.fromEntries(
     border-color: var(--accent);
     color: var(--parchment);
   }
-  /* The era timeline: the four ages in true proportion, boundaries labeled,
-     each segment clickable in unison with its chip above. */
+  /* The era strip: period names above a timeline whose segments run in true
+     proportion, boundaries labeled beneath. Clicking a name (or its segment)
+     opens that age's portrait below. */
+  .era-wrap { width: 100%; }
+  .era-names { display: flex; width: 100%; }
+  .era-name {
+    border: 0;
+    background: none;
+    padding: 0 2px 0.3rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    line-height: 1.3;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .era-name:hover { color: var(--accent); }
+  .era-name[aria-expanded='true'] { color: var(--accent); font-weight: 600; }
+  @media (max-width: 640px) {
+    .era-names { flex-wrap: wrap; gap: 0.1rem 0.8rem; }
+    .era-name { width: auto !important; text-align: left; }
+  }
+  .era-note {
+    width: 100%;
+    margin-top: 0.85rem;
+    padding: 1rem 1.15rem 1.05rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
+    background-image: var(--grain);
+    box-shadow: var(--shadow-soft);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .era-note-head { display: flex; align-items: baseline; gap: 0.6rem; margin: 0 0 0.2rem; }
+  .era-note-head strong { font-family: 'EB Garamond', Georgia, serif; font-size: 1.15rem; font-weight: 600; }
+  .era-note-span { font-family: 'Inter', sans-serif; font-size: 0.6875rem; color: var(--ink-soft); }
+  .era-note-close {
+    margin-left: auto;
+    border: 0;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.2rem;
+  }
+  .era-note-close:hover { color: var(--accent); }
+  .era-note-body :global(p) { margin: 0.45rem 0 0; }
+  .era-note-body :global(.ent-link) {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+  .era-note-body :global(.ent-link:hover) { border-bottom-style: solid; }
   .era-line {
     display: flex;
     width: 100%;
@@ -641,7 +745,6 @@ const popData = Object.fromEntries(
   }
   .era-seg + .era-seg { border-left: 1px solid var(--rule-strong); }
   .era-seg:hover { background: color-mix(in srgb, var(--accent) 45%, var(--parchment)); }
-  .era-seg[aria-pressed='true'] { background: var(--accent); }
   .era-years {
     position: relative;
     width: 100%;
@@ -783,6 +886,10 @@ const popData = Object.fromEntries(
     #entity-pop { transition: opacity 0.22s ease, transform 0.22s ease; }
   }
   #entity-pop.show { opacity: 1; transform: none; pointer-events: auto; }
+  /* Anchored variant: pinned above (or below) a hovered entity link in the
+     era portraits, encyclopedia-preview style; left/top come from script. */
+  #entity-pop.anchored { transform: translateY(8px); }
+  #entity-pop.anchored.show { transform: none; }
   #entity-pop h3 { margin: 0; font-size: 1.25rem; }
   .pop-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0.25rem 0 0.5rem; }
   .pop-badges { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; }
@@ -976,12 +1083,13 @@ const popData = Object.fromEntries(
 
   // Long-hover popover: rest the cursor on an entity row for a beat and a
   // panel slides out beside the index with the entry's summary, minimap,
-  // subheading, and status. Wide hover-capable screens only; the minimap SVG
-  // is fetched once per entity and injected inline so theme variables apply.
+  // subheading, and status. Row-hover is wide-screens-only; entity links in
+  // the era portraits get the same panel on any hover-capable screen,
+  // anchored above the word like an encyclopedia preview. The minimap SVG is
+  // fetched once per entity and injected inline so theme variables apply.
   {
     const pop = document.getElementById('entity-pop');
-    const wants = matchMedia('(min-width: 1440px) and (hover: hover)').matches;
-    if (pop && wants) {
+    if (pop && matchMedia('(hover: hover)').matches) {
       const data = JSON.parse(document.getElementById('entity-pop-data')!.textContent!);
       const mapCache = new Map<string, string>();
       const el = (id: string) => document.getElementById(id)!;
@@ -996,7 +1104,7 @@ const popData = Object.fromEntries(
         window.setTimeout(() => { if (!shownFor) pop.hidden = true; }, 240);
       };
 
-      const show = async (slug: string, row: HTMLElement) => {
+      const show = async (slug: string, row: HTMLElement, anchored = false) => {
         const d = data[slug];
         if (!d) return;
         el('pop-name').textContent = d.n;
@@ -1018,31 +1126,87 @@ const popData = Object.fromEntries(
           }
         }
         holder.innerHTML = mapCache.get(slug) ?? '';
-        // Align to the hovered row, clamped inside the viewport.
         pop.hidden = false;
-        const rect = row.getBoundingClientRect();
-        const top = Math.min(Math.max(rect.top - 8, 76), innerHeight - pop.offsetHeight - 16);
-        pop.style.top = `${top}px`;
+        pop.classList.toggle('anchored', anchored);
+        if (anchored) {
+          // Center above the hovered word, clamped to the viewport; below it
+          // when there is no room above.
+          const a = row.getBoundingClientRect();
+          const w = pop.offsetWidth;
+          const left = Math.min(Math.max(a.left + a.width / 2 - w / 2, 10), innerWidth - w - 10);
+          let top = a.top - pop.offsetHeight - 10;
+          if (top < 70) top = a.bottom + 10;
+          pop.style.left = `${left}px`;
+          pop.style.top = `${top}px`;
+        } else {
+          // Align to the hovered row in the right gutter, clamped inside the
+          // viewport (left comes from the stylesheet).
+          pop.style.left = '';
+          const rect = row.getBoundingClientRect();
+          const top = Math.min(Math.max(rect.top - 8, 76), innerHeight - pop.offsetHeight - 16);
+          pop.style.top = `${top}px`;
+        }
         shownFor = slug;
         requestAnimationFrame(() => pop.classList.add('show'));
       };
 
-      for (const li of document.querySelectorAll<HTMLElement>('.index-list li[data-slug]')) {
-        li.addEventListener('mouseenter', () => {
+      if (matchMedia('(min-width: 1440px)').matches) {
+        for (const li of document.querySelectorAll<HTMLElement>('.index-list li[data-slug]')) {
+          li.addEventListener('mouseenter', () => {
+            window.clearTimeout(showTimer);
+            window.clearTimeout(hideTimer);
+            showTimer = window.setTimeout(() => show(li.dataset.slug!, li), 550);
+          });
+          li.addEventListener('mouseleave', () => {
+            window.clearTimeout(showTimer);
+            hideTimer = window.setTimeout(hide, 180);
+          });
+        }
+      }
+      for (const link of document.querySelectorAll<HTMLElement>('.ent-link[data-slug]')) {
+        link.addEventListener('mouseenter', () => {
           window.clearTimeout(showTimer);
           window.clearTimeout(hideTimer);
-          showTimer = window.setTimeout(() => show(li.dataset.slug!, li), 550);
+          showTimer = window.setTimeout(() => show(link.dataset.slug!, link, true), 350);
         });
-        li.addEventListener('mouseleave', () => {
+        link.addEventListener('mouseleave', () => {
           window.clearTimeout(showTimer);
           hideTimer = window.setTimeout(hide, 180);
         });
+        link.addEventListener('focus', () => show(link.dataset.slug!, link, true));
+        link.addEventListener('blur', () => { hideTimer = window.setTimeout(hide, 180); });
       }
       // Let the reader mouse into the panel (to read the summary) without it
       // vanishing under them.
       pop.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
       pop.addEventListener('mouseleave', () => { hideTimer = window.setTimeout(hide, 180); });
       addEventListener('scroll', () => { if (shownFor) hide(); }, { passive: true });
+    }
+  }
+
+  // Era portraits: the period names above the timeline (and the timeline
+  // segments themselves) toggle the matching age's note open, one at a time.
+  {
+    const names = [...document.querySelectorAll<HTMLButtonElement>('.era-name')];
+    const notes = new Map(
+      [...document.querySelectorAll<HTMLElement>('.era-note')].map((n) => [n.id.replace('era-note-', ''), n])
+    );
+    if (names.length && notes.size) {
+      let open: string | null = null;
+      const setOpen = (key: string | null) => {
+        open = key;
+        for (const btn of names) btn.setAttribute('aria-expanded', String(btn.dataset.era === key));
+        for (const [k, n] of notes) n.hidden = k !== key;
+      };
+      document.getElementById('filter-era')?.addEventListener('click', (e) => {
+        const t = (e.target as Element).closest<HTMLElement>('[data-era]');
+        if (!t) return;
+        if (t.classList.contains('era-note-close')) return setOpen(null);
+        setOpen(open === t.dataset.era ? null : t.dataset.era!);
+      });
+      addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && open) setOpen(null);
+      });
     }
   }
 
@@ -1072,33 +1236,23 @@ const popData = Object.fromEntries(
     railIO.observe(sentinel);
   }
 
-  // Region/era filters: hide entity rows that don't match, then hide any
+  // Region filter: hide entity rows outside the chosen regions, then hide any
   // category whose rows are all hidden. Languages are untouched. The form is
   // server-rendered hidden and revealed here, so no-JS gets the plain index.
+  // (The era strip below the chips explains rather than filters.)
   {
     const form = document.getElementById('filters');
     const count = document.getElementById('filters-count');
-    // Entity rows are the ones carrying era data; language rows never match.
     const rows = [...document.querySelectorAll<HTMLLIElement>('.index-list li[data-start]')];
     if (form && rows.length) {
       form.hidden = false;
-      // Multi-select: chips toggle in and out of each set. Within a dimension
-      // the selections union (Mesopotamia OR South Asia); across dimensions
-      // they intersect (in those regions AND overlapping a chosen era). An
-      // empty set means the dimension is unfiltered.
+      // Multi-select: chips toggle in and out of the set, and the selections
+      // union (Mesopotamia OR South Asia). An empty set means unfiltered.
       const regions = new Set<string>();
-      const eras = new Set<string>();
       const apply = () => {
         let shown = 0;
         for (const row of rows) {
-          const okRegion = regions.size === 0 || regions.has(row.dataset.mregion ?? '');
-          const okEra =
-            eras.size === 0 ||
-            [...eras].some((v) => {
-              const [lo, hi] = v.split(':').map(Number);
-              return Number(row.dataset.start) <= hi && Number(row.dataset.end) >= lo;
-            });
-          const on = okRegion && okEra;
+          const on = regions.size === 0 || regions.has(row.dataset.mregion ?? '');
           row.hidden = !on;
           if (on) shown++;
         }
@@ -1106,26 +1260,17 @@ const popData = Object.fromEntries(
         for (const cat of document.querySelectorAll<HTMLElement>('.index-col:first-child .index-cat')) {
           cat.hidden = !cat.querySelector('li:not([hidden])');
         }
-        if (count) count.textContent = regions.size || eras.size ? `${shown} of ${rows.length} shown` : '';
+        if (count) count.textContent = regions.size ? `${shown} of ${rows.length} shown` : '';
       };
-      const wire = (groupId: string, set: Set<string>) => {
-        const group = document.getElementById(groupId);
-        group?.addEventListener('click', (e) => {
-          const btn = (e.target as Element).closest<HTMLButtonElement>('[data-value]');
-          if (!btn) return;
-          const v = btn.dataset.value!;
-          const on = !set.has(v);
-          set[on ? 'add' : 'delete'](v);
-          // A value may have two controls (era chip + timeline segment);
-          // keep them pressed in unison.
-          for (const el of group.querySelectorAll(`[data-value="${v}"]`)) {
-            el.setAttribute('aria-pressed', String(on));
-          }
-          apply();
-        });
-      };
-      wire('filter-region', regions);
-      wire('filter-era', eras);
+      document.getElementById('filter-region')?.addEventListener('click', (e) => {
+        const btn = (e.target as Element).closest<HTMLButtonElement>('[data-value]');
+        if (!btn) return;
+        const v = btn.dataset.value!;
+        const on = !regions.has(v);
+        regions[on ? 'add' : 'delete'](v);
+        btn.setAttribute('aria-pressed', String(on));
+        apply();
+      });
     }
   }
 
