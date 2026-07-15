@@ -532,6 +532,10 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
       }
       .locator-ring { fill: none; stroke: var(--accent); stroke-width: 2.4; }
       a { color: var(--accent); }
+      /* Auto-crossreference links planted in entry prose by the rehype-xref
+         filter: quiet dotted underlines, solid on hover. */
+      a.xref { text-decoration: none; border-bottom: 1px dotted color-mix(in srgb, var(--accent) 55%, transparent); }
+      a.xref:hover { border-bottom-style: solid; }
       @media print {
         .skip-link, .site-header nav { display: none; }
         /* Force the light palette on paper regardless of the on-screen theme. */
