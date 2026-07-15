@@ -3,7 +3,7 @@ english_name: Bactria
 type: civilization
 entry_status: complete
 region: Central Asia (northern Afghanistan, the upper Oxus)
-era_start: -1500
+era_start: -1000
 era_end: 650
 summary: The rich land of the upper Oxus, one of the sacred Aryan countries of the Avesta, an Achaemenid satrapy, and the seat of a remarkable Greek kingdom at the far edge of the Hellenistic world.
 ---

@@ -3,7 +3,7 @@ english_name: Greece
 type: civilization
 region: Aegean and southern Balkans
 entry_status: complete
-era_start: -800
+era_start: -1600
 era_end: 600
 summary: The cultural and political community of the Hellenic world.
 ---
