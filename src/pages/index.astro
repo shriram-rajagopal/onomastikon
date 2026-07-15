@@ -530,11 +530,14 @@ const popData = Object.fromEntries(
       animation: hero-rule-draw 0.55s ease 1.05s both;
     }
     .hero-intro-inner {
-      animation:
-        hero-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 1.35s both,
-        hero-flyup 0.65s cubic-bezier(0.6, -0.05, 0.85, 0.4) 2.65s forwards;
+      animation: hero-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 1.35s both;
     }
-    .hero-intro { animation: hero-collapse 0.45s ease 3.2s forwards; }
+    /* The fly-up waits for the reader: the first scroll adds .fly, and the
+       title dissolves up behind the underline as the page moves. */
+    .hero-intro.fly .hero-intro-inner {
+      animation: hero-flyup 0.65s cubic-bezier(0.6, -0.05, 0.85, 0.4) forwards;
+    }
+    .hero-intro.fly { animation: hero-collapse 0.45s ease 0.4s forwards; }
   }
   @keyframes hero-rule-draw {
     to { transform: scaleX(1); }
@@ -984,6 +987,20 @@ const popData = Object.fromEntries(
       pop.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
       pop.addEventListener('mouseleave', () => { hideTimer = window.setTimeout(hide, 180); });
       addEventListener('scroll', () => { if (shownFor) hide(); }, { passive: true });
+    }
+  }
+
+  // The hero title flies up on the reader's first scroll (not a timer); once
+  // flown it stays gone for the visit. Reduced-motion keeps the title at rest.
+  {
+    const heroIntro = document.getElementById('hero-intro');
+    if (heroIntro && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const onScroll = () => {
+        if (window.scrollY < 30) return;
+        heroIntro.classList.add('fly');
+        removeEventListener('scroll', onScroll);
+      };
+      addEventListener('scroll', onScroll, { passive: true });
     }
   }
 
