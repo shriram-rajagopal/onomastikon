@@ -51,10 +51,16 @@ const pageTitle =
     ? 'Onomastikon — A digital atlas of ancient names'
     : `${title} — Onomastikon`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
-// Footer provenance stamp: corpus size and build month, refreshed on every
-// deploy — a quiet signal that the reference is maintained.
+// Footer provenance stamp: the corpus in numbers plus the build month,
+// recomputed from the content collections on every deploy so the figures can
+// never go stale.
 import { getCollection } from 'astro:content';
-const nameCount = (await getCollection('names')).length;
+const [footerCivs, footerLangs, footerNames] = await Promise.all([
+  getCollection('civilizations'),
+  getCollection('languages'),
+  getCollection('names'),
+]);
+const citationCount = footerNames.reduce((n, e) => n + e.data.sources.length, 0);
 const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date());
 ---
 
@@ -183,7 +189,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
         <a href="/feedback" id="site-feedback">Feedback</a>
       </p>
       <p class="footer-provenance">
-        {nameCount} name entries, every one sourced · updated {builtStamp} ·
+        {footerLangs.length} languages, {footerCivs.length} entities, {footerNames.length} entries, {citationCount} citations · updated {builtStamp} ·
         content <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
       </p>
     </footer>
