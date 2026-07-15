@@ -199,17 +199,323 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 - [ ] Nahuatl
 - [ ] Quechua
 - [ ] Mayan languages / glyphic Maya
+- [ ] Meroitic (for Kush and Meroë; the script reads phonetically even though the language is barely understood, and names are precisely the part that survives)
+- [ ] Old Nubian (surfaced by the 2026-07-15 revision; also carries Christian Nubia in Phase 8)
 
-## Phase 4 (candidate): the medieval continuation
+## The 1453 revision: world coverage plan (2026-07-15)
 
-Unlocked by the 1453 boundary (2026-07-15); to be planned properly after Phase 3.
-Subjects qualify by the name-thread rule: a new page only where a polity carried
-a genuinely new endonym thread, never one page per dynasty.
+The boundary move to 1453 makes the scope global, and this section plans it all the way out. Everything below is **sequenced, not scheduled**: Phase 3 remains the active target, and Phases 3.5 through 10 follow in order unless a specific entry pulls something forward. Four rules govern the whole plan:
 
+- **The name-thread rule.** One page per endonym thread, never one page per dynasty. The Abbasids do not get a page separate from the Caliphate; the Song do not get a page separate from China; Vijayanagara gets one because *Vijayanagara* is a genuinely new thread.
+- **Exonym-led entries are first-class.** Whole regions become workable through languages already in the inventory: Classical Arabic carries the African interior (al-Bakrī, al-Idrīsī, Ibn Baṭṭūṭa), Classical Chinese carries Japan, Korea, and Southeast Asia through the dynastic annals, Greek and Latin carry pre-literate Europe. Minoan Crete set the precedent for building a page around exonyms when the endonym is unrecoverable.
+- **Attestation honesty gates the hard cases.** Oral-tradition regions (Oceania, North America, much of the sub-Saharan interior) enter only where a name is genuinely recoverable. Post-1453 recordings qualify under the continuity clause, but confidence labels and prose must carry the gap, and a phase is allowed to shrink on contact with the sources.
+- **New language families become routine.** The plan brings in Germanic, Celtic, Slavic, Turkic, Mongolic, Japonic, Koreanic, Dravidian, Austroasiatic, Austronesian, Tai, Kartvelian, Uralic, Uto-Aztecan, Quechuan, Aymaran, Oto-Manguean, Nilo-Saharan, Niger-Congo, the Berber and Old South Arabian branches of Afro-Asiatic, and a shelf of isolates and undeciphered scripts (Meroitic, Purépecha, Tangut, rongorongo). Each new language still pays its full freight: `lang_code`, direction, a `src/lib/geo.ts` homeland, webfont coverage, and the backfill obligation.
+
+Technical consequences to budget alongside the content: new shelves in the homepage macro-region map (`src/lib/macro-regions.ts`), new baked map regions in `scripts/generate-coastline.mjs` for language clusters outside the current coastlines (northern Europe, East Asia, the Americas, Oceania), and webfont/glyph verification for each new script (runic, kana, hangul, Tibetan, Khmer, Kawi, Old Turkic runiform, Old South Arabian, Old Nubian's Coptic-derived letters — verify per script, per the mobile-font item below).
+
+## Phase 3.5: Ancient-world infill
+
+Regions that were always inside the 3100 BCE window but never made the roadmap; the all-inclusive revision surfaces them. These are peers of Phase 1 material and can interleave with Phase 3 work opportunistically.
+
+### Civilizations
+- [ ] Saba / Sheba (Sabaic *Sbʾ*; Hebrew *Šəḇāʾ*, Greek *Sabaîoi*; opens Old South Arabian)
+- [ ] Himyar (candidate; may fold into a single South Arabia treatment under the name-thread rule)
+- [ ] Nabataea (Petra's kingdom; Nabataean Aramaic epigraphy plus Greek and Latin)
+- [ ] Dilmun (Sumerian and Akkadian attested from the third millennium; Bahrain)
+- [ ] Magan and Meluhha (the Mesopotamian trade horizons; disputed identifications with Oman and the Indus, handled honestly; Meluhha may partly fold into the India page)
+- [ ] Gaul / the Gauls (Gallia and Galatia; the Celtic civilizational unit; opens Gaulish)
+- [ ] Thrace
+- [ ] Illyria (candidate; thin direct attestation)
+- [ ] Dacia
+- [ ] Numidia (opens Libyco-Berber / Numidian epigraphy)
+- [ ] The Garamantes (candidate; largely exonym-led via Herodotus and Latin sources)
+- [ ] Colchis (Greek *Kolkhís*, Urartian *Qulḫa*; the Caucasus enters the atlas)
+- [ ] Iberia / Kartli (the Caucasian Iberia, carefully disambiguated from Hispania; opens Old Georgian)
+- [ ] Chorasmia / Khwarazm (Achaemenid *Uvārazmiš* at Behistun; bridges to the medieval Khwarazmian thread)
+
+### Cities
+- [ ] Petra
+- [ ] Maʾrib (the Sabaean capital)
+- [ ] Massalia (Marseille; the Greek far west)
+- [ ] Gadir / Gades (Cádiz; the Phoenician far west)
+
+### Regions
+- [ ] Arabia (the peninsula as the ancients named it: *Aribi*, *ʿArab*, *Arabía*)
+- [ ] Hispania / Iberia (the peninsula)
+- [ ] Britannia (*Pretannikē*, *Britannia*; ancient attestation, medieval continuation in Phase 5)
+- [ ] Germania
+- [ ] Sarmatia (candidate; may fold into the Scythia page's thread)
+
+### Geographic features
+- [ ] The Red Sea (the ancient Erythraean thread starts here)
+- [ ] The Persian Gulf
+- [ ] The Rhine
+- [ ] The Danube (*Istros* / *Danubius*; a two-name river, which is itself the story)
+- [ ] The Alps
+- [ ] The Atlantic Ocean (*Ōkeanós*; the edge-of-the-world framing)
+
+### Languages needed for Phase 3.5
+- [ ] Sabaic / Old South Arabian (the musnad script)
+- [ ] Nabataean Aramaic (decide: own file or a variety under the Aramaic umbrella, mirroring how Imperial Aramaic was scoped)
+- [ ] Gaulish
+- [ ] Libyco-Berber / Numidian
+- [ ] Old Georgian (attestation is medieval; it carries Colchis and Kartli backfill)
+- [ ] Thracian and Illyrian only if their thin corpora actually yield name forms; otherwise their entities stay exonym-led
+
+## Phase 4: The medieval Mediterranean and the Islamic world
+
+The direct continuation unlocked by the boundary move; the original Phase 4 stub, now planned fully.
+
+### Civilizations
 - [ ] The Byzantines (endonym *Rhōmaîoi* / *Rhōmanía*; the Rūm/Hrōm exonym family; distinct thread from both Rome and Greece)
 - [ ] Ērānšahr enrichment of the Iran page (the Sasanian state-name thread; mostly in scope already)
 - [ ] The Caliphate (Rashidun through Abbasid as one *Khilāfa* thread, if the sources support it)
-- [ ] Candidate languages: Middle Chinese, Old Turkic, Old Church Slavonic, Norse — added only as name entries demand them
+- [ ] Al-Andalus (a genuinely new endonym thread on Iberian soil; etymology itself disputed, which the entry should relish)
+- [ ] The Ottomans (*Devlet-i ʿOsmāniyye*; pre-1453 attestation is exactly in scope and the 1453 endpoint makes them the closing bracket of the whole atlas)
+- [ ] The Seljuks (candidate; the Sultanate of Rūm mostly extends the Rome/Byzantium exonym family rather than starting a thread, so this may live on existing pages)
+
+### Cities
+- [ ] Baghdad (*Madīnat al-Salām* vs. the older Persian name, a founding double-name)
+- [ ] Mecca
+- [ ] Medina (*Yathrib* → *al-Madīna*, a name-change story in scope)
+- [ ] Cairo (*al-Qāhira* with Fustat and the Babylon-in-Egypt thread beneath it)
+- [ ] Córdoba (*Corduba* → *Qurṭuba*, the full ancient-to-medieval arc)
+- [ ] Samarkand (ancient *Marakanda* through Sogdian *Smʾrknδ* to the Arabic form; also closes a Phase 2 loose end)
+
+### Regions
+- [ ] The Maghreb (*al-Maghrib*, "the west," over the older *Libya*/*Africa* threads)
+- [ ] Khurasan (*Xwarāsān*, "land of the sunrise"; the eastern-Iranian counterpart)
+
+### Languages needed for Phase 4
+- [ ] Ottoman Turkish (or Old Anatolian Turkish; decide the scoping when the Ottoman entry lands)
+- Classical Arabic, Middle Persian, Syriac, and Classical Armenian already carry most of this phase
+
+## Phase 5: Medieval Europe and the North
+
+Europe beyond the Roman lake. Heavily exonym-seeded by Greek and Latin, then endonym-confirmed by the vernaculars as they become literate.
+
+### Civilizations
+- [ ] The Franks / Francia (the thread that ends up naming France; *Frankia*, Arabic *al-Ifranj*, Persian *Farang* — the exonym family alone justifies the page)
+- [ ] England / the Anglo-Saxons (*Angelcynn*, *Englaland*; Latin *Anglia*; the Brittonic *Sasana*/*Saeson* counter-name)
+- [ ] The Norse (the civilizational unit behind *Norvegr*, *Dania*, *Suiþiod*; decide one page or three by the name-thread rule when planning begins; the *Rūs*/*Varangian* exonym overlap with the next entry is part of the story)
+- [ ] The Rus' (*Rusĭ*; Greek *Rhōs*, Arabic *al-Rūs*; a famously disputed etymology, labeled honestly)
+- [ ] Bulgaria (the First Empire; Greek and Old Church Slavonic attestation)
+- [ ] Hungary / the Magyars (endonym *Magyar* vs. the *Oungroi*/*Hungarus* exonym family, with the *Tourkoi* of Byzantine usage as a bonus thread)
+- [ ] Ireland (*Ériu*; Greek *Iernē*, Latin *Hibernia*; ancient exonyms plus a rich medieval endonym corpus)
+- [ ] Venice (city-state; may be built as a city entry instead — decide at planning)
+- [ ] Poland and Serbia (candidates; added if their pre-1453 attestation sets prove rich enough to earn pages)
+
+### Cities
+- [ ] Paris (*Lutetia* → *Parisius*, the ethnonym swallowing the toponym)
+- [ ] London (*Londinium* onward)
+- [ ] Aachen (*Aquae Granni* → *Aachen*/*Aix*; the Carolingian center)
+- [ ] Kyiv (*Kyjevŭ*; Constantine VII's *Kioava* and *Sambatas*, a genuine two-name puzzle)
+- [ ] Novgorod (*Nemogardas* in the same Byzantine source; the Norse *Holmgarðr*)
+- [ ] Venice (if not taken as the civilization above)
+
+### Regions
+- [ ] Scandinavia (Pliny's *Scatinavia* onward; ancient attestation for a medieval heartland)
+
+### Geographic features
+- [ ] The Volga (*Rhā* in Ptolemy, Turkic *Itil*, Slavic *Volga*; three threads, one river)
+- [ ] The Dnieper (*Borysthenēs* → *Danapris*)
+- [ ] The North Sea
+- [ ] The Baltic Sea (the *Mare Suebicum*/*Ostsee*/*Varangian Sea* tangle)
+
+### Languages needed for Phase 5
+- [ ] Old Norse (runic and manuscript)
+- [ ] Old English
+- [ ] Old High German / Frankish (scope decision at planning)
+- [ ] Old Church Slavonic
+- [ ] Old East Slavic (decide: own file or variety, as with the Aramaic precedent)
+- [ ] Old Irish
+- [ ] Old Hungarian
+- [ ] Old French (only as entries demand it; the Latin file carries most Romance-side forms this early)
+- [ ] Gothic (candidate; Wulfila's Bible and a handful of names; would be the earliest Germanic in the inventory)
+
+## Phase 6: East Asia and the steppe
+
+China is already in the atlas; this phase builds its whole neighborhood, largely seeded by Classical Chinese exonyms from the dynastic annals.
+
+### Civilizations
+- [ ] Japan (Chinese *Wa* 倭 from the *Wei zhi*, the deliberate switch to *Nihon* 日本 in the seventh century, endonym *Yamato*; one of the best name-change stories in the whole scope)
+- [ ] Korea (the Three Kingdoms names, *Silla* and *Goguryeo* and *Baekje*, resolving into the *Goryeo* thread that names Korea; page structure decided by the name-thread rule at planning, likely one page with internal threads)
+- [ ] Tibet (endonym *Bod*; Chinese *Tǔbō*, Arabic *Tubbat*; the exonym family behind "Tibet" itself)
+- [ ] The Mongols (*Yeke Mongɣol Ulus*; the *Tatar* exonym displacement is the second paragraph writing itself)
+- [ ] The Göktürk Khaganate (Orkhon *Türk* 𐱅𐰇𐰼𐰰, the headwater of every "Turk" in every language)
+- [ ] The Uyghur Khaganate (candidate; Old Uyghur corpus is real and rich)
+- [ ] The Khitan Liao and Tangut Xi Xia (candidates; own scripts, partial decipherment, honest labels — the Minoan precedent applies)
+- [ ] The Khazars (candidate; exonym-led via Greek, Arabic, and Hebrew)
+
+### Cities
+- [ ] Kyoto (*Heian-kyō*)
+- [ ] Nara (*Heijō-kyō*)
+- [ ] Luoyang (the older capital, backfilling the China page's urban set beside Chang'an)
+- [ ] Karakorum
+- [ ] Lhasa
+
+### Regions
+- [ ] Mongolia / the steppe heartland (scoped against the existing steppe-peoples set)
+
+### Geographic features
+- [ ] The Yellow River (*Huáng Hé*; a glaring gap beside the existing China entry)
+- [ ] The Yangtze (*Jiāng*, the river so primary it is just "the River")
+- [ ] The Gobi
+
+### Languages needed for Phase 6
+- [ ] Middle Chinese (for the medieval readings; decide its relationship to the Classical Chinese file at planning)
+- [ ] Old Japanese / Classical Japanese (man'yōgana through kana)
+- [ ] Middle Korean (the *Hunminjeongeum* of 1446 lands inside the boundary by seven years)
+- [ ] Classical Tibetan
+- [ ] Old Turkic (Orkhon runiform)
+- [ ] Middle Mongol (ʼPhags-pa and Uyghur-script corpora)
+- [ ] Old Uyghur, Tangut, Khitan (candidates, gated on their civilizations above)
+
+## Phase 7: South India, Sri Lanka, and Southeast Asia
+
+The subcontinent south of the existing coverage, and the Indianized and Sinicized worlds east of it. Sanskrit, Pali, and Classical Chinese are already in the inventory and seed nearly every entity here.
+
+### Civilizations
+- [ ] Tamilakam (the Tamil cultural unit, per the name-thread rule, rather than one page per Chola/Pandya/Chera dynasty; Ashoka's *Choda* and *Pandya* provide third-century BCE attestation)
+- [ ] Vijayanagara (founded 1336, squarely in scope; a new endonym thread by definition, "the city of victory")
+- [ ] Lanka / Sri Lanka (*Laṅkā*, Pali *Tambapaṇṇi*, Greek *Taprobanē*, Arabic *Sarandīb*, the *Sīhaḷa* → Ceylon chain; possibly the single richest name-page the atlas will ever have)
+- [ ] The Khmer (*Kambuja*; Angkor's empire)
+- [ ] Champa (*Campā*; the Austronesian kingdom on the Vietnamese coast)
+- [ ] Đại Việt (the Viet thread against the Chinese *Annam*, "the pacified south," an exonym with a point of view)
+- [ ] Srivijaya (*Śrīvijaya*; Old Malay inscriptions, Chinese *Shìlìfóshì*, Arabic *Zābaj*)
+- [ ] Majapahit (Old Javanese corpus; *Wilwatikta* as the learned Sanskrit calque of its own name)
+- [ ] Pagan / the Burmese (*Mranma*; the Myazedi inscription's four languages in one stone)
+- [ ] Sukhothai / Siam (candidate; the Ram Khamhaeng inscription's authenticity dispute is itself the honest story)
+- [ ] The Mon / Dvāravatī (candidate)
+
+### Cities
+- [ ] Madurai (Pandyan capital; Greek *Modoura* in Ptolemy)
+- [ ] Anuradhapura
+- [ ] Angkor (*Yaśodharapura*)
+- [ ] Bagan
+- [ ] Thăng Long (Hanoi)
+- [ ] Palembang (Srivijaya's seat)
+
+### Regions
+- [ ] Bengal (*Vaṅga* / *Gauḍa*)
+- [ ] Suvarṇabhūmi (the "golden land" horizon of Pali and Sanskrit geography; the Magan-and-Meluhha of the east, disputed identification handled the same way)
+
+### Geographic features
+- [ ] The Indian Ocean (the *Erythraean Sea* thread continued from the Red Sea entry)
+- [ ] The Mekong
+- [ ] The Irrawaddy
+- [ ] The Kaveri
+
+### Languages needed for Phase 7
+- [ ] Classical Tamil (Tamil-Brahmi and the Sangam corpus; the first Dravidian language in the inventory and long overdue)
+- [ ] Sinhala Prakrit / Elu
+- [ ] Old Khmer
+- [ ] Cham
+- [ ] Old Javanese (Kawi)
+- [ ] Old Malay
+- [ ] Old Burmese
+- [ ] Old Mon
+- [ ] Sino-Vietnamese / Chữ Nôm (scope decision at planning)
+- [ ] Kannada and Telugu (as the Vijayanagara entry demands)
+- [ ] Thai (candidate, gated on Sukhothai)
+
+## Phase 8: Africa beyond the Nile valley
+
+Kush, Aksum, and Punt (Phase 3) started this; the revision finishes the continent. The spine of the phase is exonym attestation in Classical Arabic geography plus the Greek *Periplus* tradition, with endonyms recovered where writing or strong oral continuity allows.
+
+### Civilizations
+- [ ] Ghana / Wagadu (al-Bakrī's *Ghāna* against the oral endonym *Wagadu*; the gap is the entry)
+- [ ] Mali (Ibn Baṭṭūṭa and Ibn Khaldūn; the *Manden* endonym thread)
+- [ ] Kanem-Bornu
+- [ ] Makuria and Alodia (Christian Nubia; Old Nubian, Greek, and Arabic attestation, a genuinely trilingual medieval corpus)
+- [ ] The Swahili city-states (the *Zanj* coast; Greek *Azania* in the *Periplus* gives it ancient roots)
+- [ ] Great Zimbabwe (endonym unrecovered; *dzimbahwe* is a Shona common noun recorded post-contact; exonym-led and honestly labeled, or held if even that fails)
+- [ ] Gao / Songhai (the polity is pre-1453 even though the empire's peak is not; scope to the attested window)
+- [ ] Ife and Benin (candidates; pre-1453 as polities, but written attestation is thin to absent — gated on sources)
+
+### Cities
+- [ ] Timbuktu
+- [ ] Gao
+- [ ] Kilwa (*Kilwa Kisiwani*; Ibn Baṭṭūṭa's superlatives on record)
+- [ ] Koumbi Saleh (candidate; the identification with al-Bakrī's Ghana capital is itself disputed)
+
+### Regions
+- [ ] The Sahel / Bilād al-Sūdān ("the land of the Blacks" in the Arabic geographers; the naming itself needs careful, honest handling)
+- [ ] The Horn of Africa (*Barbarā* of the *Periplus*, *Bilād al-Barbar*, Zeila's world)
+
+### Geographic features
+- [ ] The Niger (Ptolemy's *Nigir*, the Arabic *Nīl al-Sūdān* confusion with the Nile; a river the sources kept misunderstanding, which is the story)
+- [ ] The Sahara (*ṣaḥrāʾ*)
+- [ ] The Atlas Mountains (the Greek myth-name over the Berber *Idurar n Waṭlas*)
+- [ ] Lake Chad
+- [ ] The Zambezi (candidate; attestation is late and thin)
+
+### Languages needed for Phase 8
+- [ ] Old Nubian (also listed in Phase 3; whichever phase reaches it first)
+- [ ] Swahili (the earliest epigraphic and manuscript attestation; candidate, may prove post-1453)
+- Classical Arabic and Geʽez already carry the bulk; Libyco-Berber arrives with Phase 3.5
+
+## Phase 9: The Americas, second pass
+
+Phase 3 takes the flagships; this phase completes the hemisphere. Standing caveat: the Maya were the only fully literate pre-1453 civilization here, so everything else rides the continuity clause — colonial-era recordings in Nahuatl, Quechua, and Spanish preserving pre-conquest names — with confidence labels doing real work.
+
+### Civilizations
+- [ ] The Toltecs (*Tollan*; the Nahua memory of them is the attestation)
+- [ ] The Zapotec (*Bènizàa*; Monte Albán's glyphs are the earliest Mesoamerican writing, only partly readable — Minoan rules apply)
+- [ ] The Mixtec (*Ñuu Dzaui*, "people of the rain"; the codices)
+- [ ] The Purépecha / Tarascan state (a pre-1453 imperial peer of the Aztecs; attestation via the colonial *Relación de Michoacán*)
+- [ ] Chimor (Chan Chan's empire; the Quingnam language died nearly unrecorded, so this is Quechua- and Spanish-mediated)
+- [ ] Wari and Tiwanaku (their own names are unrecovered; the Aymara/Quechua names are post-hoc — possibly the two most exonym-dependent pages in the atlas, or held if the honesty test fails)
+- [ ] The Muisca (candidate; the confederation is pre-1453, attestation is early-colonial Chibcha)
+- [ ] The Mississippians / Cahokia and the Ancestral Puebloans (candidates with a hard problem: no writing, no contact-era continuity of polity names; likely held, listed so the decision is on record)
+- [ ] The Haudenosaunee (candidate; the league's founding is pre-1453 by tradition and the name is a genuine endonym thread, recorded post-contact under the continuity clause)
+
+### Cities
+- [ ] Chichén Itzá (glyphic and colonial attestation; a Phase 3 omission repaired)
+- [ ] Palenque (*Lakamhaʼ* in its own inscriptions; the glyphic endonym against the Spanish exonym)
+- [ ] Tula
+- [ ] Monte Albán (the ancient endonym is disputed; *Dani Baá* against the colonial name)
+- [ ] Chan Chan
+
+### Regions
+- [ ] Anáhuac (the Nahuatl name for the known world of the valley; attested in the colonial corpus)
+
+### Geographic features
+- [ ] Lake Titicaca
+- [ ] The Andes (*Antisuyu* as the probable Quechua source of the name)
+- [ ] Popocatépetl (candidate)
+- [ ] The Amazon (candidate; the European name is post-1453 and the indigenous names were recorded later still — may fail the boundary honestly)
+
+### Languages needed for Phase 9
+- [ ] Classical Nahuatl, Quechua, glyphic Maya (from Phase 3)
+- [ ] Zapotec (glyphic; limited decipherment)
+- [ ] Mixtec (the pictorial-codex conventions; may not support name entries in the schema's sense — decide at planning)
+- [ ] Aymara (colonial attestation under the continuity clause)
+- [ ] Purépecha (likewise)
+- [ ] Muisca / Chibcha (candidate)
+
+## Phase 10: Oceania
+
+The hardest phase evidentially, and deliberately last: no external attestation exists (there is no Arabic geographer or Chinese annal for the Pacific), and every endonym was first written down centuries after 1453. The continuity clause is the entire legal basis of this phase, and it may shrink to a handful of pages on contact with the sources. It is on the roadmap because the civilizations are real and pre-1453; the honesty rules decide how much of it survives.
+
+### Civilizations
+- [ ] The Tuʻi Tonga Empire (the strongest case: a genuine pre-1453 maritime polity with a continuous royal tradition)
+- [ ] Hawaiʻi (the chiefdoms; the name itself is the Hawaiki reflex)
+- [ ] Aotearoa / the Māori (settlement c. 1300 puts the whole founding era in scope; the antiquity of the name *Aotearoa* itself is debated and the entry must say so)
+- [ ] Rapa Nui (rongorongo is undeciphered and possibly post-contact; the island's own name-layers — *Te Pito o te Henua* — are the entry)
+
+### Regions
+- [ ] Hawaiki (the ancestral homeland of Polynesian tradition, cognate across the whole family: *Savaiʻi*, *Havaiʻi*, *Hawaiʻi*; a reconstructed region-name as the entity, which is exactly this project's kind of object)
+
+### Geographic features
+- [ ] The Pacific Ocean (*Te Moana-nui-a-Kiwa* and its siblings; the European name is post-1453 and enters only as narrative)
+
+### Languages needed for Phase 10
+- [ ] Tongan
+- [ ] Hawaiian
+- [ ] Māori
+- [ ] Rapa Nui (candidate)
+- All four enter with post-contact orthographies carrying orally transmitted names; every entry in this phase leans on `reconstructed` and prose hedging by default
 
 ## Feature roadmap
 
