@@ -5,11 +5,22 @@
 // present the same affordance.
 interface Props {
   title: string;
+  /** One-time "First time here?" scroll callout pointing at the button (homepage). */
+  callout?: boolean;
 }
-const { title } = Astro.props;
+const { title, callout = false } = Astro.props;
 ---
 
 <button class="help-btn" id="help-btn" type="button" aria-expanded="false" aria-controls="help-panel" title="What am I looking at?">?</button>
+{callout && (
+  <div class="help-callout" id="help-callout" hidden aria-hidden="true">
+    <svg class="ca-svg" viewBox="0 0 40 60" width="40" height="60">
+      <path class="ca-line" d="M23 57 C 6 45, 36 26, 20 8" pathLength="1" />
+      <path class="ca-head" d="M13 16 L20 5 L28 13" />
+    </svg>
+    <span class="ca-text">First time here?</span>
+  </div>
+)}
 <aside class="help-panel corner-ticks" id="help-panel" hidden>
   <h3>{title}</h3>
   <slot />
@@ -31,6 +42,44 @@ const { title } = Astro.props;
     addEventListener('pointerdown', (e) => {
       if (!panel.hidden && !panel.contains(e.target as Node) && e.target !== btn) setOpen(false);
     });
+  }
+
+  // One-time scroll callout: once the visitor scrolls into the page, point
+  // them at the help button. Shows once per browser (localStorage), retires
+  // itself on any interaction with the button or after a few seconds.
+  const callout = document.getElementById('help-callout');
+  if (callout && btn) {
+    const KEY = 'onk-help-callout-shown';
+    let seen = false;
+    try { seen = !!localStorage.getItem(KEY); } catch { /* private mode: show */ }
+    const dismiss = () => {
+      btn.classList.remove('beckon');
+      if (!callout.hidden) {
+        callout.classList.add('off');
+        setTimeout(() => callout.remove(), 450);
+      } else {
+        callout.remove();
+      }
+    };
+    if (seen) {
+      callout.remove();
+    } else {
+      let shown = false;
+      const onScroll = () => {
+        if (shown || scrollY < 240) return;
+        shown = true;
+        removeEventListener('scroll', onScroll);
+        callout.hidden = false;
+        requestAnimationFrame(() => {
+          callout.classList.add('on');
+          btn.classList.add('beckon');
+        });
+        try { localStorage.setItem(KEY, '1'); } catch { /* fine */ }
+        setTimeout(dismiss, 10000);
+      };
+      addEventListener('scroll', onScroll, { passive: true });
+      btn.addEventListener('click', dismiss, { once: true });
+    }
   }
 </script>
 
@@ -57,6 +106,62 @@ const { title } = Astro.props;
     box-shadow: var(--shadow-soft);
   }
   .help-btn:hover, .help-btn.open { border-color: var(--accent); box-shadow: var(--shadow-lift); }
+
+  /* "First time here?" scroll callout: an arrow drawing itself up to the
+     button with a hand-note caption beneath. Centered under the button in
+     the desktop gutter, right-anchored under it on narrow screens. */
+  .help-callout {
+    position: fixed;
+    left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
+    top: 24rem;
+    z-index: 24;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .help-callout.off { opacity: 0; }
+  .ca-svg { display: block; overflow: visible; }
+  .ca-line, .ca-head {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .ca-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .ca-head { opacity: 0; }
+  .ca-text {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--accent);
+    white-space: nowrap;
+    transform: rotate(-3deg) translateY(10px) scale(0.9);
+    opacity: 0;
+    text-shadow: 0 1px 0 var(--parchment);
+  }
+  .help-callout.on .ca-line { animation: ca-draw 0.8s ease 0.35s forwards; }
+  .help-callout.on .ca-head { animation: ca-appear 0.25s ease 1.05s forwards; }
+  .help-callout.on .ca-text { animation: ca-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .help-btn.beckon { animation: ca-beckon 1.7s ease-out 0.9s 3; }
+  @keyframes ca-draw { to { stroke-dashoffset: 0; } }
+  @keyframes ca-appear { to { opacity: 1; } }
+  @keyframes ca-pop { to { transform: rotate(-3deg) translateY(0) scale(1); opacity: 1; } }
+  @keyframes ca-beckon {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+    70% { box-shadow: 0 0 0 14px color-mix(in srgb, var(--accent) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 0%, transparent); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ca-line { stroke-dasharray: none; stroke-dashoffset: 0; }
+    .help-callout.on .ca-head { animation: none; opacity: 1; }
+    .help-callout.on .ca-text { animation: none; transform: rotate(-3deg); opacity: 1; }
+    .help-btn.beckon { animation: none; }
+  }
   .help-panel {
     position: fixed;
     left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
@@ -123,8 +228,10 @@ const { title } = Astro.props;
   @media (max-width: 1200px) {
     .help-btn { left: auto; right: 1.1rem; top: 6.2rem; width: 1.9rem; height: 1.9rem; font-size: 1.05rem; }
     .help-panel { left: auto; right: 1.1rem; top: 8.6rem; max-height: min(34rem, calc(100vh - 10rem)); }
+    .help-callout { left: auto; right: 0.8rem; top: 8.2rem; align-items: flex-end; }
+    .ca-svg { margin-right: 0.55rem; }
   }
   @media print {
-    .help-btn, .help-panel { display: none; }
+    .help-btn, .help-panel, .help-callout { display: none; }
   }
 </style>
