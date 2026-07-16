@@ -638,7 +638,9 @@ const correctionUrl =
     .name-entry:target { animation: entry-flash 1.6s ease-out; }
   }
   @keyframes entry-flash {
-    from { background: color-mix(in srgb, var(--accent) 16%, var(--parchment)); }
+    /* Longhand on purpose: the background shorthand would reset background-image,
+       dropping the grain texture for the first half of the flash. */
+    from { background-color: color-mix(in srgb, var(--accent) 16%, var(--parchment)); }
   }
   .name-era {
     text-transform: none;
