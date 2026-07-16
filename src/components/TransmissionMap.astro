@@ -212,6 +212,22 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   <label class="tmap-label" for={`era-${civId}`}>In</label>
   <input id={`era-${civId}`} class="tmap-range" type="range" min={minYear} max={maxYear} step="10" value={minYear} />
   <output class="tmap-year" for={`era-${civId}`}>{fmtYear(minYear)}</output>
+  <!-- Export: current frame as an image, or the whole era sweep as a video.
+       Hidden until the script wires it up; a no-JS visitor never sees it. -->
+  <div class="tmap-export" hidden>
+    <button class="export-btn" type="button" aria-haspopup="menu" aria-expanded="false" title="Export this map" aria-label="Export this map as an image or video">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </button>
+    <div class="export-menu" role="menu" hidden>
+      <button type="button" role="menuitem" data-kind="png">Image · PNG</button>
+      <button type="button" role="menuitem" data-kind="jpg">Image · JPG</button>
+      <button type="button" role="menuitem" data-kind="mp4">Video · MP4</button>
+    </div>
+  </div>
 </div>
 <p class="tmap-legend">
   <span class="leg-key leg-current"></span> in use at this year ·
@@ -248,6 +264,416 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     };
     range.addEventListener('input', apply);
     apply();
+  }
+</script>
+
+<script>
+  // Map export: the current frame as a PNG/JPG, or the whole era sweep as a
+  // video. Everything is replayed onto a canvas from the live SVG — geometry
+  // via Path2D, colors from computed styles — so exports always match the
+  // active theme without a second style source. The legend and locator
+  // caption live outside the SVG and are deliberately not drawn.
+  const YEAR_FONT = '600 15px Inter, sans-serif';
+  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+  // Overshooting ease for the plop: a name lands big, shrinks past its rest
+  // size, and settles.
+  const easeOutBack = (t: number) => 1 + 2.70158 * (t - 1) ** 3 + 1.70158 * (t - 1) ** 2;
+  const fmtY = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} CE`);
+  const fontOf = (s: CSSStyleDeclaration) => `${s.fontStyle} ${s.fontWeight} ${s.fontSize} ${s.fontFamily}`;
+  const alignOf = (el: Element): CanvasTextAlign =>
+    (({ start: 'left', middle: 'center', end: 'right' }) as const)[el.getAttribute('text-anchor') ?? 'start'] ?? 'left';
+
+  interface SnapPath {
+    p: Path2D;
+    fill: string;
+    stroke: string;
+    lineWidth: number;
+    dash: number[];
+    cap: CanvasLineCap;
+    join: CanvasLineJoin;
+    alpha: number;
+  }
+  const snapPath = (el: SVGPathElement): SnapPath => {
+    const s = getComputedStyle(el);
+    return {
+      p: new Path2D(el.getAttribute('d')!),
+      fill: s.fill,
+      stroke: s.stroke,
+      lineWidth: parseFloat(s.strokeWidth) || 0,
+      dash: s.strokeDasharray && s.strokeDasharray !== 'none' ? s.strokeDasharray.split(',').map((v) => parseFloat(v)) : [],
+      cap: s.strokeLinecap as CanvasLineCap,
+      join: s.strokeLinejoin as CanvasLineJoin,
+      alpha: parseFloat(s.opacity) || 1,
+    };
+  };
+
+  // Snapshot the whole map at export time (not page load): the theme may have
+  // changed, and computed styles resolve the current one.
+  function readMap(svg: SVGSVGElement, range: HTMLInputElement) {
+    const vb = svg.viewBox.baseVal;
+    const rootS = getComputedStyle(document.documentElement);
+    const probeC = svg.querySelector('.map-node circle');
+    const probeT = svg.querySelector('.map-node text');
+    const entT = svg.querySelector<SVGTextElement>('.ent-label');
+    const entS = entT && getComputedStyle(entT);
+    return {
+      vb: { w: vb.width, h: vb.height },
+      coast: snapPath(svg.querySelector<SVGPathElement>('.coast')!),
+      geoPaths: [...svg.querySelectorAll<SVGPathElement>('.entity-geo path')].map(snapPath),
+      topPaths: [...svg.querySelectorAll<SVGPathElement>('.entity-top path')].map(snapPath),
+      arcs: [...svg.querySelectorAll<SVGPathElement>('.arc')].map((el) => {
+        const len = el.getTotalLength();
+        // Sampled points let the corner-picking test whether a route actually
+        // passes through a corner (a bounding box would claim the whole sweep).
+        const pts = Array.from({ length: 25 }, (_, i) => el.getPointAtLength((len * i) / 24));
+        return { p: new Path2D(el.getAttribute('d')!), len, pts, start: Number(el.dataset.start), end: Number(el.dataset.end) };
+      }),
+      nodes: [...svg.querySelectorAll<SVGAElement>('.map-node')].map((a) => {
+        const c = a.querySelector('circle')!;
+        const t = a.querySelector('text')!;
+        return {
+          cx: c.cx.baseVal.value,
+          cy: c.cy.baseVal.value,
+          r: c.r.baseVal.value,
+          lx: t.x.baseVal.getItem(0).value,
+          ly: t.y.baseVal.getItem(0).value,
+          align: alignOf(t),
+          text: t.textContent ?? '',
+          start: Number(a.dataset.start),
+          end: Number(a.dataset.end),
+          box: a.getBBox(),
+        };
+      }),
+      entLabel: entT && entS
+        ? {
+            x: entT.x.baseVal.getItem(0).value,
+            y: entT.y.baseVal.getItem(0).value,
+            align: alignOf(entT),
+            text: entT.textContent ?? '',
+            font: fontOf(entS),
+            fill: entS.fill,
+            stroke: entS.stroke,
+            strokeW: parseFloat(entS.strokeWidth) || 0,
+            box: entT.getBBox(),
+          }
+        : null,
+      accent: probeC ? getComputedStyle(probeC).stroke : rootS.color,
+      ink: probeT ? getComputedStyle(probeT).fill : rootS.color,
+      nodeFont: probeT ? fontOf(getComputedStyle(probeT)) : 'italic 400 12.5px Georgia, serif',
+      parchment: rootS.backgroundColor,
+      sea: getComputedStyle(svg).backgroundColor,
+      minYear: Number(range.min),
+      maxYear: Number(range.max),
+      year: Number(range.value),
+    };
+  }
+  type MapSnap = ReturnType<typeof readMap>;
+
+  async function ensureFonts(m: MapSnap) {
+    try {
+      await Promise.all([
+        document.fonts.load(m.nodeFont, 'Agy'),
+        document.fonts.load(YEAR_FONT, '0129 BCE'),
+        ...(m.entLabel ? [document.fonts.load(m.entLabel.font, m.entLabel.text)] : []),
+      ]);
+    } catch {
+      /* fall back to whatever faces are loaded */
+    }
+    await document.fonts.ready;
+  }
+
+  // The year stamp goes in whichever corner carries the least ink on this
+  // particular map: score each corner by label/dot overlap area plus a
+  // penalty for every route sample that passes through it.
+  function pickCorner(m: MapSnap, ctx: CanvasRenderingContext2D) {
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.font = YEAR_FONT;
+    const tw = Math.max(ctx.measureText(fmtY(m.minYear)).width, ctx.measureText(fmtY(m.maxYear)).width);
+    ctx.restore();
+    const th = 15;
+    const pad = 12;
+    const boxes = [...m.nodes.map((n) => n.box), ...(m.entLabel ? [m.entLabel.box] : [])];
+    const corners: Array<{ bx: number; by: number; x: number; y: number; align: CanvasTextAlign }> = [
+      { bx: m.vb.w - pad - tw, by: pad, x: m.vb.w - pad, y: pad + th, align: 'right' },
+      { bx: pad, by: pad, x: pad, y: pad + th, align: 'left' },
+      { bx: m.vb.w - pad - tw, by: m.vb.h - pad - th, x: m.vb.w - pad, y: m.vb.h - pad, align: 'right' },
+      { bx: pad, by: m.vb.h - pad - th, x: pad, y: m.vb.h - pad, align: 'left' },
+    ];
+    let best = corners[0];
+    let bestScore = Infinity;
+    for (const c of corners) {
+      let score = 0;
+      for (const o of boxes) {
+        const ix = Math.min(c.bx + tw, o.x + o.width) - Math.max(c.bx, o.x);
+        const iy = Math.min(c.by + th, o.y + o.height) - Math.max(c.by, o.y);
+        if (ix > 0 && iy > 0) score += ix * iy;
+      }
+      for (const a of m.arcs)
+        for (const p of a.pts)
+          if (p.x >= c.bx - 4 && p.x <= c.bx + tw + 4 && p.y >= c.by - 4 && p.y <= c.by + th + 4) score += 60;
+      if (score < bestScore - 0.5) {
+        bestScore = score;
+        best = c;
+      }
+    }
+    return best;
+  }
+  type Corner = ReturnType<typeof pickCorner>;
+
+  function paint(ctx: CanvasRenderingContext2D, sp: SnapPath) {
+    ctx.save();
+    ctx.globalAlpha = sp.alpha;
+    if (sp.fill !== 'none') {
+      ctx.fillStyle = sp.fill;
+      ctx.fill(sp.p);
+    }
+    if (sp.stroke !== 'none' && sp.lineWidth) {
+      ctx.strokeStyle = sp.stroke;
+      ctx.lineWidth = sp.lineWidth;
+      ctx.setLineDash(sp.dash);
+      ctx.lineCap = sp.cap;
+      ctx.lineJoin = sp.join;
+      ctx.stroke(sp.p);
+    }
+    ctx.restore();
+  }
+
+  interface Frame {
+    year: number;
+    popP: (i: number) => number; // name plop-in progress
+    drawP: (i: number) => number; // route draw-in progress
+    endQ: (i: number) => number; // brief crossfade when a name lapses
+    corner: Corner;
+  }
+  function drawFrame(ctx: CanvasRenderingContext2D, m: MapSnap, S: number, fr: Frame) {
+    ctx.setTransform(S, 0, 0, S, 0, 0);
+    ctx.fillStyle = m.sea;
+    ctx.fillRect(0, 0, m.vb.w, m.vb.h);
+    paint(ctx, m.coast);
+    for (const p of m.geoPaths) paint(ctx, p);
+    m.arcs.forEach((a, i) => {
+      const future = a.start > fr.year;
+      const prog = future ? 0 : fr.drawP(i);
+      ctx.save();
+      ctx.strokeStyle = m.accent;
+      ctx.lineWidth = 1.4;
+      if (prog < 1) {
+        // The faint full route (the live map's "not yet attested" state) is
+        // also the base the animated stroke draws in over.
+        ctx.globalAlpha = 0.18;
+        ctx.setLineDash([]);
+        ctx.stroke(a.p);
+      }
+      if (prog > 0) {
+        ctx.globalAlpha = 0.75;
+        if (prog < 1) {
+          ctx.setLineDash([a.len]);
+          ctx.lineDashOffset = a.len * (1 - prog);
+        } else if (a.end < fr.year) ctx.setLineDash([0.025 * a.len, 0.018 * a.len]);
+        else ctx.setLineDash([]);
+        ctx.stroke(a.p);
+      }
+      ctx.restore();
+    });
+    ctx.font = m.nodeFont;
+    m.nodes.forEach((n, i) => {
+      const future = n.start > fr.year;
+      const past = n.end < fr.year;
+      const p = future ? 0 : fr.popP(i);
+      ctx.save();
+      if (p > 0 && p < 1) {
+        const s = 2.4 - 1.4 * easeOutBack(p);
+        ctx.translate(n.cx, n.cy);
+        ctx.scale(s, s);
+        ctx.translate(-n.cx, -n.cy);
+      }
+      ctx.globalAlpha = p === 0 ? 0.18 : 0.18 + 0.82 * Math.min(1, p * 3);
+      ctx.beginPath();
+      ctx.arc(n.cx, n.cy, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = past ? m.parchment : m.accent;
+      ctx.fill();
+      if (past && fr.endQ(i) < 1) {
+        const ga = ctx.globalAlpha;
+        ctx.globalAlpha = ga * (1 - fr.endQ(i));
+        ctx.fillStyle = m.accent;
+        ctx.fill();
+        ctx.globalAlpha = ga;
+      }
+      ctx.strokeStyle = m.accent;
+      ctx.lineWidth = 1.1;
+      ctx.setLineDash([]);
+      ctx.stroke();
+      if (past) ctx.globalAlpha *= 0.85;
+      ctx.textAlign = n.align;
+      ctx.fillStyle = m.ink;
+      ctx.fillText(n.text, n.lx, n.ly);
+      ctx.restore();
+    });
+    for (const p of m.topPaths) paint(ctx, p);
+    if (m.entLabel) {
+      const e = m.entLabel;
+      ctx.save();
+      ctx.font = e.font;
+      ctx.textAlign = e.align;
+      if (e.stroke !== 'none' && e.strokeW) {
+        ctx.strokeStyle = e.stroke;
+        ctx.lineWidth = e.strokeW;
+        ctx.lineJoin = 'round';
+        ctx.strokeText(e.text, e.x, e.y);
+      }
+      ctx.fillStyle = e.fill;
+      ctx.fillText(e.text, e.x, e.y);
+      ctx.restore();
+    }
+    ctx.save();
+    ctx.font = YEAR_FONT;
+    ctx.textAlign = fr.corner.align;
+    ctx.globalAlpha = 0.9;
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = m.parchment;
+    ctx.lineWidth = 3;
+    const label = fmtY(Math.round(fr.year / 10) * 10);
+    ctx.strokeText(label, fr.corner.x, fr.corner.y);
+    ctx.fillStyle = m.ink;
+    ctx.fillText(label, fr.corner.x, fr.corner.y);
+    ctx.restore();
+  }
+
+  function download(blob: Blob, name: string) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+
+  async function exportStill(m: MapSnap, civId: string, kind: 'png' | 'jpg') {
+    await ensureFonts(m);
+    const W = 1600;
+    const S = W / m.vb.w;
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = Math.round(m.vb.h * S);
+    const ctx = canvas.getContext('2d')!;
+    const settled = () => 1;
+    drawFrame(ctx, m, S, { year: m.year, popP: settled, drawP: settled, endQ: settled, corner: pickCorner(m, ctx) });
+    const blob = await new Promise<Blob | null>((res) => canvas.toBlob(res, kind === 'png' ? 'image/png' : 'image/jpeg', 0.92));
+    if (blob) download(blob, `${civId}-map-${fmtY(m.year).replace(' ', '-')}.${kind}`);
+  }
+
+  async function exportVideo(m: MapSnap, civId: string, onProgress: (p: number) => void) {
+    await ensureFonts(m);
+    const W = 1280;
+    const H = Math.round(((m.vb.h / m.vb.w) * W) / 2) * 2;
+    const canvas = document.createElement('canvas');
+    canvas.width = W;
+    canvas.height = H;
+    // Kept in the document (off-screen) so captureStream reliably gets paints.
+    canvas.style.cssText = 'position:fixed;left:-10000px;top:0;';
+    document.body.appendChild(canvas);
+    const ctx = canvas.getContext('2d')!;
+    const S = W / m.vb.w;
+    const corner = pickCorner(m, ctx);
+
+    const span = m.maxYear - m.minYear;
+    const INTRO = 1.4; // opening hold: the first names plop in one by one
+    const END = 1.6; // closing hold on the final state
+    const POP = 0.65;
+    const DRAW = 1.0;
+    const SWEEP = span > 0 ? Math.min(10, Math.max(4, (span / 10) * 0.07)) : 0;
+    const TOTAL = INTRO + SWEEP + END;
+    const tOf = (y: number) => INTRO + (span > 0 ? ((y - m.minYear) / span) * SWEEP : 0);
+    const initial = m.nodes.map((_, i) => i).filter((i) => m.nodes[i].start <= m.minYear);
+    const step = initial.length > 1 ? Math.min(0.12, (INTRO - POP) / (initial.length - 1)) : 0;
+    const popAt = m.nodes.map((n, i) => (n.start <= m.minYear ? initial.indexOf(i) * step : tOf(n.start)));
+    const drawAt = m.arcs.map((a) => (a.start <= m.minYear ? 0.15 : tOf(a.start)));
+    const endAt = m.nodes.map((n) => tOf(n.end));
+
+    const mime = [
+      'video/mp4;codecs=avc1.640028',
+      'video/mp4;codecs=avc1',
+      'video/mp4',
+      'video/webm;codecs=vp9',
+      'video/webm',
+    ].find((t) => MediaRecorder.isTypeSupported(t));
+    const recorder = new MediaRecorder(canvas.captureStream(60), { mimeType: mime, videoBitsPerSecond: 8_000_000 });
+    const chunks: Blob[] = [];
+    recorder.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+    const stopped = new Promise<void>((res) => (recorder.onstop = () => res()));
+    recorder.start();
+
+    const t0 = performance.now();
+    await new Promise<void>((res) => {
+      const tick = () => {
+        const t = (performance.now() - t0) / 1000;
+        const year = t < INTRO ? m.minYear : t > INTRO + SWEEP ? m.maxYear : m.minYear + ((t - INTRO) / SWEEP) * span;
+        drawFrame(ctx, m, S, {
+          year,
+          popP: (i) => clamp01((t - popAt[i]) / POP),
+          drawP: (i) => clamp01((t - drawAt[i]) / DRAW),
+          endQ: (i) => clamp01((t - endAt[i]) / 0.3),
+          corner,
+        });
+        onProgress(Math.min(1, t / TOTAL));
+        if (t < TOTAL) requestAnimationFrame(tick);
+        else res();
+      };
+      requestAnimationFrame(tick);
+    });
+    recorder.stop();
+    await stopped;
+    canvas.remove();
+    // MP4 where the browser can mux it (Chrome, Safari); WebM otherwise.
+    const ext = mime?.startsWith('video/mp4') ? 'mp4' : 'webm';
+    download(new Blob(chunks, { type: mime }), `${civId}-map.${ext}`);
+  }
+
+  for (const ex of document.querySelectorAll<HTMLElement>('.tmap-export')) {
+    const controls = ex.closest('.tmap-controls');
+    const range = controls?.querySelector<HTMLInputElement>('.tmap-range');
+    const svg = controls?.previousElementSibling?.querySelector('svg');
+    if (!controls || !range || !svg) continue;
+    ex.hidden = false;
+    const btn = ex.querySelector<HTMLButtonElement>('.export-btn')!;
+    const menu = ex.querySelector<HTMLElement>('.export-menu')!;
+    const civId = range.id.replace(/^era-/, '');
+    const setOpen = (open: boolean) => {
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+    };
+    btn.addEventListener('click', () => setOpen(menu.hidden));
+    document.addEventListener('click', (e) => {
+      if (!ex.contains(e.target as Node)) setOpen(false);
+    });
+    ex.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+    let busy = false;
+    menu.addEventListener('click', async (e) => {
+      const item = (e.target as Element).closest<HTMLButtonElement>('button[data-kind]');
+      if (!item || busy) return;
+      busy = true;
+      item.disabled = true;
+      const label = item.textContent;
+      const m = readMap(svg as SVGSVGElement, range);
+      try {
+        if (item.dataset.kind === 'mp4') {
+          await exportVideo(m, civId, (p) => (item.textContent = `Rendering… ${Math.round(p * 100)}%`));
+        } else {
+          await exportStill(m, civId, item.dataset.kind as 'png' | 'jpg');
+        }
+      } finally {
+        item.textContent = label;
+        item.disabled = false;
+        busy = false;
+        setOpen(false);
+      }
+    });
   }
 </script>
 
@@ -326,6 +752,49 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   }
   .tmap-range { flex: 1; accent-color: var(--accent); }
   .tmap-year { min-width: 5.5em; text-align: right; font-variant-numeric: tabular-nums; }
+  .tmap-export { position: relative; }
+  .export-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .export-btn:hover, .export-btn[aria-expanded='true'] { color: var(--accent); border-color: var(--accent); }
+  .export-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    z-index: 6;
+    min-width: 10.5em;
+    padding: 0.25rem;
+    background: var(--parchment);
+    border: 1px solid var(--rule-strong);
+    border-radius: 4px;
+    box-shadow: var(--shadow-soft);
+  }
+  .export-menu button {
+    display: block;
+    width: 100%;
+    padding: 0.35rem 0.6rem;
+    background: none;
+    border: none;
+    border-radius: 3px;
+    text-align: left;
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .export-menu button:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 12%, var(--parchment)); color: var(--accent); }
+  .export-menu button:disabled { color: var(--ink-soft); cursor: progress; }
   .tmap-legend {
     font-family: 'Inter', sans-serif;
     font-size: 0.6875rem;
