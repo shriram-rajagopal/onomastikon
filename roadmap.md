@@ -173,6 +173,18 @@ Target: 5-8 additional civilizations, primarily covering Inner Asia, the Iranian
 - [x] Urartian
 - [x] Classical Armenian (for Armenia's endonym Haykʿ; not in the original list)
 
+## Phase 2.5: The 1453 backfill sweep
+
+Added 2026-07-17. The boundary move gave every existing page roughly 800 more in-scope years, and the world-coverage plan below only schedules *new* pages — this phase pays the debt on the ~116 entities already built. It runs **before Phase 3** (decided 2026-07-17): the pages and most of the needed languages already exist, so this is the highest-value work per hour in the plan.
+
+Scope: for each existing entity, add the medieval-window forms (roughly 640–1453) that the current language inventory supports, plus Byzantine Greek (below). Languages from later phases trigger their own backfill when they land, per the standing per-language obligation — the sweep does not wait for them (Old Norse *Miklagarðr* on Byzantium, *Grikkland* on Greece, and *Serkland* on the caliphate-era pages are the canonical deferred examples).
+
+- [ ] **Batch 1 — the Arabic Mediterranean.** Classical Arabic forms for the pre-expansion pages the geographers named constantly: *Rūmiya* (Rome), *Ṣiqilliyya* (Sicily), *al-Yūnān* (Greece), *al-Qusṭanṭīniyya* (Byzantium), *Anṭākiya* once Antioch exists, *Baḥr al-Rūm* (Mediterranean), and the audit of which existing entities silently lack an Arabic form inside the new window.
+- [ ] **Batch 2 — Byzantine Greek.** New language file (decided 2026-07-17: own file, matching the stages-as-files pattern of Egyptian → Demotic → Coptic and the Aramaic varieties), then its full backfill: the medieval Greek forms of the existing Mediterranean and Anatolian pages.
+- [ ] **Batch 3 — the Iranian, Syriac, and Armenian threads.** Middle Persian, Parthian, Syriac, and Classical Armenian forms whose attestation runs into the medieval window but whose entries stop at Late Antiquity.
+- [ ] **Batch 4 — the eastern window.** Classical Chinese medieval forms (*Fúlǐn* 拂菻 for the Rome/Byzantium thread beside the existing *Dàqín*), Sogdian and Middle Chinese-era readings as entries demand.
+- [ ] **Batch 5 — the audit pass.** Per-entity review of `era_end` values that now end artificially early (forms marked lapsed that stayed in use past 640), and second paragraphs whose narrative stops at Late Antiquity for no reason but the old boundary.
+
 ## Phase 3: The Americas, Africa, and edge cases
 
 Target: by end of summer 2026, before junior-year application work intensifies.
@@ -204,7 +216,7 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 
 ## The 1453 revision: world coverage plan (2026-07-15)
 
-The boundary move to 1453 makes the scope global, and this section plans it all the way out. Everything below is **sequenced, not scheduled**: Phase 3 remains the active target, and Phases 3.5 through 10 follow in order unless a specific entry pulls something forward. Four rules govern the whole plan:
+The boundary move to 1453 makes the scope global, and this section plans it all the way out. Everything below is **sequenced, not scheduled**: the 1453 backfill sweep (Phase 2.5, decided 2026-07-17) is the active target, Phase 3 follows it, and Phases 3.5 through 10 follow in order unless a specific entry pulls something forward. Four rules govern the whole plan:
 
 - **The name-thread rule.** One page per endonym thread, never one page per dynasty. The Abbasids do not get a page separate from the Caliphate; the Song do not get a page separate from China; Vijayanagara gets one because *Vijayanagara* is a genuinely new thread.
 - **Exonym-led entries are first-class.** Whole regions become workable through languages already in the inventory: Classical Arabic carries the African interior (al-Bakrī, al-Idrīsī, Ibn Baṭṭūṭa), Classical Chinese carries Japan, Korea, and Southeast Asia through the dynastic annals, Greek and Latin carry pre-literate Europe. Minoan Crete set the precedent for building a page around exonyms when the endonym is unrecoverable.
@@ -232,12 +244,16 @@ Regions that were always inside the 3100 BCE window but never made the roadmap; 
 - [ ] Colchis (Greek *Kolkhís*, Urartian *Qulḫa*; the Caucasus enters the atlas)
 - [ ] Iberia / Kartli (the Caucasian Iberia, carefully disambiguated from Hispania; opens Old Georgian)
 - [ ] Chorasmia / Khwarazm (Achaemenid *Uvārazmiš* at Behistun; bridges to the medieval Khwarazmian thread)
+- [ ] Cyprus (added 2026-07-17; Bronze Age *Alashiya* of the Amarna letters, Greek *Kypros* and the copper etymology, the Lusignan medieval chapter; entity kind decided at planning)
 
 ### Cities
 - [ ] Petra
 - [ ] Maʾrib (the Sabaean capital)
 - [ ] Massalia (Marseille; the Greek far west)
 - [ ] Gadir / Gades (Cádiz; the Phoenician far west)
+- [ ] Antioch (added 2026-07-17; a top-four Roman city with a Crusader afterlife — *Antiocheia*, Syriac *Anṭiyokh*, Arabic *Anṭākiya*)
+- [ ] Ctesiphon (added 2026-07-17; the Parthian/Sasanian capital, with the Arabic *al-Madāʾin* "the cities" thread)
+- [ ] Rhodes (candidate, added 2026-07-17; the city of 408 BCE plus the Hospitaller chapter)
 
 ### Regions
 - [ ] Arabia (the peninsula as the ancients named it: *Aribi*, *ʿArab*, *Arabía*)
@@ -252,9 +268,12 @@ Regions that were always inside the 3100 BCE window but never made the roadmap; 
 - [ ] The Danube (*Istros* / *Danubius*; a two-name river, which is itself the story)
 - [ ] The Alps
 - [ ] The Atlantic Ocean (*Ōkeanós*; the edge-of-the-world framing)
+- [ ] The Pillars of Heracles / Gibraltar (added 2026-07-17; *Stēlai Hērakleîai* to *Jabal Ṭāriq*, a mountain named for an 8th-century commander)
+- [ ] The Zagros (added 2026-07-17; the mountain wall beside the existing Mesopotamian and Elamite set)
 
 ### Languages needed for Phase 3.5
 - [ ] Sabaic / Old South Arabian (the musnad script)
+- [ ] Gāndhārī Prakrit (added 2026-07-17; the Kharoṣṭhī corpus — the Gandhara and Taxila pages are already standing and unclaimed)
 - [ ] Nabataean Aramaic (decide: own file or a variety under the Aramaic umbrella, mirroring how Imperial Aramaic was scoped)
 - [ ] Gaulish
 - [ ] Libyco-Berber / Numidian
@@ -272,6 +291,7 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [ ] Al-Andalus (a genuinely new endonym thread on Iberian soil; etymology itself disputed, which the entry should relish)
 - [ ] The Ottomans (*Devlet-i ʿOsmāniyye*; pre-1453 attestation is exactly in scope and the 1453 endpoint makes them the closing bracket of the whole atlas)
 - [ ] The Seljuks (candidate; the Sultanate of Rūm mostly extends the Rome/Byzantium exonym family rather than starting a thread, so this may live on existing pages)
+- [ ] The Crusader states (candidate, added 2026-07-17; *Outremer* as a genuinely new naming layer on the Levant)
 
 ### Cities
 - [ ] Baghdad (*Madīnat al-Salām* vs. the older Persian name, a founding double-name)
@@ -280,6 +300,10 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [ ] Cairo (*al-Qāhira* with Fustat and the Babylon-in-Egypt thread beneath it)
 - [ ] Córdoba (*Corduba* → *Qurṭuba*, the full ancient-to-medieval arc)
 - [ ] Samarkand (ancient *Marakanda* through Sogdian *Smʾrknδ* to the Arabic form; also closes a Phase 2 loose end)
+- [ ] Seville (added 2026-07-17; *Hispalis* → *Išbīliya*, the full arc beside Córdoba's)
+- [ ] Toledo (added 2026-07-17; *Toletum* → *Ṭulayṭula*)
+- [ ] Merv (added 2026-07-17; Achaemenid *Marguš* → *Marw*; gives Khurasan its cities)
+- [ ] Bukhara (added 2026-07-17)
 
 ### Regions
 - [ ] The Maghreb (*al-Maghrib*, "the west," over the older *Libya*/*Africa* threads)
@@ -287,6 +311,7 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 
 ### Languages needed for Phase 4
 - [ ] Ottoman Turkish (or Old Anatolian Turkish; decide the scoping when the Ottoman entry lands)
+- [ ] Byzantine Greek (decided 2026-07-17: its own file, per the stages-as-files pattern; built early, in the Phase 2.5 sweep, since the medieval Greek forms of existing pages need it)
 - Classical Arabic, Middle Persian, Syriac, and Classical Armenian already carry most of this phase
 
 ## Phase 5: Medieval Europe and the North
@@ -302,6 +327,12 @@ Europe beyond the Roman lake. Heavily exonym-seeded by Greek and Latin, then end
 - [ ] Hungary / the Magyars (endonym *Magyar* vs. the *Oungroi*/*Hungarus* exonym family, with the *Tourkoi* of Byzantine usage as a bonus thread)
 - [ ] Ireland (*Ériu*; Greek *Iernē*, Latin *Hibernia*; ancient exonyms plus a rich medieval endonym corpus)
 - [ ] Venice (city-state; may be built as a city entry instead — decide at planning)
+- [ ] Genoa (added 2026-07-17; Venice's rival with equal reach and the ancient *Genua* attestation; same civ-or-city decision as Venice)
+- [ ] Wales (added 2026-07-17; *Cymru*, Latin *Cambria*, the *Wealas* exonym story)
+- [ ] Scotland (added 2026-07-17; *Alba*, with *Caledonia* and Pictland beneath it)
+- [ ] Bohemia (added 2026-07-17; *Boiohaemum*, "home of the Boii" — an ancient name carrying a medieval Slavic polity)
+- [ ] Lithuania (added 2026-07-17; the last pagan state of Europe; *Lietuva* against the chancery-Latin *Lituania*)
+- [ ] The Visigothic, Ostrogothic, and Vandal kingdoms (candidates, added 2026-07-17 — decided: the kingdoms, not the peoples, are the entities, per the existing "except where they are themselves civilizational units" clause; gated on the name-thread rule at planning)
 - [ ] Poland and Serbia (candidates; added if their pre-1453 attestation sets prove rich enough to earn pages)
 
 ### Cities
@@ -318,6 +349,7 @@ Europe beyond the Roman lake. Heavily exonym-seeded by Greek and Latin, then end
 ### Geographic features
 - [ ] The Volga (*Rhā* in Ptolemy, Turkic *Itil*, Slavic *Volga*; three threads, one river)
 - [ ] The Dnieper (*Borysthenēs* → *Danapris*)
+- [ ] The Don (added 2026-07-17; *Tanais*, the ancients' Europe–Asia boundary — odd to omit beside its two siblings above)
 - [ ] The North Sea
 - [ ] The Baltic Sea (the *Mare Suebicum*/*Ostsee*/*Varangian Sea* tangle)
 
@@ -352,6 +384,9 @@ China is already in the atlas; this phase builds its whole neighborhood, largely
 - [ ] Luoyang (the older capital, backfilling the China page's urban set beside Chang'an)
 - [ ] Karakorum
 - [ ] Lhasa
+- [ ] Kaifeng (added 2026-07-17; the Northern Song capital)
+- [ ] Hangzhou (added 2026-07-17; Marco Polo's *Quinsai* over *Lin'an*)
+- [ ] Guangzhou (added 2026-07-17; the Arab geographers' *Khānfū*)
 
 ### Regions
 - [ ] Mongolia / the steppe heartland (scoped against the existing steppe-peoples set)
@@ -386,6 +421,7 @@ The subcontinent south of the existing coverage, and the Indianized and Sinicize
 - [ ] Pagan / the Burmese (*Mranma*; the Myazedi inscription's four languages in one stone)
 - [ ] Sukhothai / Siam (candidate; the Ram Khamhaeng inscription's authenticity dispute is itself the honest story)
 - [ ] The Mon / Dvāravatī (candidate)
+- [ ] The Delhi Sultanate (added 2026-07-17; Indo-Islamic north India, 1206–1453 in scope — the largest civilization-level hole the world-coverage revision left)
 
 ### Cities
 - [ ] Madurai (Pandyan capital; Greek *Modoura* in Ptolemy)
@@ -394,6 +430,9 @@ The subcontinent south of the existing coverage, and the Indianized and Sinicize
 - [ ] Bagan
 - [ ] Thăng Long (Hanoi)
 - [ ] Palembang (Srivijaya's seat)
+- [ ] Delhi (added 2026-07-17; the *Indraprastha* → *Dhillikā* → *Dihlī* chain)
+- [ ] Malacca (added 2026-07-17; founded c. 1400, the emporium at the strait)
+- [ ] Ayutthaya (added 2026-07-17; founded 1351 and named for Ayodhyā)
 
 ### Regions
 - [ ] Bengal (*Vaṅga* / *Gauḍa*)

@@ -240,12 +240,11 @@ const complete = civs.filter((c) => c.data.entry_status === 'complete').length;
     color: var(--accent);
     line-height: 1.1;
   }
+  /* Subheadings match the entry pages' family titles (serif, 1.125rem) —
+     standardized 2026-07-17; the uppercase Inter label style stays reserved
+     for the entry cards' language eyebrows. */
   .prose h3 {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
+    font-size: 1.125rem;
     margin: 2rem 0 0.75rem;
   }
   .prose ol, .prose ul { padding-left: 1.5rem; }
