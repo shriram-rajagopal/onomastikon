@@ -1,7 +1,16 @@
 // @ts-check
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import rehypeXref from './src/lib/rehype-xref.mjs';
+
+// Per-page content dates for the sitemap's lastmod (committed ledger;
+// Vercel's shallow clone can't ask git). Keys are "civilizations/<id>" /
+// "languages/<id>", matching those routes' pathnames.
+const modifiedDates = /** @type {Record<string, string>} */ (
+  JSON.parse(readFileSync(new URL('./src/data/modified-dates.json', import.meta.url), 'utf8'))
+);
+const latestModified = Object.values(modifiedDates).sort().at(-1);
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,5 +25,14 @@ export default defineConfig({
   // Every rendered content body gets automatic first-mention crossreference
   // links to other entities and languages (src/lib/rehype-xref.mjs).
   markdown: { rehypePlugins: [rehypeXref] },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      serialize(item) {
+        const path = new URL(item.url).pathname.replace(/^\/|\/$/g, '');
+        if (modifiedDates[path]) item.lastmod = modifiedDates[path];
+        else if (path === '' && latestModified) item.lastmod = latestModified;
+        return item;
+      },
+    }),
+  ],
 });

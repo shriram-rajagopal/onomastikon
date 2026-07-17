@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { entryAnchor } from '../../lib/entry';
+import { pageDates, modifiedOf, formatMonthYear } from '../../lib/dates';
 import { citationParts } from '../../lib/citation';
 import { formatEra } from '../../lib/era';
 import { familyDisplay } from '../../lib/families';
@@ -116,6 +117,7 @@ const contents = [
   { href: '#cite', label: 'Cite this page' },
 ];
 const pageUrl = new URL(`/civilizations/${civ.id}`, Astro.site).href;
+const dates = pageDates('civilizations', civ.id);
 const correctionUrl =
   'https://github.com/shriram-rajagopal/onomastikon/issues/new?template=correction.yml' +
   `&title=${encodeURIComponent(`Correction: ${civ.data.english_name}`)}` +
@@ -135,6 +137,8 @@ const correctionUrl =
     license: 'https://creativecommons.org/licenses/by-sa/4.0/',
     inLanguage: 'en',
     isPartOf: { '@type': 'WebSite', name: 'Onomastikon', url: Astro.site?.href },
+    ...(dates.published && { datePublished: dates.published }),
+    ...(dates.modified && { dateModified: dates.modified }),
   }}
 >
   <article>
@@ -174,6 +178,7 @@ const correctionUrl =
     <h1>{civ.data.english_name}</h1>
     <p class="meta">
       {civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}
+      {dates.modified && ` · Updated ${formatMonthYear(dates.modified)}`}
       <span class={`status status-${civ.data.entry_status}`}>{civ.data.entry_status}</span>
     </p>
 
@@ -358,11 +363,12 @@ const correctionUrl =
           title={`${name.data.transliteration} (${language?.data.english_name} name for ${civ.data.english_name})`}
           path={`/civilizations/${civ.id}`}
           anchor={entryAnchor(name.id, civ.id)}
+          modified={modifiedOf(`names/${name.id}`)}
         />
       </section>
     ))}
 
-    <CiteThis title={civ.data.english_name} path={`/civilizations/${civ.id}`} />
+    <CiteThis title={civ.data.english_name} path={`/civilizations/${civ.id}`} modified={dates.modified} />
     <p class="suggest-correction">
       Spot an error on this page? <a href={correctionUrl}>Suggest a correction →</a>
     </p>

@@ -1,12 +1,19 @@
-// Maintains src/data/entry-dates.json: the date each entity and language file
-// was first added, keyed by "<collection>/<slug>". The RSS feed reads this
-// ledger, because frontmatter carries no dates and Vercel's shallow clone
-// can't ask git at deploy time.
+// Maintains the two freshness ledgers, committed because Vercel's shallow
+// clone can't ask git at deploy time:
 //
-// Idempotent and append-only: existing dates are never rewritten (an entry's
-// "added" date is a historical fact), files no longer on disk are dropped,
-// and new files get their first-commit date from git — or today, for a file
-// not yet committed. Run it after adding entries: npm run dates:update
+//   src/data/entry-dates.json — the date each entity and language file was
+//     first added, keyed by "<collection>/<slug>". Append-only: an entry's
+//     "added" date is a historical fact and is never rewritten. Read by the
+//     RSS feed and by page schema as datePublished.
+//
+//   src/data/modified-dates.json — the date each page's content last
+//     changed, recomputed on every run. An entity or language page's date is
+//     the max over its own file and every name entry that feeds it; name
+//     entries also get their own "names/<slug>" key for per-entry citations.
+//     Read by page schema (dateModified), the visible "Updated" line,
+//     citations, and the sitemap's lastmod.
+//
+// Run it after adding or editing content: npm run dates:update
 import { execFileSync } from 'node:child_process';
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -14,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ledgerPath = join(root, 'src/data/entry-dates.json');
+const modifiedPath = join(root, 'src/data/modified-dates.json');
 
 const ledger = existsSync(ledgerPath)
   ? JSON.parse(readFileSync(ledgerPath, 'utf8'))
@@ -55,8 +63,58 @@ const pruned = Object.fromEntries(
 
 mkdirSync(dirname(ledgerPath), { recursive: true });
 writeFileSync(ledgerPath, JSON.stringify(pruned, null, 2) + '\n');
+
+// ——— Modified dates ———
+// One git pass, newest commit first: the first time a path appears is its
+// last-commit date. Uncommitted changes stamp today, so regenerating right
+// before a content commit lands the correct date.
+const lastCommit = new Map();
+try {
+  const log = execFileSync(
+    'git',
+    ['log', '--format=%x00%cI', '--name-only', '--', 'src/content'],
+    { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }
+  );
+  let current = null;
+  for (const raw of log.split('\n')) {
+    const line = raw.trim();
+    if (line.startsWith('\0')) current = line.slice(1, 11);
+    else if (line && current && !lastCommit.has(line)) lastCommit.set(line, current);
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  const dirty = execFileSync('git', ['status', '--porcelain', '--', 'src/content'], { cwd: root, encoding: 'utf8' });
+  for (const line of dirty.split('\n')) {
+    const p = line.slice(3).split(' -> ').pop()?.trim();
+    if (p) lastCommit.set(p, today);
+  }
+} catch {
+  // Without git history the map stays empty and pages simply omit the date.
+}
+
+const modified = {};
+const bump = (key, date) => {
+  if (date && (!modified[key] || date > modified[key])) modified[key] = date;
+};
+for (const key of seen) bump(key, lastCommit.get(`src/content/${key}.md`));
+const namesDir = join(root, 'src/content/names');
+for (const file of readdirSync(namesDir).filter((f) => f.endsWith('.md'))) {
+  const date = lastCommit.get(`src/content/names/${file}`);
+  if (!date) continue;
+  const src = readFileSync(join(namesDir, file), 'utf8');
+  bump(`names/${file.replace(/\.md$/, '')}`, date);
+  const civ = src.match(/^civilization:\s*(\S+)/m)?.[1];
+  const lang = src.match(/^language:\s*(\S+)/m)?.[1];
+  if (civ) bump(`civilizations/${civ}`, date);
+  if (lang) bump(`languages/${lang}`, date);
+}
+
+const sortedModified = Object.fromEntries(
+  Object.entries(modified).sort(([a], [b]) => a.localeCompare(b))
+);
+writeFileSync(modifiedPath, JSON.stringify(sortedModified, null, 2) + '\n');
+
 console.log(
   `entry-dates: ${Object.keys(pruned).length} entries (${added} added, ${
     Object.keys(ledger).length - Object.keys(pruned).length
-  } pruned)`
+  } pruned); modified-dates: ${Object.keys(sortedModified).length} keys`
 );

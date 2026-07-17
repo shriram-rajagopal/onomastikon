@@ -3,8 +3,11 @@
 // record, each with a copy button. The full variant is the page-level block;
 // the compact variant sits inside a name entry's Sources drawer, citing the
 // entry's permalink anchor, with the BibTeX present but not displayed.
-// The author line is the project's author; the year is the build year
-// (entries carry their own source citations separately).
+// The author line is the project's author; the year is the content's
+// last-modified year when known, else the build year (entries carry their
+// own source citations separately).
+import { formatFullDate } from '../lib/dates';
+
 interface Props {
   title: string;
   path: string;
@@ -12,10 +15,14 @@ interface Props {
   anchor?: string;
   /** Render the compact in-drawer variant instead of the page-level section. */
   compact?: boolean;
+  /** Content's last-modified date (YYYY-MM-DD); adds the Chicago
+      "Last modified" clause and pins the BibTeX year. */
+  modified?: string;
 }
-const { title, path, anchor, compact = false } = Astro.props;
+const { title, path, anchor, compact = false, modified } = Astro.props;
 const url = new URL(anchor ? `${path}#${anchor}` : path, Astro.site).href;
-const year = new Date().getFullYear();
+const year = modified ? Number(modified.slice(0, 4)) : new Date().getFullYear();
+const lastModified = modified ? `Last modified ${formatFullDate(modified)}. ` : '';
 const slug = [path.split('/').filter(Boolean).pop(), anchor].filter(Boolean).join('-');
 const base = `cite-${slug}`;
 const bibtex = `@misc{onomastikon-${slug},
@@ -31,7 +38,7 @@ const bibtex = `@misc{onomastikon-${slug},
   <details class="cite-entry">
     <summary>Cite this entry</summary>
     <p class="cite-chicago" id={`${base}-chicago`}>
-      Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {url}.
+      Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {lastModified}{url}.
     </p>
     <span hidden id={`${base}-bibtex`}>{bibtex}</span>
     <p class="cite-actions">
@@ -43,7 +50,7 @@ const bibtex = `@misc{onomastikon-${slug},
   <section class="cite" id="cite">
     <h2>Cite this page</h2>
     <p class="cite-chicago" id={`${base}-chicago`}>
-      Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {url}.
+      Rajagopal, Shriram. "{title}." <em>Onomastikon: A Digital Atlas of Ancient Names</em>. {lastModified}{url}.
     </p>
     <pre class="cite-bibtex" id={`${base}-bibtex`}>{bibtex}</pre>
     <p class="cite-actions">
