@@ -40,7 +40,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: 'Onomastikon — new entries',
     description:
-      'New entities and languages in the digital atlas of ancient names: what the civilizations, cities, regions, and geographic features of antiquity called themselves.',
+      'New entities and languages in the digital atlas of ancient names: naming the civilizations, cities, regions, and geographic features of antiquity.',
     site: context.site!,
     items,
     customData: '<language>en</language>',
