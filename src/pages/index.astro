@@ -296,7 +296,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
                     data-end={entity.data.era_end ?? 9999}
                   >
                     <a href={`/civilizations/${entity.id}`}>
-                      <span class="name" data-morph={`civilizations/${entity.id}`}>{entity.data.english_name}</span>
+                      <span class="name">{entity.data.english_name}</span>
                       <span class="row-meta">
                         <span class={`count count-${entity.data.entry_status}`} title={`${countByCiv.get(entity.id) ?? 0} name entries (${entity.data.entry_status})`}>{countByCiv.get(entity.id) ?? 0}</span>
                         <span class="era">{formatEra(entity.data.era_start, entity.data.era_end)}</span>
@@ -317,7 +317,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
           {langs.map((lang) => (
             <li>
               <a href={`/languages/${lang.id}`}>
-                <span class="name" data-morph={`languages/${lang.id}`}>{lang.data.english_name}</span>
+                <span class="name">{lang.data.english_name}</span>
                 <span class="row-meta">
                   <span class="count count-language" title={`${countByLang.get(lang.id) ?? 0} name entries`}>{countByLang.get(lang.id) ?? 0}</span>
                   {lang.data.native_name ? (

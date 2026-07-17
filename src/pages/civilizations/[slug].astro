@@ -155,12 +155,12 @@ const correctionUrl =
       {prev ? (
         <a class="pager-link pager-prev" href={`/civilizations/${prev.id}`} rel="prev">
           <span class="pager-arrow" aria-hidden="true">←</span>
-          <span class="pager-name" data-morph={`civilizations/${prev.id}`}>{prev.name}</span>
+          <span class="pager-name">{prev.name}</span>
         </a>
       ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
       {next ? (
         <a class="pager-link pager-next" href={`/civilizations/${next.id}`} rel="next">
-          <span class="pager-name" data-morph={`civilizations/${next.id}`}>{next.name}</span>
+          <span class="pager-name">{next.name}</span>
           <span class="pager-arrow" aria-hidden="true">→</span>
         </a>
       ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
@@ -371,13 +371,13 @@ const correctionUrl =
       {prev ? (
         <a class="pager-link pager-prev" href={`/civilizations/${prev.id}`} rel="prev">
           <span class="pager-dir">← Previous</span>
-          <span class="pager-name" data-morph={`civilizations/${prev.id}`}>{prev.name}</span>
+          <span class="pager-name">{prev.name}</span>
         </a>
       ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
       {next ? (
         <a class="pager-link pager-next" href={`/civilizations/${next.id}`} rel="next">
           <span class="pager-dir">Next →</span>
-          <span class="pager-name" data-morph={`civilizations/${next.id}`}>{next.name}</span>
+          <span class="pager-name">{next.name}</span>
         </a>
       ) : <span class="pager-link pager-empty" aria-hidden="true"></span>}
     </nav>
