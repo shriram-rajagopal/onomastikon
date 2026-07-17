@@ -8,6 +8,7 @@ literal_meaning: Media (continuing Middle Persian Māh, from Old Persian Māda)
 era_start: 640
 era_end: 1000
 family: mada
+derived_from: media-middle-persian-mad
 confidence: attested
 sources:
   - citation: "al-Balādhurī. *Futūḥ al-Buldān*. 9th century; trans. Hitti, Philip K. *The Origins of the Islamic State*. New York: Columbia University Press, 1916."
