@@ -39,6 +39,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   syriac: { lon: 38.79, lat: 37.16, place: 'Edessa', dy: -6 },
   'jewish-babylonian-aramaic': { lon: 43.77, lat: 33.36, place: 'Pumbedita', anchor: 'end', dx: -7, dy: -4 },
   'ancient-greek': { lon: 23.73, lat: 37.98, place: 'Athens', anchor: 'end', dx: -7 },
+  'byzantine-greek': { lon: 28.98, lat: 41.01, place: 'Constantinople' },
   latin: { lon: 12.49, lat: 41.9, place: 'Rome', dy: -6 },
   etruscan: { lon: 11.76, lat: 42.25, place: 'Tarquinia', anchor: 'end', dx: -7, dy: -4 },
   'mycenaean-greek': { lon: 22.75, lat: 37.73, place: 'Mycenae', anchor: 'end', dx: -7, dy: 8 },

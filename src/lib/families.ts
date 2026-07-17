@@ -182,6 +182,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Asía family',
     note: 'The name Asia, taken by the Greeks from the Bronze Age Anatolian league the Hittites called Aššuwa; first the name of western Anatolia alone, it expanded to name the whole continent, so that the peninsula had to be renamed Asia Minor.',
   },
+  hellas: {
+    display: 'The Hellás line',
+    note: 'The Greeks’ own name for their land, carried from Homer into Byzantine provincial administration and back out into the modern state.',
+  },
   anatole: {
     display: 'The Anatolḗ family',
     note: 'The Greek Anatolḗ, "the east, sunrise," the Byzantine name for the lands east of Constantinople that narrowed to mean the Anatolian peninsula; source of the Arabic Anāḍūl and the modern Anatolia.',
