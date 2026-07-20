@@ -290,7 +290,7 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [x] The Byzantines (COMPLETE 2026-07-20, cluster 1. Built on the migration model: the new page (330–1453) hosts the endonym *Rhōmanía* (Ancient Greek per the Kōnstantinoúpolis precedent, Athanasius c. 358 verified as first attestation) plus the migrated Byzantine-referent forms al-Rūm, Classical Persian Rūm, and Fúlǐn, joined by new Latin *Romania* (Orosius 7.43, Jordanes), Classical Armenian *Hoṙom* (the Persian-mediated h-, the Chalcedonian confessional sense), and Syriac *Bēth Rhōmāyē*. Rome keeps its classical thread and 476 endpoint with an explicit prose handoff; Hrōm/frwm/Rhōmā/Rōm/Rōmī stay there as pre-division attestations. Status developing: Sogdian *Frōm* remains the deferred gap, Ottoman Turkish *Rūm* lands with cluster 5's backfill. Byzantium city and Iran extended to 1453 alongside; Ērānšahr enrichment closed as already-covered.)
 - [x] ~~Ērānšahr enrichment of the Iran page~~ (closed 2026-07-20: the Ērān/Īrānshahr/Īrān thread was already fully hosted; the page's era_end extended to 1453)
 - [x] The Caliphate (COMPLETE 2026-07-20, cluster 2. One *Khilāfa* thread 632–1258 as planned: the endonym al-Khilāfa (a constitutional claim, not a place-name) plus the new tazig family — Middle Persian *Tāzīg* (Book Pahlavi, script_unencodable), Chinese *Dàshí*, Persian *Tāzī*, Armenian *Tačik* (Sebeos, the earliest external account of Islam). Greek Sarakēnoi and Syriac Ṭayyāyē dispositioned to prose as tribe-derived ethnonyms.)
-- [ ] Al-Andalus (a genuinely new endonym thread on Iberian soil; etymology itself disputed, which the entry should relish)
+- [x] Al-Andalus (COMPLETE 2026-07-20, cluster 3. Endonym-led per the Minoan precedent; the 716 bilingual dinar (al-Andalus / Span(ia)) anchors the attestation, the Halm landahlauts proposal and its rivals relished in prose as asked; the Andalucía afterlife closes it.)
 - [ ] The Ottomans (*Devlet-i ʿOsmāniyye*; pre-1453 attestation is exactly in scope and the 1453 endpoint makes them the closing bracket of the whole atlas)
 - [ ] The Seljuks (candidate; the Sultanate of Rūm mostly extends the Rome/Byzantium exonym family rather than starting a thread, so this may live on existing pages)
 - [ ] The Crusader states (candidate, added 2026-07-17; *Outremer* as a genuinely new naming layer on the Levant)
@@ -300,15 +300,15 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [x] Mecca (COMPLETE 2026-07-20, cluster 2. Qur'anic *Makka* with the *Bakka* doublet, Ptolemy's *Makoraba* kept as `disputed` with the Morris 2018 critique argued in the prose, Zhufanzhi *Májiā* with its Buddhist frame. Developing: a possible Byzantine Greek form unchecked.)
 - [x] Medina (COMPLETE 2026-07-20, cluster 2. The name-change story as planned, anchored by a find: cuneiform *Iatribu* on Nabonidus's Harran stele (c. 552 BCE) gives the page a -552 floor; Greek *Iathrippa* (Ptolemy, Stephanus) bridges to Qur'anic *Yathrib*, retired by decree for *al-Madīna*, "the City", the hē Pólis parallel.)
 - [x] Cairo (COMPLETE 2026-07-20, cluster 2. The three-layer stack: Greek and Coptic *Babylōn* (the fortress, babili family cross-page), *Miṣr*-as-city (the msr family's strangest member, edged to the Egypt entry), and Fatimid *al-Qāhira* with the Mars legend; Fustat in prose.)
-- [ ] Córdoba (*Corduba* → *Qurṭuba*, the full ancient-to-medieval arc)
+- [x] Córdoba (COMPLETE 2026-07-20, cluster 3. Corduba → Kordýbē (Strabo) → Qurṭuba; the corduba family with the payoff that Spanish Córdoba continues the Arabic pronunciation, not the Latin.)
 - [ ] Samarkand (ancient *Marakanda* through Sogdian *Smʾrknδ* to the Arabic form; also closes a Phase 2 loose end)
-- [ ] Seville (added 2026-07-17; *Hispalis* → *Išbīliya*, the full arc beside Córdoba's)
-- [ ] Toledo (added 2026-07-17; *Toletum* → *Ṭulayṭula*)
+- [x] Seville (COMPLETE 2026-07-20, cluster 3. Hispalis (with Isidore's own failed etymology of his see) → Híspalis (Strabo) → Išbīliya → Sevilla; the hispalis family.)
+- [x] Toledo (COMPLETE 2026-07-20, cluster 3. Livy's parva urbs Toletum → Ptolemy's Tṓlēton → Ṭulayṭula, with the translation movement as the Arabic entry's payoff.)
 - [ ] Merv (added 2026-07-17; Achaemenid *Marguš* → *Marw*; gives Khurasan its cities)
 - [ ] Bukhara (added 2026-07-17)
-- [ ] Granada (added 2026-07-20, Iberian infill; the Naṣrid *Gharnāṭa*, the last Andalusi polity)
-- [ ] Kairouan (added 2026-07-20, Maghrebi cities; *al-Qayrawān*, the first Islamic metropolis of the west)
-- [ ] Fez (added 2026-07-20, Maghrebi cities; *Fās*, the Idrisid and Marinid capital)
+- [x] Granada (COMPLETE 2026-07-20, cluster 3. Latin Iliberri (the ili-berri 'new town' reading, Council of Elvira) beside Gharnāṭa with the pomegranate folk etymology made true by heraldry.)
+- [x] Kairouan (COMPLETE 2026-07-20, cluster 3. Single-entry page whose story is the Persian kārwān etymology, verified in Yāqūt's own gloss.)
+- [x] Fez (COMPLETE 2026-07-20, cluster 3. Fās with the Rawḍ al-Qirṭās founding legends read as folk etymology's workshop.)
 - [ ] Nishapur (added 2026-07-20, Eastern infill; the fourth quarter of Khurasan beside Merv, Herat, and Balkh/Bactra)
 - [ ] Konya (added 2026-07-20, Anatolian arc; *Ikónion* → *Qūniya*, the Seljuk Rūm capital and natural host for the Seljuk-candidate material)
 - [ ] Nicaea (added 2026-07-20, Anatolian arc; the councils, the empire-in-exile, Ottoman *İznik*)
@@ -316,12 +316,12 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [ ] Edirne (added 2026-07-20, Anatolian arc; *Hadrianopolis* → *Edirne*, the Ottoman capital before 1453)
 
 ### Regions
-- [ ] The Maghreb (*al-Maghrib*, "the west," over the older *Libya*/*Africa* threads)
+- [x] The Maghreb (COMPLETE 2026-07-20, cluster 3. al-Maghrib the compass-name, paired in prose with Khurasan as the caliphate's two horizons; new coastal region hull baked into regions.ts.)
 - [ ] Khurasan (*Xwarāsān*, "land of the sunrise"; the eastern-Iranian counterpart)
 - [ ] Transoxiana (added 2026-07-20, Eastern infill; *Mā warāʾ al-nahr*, "what lies beyond the river," beside the existing Sogdiana page)
 
 ### Geographic features
-- [ ] The Guadalquivir (added 2026-07-20, Iberian infill; Latin *Baetis* → *al-wādī al-kabīr*, the river whose modern name is the Arabic)
+- [x] The Guadalquivir (COMPLETE 2026-07-20, cluster 3. Baetis/Baîtis (with Strabo's Tartessos memory, 3.2.11) and al-Wādī al-Kabīr; Natural-Earth river trace baked into rivers.ts.)
 
 ### Languages needed for Phase 4
 - [ ] Ottoman Turkish (or Old Anatolian Turkish; decide the scoping when the Ottoman entry lands)
