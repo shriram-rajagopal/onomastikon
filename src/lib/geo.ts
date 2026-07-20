@@ -45,6 +45,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'mycenaean-greek': { lon: 22.75, lat: 37.73, place: 'Mycenae', anchor: 'end', dx: -7, dy: 8 },
   'old-persian': { lon: 52.89, lat: 29.94, place: 'Persepolis', dy: 10 },
   'middle-persian': { lon: 44.58, lat: 33.1, place: 'Ctesiphon', anchor: 'middle', dx: 0, dy: -7 },
+  'classical-persian': { lon: 59.57, lat: 36.5, place: 'Tus, Khurasan' },
   parthian: { lon: 58.4, lat: 37.6, place: 'Nisa', dy: -6 },
   avestan: { lon: 66.9, lat: 36.76, place: 'Bactra', dy: -6 },
   sanskrit: { lon: 77.7, lat: 27.5, place: 'Mathura', anchor: 'end', dx: -7 },

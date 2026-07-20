@@ -437,7 +437,8 @@ The subcontinent south of the existing coverage, and the Indianized and Sinicize
 - [ ] Ayutthaya (added 2026-07-17; founded 1351 and named for Ayodhyā)
 
 ### Regions
-- [ ] Bengal (*Vaṅga* / *Gauḍa*)
+- [ ] Bengal (*Vaṅga* / *Gauḍa*; the Pāla dynasty is prose on this page, per the name-thread rule)
+- [ ] Gujarat (added 2026-07-20; the *Gurjara* thread — Sanskrit *Gurjaradeśa*, the Arab geographers' *Jurz* for the Pratihara realm, the modern state's name. The Gurjara-Pratiharas, like the Delhi Sultanate's Mamluk/Khalji/Tughlaq houses and the Rajput clans, are dynasties and ethnonym-classes that live in prose, never as pages)
 - [ ] Suvarṇabhūmi (the "golden land" horizon of Pali and Sanskrit geography; the Magan-and-Meluhha of the east, disputed identification handled the same way)
 
 ### Geographic features
@@ -447,6 +448,7 @@ The subcontinent south of the existing coverage, and the Indianized and Sinicize
 - [ ] The Kaveri
 
 ### Languages needed for Phase 7
+- [x] Classical Persian (BUILT EARLY, 2026-07-20, like Byzantine Greek before it — the Delhi Sultanate's chancery language and the biggest missing language of the whole 1453 window. fa, 900–1453, rtl, Tus homeland, boundary rule against re-hosting unchanged Arabic loans; opening backfill of six Persian coinages and careers: Hindūstān, Panjāb (Ibn Baṭṭūṭa's calque of Pañcanada), Īrān, Rūm, Chīn, Yūnān)
 - [ ] Classical Tamil (Tamil-Brahmi and the Sangam corpus; the first Dravidian language in the inventory and long overdue)
 - [ ] Sinhala Prakrit / Elu
 - [ ] Old Khmer
