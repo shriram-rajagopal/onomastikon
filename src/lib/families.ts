@@ -214,6 +214,26 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Euphrátēs family',
     note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
   },
+  khurasan: {
+    display: 'The Xwarāsān family',
+    note: 'The Sasanian quarter-name "sunrise," the east as seen from Ctesiphon; adopted whole by Arabic and continued natively in Persian, still on the map of Iran.',
+  },
+  margu: {
+    display: 'The Margu family',
+    note: 'The name of the Merv oasis, unbroken from Old Persian Marguš and Avestan Mouru through Greek Margianē and Sasanian Marw to the Arabic and Persian forms and the modern Mary.',
+  },
+  nishapur: {
+    display: 'The Nēw-Šābuhr family',
+    note: 'The Sasanian royal dedication "fair (is) Šābuhr," carried through Arabic Naysābūr and Persian Nīshāpūr with the king\'s name embedded but no longer heard.',
+  },
+  bukhara: {
+    display: 'The Bukhārā family',
+    note: 'The city\'s name of disputed origin, Sogdian or the old vihāra proposal, shared by its Arabic and Persian forms and carried worldwide by the adjective of one book of hadith.',
+  },
+  samarkand: {
+    display: 'The Smārkanθ family',
+    note: 'The Sogdian "stone fort," heard by Alexander\'s Greeks as Marákanda and opened by Arabic and Persian into Samarqand, the shape the world kept.',
+  },
   corduba: {
     display: 'The Corduba family',
     note: 'The pre-Roman name of Córdoba, latinized as Corduba, Strabo\'s Kordýbē, and the Arabic Qurṭuba whose pronunciation the modern Spanish name continues.',
