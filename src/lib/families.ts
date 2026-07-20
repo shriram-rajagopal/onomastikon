@@ -214,6 +214,30 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Euphrátēs family',
     note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
   },
+  osman: {
+    display: 'The ʿOsmân family',
+    note: 'The founder-bey\'s name as the dynasty\'s own Âl-i ʿOsmân and the Arabic chanceries\' Banū ʿUthmān; the source of "Ottoman" itself.',
+  },
+  saljuq: {
+    display: 'The Saljūq family',
+    note: 'The Oghuz ancestor\'s name carried as Arabic Āl Saljūq and Persian Saljūqiyān, a dead chieftain naming three centuries of sultans from Baghdad to Konya.',
+  },
+  ikonion: {
+    display: 'The Ikónion family',
+    note: 'The unexplained pre-Greek name of Konya, passed with only light re-hearing from Xenophon\'s Ikónion through Latin Iconium and Arabic Qūniya to Turkish Konya.',
+  },
+  nikaia: {
+    display: 'The Níkaia family',
+    note: 'A Hellenistic queen\'s name made permanent by two councils; Latin Nicaea turned it into doctrine, and Turkish İznik preserves the phrase eis Níkaian, "to Nicaea."',
+  },
+  prousa: {
+    display: 'The Proûsa family',
+    note: 'King Prusias\'s city under the Mysian Olympus, continued through Latin Prusa into Ottoman Bursa, the dynasty\'s first capital and necropolis.',
+  },
+  hadrianopolis: {
+    display: 'The Hadrianoúpolis family',
+    note: 'Hadrian\'s Thracian foundation, the Adrianople of the disaster of 378, worn down by Turkish to Edirne with the emperor no longer audible.',
+  },
   khurasan: {
     display: 'The Xwarāsān family',
     note: 'The Sasanian quarter-name "sunrise," the east as seen from Ctesiphon; adopted whole by Arabic and continued natively in Persian, still on the map of Iran.',
