@@ -4,7 +4,7 @@ type: geographic_feature
 region: Central Asia, the steppe frontier
 entry_status: developing
 era_start: -500
-era_end: 1300
+era_end: null
 summary: The northern of the two great rivers of Central Asia, the Greeks' Iaxártēs, the frontier of the Saka steppe and the limit of Alexander's advance, which the Arabs called Sayḥūn after the Pishon of Paradise.
 ---
 

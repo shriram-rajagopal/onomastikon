@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Anatolia, the steppe, and the Caucasus
 entry_status: developing
 era_start: -700
-era_end: 1300
+era_end: null
 summary: The sea the Greeks first called Áxeinos, the Inhospitable, then renamed by anxious euphemism Eúxeinos, the Hospitable, over an Iranian word that had only ever meant dark.
 ---
 

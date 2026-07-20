@@ -4,7 +4,7 @@ type: geographic_feature
 region: Northeast Africa
 entry_status: complete
 era_start: -3000
-era_end: 600
+era_end: null
 summary: The longest river in the world and the geographic foundation of pharaonic Egypt.
 ---
 

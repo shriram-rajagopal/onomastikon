@@ -4,7 +4,7 @@ type: geographic_feature
 region: Mesopotamia
 entry_status: complete
 era_start: -3000
-era_end: 1300
+era_end: null
 summary: The swifter of the two great rivers of Mesopotamia, whose Sumerian name "the swift river" the Persians reanalyzed as "arrow," giving the West its name Tigris while the East kept the old Dijla.
 ---
 

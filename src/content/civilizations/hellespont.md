@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Europe and Asia, at the Troad
 entry_status: developing
 era_start: -700
-era_end: 600
+era_end: null
 summary: The narrow strait between Europe and Asia at the gate of the Troad, named for Helle, the girl who fell from the golden ram into its water as she fled across it.
 ---
 

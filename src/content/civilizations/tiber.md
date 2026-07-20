@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: complete
 region: Latium and Etruria, central Italy
 era_start: -753
-era_end: 600
+era_end: null
 summary: The river of Rome, the third-longest in Italy, which rises in the Apennines and runs through the city to the sea, known to the Romans as Tiberis and, in legend, by the older name Albula.
 ---
 

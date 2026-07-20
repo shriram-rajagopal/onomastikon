@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Mesopotamia, Arabia, and Iran
 entry_status: complete
 era_start: -2300
-era_end: 1300
+era_end: null
 summary: The "Lower Sea" at the foot of the Tigris and Euphrates, the gulf every Mesopotamian king from Sargon onward measured his reach by, and which the wider world, naming it for the land on its far shore, came to call Persian.
 ---
 

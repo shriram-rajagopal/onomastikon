@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: complete
 region: Between the Italian peninsula and the Balkans
 era_start: -500
-era_end: 600
+era_end: null
 summary: The long arm of the Mediterranean between Italy and the Balkans, named by the Greeks after the Etruscan and Venetic port-city of Adria near the mouth of the Po, since left stranded inland by the silting coast.
 ---
 

@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Europe, Africa, and Asia
 entry_status: complete
 era_start: -2000
-era_end: 1300
+era_end: null
 summary: The great inland sea at the center of the ancient world, which no people owned and so each named from its own shore, until the name that won described not its master but its place, the sea amid the lands.
 ---
 

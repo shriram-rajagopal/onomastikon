@@ -4,7 +4,7 @@ type: geographic_feature
 region: The Levantine coast, behind Phoenicia
 entry_status: developing
 era_start: -2400
-era_end: 1300
+era_end: null
 summary: The cedar mountain behind the Phoenician coast, named across the whole Semitic family from a single root meaning "white," for its snows and pale limestone, and supplying the timber that built temples from Uruk to Jerusalem.
 ---
 

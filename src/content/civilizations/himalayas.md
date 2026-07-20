@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: developing
 region: The northern wall of the Indian subcontinent
 era_start: -1500
-era_end: 600
+era_end: null
 summary: The great northern range, the "abode of snow," whose Sanskrit word for snow, himá, the Greeks and Romans caught twice over as Imaus and Emodos, two names Pliny knew meant "snowy."
 ---
 

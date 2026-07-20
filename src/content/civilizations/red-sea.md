@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Egypt, Arabia, and the Horn of Africa
 entry_status: developing
 era_start: -1200
-era_end: 1300
+era_end: null
 summary: The sea of the Exodus and the spice route, which the Hebrews named for the reeds at its head and the Greeks for a redness no one could quite explain, the two names colliding when the Septuagint turned the Sea of Reeds into the Red Sea.
 ---
 

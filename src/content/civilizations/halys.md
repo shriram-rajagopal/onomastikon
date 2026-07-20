@@ -4,7 +4,7 @@ type: geographic_feature
 region: Central Anatolia
 entry_status: developing
 era_start: -1600
-era_end: 600
+era_end: null
 summary: The great looping river of central Anatolia, the Hittites' Marassantiya and the Greeks' Hálys, whose crossing the Delphic oracle promised would destroy a great empire, and did, the crosser's own.
 ---
 

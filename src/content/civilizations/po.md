@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: complete
 region: Northern Italy (the plain of the Padan basin)
 era_start: -600
-era_end: 600
+era_end: null
 summary: The great river of northern Italy, draining the plain between the Alps and the Apennines, known to Rome as the Padus and to Greek poets, who mapped onto it the myth of the amber-river Eridanos, as the Ēridanós.
 ---
 

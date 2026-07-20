@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Bactria and India
 entry_status: developing
 era_start: -330
-era_end: 1300
+era_end: null
 summary: The great range between Bactria and India, which Alexander's geographers folded into the Caucasus and the Greeks called the Paropamisus, and which medieval travelers named the Hindu Kush, "the Hindu-killer."
 ---
 

@@ -4,7 +4,7 @@ type: geographic_feature
 region: The Levant
 entry_status: complete
 era_start: -1200
-era_end: 1300
+era_end: null
 summary: The river of the Holy Land, "the descender," which falls from Mount Hermon to the Dead Sea, the lowest point on earth, and whose Hebrew name scripture carried into every Christian language.
 ---
 

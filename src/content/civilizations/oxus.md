@@ -4,7 +4,7 @@ type: geographic_feature
 region: Central Asia, between Bactria and Sogdiana
 entry_status: developing
 era_start: -600
-era_end: 1300
+era_end: null
 summary: The great river of Central Asia, the Avestan Vaxšu and its river-god, the northern wall of Bactria, which the Arab geographers renamed Jayḥūn after the Gihon of Paradise.
 ---
 

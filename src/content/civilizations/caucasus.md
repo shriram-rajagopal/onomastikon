@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between the Black Sea and the Caspian
 entry_status: developing
 era_start: -700
-era_end: 1300
+era_end: null
 summary: The mountain wall between the Black and Caspian seas, the edge of the Greek world where Prometheus was chained, whose name Alexander's geographers carried a thousand miles east to the Hindu Kush.
 ---
 

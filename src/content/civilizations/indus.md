@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: complete
 region: The Punjab and Sindh, northwest of the Indian subcontinent
 era_start: -1500
-era_end: 1300
+era_end: null
 summary: The great river of the northwest, whose Sanskrit name Sindhu, "the river," became the name of a subcontinent, a religion, and a province, and within Sanskrit itself the word for any river or the sea.
 ---
 

@@ -4,7 +4,7 @@ type: geographic_feature
 region: Southern Anatolia
 entry_status: developing
 era_start: -500
-era_end: 1300
+era_end: null
 summary: The mountain wall that shuts off the Anatolian plateau from the southern sea, "the Bull" to the Greeks, which ancient geography made the very axis along which it divided Asia.
 ---
 

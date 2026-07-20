@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: complete
 region: Between southern Italy and Sicily and the western coast of Greece
 era_start: -700
-era_end: 600
+era_end: null
 summary: The arm of the Mediterranean between southern Italy and Greece, named by the Greeks for Io, the maiden turned heifer who swam it fleeing Hera, and not, despite the resemblance, for the Ionians of Anatolia.
 ---
 

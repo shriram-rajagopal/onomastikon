@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: complete
 region: Northern India, the Gangetic plain
 era_start: -1500
-era_end: 650
+era_end: null
 summary: The sister-river of the Ganges, the goddess Yamunā and the river of Kṛṣṇa's Vrindavan, whose name, unlike the Ganges's, fragmented in every language that met it.
 ---
 

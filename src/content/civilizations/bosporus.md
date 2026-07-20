@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Europe and Asia, at Byzantium
 entry_status: developing
 era_start: -700
-era_end: 1300
+era_end: null
 summary: The strait at Byzantium between the Black Sea and the Propontis, whose name, "ox-ford," recalls Io, whom Hera turned into a heifer and who swam across it in her long wandering.
 ---
 

@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between the Caucasus, the steppe, and Iran
 entry_status: developing
 era_start: -500
-era_end: 1300
+era_end: null
 summary: The great landlocked sea east of the Caucasus, named in turn for every people who happened to live on its shores, the Caspii, the Hyrcanians, and at last the Khazars.
 ---
 

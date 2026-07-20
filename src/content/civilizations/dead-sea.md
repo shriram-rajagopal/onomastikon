@@ -4,7 +4,7 @@ type: geographic_feature
 region: The Jordan Rift, between Judah and Moab
 entry_status: complete
 era_start: -1200
-era_end: 1300
+era_end: null
 summary: "The lowest water on earth, too salt and bitter to hold life or carry an endonym, named instead by every neighbor for a different one of its lethal properties: the salt, the floating asphalt, the death, and the destruction of Lot's cities."
 ---
 

@@ -4,7 +4,7 @@ type: geographic_feature
 region: Between Greece and Anatolia
 entry_status: complete
 era_start: -700
-era_end: 600
+era_end: null
 summary: The island-studded arm of the Mediterranean between Greece and Anatolia, the cradle of Greek civilization, whose Greek name carried half a dozen rival explanations and gave the world the word "archipelago."
 ---
 

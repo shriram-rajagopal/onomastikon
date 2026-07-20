@@ -4,7 +4,7 @@ type: geographic_feature
 region: The Armenian highland
 entry_status: developing
 era_start: -700
-era_end: 1300
+era_end: null
 summary: The mountains where the ark came to rest in the Hebrew Bible, whose name is the same word as the Assyrian kingdom of Urartu, a country's name narrowed onto a single peak that no two traditions agree on.
 ---
 

@@ -4,7 +4,7 @@ type: geographic_feature
 region: Mesopotamia
 entry_status: complete
 era_start: -3000
-era_end: 1300
+era_end: null
 summary: The western and longer of the two great rivers of Mesopotamia, whose ancient cuneiform name passed faithfully into the Semitic Pĕrāt and Furāt but was reshaped by Greek ears into the "good-flowing" Euphrates.
 ---
 

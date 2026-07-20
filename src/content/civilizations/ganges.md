@@ -4,7 +4,7 @@ type: geographic_feature
 entry_status: developing
 region: Northern India, the Gangetic plain
 era_start: -1500
-era_end: 650
+era_end: null
 summary: The sacred river of northern India, the goddess Gaṅgā, whose name, unlike the Indus's, traveled almost unchanged into every language that learned it.
 ---
 
