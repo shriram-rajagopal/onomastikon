@@ -284,16 +284,16 @@ Regions that were always inside the 3100 BCE window but never made the roadmap; 
 
 ## Phase 4: The medieval Mediterranean and the Islamic world
 
-The direct continuation unlocked by the boundary move; the original Phase 4 stub, now planned fully. **Phase planning 2026-07-20:** five thematic clusters (Byzantines → Caliphate → Andalus/Maghreb → Khurasan → Ottomans), four addition bundles admitted (the Anatolian arc, Iberian infill, Eastern infill, and Maghrebi cities below), Seljuk/Crusader/Medieval-Latin decisions deferred to contact.
+The direct continuation unlocked by the boundary move; the original Phase 4 stub, now planned fully. **PHASE 4 COMPLETE (2026-07-20, one day, five clusters):** 27 entities, ~100 name entries, and two new languages (Ottoman Turkish, Medieval Latin) landed in commits 77608f2 through 1f07b63. The deferred decisions all resolved on contact: Medieval Latin became its own file per the Byzantine Greek precedent (first resident: partes transmarinae); the Seljuks and Crusader states both got pages (user's call); Ottoman Turkish was scoped as one file (ota, 1300–1453) hosting the Old Anatolian Turkish corpus.
 
 ### Civilizations
 - [x] The Byzantines (COMPLETE 2026-07-20, cluster 1. Built on the migration model: the new page (330–1453) hosts the endonym *Rhōmanía* (Ancient Greek per the Kōnstantinoúpolis precedent, Athanasius c. 358 verified as first attestation) plus the migrated Byzantine-referent forms al-Rūm, Classical Persian Rūm, and Fúlǐn, joined by new Latin *Romania* (Orosius 7.43, Jordanes), Classical Armenian *Hoṙom* (the Persian-mediated h-, the Chalcedonian confessional sense), and Syriac *Bēth Rhōmāyē*. Rome keeps its classical thread and 476 endpoint with an explicit prose handoff; Hrōm/frwm/Rhōmā/Rōm/Rōmī stay there as pre-division attestations. Status developing: Sogdian *Frōm* remains the deferred gap, Ottoman Turkish *Rūm* lands with cluster 5's backfill. Byzantium city and Iran extended to 1453 alongside; Ērānšahr enrichment closed as already-covered.)
 - [x] ~~Ērānšahr enrichment of the Iran page~~ (closed 2026-07-20: the Ērān/Īrānshahr/Īrān thread was already fully hosted; the page's era_end extended to 1453)
 - [x] The Caliphate (COMPLETE 2026-07-20, cluster 2. One *Khilāfa* thread 632–1258 as planned: the endonym al-Khilāfa (a constitutional claim, not a place-name) plus the new tazig family — Middle Persian *Tāzīg* (Book Pahlavi, script_unencodable), Chinese *Dàshí*, Persian *Tāzī*, Armenian *Tačik* (Sebeos, the earliest external account of Islam). Greek Sarakēnoi and Syriac Ṭayyāyē dispositioned to prose as tribe-derived ethnonyms.)
 - [x] Al-Andalus (COMPLETE 2026-07-20, cluster 3. Endonym-led per the Minoan precedent; the 716 bilingual dinar (al-Andalus / Span(ia)) anchors the attestation, the Halm landahlauts proposal and its rivals relished in prose as asked; the Andalucía afterlife closes it.)
-- [ ] The Ottomans (*Devlet-i ʿOsmāniyye*; pre-1453 attestation is exactly in scope and the 1453 endpoint makes them the closing bracket of the whole atlas)
-- [ ] The Seljuks (candidate; the Sultanate of Rūm mostly extends the Rome/Byzantium exonym family rather than starting a thread, so this may live on existing pages)
-- [ ] The Crusader states (candidate, added 2026-07-17; *Outremer* as a genuinely new naming layer on the Levant)
+- [x] The Ottomans (COMPLETE 2026-07-20, cluster 5. Âl-i ʿOsmân from Ahmedî's c. 1412 chronicle (the earliest Ottoman history, verified), Byzantine Greek Toûrkoi (Doukas/Chalkokondyles), Arabic Banū ʿUthmān (al-Qalqashandī's chancery manual); Persian dispositioned to Rūm. The closing bracket closed.)
+- [x] The Seljuks (BUILT 2026-07-20, cluster 5, user's call over the fold-in option. Āl Saljūq (Ibn al-Athīr), Saljūqiyān (Rāvandī, the dynasty's own Persian chancery), and Byzantine Greek Pérsai, the Komnenian archaism; the oral-Oghuz endonym gap stated honestly.)
+- [x] The Crusader states (BUILT 2026-07-20, cluster 5, `developing`. Medieval Latin partes transmarinae (William of Tyre's own title); Old French Outremer deferred to Phase 5 with its language; al-Faranj dispositioned to the future Francia page per the name-thread rule.)
 
 ### Cities
 - [x] Baghdad (COMPLETE 2026-07-20, cluster 2. The double-name as planned, plus the Talmudic *Baḡdāṯā* (Ketubbot 7b) proving the toponym's pre-Islamic career, and Zhufanzhi *Báidá*. Developing: the Syriac chronicles' form is the documented gap, orthography unverified.)
@@ -310,10 +310,10 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [x] Kairouan (COMPLETE 2026-07-20, cluster 3. Single-entry page whose story is the Persian kārwān etymology, verified in Yāqūt's own gloss.)
 - [x] Fez (COMPLETE 2026-07-20, cluster 3. Fās with the Rawḍ al-Qirṭās founding legends read as folk etymology's workshop.)
 - [x] Nishapur (COMPLETE 2026-07-20, cluster 4. Nēw-Šābuhr (Book Pahlavi, script_unencodable) → Naysābūr → Nīshāpūr; the dissolved royal dedication as the family's story.)
-- [ ] Konya (added 2026-07-20, Anatolian arc; *Ikónion* → *Qūniya*, the Seljuk Rūm capital and natural host for the Seljuk-candidate material)
-- [ ] Nicaea (added 2026-07-20, Anatolian arc; the councils, the empire-in-exile, Ottoman *İznik*)
-- [ ] Bursa (added 2026-07-20, Anatolian arc; *Prousa*, the first Ottoman capital)
-- [ ] Edirne (added 2026-07-20, Anatolian arc; *Hadrianopolis* → *Edirne*, the Ottoman capital before 1453)
+- [x] Konya (COMPLETE 2026-07-20, cluster 5. Ikónion (Xenophon, Acts) → Iconium (Cicero's dispatches, the Vulgate) → Qūniya (Yāqūt) → Konya; Rūmī's knot of names as the page's center.)
+- [x] Nicaea (COMPLETE 2026-07-20, cluster 5. Níkaia → Nicaea (Pliny's Bithynian mailbag, then the creed) → İznik from eis Níkaian, the Istanbul mechanism, verified.)
+- [x] Bursa (COMPLETE 2026-07-20, cluster 5. Proûsa → Prusa → Bursa, the quiet chain; the Ottomans as name-keepers from their first capital onward.)
+- [x] Edirne (COMPLETE 2026-07-20, cluster 5. Hadrianoúpolis → Hadrianopolis (Ammianus 31 and the disaster of 378) → Edirne; the campaign of 1453 launched from one emperor's worn-down name against another's.)
 
 ### Regions
 - [x] The Maghreb (COMPLETE 2026-07-20, cluster 3. al-Maghrib the compass-name, paired in prose with Khurasan as the caliphate's two horizons; new coastal region hull baked into regions.ts.)
@@ -324,7 +324,8 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [x] The Guadalquivir (COMPLETE 2026-07-20, cluster 3. Baetis/Baîtis (with Strabo's Tartessos memory, 3.2.11) and al-Wādī al-Kabīr; Natural-Earth river trace baked into rivers.ts.)
 
 ### Languages needed for Phase 4
-- [ ] Ottoman Turkish (or Old Anatolian Turkish; decide the scoping when the Ottoman entry lands)
+- [x] Ottoman Turkish (BUILT 2026-07-20: one file, ota, Perso-Arabic script, rtl, 1300–1453, Bursa homeland, native name Türkçe; hosts the Old Anatolian Turkish corpus per the stages-as-files pattern. Opening backfill: Rūm (Byzantines), Kostantiniyye (Byzantium, continuity clause), Anadolu (Anatolia), Mısır (Egypt, the mṣr family's eleventh language). Şam, Çin, and others await opportunistic passes.)
+- [x] Medieval Latin (BUILT 2026-07-20: the parked decision resolved per the Byzantine Greek precedent when the Crusader-states page needed it. Own file, la, 600–1453, Rome homeland, boundary rule against re-hosting continuing classical forms. Backfill candidate noted: a byzantines Romania entry for the Latin Empire sense (Wolff 1948) is the obvious next resident.)
 - [ ] Byzantine Greek (decided 2026-07-17: its own file, per the stages-as-files pattern; built early, in the Phase 2.5 sweep, since the medieval Greek forms of existing pages need it)
 - Classical Arabic, Middle Persian, Syriac, and Classical Armenian already carry most of this phase
 
