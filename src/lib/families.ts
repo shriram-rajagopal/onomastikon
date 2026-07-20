@@ -214,6 +214,22 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Euphrátēs family',
     note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
   },
+  tazig: {
+    display: 'The Tāzīg family',
+    note: 'The Iranian name for the Arabs, from the border tribe of Ṭayyiʾ with the adjectival -īg; carried east as Chinese Dàshí and north as Armenian Tačik, continued in Persian as Tāzī, and drifting in Central Asia to name the Persian-speaking Tajiks.',
+  },
+  baghdad: {
+    display: 'The Baghdād family',
+    note: 'The Iranian village-name, "god-given," that outlived the official Madīnat al-Salām to name the Abbasid capital; attested before Islam in the Talmudic Baḡdāṯā and carried to Song China as Báidá.',
+  },
+  makka: {
+    display: 'The Makka family',
+    note: 'The Qur\'anic name of Mecca, of unknown etymology and with the scriptural doublet Bakka; carried by the pilgrimage and the sea trade as far as the Chinese Májiā.',
+  },
+  yathrib: {
+    display: 'The Yathrib family',
+    note: 'The ancient name of Medina, its consonants y-t-r-b stable from the cuneiform Iatribu of Nabonidus through the Greek Iathrippa to the Arabic Yathrib the new faith retired.',
+  },
   yarden: {
     display: 'The Yardēn family',
     note: 'The name of the Jordan, Hebrew Yardēn, "the descender," for the river that falls to the Dead Sea, the lowest point on earth; carried by scripture into the Greek Iordánēs, Latin, Syriac, Geʿez, and the Arabic al-Urdunn that names the modern country.',
