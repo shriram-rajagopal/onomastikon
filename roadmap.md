@@ -284,11 +284,11 @@ Regions that were always inside the 3100 BCE window but never made the roadmap; 
 
 ## Phase 4: The medieval Mediterranean and the Islamic world
 
-The direct continuation unlocked by the boundary move; the original Phase 4 stub, now planned fully.
+The direct continuation unlocked by the boundary move; the original Phase 4 stub, now planned fully. **Phase planning 2026-07-20:** five thematic clusters (Byzantines → Caliphate → Andalus/Maghreb → Khurasan → Ottomans), four addition bundles admitted (the Anatolian arc, Iberian infill, Eastern infill, and Maghrebi cities below), Seljuk/Crusader/Medieval-Latin decisions deferred to contact.
 
 ### Civilizations
-- [ ] The Byzantines (endonym *Rhōmaîoi* / *Rhōmanía*; the Rūm/Hrōm exonym family; distinct thread from both Rome and Greece)
-- [ ] Ērānšahr enrichment of the Iran page (the Sasanian state-name thread; mostly in scope already)
+- [x] The Byzantines (COMPLETE 2026-07-20, cluster 1. Built on the migration model: the new page (330–1453) hosts the endonym *Rhōmanía* (Ancient Greek per the Kōnstantinoúpolis precedent, Athanasius c. 358 verified as first attestation) plus the migrated Byzantine-referent forms al-Rūm, Classical Persian Rūm, and Fúlǐn, joined by new Latin *Romania* (Orosius 7.43, Jordanes), Classical Armenian *Hoṙom* (the Persian-mediated h-, the Chalcedonian confessional sense), and Syriac *Bēth Rhōmāyē*. Rome keeps its classical thread and 476 endpoint with an explicit prose handoff; Hrōm/frwm/Rhōmā/Rōm/Rōmī stay there as pre-division attestations. Status developing: Sogdian *Frōm* remains the deferred gap, Ottoman Turkish *Rūm* lands with cluster 5's backfill. Byzantium city and Iran extended to 1453 alongside; Ērānšahr enrichment closed as already-covered.)
+- [x] ~~Ērānšahr enrichment of the Iran page~~ (closed 2026-07-20: the Ērān/Īrānshahr/Īrān thread was already fully hosted; the page's era_end extended to 1453)
 - [ ] The Caliphate (Rashidun through Abbasid as one *Khilāfa* thread, if the sources support it)
 - [ ] Al-Andalus (a genuinely new endonym thread on Iberian soil; etymology itself disputed, which the entry should relish)
 - [ ] The Ottomans (*Devlet-i ʿOsmāniyye*; pre-1453 attestation is exactly in scope and the 1453 endpoint makes them the closing bracket of the whole atlas)
@@ -306,10 +306,22 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [ ] Toledo (added 2026-07-17; *Toletum* → *Ṭulayṭula*)
 - [ ] Merv (added 2026-07-17; Achaemenid *Marguš* → *Marw*; gives Khurasan its cities)
 - [ ] Bukhara (added 2026-07-17)
+- [ ] Granada (added 2026-07-20, Iberian infill; the Naṣrid *Gharnāṭa*, the last Andalusi polity)
+- [ ] Kairouan (added 2026-07-20, Maghrebi cities; *al-Qayrawān*, the first Islamic metropolis of the west)
+- [ ] Fez (added 2026-07-20, Maghrebi cities; *Fās*, the Idrisid and Marinid capital)
+- [ ] Nishapur (added 2026-07-20, Eastern infill; the fourth quarter of Khurasan beside Merv, Herat, and Balkh/Bactra)
+- [ ] Konya (added 2026-07-20, Anatolian arc; *Ikónion* → *Qūniya*, the Seljuk Rūm capital and natural host for the Seljuk-candidate material)
+- [ ] Nicaea (added 2026-07-20, Anatolian arc; the councils, the empire-in-exile, Ottoman *İznik*)
+- [ ] Bursa (added 2026-07-20, Anatolian arc; *Prousa*, the first Ottoman capital)
+- [ ] Edirne (added 2026-07-20, Anatolian arc; *Hadrianopolis* → *Edirne*, the Ottoman capital before 1453)
 
 ### Regions
 - [ ] The Maghreb (*al-Maghrib*, "the west," over the older *Libya*/*Africa* threads)
 - [ ] Khurasan (*Xwarāsān*, "land of the sunrise"; the eastern-Iranian counterpart)
+- [ ] Transoxiana (added 2026-07-20, Eastern infill; *Mā warāʾ al-nahr*, "what lies beyond the river," beside the existing Sogdiana page)
+
+### Geographic features
+- [ ] The Guadalquivir (added 2026-07-20, Iberian infill; Latin *Baetis* → *al-wādī al-kabīr*, the river whose modern name is the Arabic)
 
 ### Languages needed for Phase 4
 - [ ] Ottoman Turkish (or Old Anatolian Turkish; decide the scoping when the Ottoman entry lands)
