@@ -214,6 +214,22 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Euphrátēs family',
     note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
   },
+  corduba: {
+    display: 'The Corduba family',
+    note: 'The pre-Roman name of Córdoba, latinized as Corduba, Strabo\'s Kordýbē, and the Arabic Qurṭuba whose pronunciation the modern Spanish name continues.',
+  },
+  hispalis: {
+    display: 'The Hispalis family',
+    note: 'The unexplained ancient name of Seville, Latin Hispalis, reshaped through Romance into the Arabic Išbīliya from which modern Sevilla descends.',
+  },
+  toletum: {
+    display: 'The Toletum family',
+    note: 'The Celtiberian name of Toledo, Livy\'s Toletum, Ptolemy\'s Tṓlēton, and the Arabic Ṭulayṭula of the taifa and the translators.',
+  },
+  baetis: {
+    display: 'The Baetis family',
+    note: 'The pre-Roman name of the Guadalquivir, which named the province Baetica and then lost the river itself to the Arabic phrase al-Wādī al-Kabīr.',
+  },
   tazig: {
     display: 'The Tāzīg family',
     note: 'The Iranian name for the Arabs, from the border tribe of Ṭayyiʾ with the adjectival -īg; carried east as Chinese Dàshí and north as Armenian Tačik, continued in Persian as Tāzī, and drifting in Central Asia to name the Persian-speaking Tajiks.',

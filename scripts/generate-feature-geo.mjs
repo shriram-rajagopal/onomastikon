@@ -35,6 +35,7 @@ const RIVERS = {
   indus: { names: ['Indus'] },
   ganges: { names: ['Ganges'] },
   yamuna: { names: ['Yamuna'] },
+  guadalquivir: { names: ['Guadalquivir'] },
 };
 
 const SIMPLIFY = 0.04; // Douglas-Peucker tolerance in degrees; finer than this is
