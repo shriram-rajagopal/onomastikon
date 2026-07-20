@@ -289,17 +289,17 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 ### Civilizations
 - [x] The Byzantines (COMPLETE 2026-07-20, cluster 1. Built on the migration model: the new page (330–1453) hosts the endonym *Rhōmanía* (Ancient Greek per the Kōnstantinoúpolis precedent, Athanasius c. 358 verified as first attestation) plus the migrated Byzantine-referent forms al-Rūm, Classical Persian Rūm, and Fúlǐn, joined by new Latin *Romania* (Orosius 7.43, Jordanes), Classical Armenian *Hoṙom* (the Persian-mediated h-, the Chalcedonian confessional sense), and Syriac *Bēth Rhōmāyē*. Rome keeps its classical thread and 476 endpoint with an explicit prose handoff; Hrōm/frwm/Rhōmā/Rōm/Rōmī stay there as pre-division attestations. Status developing: Sogdian *Frōm* remains the deferred gap, Ottoman Turkish *Rūm* lands with cluster 5's backfill. Byzantium city and Iran extended to 1453 alongside; Ērānšahr enrichment closed as already-covered.)
 - [x] ~~Ērānšahr enrichment of the Iran page~~ (closed 2026-07-20: the Ērān/Īrānshahr/Īrān thread was already fully hosted; the page's era_end extended to 1453)
-- [ ] The Caliphate (Rashidun through Abbasid as one *Khilāfa* thread, if the sources support it)
+- [x] The Caliphate (COMPLETE 2026-07-20, cluster 2. One *Khilāfa* thread 632–1258 as planned: the endonym al-Khilāfa (a constitutional claim, not a place-name) plus the new tazig family — Middle Persian *Tāzīg* (Book Pahlavi, script_unencodable), Chinese *Dàshí*, Persian *Tāzī*, Armenian *Tačik* (Sebeos, the earliest external account of Islam). Greek Sarakēnoi and Syriac Ṭayyāyē dispositioned to prose as tribe-derived ethnonyms.)
 - [ ] Al-Andalus (a genuinely new endonym thread on Iberian soil; etymology itself disputed, which the entry should relish)
 - [ ] The Ottomans (*Devlet-i ʿOsmāniyye*; pre-1453 attestation is exactly in scope and the 1453 endpoint makes them the closing bracket of the whole atlas)
 - [ ] The Seljuks (candidate; the Sultanate of Rūm mostly extends the Rome/Byzantium exonym family rather than starting a thread, so this may live on existing pages)
 - [ ] The Crusader states (candidate, added 2026-07-17; *Outremer* as a genuinely new naming layer on the Levant)
 
 ### Cities
-- [ ] Baghdad (*Madīnat al-Salām* vs. the older Persian name, a founding double-name)
-- [ ] Mecca
-- [ ] Medina (*Yathrib* → *al-Madīna*, a name-change story in scope)
-- [ ] Cairo (*al-Qāhira* with Fustat and the Babylon-in-Egypt thread beneath it)
+- [x] Baghdad (COMPLETE 2026-07-20, cluster 2. The double-name as planned, plus the Talmudic *Baḡdāṯā* (Ketubbot 7b) proving the toponym's pre-Islamic career, and Zhufanzhi *Báidá*. Developing: the Syriac chronicles' form is the documented gap, orthography unverified.)
+- [x] Mecca (COMPLETE 2026-07-20, cluster 2. Qur'anic *Makka* with the *Bakka* doublet, Ptolemy's *Makoraba* kept as `disputed` with the Morris 2018 critique argued in the prose, Zhufanzhi *Májiā* with its Buddhist frame. Developing: a possible Byzantine Greek form unchecked.)
+- [x] Medina (COMPLETE 2026-07-20, cluster 2. The name-change story as planned, anchored by a find: cuneiform *Iatribu* on Nabonidus's Harran stele (c. 552 BCE) gives the page a -552 floor; Greek *Iathrippa* (Ptolemy, Stephanus) bridges to Qur'anic *Yathrib*, retired by decree for *al-Madīna*, "the City", the hē Pólis parallel.)
+- [x] Cairo (COMPLETE 2026-07-20, cluster 2. The three-layer stack: Greek and Coptic *Babylōn* (the fortress, babili family cross-page), *Miṣr*-as-city (the msr family's strangest member, edged to the Egypt entry), and Fatimid *al-Qāhira* with the Mars legend; Fustat in prose.)
 - [ ] Córdoba (*Corduba* → *Qurṭuba*, the full ancient-to-medieval arc)
 - [ ] Samarkand (ancient *Marakanda* through Sogdian *Smʾrknδ* to the Arabic form; also closes a Phase 2 loose end)
 - [ ] Seville (added 2026-07-17; *Hispalis* → *Išbīliya*, the full arc beside Córdoba's)
