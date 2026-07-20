@@ -6,7 +6,7 @@ transliteration: Pañcanada
 ipa: /ˈpɐɲ.t͡ʃɐ.nɐ.dɐ/
 literal_meaning: the five rivers
 era_start: -400
-era_end: 600
+era_end: 1200
 family: panchanada
 confidence: attested
 sources:

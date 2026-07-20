@@ -6,7 +6,7 @@ transliteration: Kēme
 ipa: /ˈkeːmə/
 literal_meaning: the Black Land
 era_start: 200
-era_end: 1300
+era_end: null
 family: kemet
 derived_from: egypt-egyptian-kemet
 confidence: attested

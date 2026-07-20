@@ -5,7 +5,7 @@ original_text: चीन
 transliteration: Cīna
 ipa: /ˈt͡ʃiːnɐ/
 era_start: -300
-era_end: 600
+era_end: 1200
 family: cina
 confidence: attested
 sources:

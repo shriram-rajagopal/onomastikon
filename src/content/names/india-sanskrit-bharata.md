@@ -6,7 +6,7 @@ transliteration: Bhārata
 ipa: /ˈbʱaː.rɐ.t̪ɐ/
 literal_meaning: the land of the Bharatas
 era_start: -400
-era_end: 600
+era_end: null
 confidence: attested
 sources:
   - citation: "*Mahābhārata* 6.9–10 (Bhīṣmaparvan, the geography of Bhāratavarṣa)."

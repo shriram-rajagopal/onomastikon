@@ -6,7 +6,7 @@ transliteration: Hindū Kush
 ipa: /hin.duː ˈkuʃ/
 literal_meaning: the Hindu-killer
 era_start: 1200
-era_end: 1400
+era_end: null
 confidence: attested
 sources:
   - citation: "Ibn Baṭṭūṭa, *Riḥla* (the etymology of *Hindū Kush*, c. 1330s)."

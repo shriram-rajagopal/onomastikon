@@ -6,7 +6,7 @@ transliteration: Dijla
 ipa: /ˈdid͡ʒla/
 literal_meaning: the Tigris
 era_start: 700
-era_end: 1300
+era_end: null
 family: idigna
 derived_from: tigris-imperial-aramaic-diglat
 confidence: attested

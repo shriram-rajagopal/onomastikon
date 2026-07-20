@@ -6,7 +6,7 @@ transliteration: al-Rūm
 ipa: /arˈruːm/
 literal_meaning: the land of the Romans (the Byzantines); Anatolia
 era_start: 630
-era_end: 1300
+era_end: 1453
 confidence: attested
 sources:
   - citation: "Qurʾān, *Sūrat al-Rūm* (30):1–4."

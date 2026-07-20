@@ -5,7 +5,7 @@ language_family: Afro-Asiatic (Central Semitic)
 script: Arabic alphabet
 lang_code: ar
 era_start: 500
-era_end: 1300
+era_end: 1453
 direction: rtl
 ---
 

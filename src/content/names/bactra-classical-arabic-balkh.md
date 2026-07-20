@@ -7,7 +7,7 @@ ipa: /balx/
 family: baxtri
 derived_from: bactra-middle-persian-baxl
 era_start: 650
-era_end: 1250
+era_end: null
 confidence: attested
 sources:
   - citation: "Yāqūt al-Ḥamawī. *Muʿjam al-Buldān*, s.v. *Balkh*."

@@ -5,7 +5,7 @@ original_text: शक
 transliteration: Śaka
 ipa: /ˈɕɐ.kɐ/
 era_start: -150
-era_end: 400
+era_end: 1200
 family: saka
 confidence: attested
 sources:

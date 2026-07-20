@@ -6,7 +6,7 @@ transliteration: al-Yūnān
 ipa: /alˈjuːnaːn/
 literal_meaning: the Ionians; Greece
 era_start: 600
-era_end: 1300
+era_end: null
 family: ionian
 confidence: attested
 sources:

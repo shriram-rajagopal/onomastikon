@@ -6,7 +6,7 @@ transliteration: Īṭāliyā
 ipa: /ʔiːtˤaːˈlija/
 literal_meaning: Italy
 era_start: 800
-era_end: 1300
+era_end: null
 family: italia
 derived_from: italia-latin-italia
 confidence: attested

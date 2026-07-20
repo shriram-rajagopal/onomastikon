@@ -6,7 +6,7 @@ transliteration: Lubnān
 ipa: /lubˈnaːn/
 literal_meaning: the white (mountain)
 era_start: 600
-era_end: 1300
+era_end: null
 family: lbn
 confidence: attested
 sources:

@@ -5,7 +5,7 @@ language_family: Sino-Tibetan (Sinitic)
 script: Chinese characters
 lang_code: lzh
 era_start: -500
-era_end: 600
+era_end: 1453
 direction: ltr
 ---
 

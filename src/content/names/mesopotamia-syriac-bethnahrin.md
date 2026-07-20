@@ -6,7 +6,7 @@ transliteration: Bēth Nahrīn
 ipa: /beːθ nahˈrin/
 literal_meaning: "the house (land) of the rivers"
 era_start: 150
-era_end: 1000
+era_end: null
 family: naharin
 confidence: attested
 sources:

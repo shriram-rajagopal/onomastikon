@@ -6,7 +6,7 @@ transliteration: Nahr al-Sind
 ipa: /nahr asˈsind/
 literal_meaning: the river of Sind
 era_start: 850
-era_end: 1300
+era_end: null
 family: sindhu
 confidence: attested
 sources:

@@ -6,7 +6,7 @@ transliteration: Parskʿ
 ipa: /parskʰ/
 literal_meaning: Persia; the Persians
 era_start: 405
-era_end: 1453
+era_end: null
 family: parsa
 confidence: attested
 sources:

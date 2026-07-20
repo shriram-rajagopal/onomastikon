@@ -6,7 +6,7 @@ transliteration: al-Nīl
 ipa: /anˈniːl/
 literal_meaning: the Nile (from Greek Neîlos)
 era_start: 600
-era_end: 1300
+era_end: null
 family: neilos
 derived_from: nile-ancient-greek-neilos
 confidence: attested

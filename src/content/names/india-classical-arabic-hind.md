@@ -5,7 +5,7 @@ original_text: الهند
 transliteration: al-Hind
 ipa: /alˈhind/
 era_start: 600
-era_end: 1100
+era_end: null
 family: sindhu
 derived_from: india-middle-persian-hind
 confidence: attested

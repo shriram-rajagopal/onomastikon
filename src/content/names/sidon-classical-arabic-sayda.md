@@ -6,7 +6,7 @@ transliteration: Ṣaydā
 ipa: /ˈsˤaj.daː/
 literal_meaning: Sidon (with an audible echo of ṣayd, "hunting, fishing")
 era_start: 700
-era_end: 1300
+era_end: null
 family: sidon
 confidence: attested
 sources:

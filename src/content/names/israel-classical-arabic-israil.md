@@ -6,7 +6,7 @@ transliteration: Isrāʾīl
 ipa: /ʔisraːˈʔiːl/
 literal_meaning: Israel (Jacob; the Children of Israel)
 era_start: 610
-era_end: 1300
+era_end: null
 family: yisrael
 confidence: attested
 sources:

@@ -6,7 +6,7 @@ transliteration: Bayt al-Maqdis
 ipa: /bajt alˈmaqdis/
 literal_meaning: the house of the sanctuary (the Holy House)
 era_start: 638
-era_end: 1400
+era_end: null
 confidence: attested
 sources:
   - citation: "al-Muqaddasī. *Aḥsan al-Taqāsīm fī Maʿrifat al-Aqālīm*, 10th c. (the author's own name means 'the Jerusalemite')."

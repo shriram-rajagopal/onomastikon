@@ -6,7 +6,7 @@ transliteration: Yonan
 ipa: /joˈnan/
 literal_meaning: Greek; Ionian
 era_start: 350
-era_end: 1500
+era_end: null
 family: ionian
 confidence: attested
 sources:

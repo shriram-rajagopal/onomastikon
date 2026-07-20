@@ -6,7 +6,7 @@ transliteration: Dakṣiṇāpatha
 ipa: /dɐkˌʂiɳaːˈpɐt̪ʰɐ/
 literal_meaning: the southern road; the southern region
 era_start: -400
-era_end: 600
+era_end: 1200
 family: dakshinapatha
 confidence: attested
 sources:

@@ -6,7 +6,7 @@ transliteration: Yavana
 ipa: /ˈjɐʋɐnɐ/
 literal_meaning: Greek; later broadened to Westerner
 era_start: -400
-era_end: 600
+era_end: 1200
 family: ionian
 derived_from: greece-old-persian-yauna
 confidence: attested

@@ -6,7 +6,7 @@ transliteration: al-Quds
 ipa: /alˈquds/
 literal_meaning: the Holy
 era_start: 800
-era_end: 1400
+era_end: null
 confidence: attested
 sources:
   - citation: "Yāqūt al-Ḥamawī. *Muʿjam al-Buldān*, s.v. القدس, بيت المقدس."

@@ -6,7 +6,7 @@ transliteration: al-Jazīra
 ipa: /al.dʒaˈziː.ra/
 literal_meaning: "the island (the land enclosed between the two rivers)"
 era_start: 700
-era_end: 1400
+era_end: null
 confidence: attested
 sources:
   - citation: "Yāqūt al-Ḥamawī. *Muʿjam al-Buldān*, s.v. الجزيرة."

@@ -6,7 +6,7 @@ transliteration: Gaṅgā
 ipa: /ˈɡəŋ.ɡaː/
 literal_meaning: the Ganges; the river-goddess Gaṅgā
 era_start: -1500
-era_end: 600
+era_end: null
 family: ganga
 confidence: attested
 sources:

@@ -6,7 +6,7 @@ transliteration: al-Rūm
 ipa: /arˈruːm/
 literal_meaning: the Romans; the Roman (Byzantine) realm
 era_start: 600
-era_end: 1300
+era_end: 1453
 family: roma
 derived_from: rome-syriac-rhoma
 confidence: attested

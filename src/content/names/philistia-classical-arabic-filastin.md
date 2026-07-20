@@ -5,7 +5,7 @@ original_text: فلسطين
 transliteration: Filasṭīn
 ipa: /fi.lasˈtˤiːn/
 era_start: 630
-era_end: 1300
+era_end: null
 family: peleset
 derived_from: philistia-latin-palaestina
 confidence: attested

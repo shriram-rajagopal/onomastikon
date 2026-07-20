@@ -6,7 +6,7 @@ transliteration: Romaka
 ipa: /ˈroːmɐkɐ/
 literal_meaning: Roman; of Rome
 era_start: 300
-era_end: 600
+era_end: 1200
 family: roma
 derived_from: rome-latin-roma
 confidence: attested

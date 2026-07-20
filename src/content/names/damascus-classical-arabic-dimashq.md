@@ -6,7 +6,7 @@ transliteration: Dimashq
 ipa: /diˈmaʃq/
 literal_meaning: Damascus
 era_start: 600
-era_end: 1300
+era_end: null
 family: dimashq
 derived_from: damascus-imperial-aramaic-damashq
 confidence: attested

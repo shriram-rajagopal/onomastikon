@@ -5,7 +5,7 @@ language_family: Indo-European (Indo-Aryan)
 script: Devanagari (and others)
 lang_code: sa
 era_start: -1500
-era_end: 1200
+era_end: 1453
 direction: ltr
 ---
 

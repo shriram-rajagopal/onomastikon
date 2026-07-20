@@ -6,7 +6,7 @@ transliteration: Baḥr Fāris
 ipa: /baħr ˈfaːris/
 literal_meaning: the Sea of Persia
 era_start: 700
-era_end: 1300
+era_end: 1453
 family: persian-sea
 confidence: attested
 sources:

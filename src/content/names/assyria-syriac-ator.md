@@ -6,7 +6,7 @@ transliteration: ʾĀtor
 ipa: /ʔɔˈtor/
 literal_meaning: Assyria (the t-form continued into Syriac)
 era_start: 150
-era_end: 600
+era_end: null
 family: ashur
 derived_from: assyria-imperial-aramaic-atur
 confidence: attested

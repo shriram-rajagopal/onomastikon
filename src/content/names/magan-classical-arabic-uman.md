@@ -5,7 +5,7 @@ original_text: عمان
 transliteration: ʿUmān
 ipa: /ʕuˈmaːn/
 era_start: 650
-era_end: 1453
+era_end: null
 confidence: attested
 sources:
   - citation: "Yāqūt al-Ḥamawī. *Muʿjam al-Buldān*, s.v. عمان."

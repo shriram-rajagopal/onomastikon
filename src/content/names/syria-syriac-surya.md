@@ -5,7 +5,7 @@ original_text: ܣܘܪܝܐ
 transliteration: Sūryā
 ipa: /suːrˈjaː/
 era_start: 150
-era_end: 1300
+era_end: null
 family: syria
 derived_from: syria-ancient-greek-syria
 confidence: attested

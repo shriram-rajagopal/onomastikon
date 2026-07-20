@@ -6,7 +6,7 @@ transliteration: Qarṭājanna
 ipa: /qarˈtˤaː.dʒan.na/
 literal_meaning: Carthage (from Latin Carthāgine)
 era_start: 650
-era_end: 1400
+era_end: 1453
 family: qarthadasht
 derived_from: carthage-latin-carthago
 confidence: attested

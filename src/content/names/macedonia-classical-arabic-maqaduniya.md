@@ -6,7 +6,7 @@ transliteration: Maqadūniya
 ipa: /ma.qaˈduː.ni.ja/
 literal_meaning: Macedonia
 era_start: 700
-era_end: 1300
+era_end: null
 family: makedonia
 derived_from: macedonia-syriac-maqedoniya
 confidence: attested

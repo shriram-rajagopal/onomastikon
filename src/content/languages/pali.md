@@ -5,7 +5,7 @@ language_family: Indo-European (Middle Indo-Aryan)
 script: Brahmi (editorial); the canon survives in Sinhala, Burmese, Khmer, and Thai copies
 lang_code: pi
 era_start: -300
-era_end: 600
+era_end: 1453
 direction: ltr
 ---
 

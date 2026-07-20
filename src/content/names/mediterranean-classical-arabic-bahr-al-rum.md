@@ -6,7 +6,7 @@ transliteration: Baḥr al-Rūm
 ipa: /baħr arˈruːm/
 literal_meaning: the Sea of the Romans (the Byzantines)
 era_start: 700
-era_end: 1300
+era_end: 1453
 confidence: attested
 sources:
   - citation: "al-Masʿūdī. *Murūj al-dhahab*; al-Muqaddasī. *Aḥsan al-taqāsīm*."

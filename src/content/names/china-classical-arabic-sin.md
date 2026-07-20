@@ -5,7 +5,7 @@ original_text: الصين
 transliteration: al-Ṣīn
 ipa: /asˤˈsˤiːn/
 era_start: 600
-era_end: 1000
+era_end: null
 family: cina
 derived_from: china-middle-persian-cin
 confidence: attested

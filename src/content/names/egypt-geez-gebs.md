@@ -6,7 +6,7 @@ transliteration: Gəbṣ
 ipa: /ˈɡɨbsˤ/
 literal_meaning: Egypt (ultimately from a form related to Greek Aígyptos)
 era_start: 350
-era_end: 1500
+era_end: null
 family: aigyptos
 confidence: attested
 sources:

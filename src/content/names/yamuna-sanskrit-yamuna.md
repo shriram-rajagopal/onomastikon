@@ -6,7 +6,7 @@ transliteration: Yamunā
 ipa: /jɐˈmuː.naː/
 literal_meaning: the Yamuna; the river-goddess Yamunā, twin of Yama
 era_start: -1500
-era_end: 600
+era_end: null
 family: yamuna
 confidence: attested
 sources:

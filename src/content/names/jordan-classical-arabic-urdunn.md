@@ -6,7 +6,7 @@ transliteration: al-Urdunn
 ipa: /alʔurˈdunn/
 literal_meaning: the Jordan
 era_start: 700
-era_end: 1300
+era_end: null
 family: yarden
 derived_from: jordan-biblical-hebrew-yarden
 confidence: attested

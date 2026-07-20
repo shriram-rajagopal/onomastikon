@@ -6,7 +6,7 @@ transliteration: al-Qusṭanṭīniyya
 ipa: /al.qus.tˤan.tˤiːˈnij.ja/
 literal_meaning: Constantinople (the Constantinian city)
 era_start: 700
-era_end: 1400
+era_end: 1453
 family: constantinople
 derived_from: byzantium-ancient-greek-konstantinoupolis
 confidence: attested

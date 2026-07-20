@@ -6,7 +6,7 @@ transliteration: Miṣr
 ipa: /misˤr/
 literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: 600
-era_end: 1300
+era_end: null
 family: msr
 confidence: attested
 sources:

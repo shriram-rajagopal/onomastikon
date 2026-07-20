@@ -5,7 +5,7 @@ original_text: सिन्धु
 transliteration: Sindhu
 ipa: /ˈsin.dʱu/
 era_start: -1500
-era_end: 600
+era_end: null
 family: sindhu
 confidence: attested
 sources:

@@ -6,7 +6,7 @@ transliteration: al-Shām
 ipa: /aʃˈʃaːm/
 literal_meaning: the north (the left-hand land)
 era_start: 600
-era_end: 1300
+era_end: null
 confidence: attested
 sources:
   - citation: "Yāqūt al-Ḥamawī, *Muʿjam al-Buldān*. Beirut: Dār Ṣādir, 1977, s.v. الشام."

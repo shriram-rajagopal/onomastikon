@@ -6,7 +6,7 @@ transliteration: Miǰagetkʿ
 ipa: /midʒaɡetkʰ/
 literal_meaning: between the rivers (calque of Greek Mesopotamía)
 era_start: 405
-era_end: 1453
+era_end: null
 derived_from: mesopotamia-ancient-greek-mesopotamia
 confidence: attested
 sources:

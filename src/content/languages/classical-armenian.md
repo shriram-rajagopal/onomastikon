@@ -5,7 +5,7 @@ language_family: Indo-European (Armenian)
 script: Armenian alphabet
 lang_code: xcl
 era_start: 405
-era_end: 1300
+era_end: 1453
 direction: ltr
 ---
 

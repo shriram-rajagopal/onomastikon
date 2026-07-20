@@ -6,7 +6,7 @@ transliteration: Naynawā
 ipa: /najnaˈwaː/
 literal_meaning: Nineveh (the ruins opposite Mosul)
 era_start: 700
-era_end: 1300
+era_end: null
 family: ninua
 derived_from: nineveh-syriac-ninwe
 confidence: attested

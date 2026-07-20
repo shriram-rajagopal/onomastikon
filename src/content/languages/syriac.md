@@ -5,7 +5,7 @@ language_family: Afro-Asiatic (Northwest Semitic)
 script: Syriac alphabet
 lang_code: syc
 era_start: 100
-era_end: 700
+era_end: 1300
 direction: rtl
 ---
 

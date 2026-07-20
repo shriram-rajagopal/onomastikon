@@ -6,7 +6,7 @@ transliteration: Rakoti
 ipa: /raˈkoti/
 literal_meaning: Alexandria
 era_start: 200
-era_end: 1300
+era_end: null
 family: rakote
 derived_from: alexandria-egyptian-raqed
 confidence: attested

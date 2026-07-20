@@ -6,7 +6,7 @@ transliteration: Haykʿ
 ipa: /hajkʰ/
 literal_meaning: the Armenians, the land of the Hay
 era_start: 405
-era_end: 1300
+era_end: null
 confidence: attested
 sources:
   - citation: "Movsēs Xorenacʿi, *Patmutʿiwn Hayocʿ* (History of the Armenians) 1.10–12."

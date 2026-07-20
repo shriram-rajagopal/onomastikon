@@ -6,7 +6,7 @@ transliteration: Nīnwē
 ipa: /ˈniːnwɛ/
 literal_meaning: Nineveh
 era_start: 150
-era_end: 600
+era_end: null
 family: ninua
 derived_from: nineveh-biblical-hebrew-ninveh
 confidence: attested

@@ -6,7 +6,7 @@ transliteration: Baḥr Lūṭ
 ipa: /baħr luːtˤ/
 literal_meaning: the Sea of Lot
 era_start: 700
-era_end: 1300
+era_end: null
 confidence: attested
 sources:
   - citation: "Yāqūt al-Ḥamawī, *Muʿjam al-Buldān*. Beirut: Dār Ṣādir, 1977, s.v. بحيرة لوط."

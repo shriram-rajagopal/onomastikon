@@ -6,7 +6,7 @@ transliteration: Fāris
 ipa: /ˈfaːris/
 literal_meaning: Persia (from Old Persian Pārsa)
 era_start: 600
-era_end: 1300
+era_end: null
 family: parsa
 derived_from: persia-old-persian-parsa
 confidence: attested

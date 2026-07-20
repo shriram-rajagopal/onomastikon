@@ -6,7 +6,7 @@ transliteration: Baḥr al-Qulzum
 ipa: /baħr alˈqul.zum/
 literal_meaning: the Sea of Clysma
 era_start: 700
-era_end: 1300
+era_end: 1453
 confidence: attested
 sources:
   - citation: "al-Masʿūdī, *Murūj al-Dhahab wa-Maʿādin al-Jawhar*. Ed. Pellat, Beirut, 1966–79."

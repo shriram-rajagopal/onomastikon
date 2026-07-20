@@ -6,7 +6,7 @@ transliteration: Bābil
 ipa: /ˈbaːbil/
 literal_meaning: Babylon; Babylonia
 era_start: 600
-era_end: 1300
+era_end: null
 family: babili
 derived_from: babylonia-syriac-babel
 confidence: attested

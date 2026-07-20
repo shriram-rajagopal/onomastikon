@@ -6,7 +6,7 @@ transliteration: Jayḥūn
 ipa: /d͡ʒajˈħuːn/
 literal_meaning: the Gihon (of Paradise)
 era_start: 700
-era_end: 1300
+era_end: 1453
 confidence: attested
 sources:
   - citation: "al-Iṣṭakhrī, *Kitāb al-Masālik wa-l-Mamālik*. Ed. de Goeje, Leiden: Brill, 1870."

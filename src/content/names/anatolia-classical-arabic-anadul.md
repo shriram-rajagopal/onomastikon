@@ -6,7 +6,7 @@ transliteration: al-Anāḍūl
 ipa: /al.ʔanaːˈdˤuːl/
 literal_meaning: Anatolia (from Greek Anatolḗ)
 era_start: 1100
-era_end: 1400
+era_end: null
 family: anatole
 derived_from: anatolia-ancient-greek-anatole
 confidence: attested

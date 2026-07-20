@@ -6,7 +6,7 @@ transliteration: Himālaya
 ipa: /ɦiˈmaː.lɐ.jɐ/
 literal_meaning: the abode of snow (himá, snow + ālaya, abode)
 era_start: -500
-era_end: 600
+era_end: null
 family: himalaya
 confidence: attested
 sources:

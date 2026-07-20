@@ -5,7 +5,7 @@ original_text: 中國
 transliteration: Zhōngguó
 literal_meaning: the central state; the Middle Kingdom
 era_start: -1040
-era_end: 900
+era_end: null
 confidence: attested
 sources:
   - citation: "He zun (何尊) bronze vessel inscription, Western Zhou, c. 1038 BCE (Baoji Bronzeware Museum)."

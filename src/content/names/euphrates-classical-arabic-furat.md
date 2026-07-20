@@ -6,7 +6,7 @@ transliteration: al-Furāt
 ipa: /alfuˈraːt/
 literal_meaning: the Euphrates (al-furāt also means "sweet water")
 era_start: 600
-era_end: 1300
+era_end: null
 family: purattu
 derived_from: euphrates-imperial-aramaic-perat
 confidence: attested

@@ -6,7 +6,7 @@ transliteration: al-Iskandariyya
 ipa: /al.is.kan.daˈrij.ja/
 literal_meaning: Alexandria (the city of Iskandar/Alexander)
 era_start: 640
-era_end: 1300
+era_end: null
 family: alexandreia
 derived_from: alexandria-syriac-aleksandriya
 confidence: attested

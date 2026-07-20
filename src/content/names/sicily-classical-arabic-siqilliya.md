@@ -6,7 +6,7 @@ transliteration: Ṣiqilliya
 ipa: /sˤi.qil.ˈlij.ja/
 literal_meaning: Sicily
 era_start: 827
-era_end: 1100
+era_end: null
 family: sikelia
 derived_from: sicily-ancient-greek-sikelia
 confidence: attested

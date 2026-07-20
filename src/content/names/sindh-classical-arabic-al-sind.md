@@ -5,7 +5,7 @@ original_text: السند
 transliteration: al-Sind
 ipa: /asˈsind/
 era_start: 711
-era_end: 1300
+era_end: null
 family: sindhu
 confidence: attested
 sources:

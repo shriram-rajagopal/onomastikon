@@ -5,7 +5,7 @@ original_text: Մասիս
 transliteration: Masis
 ipa: /maˈsis/
 era_start: 405
-era_end: 1300
+era_end: null
 confidence: attested
 sources:
   - citation: "Movsēs Xorenacʿi, *Patmutʿiwn Hayocʿ* (History of the Armenians) 1.30, 2.61."

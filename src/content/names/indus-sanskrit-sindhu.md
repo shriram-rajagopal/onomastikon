@@ -6,7 +6,7 @@ transliteration: Sindhu
 ipa: /ˈsin̪.d̪ʱu/
 literal_meaning: the river
 era_start: -1500
-era_end: 600
+era_end: null
 family: sindhu
 confidence: attested
 sources:

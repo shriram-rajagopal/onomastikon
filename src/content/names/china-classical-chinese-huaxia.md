@@ -5,7 +5,7 @@ original_text: 華夏
 transliteration: Huáxià
 literal_meaning: the Hua and the Xia; the Chinese cultural community
 era_start: -550
-era_end: 600
+era_end: null
 confidence: attested
 sources:
   - citation: "*Zuozhuan* (Zuo Tradition), Duke Ding 10 (定公十年): \"裔不謀夏，夷不亂華.\""

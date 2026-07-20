@@ -6,7 +6,7 @@ transliteration: Rōm
 ipa: /roːm/
 literal_meaning: Rome; the Roman (Byzantine) empire
 era_start: 350
-era_end: 1500
+era_end: null
 family: roma
 derived_from: rome-ancient-greek-rhome
 confidence: attested

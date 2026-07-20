@@ -6,7 +6,7 @@ transliteration: Kanʿān
 ipa: /kanˈʕaːn/
 literal_meaning: Canaan
 era_start: 700
-era_end: 1300
+era_end: null
 family: kanaan
 confidence: attested
 sources:

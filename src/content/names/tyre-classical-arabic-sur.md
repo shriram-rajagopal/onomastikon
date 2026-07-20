@@ -6,7 +6,7 @@ transliteration: Ṣūr
 ipa: /sˤuːr/
 literal_meaning: Tyre (the Semitic "rock")
 era_start: 700
-era_end: 1300
+era_end: null
 family: sor
 confidence: attested
 sources:

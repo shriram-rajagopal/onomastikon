@@ -6,7 +6,7 @@ transliteration: Yoynkʿ
 ipa: /jojnkʰ/
 literal_meaning: the Greeks; the Greek lands
 era_start: 405
-era_end: 1453
+era_end: null
 family: ionian
 confidence: attested
 sources:
