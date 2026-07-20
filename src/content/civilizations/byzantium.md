@@ -4,7 +4,7 @@ type: city
 entry_status: developing
 region: The Bosphorus, between Europe and Asia (modern Istanbul)
 era_start: -657
-era_end: 600
+era_end: 1453
 summary: The city on the Bosphorus, founded as the Greek colony of Byzantion, refounded by Constantine in 330 CE as Constantinople, the New Rome and capital of the Eastern empire for a thousand years, and ancestor of Istanbul.
 ---
 

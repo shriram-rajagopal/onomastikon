@@ -1,5 +1,5 @@
 ---
-civilization: rome
+civilization: byzantines
 language: classical-arabic
 original_text: الروم
 transliteration: al-Rūm

@@ -4,7 +4,7 @@ type: region
 region: The Iranian plateau and Central Asia
 entry_status: developing
 era_start: -1000
-era_end: 1300
+era_end: 1453
 summary: The cultural-Iranian world named not for a place but for a people, the Aryans, from Darius's "an Aryan of Aryan lineage" to the Sasanian Ērānšahr, distinct from Pārsa the province.
 ---
 
