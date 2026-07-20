@@ -301,15 +301,15 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 - [x] Medina (COMPLETE 2026-07-20, cluster 2. The name-change story as planned, anchored by a find: cuneiform *Iatribu* on Nabonidus's Harran stele (c. 552 BCE) gives the page a -552 floor; Greek *Iathrippa* (Ptolemy, Stephanus) bridges to Qur'anic *Yathrib*, retired by decree for *al-Madīna*, "the City", the hē Pólis parallel.)
 - [x] Cairo (COMPLETE 2026-07-20, cluster 2. The three-layer stack: Greek and Coptic *Babylōn* (the fortress, babili family cross-page), *Miṣr*-as-city (the msr family's strangest member, edged to the Egypt entry), and Fatimid *al-Qāhira* with the Mars legend; Fustat in prose.)
 - [x] Córdoba (COMPLETE 2026-07-20, cluster 3. Corduba → Kordýbē (Strabo) → Qurṭuba; the corduba family with the payoff that Spanish Córdoba continues the Arabic pronunciation, not the Latin.)
-- [ ] Samarkand (ancient *Marakanda* through Sogdian *Smʾrknδ* to the Arabic form; also closes a Phase 2 loose end)
+- [x] Samarkand (COMPLETE 2026-07-20, cluster 4. Marákanda (Arrian 3.30, verified) → Sogdian smʾrknδh 𐼑𐼍𐼀𐼘𐼋𐼎𐼌𐼅 (Ancient Letters + Mugh, glyphs assembled per the repo's Old Sogdian mapping) → Arabic/Persian Samarqand + Tang Kāngguó 康國; the stone-fort etymology and the Zhaowu surname system.)
 - [x] Seville (COMPLETE 2026-07-20, cluster 3. Hispalis (with Isidore's own failed etymology of his see) → Híspalis (Strabo) → Išbīliya → Sevilla; the hispalis family.)
 - [x] Toledo (COMPLETE 2026-07-20, cluster 3. Livy's parva urbs Toletum → Ptolemy's Tṓlēton → Ṭulayṭula, with the translation movement as the Arabic entry's payoff.)
-- [ ] Merv (added 2026-07-17; Achaemenid *Marguš* → *Marw*; gives Khurasan its cities)
-- [ ] Bukhara (added 2026-07-17)
+- [x] Merv (2026-07-20, cluster 4, `developing`. The atlas's longest single-thread chain: OP Marguš 𐎶𐎼𐎦𐎢𐏁 (Behistun) + Avestan Mouru 𐬨𐬋𐬎𐬭𐬎 (Vendidad 1) + Greek Margianē + MP/Arabic Marw + Persian Marv, to modern Mary. Gap: Behistun Elamite/Akkadian orthographies, per the Parthia precedent.)
+- [x] Bukhara (2026-07-20, cluster 4, `developing`. Arabic/Persian Bukhārā (the vihāra-vs-Sogdian dispute honest; Rudaki's founding verses; the Bukhārī adjective) + Tang Ānguó 安國 with the An Lushan irony. Gap: the Bukhar Khudah coin-legend Sogdian form, orthography unverified.)
 - [x] Granada (COMPLETE 2026-07-20, cluster 3. Latin Iliberri (the ili-berri 'new town' reading, Council of Elvira) beside Gharnāṭa with the pomegranate folk etymology made true by heraldry.)
 - [x] Kairouan (COMPLETE 2026-07-20, cluster 3. Single-entry page whose story is the Persian kārwān etymology, verified in Yāqūt's own gloss.)
 - [x] Fez (COMPLETE 2026-07-20, cluster 3. Fās with the Rawḍ al-Qirṭās founding legends read as folk etymology's workshop.)
-- [ ] Nishapur (added 2026-07-20, Eastern infill; the fourth quarter of Khurasan beside Merv, Herat, and Balkh/Bactra)
+- [x] Nishapur (COMPLETE 2026-07-20, cluster 4. Nēw-Šābuhr (Book Pahlavi, script_unencodable) → Naysābūr → Nīshāpūr; the dissolved royal dedication as the family's story.)
 - [ ] Konya (added 2026-07-20, Anatolian arc; *Ikónion* → *Qūniya*, the Seljuk Rūm capital and natural host for the Seljuk-candidate material)
 - [ ] Nicaea (added 2026-07-20, Anatolian arc; the councils, the empire-in-exile, Ottoman *İznik*)
 - [ ] Bursa (added 2026-07-20, Anatolian arc; *Prousa*, the first Ottoman capital)
@@ -317,8 +317,8 @@ The direct continuation unlocked by the boundary move; the original Phase 4 stub
 
 ### Regions
 - [x] The Maghreb (COMPLETE 2026-07-20, cluster 3. al-Maghrib the compass-name, paired in prose with Khurasan as the caliphate's two horizons; new coastal region hull baked into regions.ts.)
-- [ ] Khurasan (*Xwarāsān*, "land of the sunrise"; the eastern-Iranian counterpart)
-- [ ] Transoxiana (added 2026-07-20, Eastern infill; *Mā warāʾ al-nahr*, "what lies beyond the river," beside the existing Sogdiana page)
+- [x] Khurasan (COMPLETE 2026-07-20, cluster 4. MP Xwarāsān + Arabic + Persian; paired in prose with al-Maghrib as the two horizon-names; new region hull.)
+- [x] Transoxiana (COMPLETE 2026-07-20, cluster 4. Mā warāʾ al-Nahr, the name that is entirely point of view, set against the Sogdiana page; new region hull.)
 
 ### Geographic features
 - [x] The Guadalquivir (COMPLETE 2026-07-20, cluster 3. Baetis/Baîtis (with Strabo's Tartessos memory, 3.2.11) and al-Wādī al-Kabīr; Natural-Earth river trace baked into rivers.ts.)
