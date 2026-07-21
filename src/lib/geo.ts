@@ -137,6 +137,7 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   'caspian-sea': { kind: 'sea', label: 'the Caspian', points: [[49, 41], [54, 45.5], [51, 38]], rings: WATERS['caspian-sea'] },
   'red-sea': { kind: 'sea', label: 'the Red Sea', points: [[33, 27.5], [42, 15]], rings: WATERS['red-sea'] },
   'persian-gulf': { kind: 'sea', label: 'the Persian Gulf', points: [[48.5, 29.5], [56, 26]], rings: WATERS['persian-gulf'] },
+  marmara: { kind: 'sea', label: 'the Sea of Marmara', points: [[27.2, 40.5], [29.5, 40.8]], rings: WATERS.marmara },
   'dead-sea': { kind: 'sea', label: 'the Dead Sea', points: [[35.5, 31.5]] },
   bosporus: { kind: 'sea', label: 'the Bosporus', points: [[29.05, 41.15]] },
   hellespont: { kind: 'sea', label: 'the Hellespont', points: [[26.4, 40.2]] },

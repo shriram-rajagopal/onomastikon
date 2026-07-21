@@ -214,6 +214,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Euphrátēs family',
     note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
   },
+  propontis: {
+    display: 'The Propontís family',
+    note: 'The Greek "fore-sea," the Marmara named as what comes before the Pontos on the northward voyage, carried unchanged into Latin along with the sea it points to.',
+  },
   osman: {
     display: 'The ʿOsmân family',
     note: 'The founder-bey\'s name as the dynasty\'s own Âl-i ʿOsmân and the Arabic chanceries\' Banū ʿUthmān; the source of "Ottoman" itself.',
