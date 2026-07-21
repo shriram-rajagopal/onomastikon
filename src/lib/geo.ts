@@ -11,6 +11,7 @@
 import { LAND } from './coastline';
 import { RIVERS } from './rivers';
 import { REGIONS } from './regions';
+import { WATERS } from './waters';
 
 export interface LangGeo {
   lon: number;
@@ -83,10 +84,21 @@ export const LANG_GEO: Record<string, LangGeo> = {
 //            extend the kind union, add an SVG <pattern> + fill class, list it in
 //            the `area` branch. Seas stay unlocated (the coastline already shows
 //            the water; a label would be the move if ever wanted).
+//   range  — nomadic confederations: `points` are a hull of the attested roaming
+//            envelope (generated alongside the region hulls), drawn as a DASHED
+//            OPEN OUTLINE with no fill: "they moved through here," deliberately
+//            unlike a region's solid claim and a civ's heartland star.
+//   sea    — `points` frame the water for window-fitting; `rings`, where the
+//            50m land data resolves the basin (generated: hull minus land, holes
+//            = islands), are the water itself, filled with a DIAGONAL HATCH on
+//            both maps. Straits and lakes with no `rings` keep the open ring at
+//            the centroid.
 export interface EntityGeo {
-  kind: 'river' | 'mountains' | 'region' | 'city' | 'civ' | 'sea';
+  kind: 'river' | 'mountains' | 'region' | 'city' | 'civ' | 'sea' | 'range';
   label: string;
   points: [number, number][];
+  /** Sea water polygons (MultiPolygon rings, holes = islands); hatch-filled. */
+  rings?: [number, number][][][];
 }
 
 export const ENTITY_GEO: Record<string, EntityGeo> = {
@@ -117,14 +129,14 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   // window catches IS the picture); a single point marks a strait or lake.
   // The locator draws an open ring at the centroid rather than a solid mark,
   // since the subject is the space between the coasts.
-  mediterranean: { kind: 'sea', label: 'the Mediterranean', points: [[-4, 37], [15, 44], [35, 31]] },
-  aegean: { kind: 'sea', label: 'the Aegean', points: [[23.5, 35.5], [27.5, 40.5]] },
-  adriatic: { kind: 'sea', label: 'the Adriatic', points: [[12.5, 44.5], [19.5, 40.5]] },
-  'ionian-sea': { kind: 'sea', label: 'the Ionian Sea', points: [[16, 36], [21, 39.5]] },
-  'black-sea': { kind: 'sea', label: 'the Black Sea', points: [[28.5, 43.5], [41.5, 42], [33, 46.5]] },
-  'caspian-sea': { kind: 'sea', label: 'the Caspian', points: [[49, 41], [54, 45.5], [51, 38]] },
-  'red-sea': { kind: 'sea', label: 'the Red Sea', points: [[33, 27.5], [42, 15]] },
-  'persian-gulf': { kind: 'sea', label: 'the Persian Gulf', points: [[48.5, 29.5], [56, 26]] },
+  mediterranean: { kind: 'sea', label: 'the Mediterranean', points: [[-4, 37], [15, 44], [35, 31]], rings: WATERS.mediterranean },
+  aegean: { kind: 'sea', label: 'the Aegean', points: [[23.5, 35.5], [27.5, 40.5]], rings: WATERS.aegean },
+  adriatic: { kind: 'sea', label: 'the Adriatic', points: [[12.5, 44.5], [19.5, 40.5]], rings: WATERS.adriatic },
+  'ionian-sea': { kind: 'sea', label: 'the Ionian Sea', points: [[16, 36], [21, 39.5]], rings: WATERS['ionian-sea'] },
+  'black-sea': { kind: 'sea', label: 'the Black Sea', points: [[28.5, 43.5], [41.5, 42], [33, 46.5]], rings: WATERS['black-sea'] },
+  'caspian-sea': { kind: 'sea', label: 'the Caspian', points: [[49, 41], [54, 45.5], [51, 38]], rings: WATERS['caspian-sea'] },
+  'red-sea': { kind: 'sea', label: 'the Red Sea', points: [[33, 27.5], [42, 15]], rings: WATERS['red-sea'] },
+  'persian-gulf': { kind: 'sea', label: 'the Persian Gulf', points: [[48.5, 29.5], [56, 26]], rings: WATERS['persian-gulf'] },
   'dead-sea': { kind: 'sea', label: 'the Dead Sea', points: [[35.5, 31.5]] },
   bosporus: { kind: 'sea', label: 'the Bosporus', points: [[29.05, 41.15]] },
   hellespont: { kind: 'sea', label: 'the Hellespont', points: [[26.4, 40.2]] },
@@ -246,10 +258,10 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   urartu: { kind: 'civ', label: 'Urartu', points: [[43.36, 38.49]] },
 
   // Steppe peoples: a star at a representative seat, not a homeland border (nomads).
-  scythia: { kind: 'civ', label: 'Scythia', points: [[32.0, 48.0]] },
-  cimmerians: { kind: 'civ', label: 'Cimmeria', points: [[35.0, 46.0]] },
-  xiongnu: { kind: 'civ', label: 'Xiongnu', points: [[105.0, 47.0]] },
-  yuezhi: { kind: 'civ', label: 'Yuezhi', points: [[98.0, 39.0]] },
+  scythia: { kind: 'range', label: 'Scythia', points: REGIONS.scythia },
+  cimmerians: { kind: 'range', label: 'Cimmeria', points: REGIONS.cimmerians },
+  xiongnu: { kind: 'range', label: 'Xiongnu', points: REGIONS.xiongnu },
+  yuezhi: { kind: 'range', label: 'Yuezhi', points: REGIONS.yuezhi },
 };
 
 // --- Per-map projection -----------------------------------------------------

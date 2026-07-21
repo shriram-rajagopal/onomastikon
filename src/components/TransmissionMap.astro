@@ -52,6 +52,8 @@ const proj = fitProjection(
   [
     ...located.map((n) => LANG_GEO[n.langId]),
     ...(entity ? entity.points.map(([lon, lat]) => ({ lon, lat })) : []),
+    // A sea's water polygon should sit whole in its own frame, not clipped.
+    ...(entity?.rings ? entity.rings.flat(2).map(([lon, lat]) => ({ lon, lat })) : []),
   ],
   minLonSpan
 );
@@ -95,6 +97,18 @@ const arcs = edges
 const ept = entity ? entity.points.map(([lon, lat]) => proj.project(lon, lat)) : [];
 const entRiverPath = entity?.kind === 'river' ? 'M' + ept.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L') : '';
 const entRegionPath = entity?.kind === 'region' ? 'M' + ept.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L') + 'Z' : '';
+// A nomadic range: the same closed hull, drawn dashed and unfilled ("they moved
+// through here"), unlike a region's solid claim.
+const entRangePath = entity?.kind === 'range' ? 'M' + ept.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L') + 'Z' : '';
+// A sea's water: every ring of the clipped polygon in one evenodd path, so
+// islands read as holes in the hatch.
+const ringPath = (rings: [number, number][][]) =>
+  rings.map((r) => 'M' + r.map(([lon, lat]) => { const p = proj.project(lon, lat); return `${p.x.toFixed(1)},${p.y.toFixed(1)}`; }).join('L') + 'Z').join('');
+const entSeaPath = entity?.kind === 'sea' && entity.rings ? entity.rings.map(ringPath).join('') : '';
+// Strait/lake fallback: an open ring at the centroid when no water polygon exists.
+const entSeaRing = entity?.kind === 'sea' && !entity.rings && ept.length
+  ? { x: ept.reduce((s, p) => s + p.x, 0) / ept.length, y: ept.reduce((s, p) => s + p.y, 0) / ept.length }
+  : null;
 const TRI = 5;
 const entTris = entity?.kind === 'mountains'
   ? ept.map((p) => `M${p.x.toFixed(1)},${(p.y - TRI * 1.3).toFixed(1)}L${(p.x - TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}L${(p.x + TRI).toFixed(1)},${(p.y + TRI * 0.7).toFixed(1)}Z`)
@@ -116,7 +130,7 @@ const entCiv = P && entity?.kind === 'civ'
 const entAnchor = entity && ept.length
   ? (isPoint && P
       ? P
-      : entity.kind === 'region'
+      : entity.kind === 'region' || entity.kind === 'range' || entity.kind === 'sea'
         ? { x: ept.reduce((s, p) => s + p.x, 0) / ept.length, y: ept.reduce((s, p) => s + p.y, 0) / ept.length }
         : ept[Math.floor(ept.length / 2)])
   : null;
@@ -171,13 +185,24 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 
 <div class="tmap-wrap">
   <svg class="tmap-svg" viewBox={proj.viewBox} role="img" aria-label={`Map of the names' homelands and transmission paths`}>
+    {entSeaPath && (
+      <defs>
+        <pattern id={`hatch-${civId}`} patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)">
+          <line class="ent-sea-hatch" x1="0" y1="0" x2="0" y2="7" />
+        </pattern>
+      </defs>
+    )}
     <path class="coast" d={coastPath} />
     {entity && (
       <g class="entity-geo" aria-hidden="true">
+        {entSeaPath && <path class="ent-sea" fill-rule="evenodd" fill={`url(#hatch-${civId})`} d={entSeaPath} />}
+        {entSeaRing && <circle class="ent-sea-ring" cx={entSeaRing.x.toFixed(1)} cy={entSeaRing.y.toFixed(1)} r="9" />}
         {entRiverPath && <path class="ent-halo" d={entRiverPath} />}
         {entRiverPath && <path class="ent-river" d={entRiverPath} />}
         {entRegionPath && <path class="ent-region-halo" d={entRegionPath} />}
         {entRegionPath && <path class="ent-region" d={entRegionPath} />}
+        {entRangePath && <path class="ent-range-halo" d={entRangePath} />}
+        {entRangePath && <path class="ent-range" d={entRangePath} />}
         {entTris.map((t) => <path class="ent-mtn-halo" d={t} />)}
         {entTris.map((t) => <path class="ent-mtn" d={t} />)}
       </g>
@@ -242,6 +267,8 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     {entity.kind === 'river' ? ' its course'
       : entity.kind === 'mountains' ? (entity.points.length === 1 ? ' the mountain' : ' the range')
       : entity.kind === 'region' ? ' the region'
+      : entity.kind === 'range' ? ' its attested range'
+      : entity.kind === 'sea' ? ' the water'
       : entity.kind === 'city' ? ' the city'
       : ' the heartland'}
   </p>
@@ -357,6 +384,10 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
             box: entT.getBBox(),
           }
         : null,
+      hatch: (() => {
+        const h = svg.querySelector('.ent-sea-hatch');
+        return h ? getComputedStyle(h).stroke : rootS.color;
+      })(),
       accent: probeC ? getComputedStyle(probeC).stroke : rootS.color,
       ink: probeT ? getComputedStyle(probeT).fill : rootS.color,
       nodeFont: probeT ? fontOf(getComputedStyle(probeT)) : 'italic 400 12.5px Georgia, serif',
@@ -421,10 +452,28 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   }
   type Corner = ReturnType<typeof pickCorner>;
 
-  function paint(ctx: CanvasRenderingContext2D, sp: SnapPath) {
+  function paint(ctx: CanvasRenderingContext2D, sp: SnapPath, vb?: { w: number; h: number }, hatchColor?: string) {
     ctx.save();
     ctx.globalAlpha = sp.alpha;
-    if (sp.fill !== 'none') {
+    if (sp.fill.startsWith('url(')) {
+      // Pattern fill (a sea's diagonal hatch): canvas can't resolve the SVG
+      // pattern, so redraw it by hand — clip to the water and rule 45° lines.
+      if (vb && hatchColor) {
+        ctx.save();
+        ctx.clip(sp.p, 'evenodd');
+        ctx.strokeStyle = hatchColor;
+        ctx.lineWidth = 1.1;
+        ctx.globalAlpha = sp.alpha * 0.55;
+        ctx.beginPath();
+        const span = vb.w + vb.h;
+        for (let o = -vb.h; o < span; o += 7) {
+          ctx.moveTo(o, 0);
+          ctx.lineTo(o + vb.h, vb.h);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+    } else if (sp.fill !== 'none') {
       ctx.fillStyle = sp.fill;
       ctx.fill(sp.p);
     }
@@ -451,7 +500,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     ctx.fillStyle = m.sea;
     ctx.fillRect(0, 0, m.vb.w, m.vb.h);
     paint(ctx, m.coast);
-    for (const p of m.geoPaths) paint(ctx, p);
+    for (const p of m.geoPaths) paint(ctx, p, m.vb, m.hatch);
     m.arcs.forEach((a, i) => {
       const future = a.start > fr.year;
       const prog = future ? 0 : fr.drawP(i);
@@ -821,6 +870,13 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   .ent-mtn { fill: color-mix(in srgb, var(--ink) 66%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
   .ent-region-halo { fill: none; stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.85; }
   .ent-region { fill: color-mix(in srgb, var(--ink) 27%, var(--parchment)); stroke: color-mix(in srgb, var(--ink) 58%, var(--parchment)); stroke-width: 1.1; stroke-dasharray: 4 3; stroke-linejoin: round; }
+  /* A nomadic range: dashed and unfilled — an envelope of movement, not a claim. */
+  .ent-range-halo { fill: none; stroke: var(--parchment); stroke-width: 4; stroke-linejoin: round; opacity: 0.85; }
+  .ent-range { fill: none; stroke: color-mix(in srgb, var(--ink) 62%, var(--parchment)); stroke-width: 1.6; stroke-dasharray: 7 5; stroke-linejoin: round; stroke-linecap: round; }
+  /* A sea: the water itself, hatched. The pattern line inherits ink so both
+     themes read; the coastline already draws the water's edge. */
+  .ent-sea-hatch { stroke: color-mix(in srgb, var(--water) 80%, var(--ink)); stroke-width: 1.1; opacity: 0.55; }
+  .ent-sea-ring { fill: none; stroke: color-mix(in srgb, var(--ink) 66%, var(--parchment)); stroke-width: 1.8; }
   .ent-pt-halo { fill: var(--parchment); stroke: var(--parchment); stroke-width: 3.5; stroke-linejoin: round; opacity: 0.9; }
   .ent-city, .ent-civ { fill: color-mix(in srgb, var(--ink) 72%, var(--parchment)); stroke: var(--parchment); stroke-width: 0.6; stroke-linejoin: round; }
   .ent-label {
@@ -843,5 +899,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
   .loc-river { width: 14px; height: 0; border-top: 2px solid color-mix(in srgb, var(--ink) 66%, var(--parchment)); }
   .loc-mountains { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 9px solid color-mix(in srgb, var(--ink) 66%, var(--parchment)); }
   .loc-region { width: 11px; height: 8px; border: 1.5px dashed color-mix(in srgb, var(--ink) 58%, var(--parchment)); background: color-mix(in srgb, var(--ink) 27%, var(--parchment)); }
+  .loc-range { width: 12px; height: 8px; border: 1.5px dashed color-mix(in srgb, var(--ink) 62%, var(--parchment)); border-radius: 40% 60% 55% 45% / 60% 45% 55% 40%; }
+  .loc-sea { width: 12px; height: 9px; border: 1px solid color-mix(in srgb, var(--water) 80%, var(--ink)); background: repeating-linear-gradient(45deg, transparent 0 2px, color-mix(in srgb, var(--water) 80%, var(--ink)) 2px 3px); }
   .loc-glyph { color: color-mix(in srgb, var(--ink) 72%, var(--parchment)); font-size: 0.95em; vertical-align: middle; }
 </style>
