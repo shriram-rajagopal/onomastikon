@@ -7,6 +7,7 @@ ipa: /baħr alˈxa.zar/
 literal_meaning: the Sea of the Khazars
 era_start: 700
 era_end: 1453
+family: khazar
 confidence: attested
 sources:
   - citation: "al-Masʿūdī, *Murūj al-Dhahab*. Ed. Pellat, Beirut, 1966–79."
