@@ -10,6 +10,15 @@ const fold = (s?: string | null) =>
 // null era_end = "in continued use"; contributes no year token to the haystack.
 const era = (y: number | null) => (y === null ? '' : y < 0 ? `${Math.abs(y)} bce` : `${y} ce`);
 
+// Display labels for the entity type enum, matching the entity-page eyebrow;
+// the raw enum value ("geographic_feature") is not user-facing.
+const TYPE_LABELS: Record<string, string> = {
+  civilization: 'Civilization',
+  city: 'City',
+  region: 'Region',
+  geographic_feature: 'Geographic feature',
+};
+
 // A single static index served at /search-index.json, built at compile time.
 // It carries entity, language, AND name records, because the search facets span
 // civilization/language/script/region as well as the name strings. The browse
@@ -30,9 +39,9 @@ export const GET: APIRoute = async () => {
     records.push({
       type: 'entity',
       label: c.data.english_name,
-      context: c.data.type,
+      context: TYPE_LABELS[c.data.type] ?? c.data.type,
       url: `/civilizations/${c.id}`,
-      h: fold([c.data.english_name, c.data.region, c.data.type].join(' ')),
+      h: fold([c.data.english_name, c.data.region, TYPE_LABELS[c.data.type] ?? c.data.type].join(' ')),
     });
   }
 
