@@ -1,11 +1,11 @@
 ---
 civilization: sogdiana
 language: avestan
-original_text: 𐬯𐬏𐬖𐬜𐬀
+original_text: 𐬯𐬎𐬖𐬜𐬀
 transliteration: Suγδa
-ipa: "*ˈsuɣ.ða"
+ipa: /ˈsuɣ.ða/
 era_start: -1000
-era_end: -300
+era_end: -400
 family: suguda
 confidence: attested
 sources:

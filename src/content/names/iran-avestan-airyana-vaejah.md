@@ -1,12 +1,12 @@
 ---
 civilization: iran
 language: avestan
-original_text: 𐬀𐬌𐬭𐬫𐬀𐬥𐬀 𐬬𐬀𐬉𐬲𐬀𐬵
+original_text: 𐬀𐬌𐬭𐬫𐬀𐬥𐬀 𐬬𐬀𐬉𐬘𐬀𐬵
 transliteration: Airyana Vaēǰah
-ipa: "*ai̯r.ja.na ˈu̯ae̯.d͡ʒah"
+ipa: /ai̯r.ja.na ˈu̯ae̯.d͡ʒah/
 literal_meaning: the Aryan expanse
 era_start: -1000
-era_end: -300
+era_end: -400
 family: eran
 confidence: attested
 sources:

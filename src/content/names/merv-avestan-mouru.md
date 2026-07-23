@@ -3,9 +3,9 @@ civilization: merv
 language: avestan
 original_text: 𐬨𐬋𐬎𐬭𐬎
 transliteration: Mōuru
-ipa: "*ˈmoː.u.ru"
+ipa: /ˈmoː.u.ru/
 era_start: -1000
-era_end: -300
+era_end: -400
 family: margu
 confidence: attested
 sources:
