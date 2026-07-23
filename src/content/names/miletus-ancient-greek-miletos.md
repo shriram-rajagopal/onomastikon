@@ -5,7 +5,7 @@ original_text: Μίλητος
 transliteration: Mílētos
 ipa: /ˈmi.lɛː.tos/
 literal_meaning: Miletus
-era_start: -1000
+era_start: -750
 era_end: 600
 family: miletos
 confidence: attested

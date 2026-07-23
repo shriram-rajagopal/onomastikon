@@ -3,7 +3,7 @@ civilization: medina
 language: ancient-greek
 original_text: Ἰάθριππα
 transliteration: Iáthrippa
-ipa: /iˈaθrippa/
+ipa: /iˈatʰrippa/
 era_start: 150
 era_end: 550
 family: yathrib

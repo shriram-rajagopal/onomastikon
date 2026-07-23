@@ -1,7 +1,7 @@
 ---
 civilization: canaan
 language: ancient-greek
-original_text: Χανααν
+original_text: Χαναάν
 transliteration: Khanaan
 ipa: /kʰa.naˈan/
 literal_meaning: Canaan (the Septuagint transliteration of Hebrew Kĕnaʿan)
@@ -11,7 +11,7 @@ family: kanaan
 derived_from: canaan-biblical-hebrew-kenaan
 confidence: attested
 sources:
-  - citation: "Septuagint, Genesis 10:15–19; Exodus 6:4; Acts 7:11, 13:19 (Χανααν)."
+  - citation: "Septuagint, Genesis 10:15–19; Exodus 6:4; Acts 7:11, 13:19 (Χαναάν)."
   - citation: "Eusebius, *Praeparatio Evangelica* 1.10 (quoting Philo of Byblos on Χνᾶ, the older name)."
 ---
 

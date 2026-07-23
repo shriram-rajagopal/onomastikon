@@ -3,7 +3,7 @@ civilization: athens
 language: ancient-greek
 original_text: Ἀθῆναι
 transliteration: Athēnai
-ipa: /a.tʰɛ̂ː.nai̯/
+ipa: /a.ˈtʰɛː.nai̯/
 literal_meaning: Athens (a plural; named with the goddess Athēnā)
 era_start: -800
 era_end: 600

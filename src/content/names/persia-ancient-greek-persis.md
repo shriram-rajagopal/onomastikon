@@ -3,7 +3,7 @@ civilization: persia
 language: ancient-greek
 original_text: Περσίς
 transliteration: Persís
-ipa: /per.sís/
+ipa: /per.ˈsis/
 literal_meaning: Persia; the land of the Persians
 era_start: -500
 era_end: 600

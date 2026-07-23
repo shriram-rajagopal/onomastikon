@@ -5,7 +5,7 @@ original_text: Ἔφεσος
 transliteration: Éphesos
 ipa: /ˈe.pʰe.sos/
 literal_meaning: Ephesus
-era_start: -1000
+era_start: -700
 era_end: 600
 family: ephesos
 confidence: attested

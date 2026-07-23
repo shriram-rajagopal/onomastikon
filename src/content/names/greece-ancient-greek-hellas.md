@@ -3,7 +3,7 @@ civilization: greece
 language: ancient-greek
 original_text: Ἑλλάς
 transliteration: Hellás
-ipa: /hel.lás/
+ipa: /hel.ˈlas/
 literal_meaning: Hellas (toponym)
 era_start: -800
 era_end: 600

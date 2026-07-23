@@ -5,7 +5,7 @@ original_text: Κόρινθος
 transliteration: Kórinthos
 ipa: /ˈko.rin.tʰos/
 literal_meaning: Corinth
-era_start: -900
+era_start: -750
 era_end: 600
 family: korinthos
 confidence: attested

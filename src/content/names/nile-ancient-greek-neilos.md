@@ -3,7 +3,7 @@ civilization: nile
 language: ancient-greek
 original_text: Νεῖλος
 transliteration: Neîlos
-ipa: /nêː.los/
+ipa: /ˈneː.los/
 literal_meaning: the Nile (etymology uncertain)
 era_start: -700
 era_end: 600

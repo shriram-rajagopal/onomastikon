@@ -3,7 +3,7 @@ civilization: egypt
 language: ancient-greek
 original_text: Αἴγυπτος
 transliteration: Aígyptos
-ipa: /ai̯.ɡyp.tos/
+ipa: /ˈai̯.ɡyp.tos/
 literal_meaning: Egypt (toponym; etymology disputed)
 era_start: -800
 era_end: 600
