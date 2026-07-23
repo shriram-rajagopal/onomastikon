@@ -3,7 +3,7 @@ civilization: medina
 language: akkadian
 original_text: 𒅀𒀜𒊑𒁍
 transliteration: Iatribu
-ipa: /jaːt.ri.bu/
+ipa: /ˈjat.ri.bu/
 era_start: -552
 era_end: -540
 family: yathrib

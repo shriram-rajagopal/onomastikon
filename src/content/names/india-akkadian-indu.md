@@ -3,7 +3,7 @@ civilization: india
 language: akkadian
 original_text: 𒅔𒁺𒌑
 transliteration: Indû
-ipa: "*induː"
+ipa: /inˈduː/
 era_start: -518
 era_end: -330
 family: sindhu

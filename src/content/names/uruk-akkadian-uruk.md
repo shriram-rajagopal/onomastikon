@@ -1,7 +1,7 @@
 ---
 civilization: uruk
 language: akkadian
-original_text: 𒌷𒀕
+original_text: 𒀕𒆠
 transliteration: Uruk
 ipa: /ˈuruk/
 literal_meaning: Uruk (Akkadian form of Sumerian Unug)

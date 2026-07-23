@@ -3,7 +3,7 @@ civilization: susa
 language: akkadian
 original_text: 𒋗𒊭𒀭
 transliteration: Šušan
-ipa: /ʃuːˈʃan/
+ipa: /ʃuˈʃan/
 literal_meaning: Susa (Akkadian toponym)
 era_start: -2300
 era_end: -540

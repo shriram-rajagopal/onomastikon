@@ -3,7 +3,7 @@ civilization: canaan
 language: akkadian
 original_text: 𒆠𒈾𒄴𒄭
 transliteration: Kinaḫḫi
-ipa: /kiˈnaχχi/
+ipa: /kiˈnaxxi/
 literal_meaning: Canaan (the Egyptian-administered Levant)
 era_start: -1400
 era_end: -1300

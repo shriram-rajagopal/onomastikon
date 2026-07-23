@@ -3,7 +3,7 @@ civilization: nineveh
 language: akkadian
 original_text: 𒌷𒉌𒉡𒀀
 transliteration: Ninua
-ipa: /ninuˈwa/
+ipa: /ˈninuwa/
 literal_meaning: Nineveh (the logogram pictures a fish within a house; origin possibly Hurrian)
 era_start: -2500
 era_end: -612

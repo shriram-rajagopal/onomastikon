@@ -3,7 +3,7 @@ civilization: cilicia
 language: akkadian
 original_text: 𒄭𒆷𒀝𒆪
 transliteration: Ḫilakku
-ipa: /ħiˈlak.ku/
+ipa: /xiˈlak.ku/
 era_start: -850
 era_end: -610
 confidence: attested

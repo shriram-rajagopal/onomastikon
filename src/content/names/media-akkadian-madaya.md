@@ -3,7 +3,7 @@ civilization: media
 language: akkadian
 original_text: 𒈠𒁕𒀀𒀀
 transliteration: Mādāya
-ipa: "*maːˈdaːja"
+ipa: /maːˈdaːja/
 era_start: -710
 era_end: -330
 family: mada

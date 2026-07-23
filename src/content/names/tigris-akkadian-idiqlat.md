@@ -3,7 +3,7 @@ civilization: tigris
 language: akkadian
 original_text: 𒈦𒄘𒃼
 transliteration: Idiqlat
-ipa: /idiqlat/
+ipa: /iˈdiqlat/
 literal_meaning: the Tigris
 era_start: -2300
 era_end: -100

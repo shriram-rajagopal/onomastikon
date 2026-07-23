@@ -3,7 +3,7 @@ civilization: urartu
 language: akkadian
 original_text: 𒌑𒊏𒀸𒌅
 transliteration: Uraštu
-ipa: "*uˈraːʃtˤu"
+ipa: /uˈraʃtu/
 era_start: -1270
 era_end: -520
 family: urartu

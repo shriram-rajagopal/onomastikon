@@ -3,7 +3,7 @@ civilization: minoan-crete
 language: akkadian
 original_text: 𒆏𒋫𒊏
 transliteration: Kaptara
-ipa: "*kaptara"
+ipa: /kapˈtara/
 literal_meaning: Kaptara (a distant land across the sea, generally identified with Crete)
 era_start: -1800
 era_end: -1700

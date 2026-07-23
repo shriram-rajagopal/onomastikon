@@ -3,12 +3,12 @@ civilization: armenia
 language: akkadian
 original_text: 𒌑𒊏𒀸𒌅
 transliteration: Uraštu
-ipa: "*uˈraʃtu"
+ipa: /uˈraʃtu/
 era_start: -520
 era_end: -330
 confidence: attested
 sources:
-  - citation: "Schmitt, Rüdiger. *The Bisitun Inscriptions of Darius the Great: Babylonian Version*. London: Lund Humphries, 1991."
+  - citation: "von Voigtländer, Elizabeth N. *The Bisitun Inscription of Darius the Great: Babylonian Version*. London: Lund Humphries, 1978."
   - citation: "*Chicago Assyrian Dictionary* (CAD), University of Chicago, Vol. U/W, s.v. *Uraštu*."
 ---
 
