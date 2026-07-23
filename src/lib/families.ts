@@ -538,6 +538,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Kaspía family',
     note: 'The Greek Kaspía and Latin Mare Caspium, the Caspian Sea named after the Caspii who lived on its shores, beside the rival Greek Hyrkanía that named it for the province of Hyrcania; Armenian Kaspicʿ cov declines the same people\'s name in native grammar, and medieval Latin carried Mare Caspium to Rubruck\'s correction of Isidore.',
   },
+  sarakenoi: {
+    display: 'The Sarakēnoí family',
+    note: 'The name Christendom used for the Islamic world: Greek Sarakēnoí, a Ptolemaic label for Arabian nomads stretched over the caliphate, and its Latin echo Sarraceni; John of Damascus supplied the medieval etymology, "empty of Sarah," filing the new power into Abraham\'s family tree.',
+  },
   mediterraneum: {
     display: 'The Mediterraneum family',
     note: 'The sea in the middle of the lands: the late-antique Mare Mediterraneum of Solinus, carried into the Middle Ages by Isidore of Seville, whose Etymologiae fixed it as the name the European languages inherited.',

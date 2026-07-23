@@ -7,6 +7,7 @@ ipa: /sar.raˈtʃe.ni/
 literal_meaning: the Saracens
 era_start: 600
 era_end: 1453
+family: sarakenoi
 confidence: attested
 sources:
   - citation: "Isidore of Seville, *Etymologiae* 9.2.57: *Saraceni dicti, vel quia ex Sarra genitos se praedicent...*"
