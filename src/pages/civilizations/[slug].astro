@@ -16,6 +16,7 @@ import LocatorMap from '../../components/LocatorMap.astro';
 import HelpTip from '../../components/HelpTip.astro';
 import { LANG_GEO } from '../../lib/geo';
 import { ARTIFACTS } from '../../lib/artifacts';
+import { MONUMENTS } from '../../lib/monuments';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -133,6 +134,38 @@ const familyTrees = [...familyGroups.entries()]
   })
   .sort((a, b) => b.size - a.size);
 
+// Monuments: the inscribed objects that carry this page's names, derived from
+// the registry's entry-id linkage. Each card lists the forms it writes here
+// and links to the other entities the same stone names.
+const pageEntryIds = new Set(enriched.map((e) => e.name.id));
+const monumentCards = Object.entries(MONUMENTS)
+  .map(([id, m]) => {
+    const here = m.entries.filter((eid) => pageEntryIds.has(eid));
+    if (here.length === 0) return null;
+    const hereForms = here.map((eid) => {
+      const e = byId.get(eid)!;
+      return {
+        anchor: entryAnchor(eid, civ.id),
+        translit: e.name.data.transliteration,
+        lang: e.language?.data.english_name ?? '',
+      };
+    });
+    const elsewhere = [
+      ...new Set(
+        m.entries
+          .filter((eid) => !pageEntryIds.has(eid))
+          .map((eid) => namesById.get(eid)?.data.civilization.id)
+          .filter((cid): cid is string => Boolean(cid))
+      ),
+    ]
+      .map((cid) => ({ id: cid, name: civById.get(cid)?.data.english_name ?? cid }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    return { id, ...m, hereForms, elsewhere };
+  })
+  .filter((m): m is NonNullable<typeof m> => m !== null)
+  .sort((a, b) => b.hereForms.length - a.hereForms.length || a.title.localeCompare(b.title));
+const showMonuments = monumentCards.length > 0;
+
 // Which sections this page actually has, for the contents rail.
 const showFamilies = familyTrees.length > 0;
 const showMap = enriched.filter((e) => e.language && LANG_GEO[e.language.id]).length >= 2;
@@ -155,6 +188,7 @@ const contents = [
   ...(showFamilies ? [{ href: '#families', label: 'Name families' }] : []),
   ...(showMap ? [{ href: '#map', label: 'Transmission map' }] : []),
   ...(showTimeline ? [{ href: '#timeline', label: 'Attestation timeline' }] : []),
+  ...(showMonuments ? [{ href: '#monuments', label: 'Monuments' }] : []),
   { href: '#names', label: 'Names across languages' },
   { href: '#cite', label: 'Cite this page' },
 ];
@@ -326,6 +360,46 @@ const correctionUrl =
             end: e.name.data.era_end,
           }))}
         />
+      </section>
+    )}
+
+    {showMonuments && (
+      <section class="monuments" id="monuments">
+        <h2>Monuments</h2>
+        <p class="families-hint">
+          The inscribed objects this page's names actually stand on, and the
+          other entities the same stones name.
+        </p>
+        {monumentCards.map((m) => (
+          <article class="monument corner-ticks">
+            <h3 class="monument-title">{m.title}</h3>
+            <p class="monument-meta">
+              {m.date} · {m.place}
+              {m.location !== 'in situ' ? ` · now ${m.location}` : ' · in situ'}
+            </p>
+            <p class="monument-desc">{m.description}</p>
+            <p class="monument-forms">
+              <span class="monument-label">Writes here</span>
+              {m.hereForms.map((f, i) => (
+                <>
+                  {i > 0 && ', '}
+                  <a href={`#${f.anchor}`}><em>{f.translit}</em> ({f.lang})</a>
+                </>
+              ))}
+            </p>
+            {m.elsewhere.length > 0 && (
+              <p class="monument-forms">
+                <span class="monument-label">Also names</span>
+                {m.elsewhere.map((c, i) => (
+                  <>
+                    {i > 0 && ', '}
+                    <a href={`/civilizations/${c.id}#monuments`}>{c.name}</a>
+                  </>
+                ))}
+              </p>
+            )}
+          </article>
+        ))}
       </section>
     )}
 
@@ -679,6 +753,45 @@ const correctionUrl =
     box-shadow: var(--shadow-soft);
   }
   .family-title { font-size: 1.125rem; margin: 0 0 0.25rem; }
+  /* Monument cards share the family panels' manuscript dress: the section is
+     the atlas's evidence layer, so it wears the same paper. */
+  .monument {
+    margin: 1.5rem 0;
+    padding: 1.2rem 1.4rem 1.3rem;
+    background-color: color-mix(in srgb, var(--ink) 4%, var(--parchment));
+    background-image: var(--grain);
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    box-shadow: var(--shadow-soft);
+  }
+  .monument-title { font-size: 1.125rem; margin: 0 0 0.15rem; }
+  .monument-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin: 0 0 0.7rem;
+  }
+  .monument-desc { font-size: 0.9375rem; line-height: 1.6; color: var(--ink); margin: 0 0 0.8rem; }
+  .monument-forms {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    margin: 0.35rem 0 0;
+  }
+  .monument-forms a { color: var(--accent); text-decoration: none; }
+  .monument-forms a:hover { text-decoration: underline; }
+  .monument-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6563rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-soft);
+    margin-right: 0.55rem;
+  }
+  @media (max-width: 640px) {
+    .monument { padding: 1rem 0.9rem 1.1rem; }
+  }
   .family-note { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.9rem; line-height: 1.55; }
   .family-roots { list-style: none; margin: 0; padding: 0; }
   /* Cognate shelf: parallel roots hang side by side from one dashed rail,
