@@ -1,7 +1,7 @@
 ---
 civilization: adriatic
 language: latin
-original_text: Hadriaticum
+original_text: Hadriāticum
 transliteration: Hadriāticum
 ipa: /had.riˈaː.ti.kum/
 literal_meaning: the Adriatic Sea

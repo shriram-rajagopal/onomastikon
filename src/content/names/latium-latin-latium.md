@@ -5,7 +5,7 @@ original_text: Latium
 transliteration: Latium
 ipa: /ˈla.ti.um/
 literal_meaning: Latium (the flat land, or the hiding-place)
-era_start: -753
+era_start: -600
 era_end: 600
 family: latium
 confidence: attested

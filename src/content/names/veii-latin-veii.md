@@ -5,7 +5,7 @@ original_text: Veiī
 transliteration: Veiī
 ipa: /ˈwe.jiː/
 literal_meaning: Veii
-era_start: -750
+era_start: -600
 era_end: -100
 family: veii
 confidence: attested

@@ -1,7 +1,7 @@
 ---
 civilization: miletus
 language: latin
-original_text: Miletus
+original_text: Mīlētus
 transliteration: Mīlētus
 ipa: /miːˈleː.tus/
 literal_meaning: Miletus

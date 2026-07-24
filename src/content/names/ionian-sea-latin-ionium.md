@@ -1,7 +1,7 @@
 ---
 civilization: ionian-sea
 language: latin
-original_text: Mare Ionium
+original_text: Mare Iōnium
 transliteration: Mare Iōnium
 ipa: /ˈma.re ioˈni.um/
 literal_meaning: the Ionian Sea

@@ -5,7 +5,7 @@ original_text: Albula
 transliteration: Albula
 ipa: /ˈal.bu.la/
 literal_meaning: the whitish one (the Tiber's archaic name)
-era_start: -753
+era_start: -600
 era_end: -510
 confidence: attested
 sources:

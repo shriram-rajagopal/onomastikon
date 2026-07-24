@@ -1,7 +1,7 @@
 ---
 civilization: nile
 language: latin
-original_text: Nilus
+original_text: Nīlus
 transliteration: Nīlus
 ipa: /ˈniː.lus/
 literal_meaning: the Nile (from Greek)

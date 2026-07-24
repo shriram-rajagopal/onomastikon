@@ -1,7 +1,7 @@
 ---
 civilization: aegean
 language: latin
-original_text: Aegaeum
+original_text: Mare Aegaeum
 transliteration: Mare Aegaeum
 ipa: /ˈma.re ai̯ˈɡae̯.um/
 literal_meaning: the Aegean Sea
