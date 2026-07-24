@@ -1,7 +1,7 @@
 ---
 civilization: assyria
 language: classical-arabic
-original_text: أَثُور
+original_text: أثور
 transliteration: Athūr
 ipa: /ʔaˈθuːr/
 literal_meaning: Assyria; the district around Mosul (the t-form continued into Arabic)

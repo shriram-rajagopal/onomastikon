@@ -3,7 +3,7 @@ civilization: bosporus
 language: classical-arabic
 original_text: خليج القسطنطينية
 transliteration: Khalīj al-Qusṭanṭīniyya
-ipa: /xaliːdʒ alqustˤantˤiːnijja/
+ipa: /xaˈliːdʒ al.qus.tˤan.tˤiːˈnij.ja/
 literal_meaning: the gulf of Constantinople
 era_start: 900
 era_end: 1453

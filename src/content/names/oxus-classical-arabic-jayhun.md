@@ -3,7 +3,7 @@ civilization: oxus
 language: classical-arabic
 original_text: جيحون
 transliteration: Jayḥūn
-ipa: /d͡ʒajˈħuːn/
+ipa: /dʒajˈħuːn/
 literal_meaning: the Gihon (of Paradise)
 era_start: 700
 era_end: 1453

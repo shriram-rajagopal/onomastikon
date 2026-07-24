@@ -3,7 +3,7 @@ civilization: ararat
 language: classical-arabic
 original_text: الحارث
 transliteration: al-Ḥārith
-ipa: /alħaːriθ/
+ipa: /alˈħaː.riθ/
 literal_meaning: an Arab personal name applied to the greater peak
 era_start: 900
 era_end: 1300

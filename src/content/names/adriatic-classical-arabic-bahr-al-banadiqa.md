@@ -3,7 +3,7 @@ civilization: adriatic
 language: classical-arabic
 original_text: بحر البنادقة
 transliteration: Baḥr al-Banādiqa
-ipa: /baħr albanaːdiqa/
+ipa: /baħr al.ba.ˈnaː.di.qa/
 literal_meaning: the sea of the Venetians
 era_start: 1154
 era_end: 1453

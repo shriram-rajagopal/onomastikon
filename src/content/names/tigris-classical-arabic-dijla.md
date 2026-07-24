@@ -3,7 +3,7 @@ civilization: tigris
 language: classical-arabic
 original_text: دجلة
 transliteration: Dijla
-ipa: /ˈdid͡ʒla/
+ipa: /ˈdidʒla/
 literal_meaning: the Tigris
 era_start: 700
 era_end: null

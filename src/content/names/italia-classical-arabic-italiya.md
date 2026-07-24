@@ -3,7 +3,7 @@ civilization: italia
 language: classical-arabic
 original_text: إيطاليا
 transliteration: Īṭāliyā
-ipa: /ʔiːtˤaːˈlija/
+ipa: /ʔiː.ˈtˤaː.li.jaː/
 literal_meaning: Italy
 era_start: 800
 era_end: null

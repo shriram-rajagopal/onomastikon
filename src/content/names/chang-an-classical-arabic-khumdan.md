@@ -3,7 +3,7 @@ civilization: chang-an
 language: classical-arabic
 original_text: خمدان
 transliteration: Khumdān
-ipa: /xumdaːn/
+ipa: /xumˈdaːn/
 literal_meaning: Chang'an (the Silk Road name for the Tang capital)
 era_start: 800
 era_end: 1000

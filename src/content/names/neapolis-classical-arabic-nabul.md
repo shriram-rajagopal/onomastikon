@@ -3,7 +3,7 @@ civilization: neapolis
 language: classical-arabic
 original_text: نابل
 transliteration: Nābul
-ipa: /naːbul/
+ipa: /ˈnaː.bul/
 literal_meaning: Naples (from the Romance development of Latin Neapolis)
 era_start: 1154
 era_end: 1453

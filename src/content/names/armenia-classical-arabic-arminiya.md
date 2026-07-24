@@ -3,7 +3,7 @@ civilization: armenia
 language: classical-arabic
 original_text: أرمينية
 transliteration: Armīniya
-ipa: /armiːnija/
+ipa: /arˈmiː.ni.ja/
 literal_meaning: Armenia (the caliphal province)
 era_start: 640
 era_end: 1453

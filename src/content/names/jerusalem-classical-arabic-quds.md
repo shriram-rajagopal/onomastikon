@@ -1,7 +1,7 @@
 ---
 civilization: jerusalem
 language: classical-arabic
-original_text: القُدس
+original_text: القدس
 transliteration: al-Quds
 ipa: /alˈquds/
 literal_meaning: the Holy
