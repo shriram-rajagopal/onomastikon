@@ -3,7 +3,7 @@ civilization: nineveh
 language: biblical-hebrew
 original_text: נִינְוֵה
 transliteration: Nīnəwēh
-ipa: /niːnəˈveh/
+ipa: /niː.nəˈweː/
 literal_meaning: Nineveh
 era_start: -700
 era_end: -200

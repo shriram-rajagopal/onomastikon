@@ -3,7 +3,7 @@ civilization: dead-sea
 language: biblical-hebrew
 original_text: יָם הַמֶּלַח
 transliteration: Yam ha-Melaḥ
-ipa: /jaːm hamˈmɛlaħ/
+ipa: /jam ham.ˈmɛ.laħ/
 literal_meaning: the Salt Sea
 era_start: -1200
 era_end: -200

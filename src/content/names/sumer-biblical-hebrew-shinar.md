@@ -3,7 +3,7 @@ civilization: sumer
 language: biblical-hebrew
 original_text: שִׁנְעָר
 transliteration: Šinʿār
-ipa: /ʃinˈʕaːr/
+ipa: /ʃinˈʕɔːr/
 literal_meaning: Shinar; the southern Mesopotamian land of the first cities
 era_start: -900
 era_end: -100

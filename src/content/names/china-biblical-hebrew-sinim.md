@@ -1,7 +1,7 @@
 ---
 civilization: china
 language: biblical-hebrew
-original_text: סינים
+original_text: סִינִים
 transliteration: Sînîm
 ipa: /siːˈniːm/
 era_start: -540

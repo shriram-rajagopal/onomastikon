@@ -3,7 +3,7 @@ civilization: phoenicia
 language: biblical-hebrew
 original_text: צִידֹנִים
 transliteration: Ṣīdōnîm
-ipa: /sˤiːdoːˈniːm/
+ipa: /sˤiː.ðoːˈniːm/
 literal_meaning: Sidonians (the Phoenicians, after the city of Sidon)
 era_start: -1000
 era_end: -200

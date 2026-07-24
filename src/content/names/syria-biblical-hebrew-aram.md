@@ -3,7 +3,7 @@ civilization: syria
 language: biblical-hebrew
 original_text: אֲרָם
 transliteration: Ărām
-ipa: /ʔaˈraːm/
+ipa: /ʔaˈrɔːm/
 era_start: -1000
 era_end: -200
 family: aram

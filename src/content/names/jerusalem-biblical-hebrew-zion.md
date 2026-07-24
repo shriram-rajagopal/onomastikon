@@ -3,7 +3,7 @@ civilization: jerusalem
 language: biblical-hebrew
 original_text: צִיּוֹן
 transliteration: Ṣiyyôn
-ipa: /sˤiːˈjoːn/
+ipa: /sˤij.ˈjoːn/
 literal_meaning: "Zion (the citadel-hill of Jerusalem); meaning uncertain"
 era_start: -1000
 era_end: -100

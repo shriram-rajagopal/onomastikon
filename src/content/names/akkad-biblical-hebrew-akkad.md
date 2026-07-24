@@ -3,7 +3,7 @@ civilization: akkad
 language: biblical-hebrew
 original_text: אַכַּד
 transliteration: ʾAkkaḏ
-ipa: /ʔakˈkad/
+ipa: /ʔakˈkað/
 literal_meaning: Akkad (Accad)
 era_start: -900
 era_end: -200

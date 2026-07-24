@@ -3,7 +3,7 @@ civilization: lydia
 language: biblical-hebrew
 original_text: לוּד
 transliteration: Lud
-ipa: /luːd/
+ipa: /luːð/
 era_start: -700
 era_end: -200
 family: luddu

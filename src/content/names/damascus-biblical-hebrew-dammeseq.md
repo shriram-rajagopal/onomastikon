@@ -3,7 +3,7 @@ civilization: damascus
 language: biblical-hebrew
 original_text: דַּמֶּשֶׂק
 transliteration: Dammeśeq
-ipa: /damˈmɛːsɛq/
+ipa: /damˈmɛ.sɛq/
 literal_meaning: Damascus
 era_start: -900
 era_end: -400

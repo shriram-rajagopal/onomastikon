@@ -3,7 +3,7 @@ civilization: jerusalem
 language: biblical-hebrew
 original_text: יְרוּשָׁלַיִם
 transliteration: Yĕrûšālayim
-ipa: /jĕruːʃɔːˈlajim/
+ipa: /jə.ruː.ʃɔːˈla.jim/
 literal_meaning: "foundation of Shalem"
 era_start: -1000
 era_end: 200

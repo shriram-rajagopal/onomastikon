@@ -3,7 +3,7 @@ civilization: elam
 language: biblical-hebrew
 original_text: עֵילָם
 transliteration: ʿÊlām
-ipa: /ʕeːˈlaːm/
+ipa: /ʕeːˈlɔːm/
 literal_meaning: Elam
 era_start: -900
 era_end: -100

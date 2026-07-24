@@ -3,7 +3,7 @@ civilization: mediterranean
 language: biblical-hebrew
 original_text: הַיָּם הַגָּדוֹל
 transliteration: ha-Yām ha-Gādōl
-ipa: /hajˈjaːm hagːaːˈðoːl/
+ipa: /haj.ˈjɔːm hag.gɔːˈðoːl/
 literal_meaning: the Great Sea
 era_start: -900
 era_end: -200

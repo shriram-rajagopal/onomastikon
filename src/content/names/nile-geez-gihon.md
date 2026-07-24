@@ -7,6 +7,8 @@ ipa: /ɡɨˈjon/
 literal_meaning: the Nile (identified with the biblical Gihon)
 era_start: 350
 era_end: 1000
+family: gihon
+derived_from: nile-biblical-hebrew-gihon
 confidence: disputed
 sources:
   - citation: "Leslau, Wolf. *Comparative Dictionary of Geʿez (Classical Ethiopic)*. Wiesbaden: Harrassowitz, 1987, s.v. *Giyon*."

@@ -3,7 +3,7 @@ civilization: india
 language: biblical-hebrew
 original_text: הֹדּוּ
 transliteration: Hōddû
-ipa: /hodˈdu/
+ipa: /hodˈduː/
 era_start: -400
 era_end: -300
 family: sindhu

@@ -3,7 +3,7 @@ civilization: media
 language: biblical-hebrew
 original_text: מָדַי
 transliteration: Māday
-ipa: /maːˈðaj/
+ipa: /mɔːˈðaj/
 era_start: -550
 era_end: -200
 family: mada

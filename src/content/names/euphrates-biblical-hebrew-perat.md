@@ -3,7 +3,7 @@ civilization: euphrates
 language: biblical-hebrew
 original_text: פְּרָת
 transliteration: Pĕrāt
-ipa: /pəˈraːt/
+ipa: /pəˈrɔːθ/
 literal_meaning: the Euphrates
 era_start: -900
 era_end: -200

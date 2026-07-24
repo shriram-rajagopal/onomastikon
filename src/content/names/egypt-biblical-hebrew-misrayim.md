@@ -3,7 +3,7 @@ civilization: egypt
 language: biblical-hebrew
 original_text: מִצְרַיִם
 transliteration: Miṣrayim
-ipa: /misˤˈʁajim/
+ipa: /misˤˈra.jim/
 literal_meaning: the two Miṣrs (traditional reading); border-land
 era_start: -1200
 era_end: -100

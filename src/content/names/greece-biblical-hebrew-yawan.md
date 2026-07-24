@@ -3,7 +3,7 @@ civilization: greece
 language: biblical-hebrew
 original_text: יָוָן
 transliteration: Yāwān
-ipa: /jɔːˈwɔn/
+ipa: /jɔːˈwɔːn/
 literal_meaning: Ionian; Greek
 era_start: -800
 era_end: -100

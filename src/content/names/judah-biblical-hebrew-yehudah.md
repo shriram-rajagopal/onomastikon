@@ -3,7 +3,7 @@ civilization: judah
 language: biblical-hebrew
 original_text: יְהוּדָה
 transliteration: Yĕhûdāh
-ipa: /jəhuːˈdɔː/
+ipa: /jə.huːˈðɔː/
 literal_meaning: "Judah; traditionally connected to 'praise' (Genesis 29:35)"
 era_start: -1000
 era_end: -100

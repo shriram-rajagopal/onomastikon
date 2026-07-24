@@ -3,7 +3,7 @@ civilization: ararat
 language: biblical-hebrew
 original_text: אֲרָרָט
 transliteration: Ăraraṭ
-ipa: /ʔă.raːˈraːt/
+ipa: /ʔa.rɔːˈrɔːtˤ/
 era_start: -700
 era_end: -200
 family: ararat

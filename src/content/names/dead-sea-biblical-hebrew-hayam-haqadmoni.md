@@ -3,7 +3,7 @@ civilization: dead-sea
 language: biblical-hebrew
 original_text: הַיָּם הַקַּדְמוֹנִי
 transliteration: ha-Yam ha-Qadmonī
-ipa: /hajˈjaːm haqqaðˈmoːni/
+ipa: /haj.ˈjɔːm haq.qað.moː.ˈniː/
 literal_meaning: the Eastern Sea
 era_start: -600
 era_end: -200

@@ -1,9 +1,9 @@
 ---
 civilization: etruscans
 language: biblical-hebrew
-original_text: תירס
+original_text: תִּירָס
 transliteration: Tiras
-ipa: /tiˈras/
+ipa: /tiːˈrɔːs/
 literal_meaning: Tiras (a son of Japheth, disputed)
 era_start: -900
 era_end: -400

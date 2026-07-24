@@ -2,9 +2,9 @@
 civilization: urartu
 language: biblical-hebrew
 original_text: אֲרָרָט
-transliteration: Araraṭ
-ipa: /ʔă.raːˈraːt/
-era_start: -600
+transliteration: Ăraraṭ
+ipa: /ʔa.rɔːˈrɔːtˤ/
+era_start: -700
 era_end: -200
 family: urartu
 derived_from: urartu-akkadian-urashtu

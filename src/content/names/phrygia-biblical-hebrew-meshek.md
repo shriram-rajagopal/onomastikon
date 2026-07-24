@@ -3,7 +3,7 @@ civilization: phrygia
 language: biblical-hebrew
 original_text: מֶשֶׁךְ
 transliteration: Mešek
-ipa: /ˈmɛ.ʃɛk/
+ipa: /ˈmɛ.ʃɛx/
 era_start: -700
 era_end: -200
 family: mushku

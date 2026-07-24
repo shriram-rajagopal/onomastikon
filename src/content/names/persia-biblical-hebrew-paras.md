@@ -3,7 +3,7 @@ civilization: persia
 language: biblical-hebrew
 original_text: פָּרַס
 transliteration: Pāras
-ipa: /paːˈras/
+ipa: /pɔːˈras/
 literal_meaning: Persia (borrowed from Old Persian)
 era_start: -550
 era_end: -100

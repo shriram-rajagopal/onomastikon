@@ -3,7 +3,7 @@ civilization: mesopotamia
 language: biblical-hebrew
 original_text: אֲרַם נַהֲרַיִם
 transliteration: ʾĂram Naharayim
-ipa: /ʔaˈram nahaˈrajim/
+ipa: /ʔa.ˈram na.haˈra.jim/
 literal_meaning: "Aram of the two rivers"
 era_start: -900
 era_end: -100

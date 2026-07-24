@@ -1,9 +1,9 @@
 ---
 civilization: minoan-crete
 language: biblical-hebrew
-original_text: כפתור
+original_text: כַּפְתּוֹר
 transliteration: Kaftor
-ipa: /kafˈtor/
+ipa: /kafˈtoːr/
 literal_meaning: Caphtor (the homeland of the Philistines; generally identified with Crete)
 era_start: -900
 era_end: -400

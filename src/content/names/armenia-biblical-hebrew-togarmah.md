@@ -3,7 +3,7 @@ civilization: armenia
 language: biblical-hebrew
 original_text: תּוֹגַרְמָה
 transliteration: Tōgarmāh
-ipa: /toːɣarˈmaː/
+ipa: /toː.ɣarˈmɔː/
 era_start: -550
 era_end: -300
 confidence: disputed
