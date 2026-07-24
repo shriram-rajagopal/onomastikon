@@ -3,7 +3,7 @@ civilization: mesopotamia
 language: classical-armenian
 original_text: Միջագետք
 transliteration: Miǰagetkʿ
-ipa: /midʒaɡetkʰ/
+ipa: /midʒaˈɡetkʰ/
 literal_meaning: between the rivers (calque of Greek Mesopotamía)
 era_start: 405
 era_end: null
