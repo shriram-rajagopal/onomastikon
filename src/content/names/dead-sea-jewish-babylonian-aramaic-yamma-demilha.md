@@ -5,7 +5,7 @@ original_text: ימא דמלחא
 transliteration: Yammā de-Milḥā
 ipa: /jamˈmaː dmilˈħaː/
 literal_meaning: the Sea of Salt
-era_start: 100
+era_start: 200
 era_end: 600
 family: salt-sea
 derived_from: dead-sea-biblical-hebrew-yam-hamelah

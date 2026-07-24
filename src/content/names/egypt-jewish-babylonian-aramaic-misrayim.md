@@ -3,7 +3,7 @@ civilization: egypt
 language: jewish-babylonian-aramaic
 original_text: מצרים
 transliteration: Miṣrayim
-ipa: /misˈrajim/
+ipa: /misˤˈrajim/
 literal_meaning: Egypt
 era_start: 200
 era_end: 700
