@@ -324,7 +324,7 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
   },
   kaphtor: {
     display: 'The Kaphtor family',
-    note: 'The Bronze Age Near Eastern name for Crete and the Aegean world of the Minoans: Egyptian Keftiu, Akkadian Kaptara, Ugaritic kptr, and Hebrew Kaftor (Caphtor, whence the Philistines came). The identification with Crete is the standard view but debated, and the name is unrelated to the later Greek Krḗtē.',
+    note: 'The Bronze Age Near Eastern name for Crete and the Aegean world of the Minoans: Egyptian Kftjw, Akkadian Kaptara, Ugaritic kptr, and Hebrew Kaftor (Caphtor, whence the Philistines came). The identification with Crete is the standard view but debated, and the name is unrelated to the later Greek Krḗtē.',
   },
   krete: {
     display: 'The Krḗtē family',

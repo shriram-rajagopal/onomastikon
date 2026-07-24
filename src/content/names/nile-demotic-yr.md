@@ -9,6 +9,7 @@ literal_meaning: the river; the Nile
 era_start: -650
 era_end: 450
 family: jtrw
+derived_from: nile-egyptian-jtrw
 confidence: attested
 sources:
   - citation: "Erichsen, Wolja. *Demotisches Glossar*. Copenhagen: Ejnar Munksgaard, 1954, s.v. *yr*."
