@@ -8,6 +8,7 @@ literal_meaning: Egypt; the garrison capital of Egypt
 era_start: 640
 era_end: null
 derived_from: egypt-classical-arabic-misr
+family: msr
 confidence: attested
 sources:
   - citation: "Lane, Edward William. *An Arabic-English Lexicon*. London: Williams and Norgate, 1863–1893, s.v. مصر."

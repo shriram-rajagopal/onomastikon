@@ -7,7 +7,7 @@ ipa: /ufˈraːtu/
 literal_meaning: the Euphrates (possibly reanalyzed as "good ford")
 era_start: -520
 era_end: -330
-family: euphrates
+family: purattu
 derived_from: euphrates-elamite-uipratuis
 confidence: attested
 sources:

@@ -7,7 +7,7 @@ ipa: "*uipratuiʃ"
 literal_meaning: the Euphrates (Elamite rendering of Akkadian Purattu)
 era_start: -520
 era_end: -330
-family: euphrates
+family: purattu
 derived_from: euphrates-akkadian-purattu
 confidence: attested
 sources:

@@ -66,6 +66,7 @@ function toNode(e: Enriched): TreeNode {
     languageName: e.language?.data.english_name ?? '',
     langCode: e.language?.data.lang_code,
     rtl: e.language?.data.direction === 'rtl',
+    era: formatEra(e.name.data.era_start, e.name.data.era_end),
     children: [],
   };
 }
@@ -76,16 +77,57 @@ for (const e of enriched) {
   if (!familyGroups.has(fam)) familyGroups.set(fam, []);
   familyGroups.get(fam)!.push(e);
 }
+// A member whose asserted parent lives on ANOTHER entity's page (the Byzantine
+// al-Rūm borrowed from Rome's Syriac Rhōmā) must not masquerade as an underived
+// root: the parent is rendered as a linked "ghost" card pointing at its own
+// page, so the borrowing reads as the data asserts it.
+const allLangs = await getCollection('languages');
+const langById = new Map(allLangs.map((l) => [l.id, l]));
+const allCivs = await getCollection('civilizations');
+const civById = new Map(allCivs.map((c) => [c.id, c]));
+const namesById = new Map(allNames.map((n) => [n.id, n]));
+function ghostNode(n: (typeof allNames)[number]): TreeNode {
+  const lang = langById.get(n.data.language.id);
+  const homeCiv = n.data.civilization.id;
+  return {
+    id: n.id,
+    original_text: n.data.original_text,
+    transliteration: n.data.transliteration,
+    languageName: lang?.data.english_name ?? '',
+    langCode: lang?.data.lang_code,
+    rtl: lang?.data.direction === 'rtl',
+    era: formatEra(n.data.era_start, n.data.era_end),
+    externalHref: `/civilizations/${homeCiv}#${entryAnchor(n.id, homeCiv)}`,
+    externalNote: civById.get(homeCiv)?.data.english_name ?? '',
+    children: [],
+  };
+}
 const familyTrees = [...familyGroups.entries()]
   .filter(([, members]) => members.length >= 2)
   .map(([slug, members]) => {
     const nodes = new Map(members.map((m) => [m.name.id, toNode(m)]));
     const roots: TreeNode[] = [];
+    const ghosts = new Map<string, TreeNode>();
     for (const m of members) {
+      const node = nodes.get(m.name.id)!;
       const parentId = m.name.data.derived_from?.id;
       const parent = parentId ? nodes.get(parentId) : undefined;
-      if (parent) parent.children.push(nodes.get(m.name.id)!);
-      else roots.push(nodes.get(m.name.id)!);
+      if (parent) {
+        parent.children.push(node);
+        continue;
+      }
+      const ext = parentId ? namesById.get(parentId) : undefined;
+      if (ext) {
+        let g = ghosts.get(parentId!);
+        if (!g) {
+          g = ghostNode(ext);
+          ghosts.set(parentId!, g);
+          roots.push(g);
+        }
+        g.children.push(node);
+      } else {
+        roots.push(node);
+      }
     }
     return { slug, ...familyDisplay(slug), roots, size: members.length };
   })
@@ -145,9 +187,9 @@ const correctionUrl =
     <HelpTip title="Reading this entry">
       <ul>
         <li>The small map locates the subject; on it, rivers are context lines and the accent mark is the entity itself.</li>
-        <li><strong>Name families</strong> group cognate forms by shared root. An indented form was borrowed from the one above it; forms at one level are parallel descendants.</li>
+        <li><strong>Name families</strong> group forms that share one root. A form joined by a solid line was borrowed from the form it hangs under; forms sitting side by side on a dashed rail are parallel descendants of the shared root, not borrowings from each other.</li>
       </ul>
-      <div class="hd-tree"><div>Akkadian <em>Miṣru</em> (the root)</div><div>Hebrew <em>Miṣrayim</em> (borrowed from it)</div></div>
+      <div class="hd-tree"><div>Greek <em>Aígyptos</em> (the source)</div><div>Latin <em>Aegyptus</em> (borrowed from it)</div></div>
       <ul>
         <li>The <strong>transmission map</strong> plots each form at its language's homeland; slide the year and forms show as in use, former, or not yet attested.</li>
         <li><strong>Timeline</strong> bars span each name's attestation, not the language's lifespan.</li>
@@ -230,16 +272,31 @@ const correctionUrl =
       <>
         <h2 id="families">Name families</h2>
         <p class="families-hint">
-          Cognate names grouped by shared root. An indented name is borrowed from
-          the form above it; names at the same level are parallel descendants.
+          Names that share one root, grouped into trees.
+          <span class="lg lg-solid" aria-hidden="true"></span> A solid line joins
+          a form to the form it was borrowed from;
+          <span class="lg lg-dashed" aria-hidden="true"></span> forms hanging
+          together from a dashed rail are parallel descendants of the shared
+          root, with no borrowing asserted between them. A dashed card is the
+          off-page source of a chain: it lives on another entity's page, and
+          links there.
         </p>
         {familyTrees.map((fam) => (
-          <section class="family">
+          <section class="family corner-ticks">
             <h3 class="family-title">{fam.display}</h3>
             {fam.note && <p class="family-note">{fam.note}</p>}
-            <ul class="family-roots">
-              {fam.roots.map((node) => <FamilyNode node={node} civId={civ.id} />)}
-            </ul>
+            {fam.roots.length > 1 ? (
+              <div class="family-cognates">
+                <span class="cognates-label">one shared root · parallel descendants</span>
+                <ul class="family-roots cognate-row">
+                  {fam.roots.map((node) => <FamilyNode node={node} civId={civ.id} />)}
+                </ul>
+              </div>
+            ) : (
+              <ul class="family-roots">
+                {fam.roots.map((node) => <FamilyNode node={node} civId={civ.id} />)}
+              </ul>
+            )}
           </section>
         ))}
       </>
@@ -598,10 +655,78 @@ const correctionUrl =
   /* Anchored section headings land clear of the viewport edge. */
   h2[id], .tmap[id], .timeline[id] { scroll-margin-top: 2rem; }
   .families-hint { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); margin: -0.5rem 0 1.5rem; }
-  .family { margin: 1.5rem 0 2rem; }
+  /* Legend swatches: the two line-styles the trees use, drawn inline so the
+     hint doubles as the key. */
+  .lg {
+    display: inline-block;
+    width: 1.4rem;
+    height: 0;
+    border-top: 1.5px solid var(--ink-soft);
+    vertical-align: middle;
+    margin: 0 0.3rem 0.15rem 0.15rem;
+  }
+  .lg-dashed { border-top-style: dashed; }
+  /* Each family is a panel in the site's manuscript language: grained ground,
+     defined edge, folio corner ticks — the same dress as the name entries the
+     tree links into. */
+  .family {
+    margin: 1.75rem 0 2rem;
+    padding: 1.2rem 1.4rem 1.4rem;
+    background-color: color-mix(in srgb, var(--ink) 4%, var(--parchment));
+    background-image: var(--grain);
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    box-shadow: var(--shadow-soft);
+  }
   .family-title { font-size: 1.125rem; margin: 0 0 0.25rem; }
-  .family-note { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.75rem; }
+  .family-note { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.9rem; line-height: 1.55; }
   .family-roots { list-style: none; margin: 0; padding: 0; }
+  /* Cognate shelf: parallel roots hang side by side from one dashed rail,
+     reading as a set with a common (often unattested) source, not a chain.
+     Each root drops a short dashed tick from the rail; any borrowings then
+     descend from their root with the solid rails below. */
+  .family-cognates {
+    position: relative;
+    margin-top: 1.9rem;
+    padding-top: 1rem;
+    border-top: 1.5px dashed var(--rule-strong);
+  }
+  .cognates-label {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 0.6rem;
+    background-color: color-mix(in srgb, var(--ink) 4%, var(--parchment));
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6563rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cognate-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.35rem 1.75rem;
+  }
+  .cognate-row > :global(.family-node) { margin: 0.85rem 0 0; }
+  .cognate-row > :global(.family-node)::before {
+    content: '';
+    position: absolute;
+    left: 1.1rem;
+    top: -0.95rem;
+    height: 0.95rem;
+    border-left: 1.5px dashed var(--rule-strong);
+  }
+  @media (max-width: 640px) {
+    .family { padding: 1rem 0.9rem 1.1rem; }
+    .cognate-row { gap: 0.35rem 1.1rem; }
+  }
   .derived-link { color: var(--ink); }
   .derived-link:hover { color: var(--accent); }
   /* When deep-linked from a language page (/civilizations/x#anchor), keep the

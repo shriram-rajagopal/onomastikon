@@ -2,6 +2,8 @@
 // One node in a transmission-chain tree, recursing into the forms derived
 // from it. Pure HTML/CSS: the connecting lines are drawn with borders, so the
 // diagram needs no script and inherits both themes from the CSS variables.
+// Solid rails mean an asserted borrowing (a derived_from edge in the data);
+// the dashed rail that groups parallel roots is drawn by the page, not here.
 import { entryAnchor } from '../lib/entry';
 
 export interface TreeNode {
@@ -11,6 +13,12 @@ export interface TreeNode {
   languageName: string;
   langCode?: string;
   rtl?: boolean;
+  era?: string;
+  /* Set on a "ghost" parent: a form on another entity's page that this
+     page's forms were borrowed from. The card links there instead of to a
+     local anchor and is drawn dashed to mark it as off-page context. */
+  externalHref?: string;
+  externalNote?: string;
   children: TreeNode[];
 }
 
@@ -22,12 +30,17 @@ const { node, civId } = Astro.props;
 ---
 
 <li class="family-node">
-  <a class="node-card" href={`#${entryAnchor(node.id, civId)}`}>
+  <a
+    class:list={['node-card', { 'node-ghost': !!node.externalHref }]}
+    href={node.externalHref ?? `#${entryAnchor(node.id, civId)}`}
+  >
     {node.original_text && (
       <span class="node-original" lang={node.langCode} dir={node.rtl ? 'rtl' : undefined}>{node.original_text}</span>
     )}
-    <span class="node-translit"><em>{node.transliteration}</em></span>
-    <span class="node-lang">{node.languageName}</span>
+    <span class="node-main">
+      <span class="node-translit"><em>{node.transliteration}</em></span>
+      <span class="node-lang">{node.languageName}{node.era && <span class="node-era"> · {node.era}</span>}{node.externalNote && <span class="node-where"> · {node.externalNote} ↗</span>}</span>
+    </span>
   </a>
   {node.children.length > 0 && (
     <ul class="family-children">
@@ -44,14 +57,16 @@ const { node, civId } = Astro.props;
   }
   .node-card {
     display: inline-flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    padding: 0.35rem 0.7rem;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
     background: color-mix(in srgb, var(--ink) 3%, var(--parchment));
+    box-shadow: var(--shadow-soft);
     text-decoration: none;
     color: var(--ink);
+    max-width: 100%;
   }
   .node-card:hover { border-color: var(--accent); color: var(--accent); }
   .node-original {
@@ -59,29 +74,43 @@ const { node, civId } = Astro.props;
     font-size: 1.2rem;
     line-height: 1.2;
   }
-  .node-translit { font-size: 1rem; }
+  /* Transliteration above, language + era below: the card reads as a small
+     lexicon lemma instead of a single crowded line. */
+  .node-main { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
+  .node-translit { font-size: 1rem; line-height: 1.25; }
   .node-lang {
     font-family: 'Inter', sans-serif;
-    font-size: 0.6875rem;
+    font-size: 0.6563rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--ink-soft);
+    white-space: nowrap;
   }
+  .node-era { text-transform: none; letter-spacing: 0.02em; }
+  /* Ghost card: the off-page source a chain hangs from. Dashed and unfilled,
+     it reads as context rather than one of this page's entries. */
+  .node-ghost {
+    border-style: dashed;
+    background: transparent;
+    box-shadow: none;
+  }
+  .node-where { color: var(--accent); letter-spacing: 0.02em; }
   /* Children hang from a left rail; each child gets a short horizontal tick
-     joining it to the rail, reading as "descends from the node above". */
+     joining it to the rail. Solid lines are the meaningful mark: this form
+     was borrowed from the one it hangs under. */
   .family-children {
     margin: 0.25rem 0 0;
     padding: 0 0 0 1.6rem;
-    border-left: 1px solid var(--rule);
-    margin-left: 1rem;
+    border-left: 1.5px solid var(--rule-strong);
+    margin-left: 1.1rem;
   }
   .family-children > :global(.family-node)::before {
     content: '';
     position: absolute;
     left: -1.6rem;
-    top: 1.1rem;
+    top: 1.35rem;
     width: 1.1rem;
-    border-top: 1px solid var(--rule);
+    border-top: 1.5px solid var(--rule-strong);
   }
   /* Scroll reveal: nodes are hidden only after the page script opts the
      section in (.anim), so the no-JS and reduced-motion paths always see the

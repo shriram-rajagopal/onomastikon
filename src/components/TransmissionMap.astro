@@ -758,7 +758,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     stroke-width: 1;
   }
   /* Dark mode lifts the land well off the deep sea (night-chart polarity). */
-  :global(:root[data-theme='dark']) .coast {
+  :global(:root:not([data-theme='light'])) .coast {
     fill: color-mix(in srgb, var(--ink) 20%, var(--parchment));
   }
   .arc {

@@ -208,11 +208,7 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
   },
   purattu: {
     display: 'The Purattu family',
-    note: 'The Semitic name of the Euphrates, the cuneiform Buranun (Sumerian) and Purattu (Akkadian), continued in the Hebrew and Syriac Pĕrāt and the Arabic al-Furāt; the eastern, faithful branch of the river\'s name.',
-  },
-  euphrates: {
-    display: 'The Euphrátēs family',
-    note: 'The western name of the Euphrates, from the Akkadian Purattu by way of Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good"; the source of the Latin, Geʿez, and modern names.',
+    note: 'One name for the Euphrates in two branches, both from the cuneiform Buranun (Sumerian) and Purattu (Akkadian): an eastern, faithful branch in the Hebrew and Syriac Pĕrāt and the Arabic al-Furāt, and a western branch through Elamite Úipratuiš and Old Persian Ufrātu, which the Greeks reshaped into Euphrátēs, as if "good-flowing" from eu, "good", the source of the Latin, Geʿez, and modern names.',
   },
   propontis: {
     display: 'The Propontís family',

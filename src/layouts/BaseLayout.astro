@@ -70,20 +70,18 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={metaDescription} />
-    <meta name="theme-color" content="#f5efe4" />
-    <!-- Theme boot: set data-theme before first paint so a stored or system
-         dark preference never flashes parchment. Kept inline and tiny. -->
+    <meta name="theme-color" content="#211e18" />
+    <!-- Theme boot: set data-theme before first paint. Dark is the site's
+         default; only an explicitly stored light choice opts out. -->
     <script is:inline>
       (() => {
         let t = null;
         try { t = localStorage.getItem('theme'); } catch {}
-        if (t !== 'dark' && t !== 'light') {
-          t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
+        t = t === 'light' ? 'light' : 'dark';
         document.documentElement.dataset.theme = t;
-        if (t === 'dark') {
+        if (t === 'light') {
           const m = document.querySelector('meta[name="theme-color"]');
-          if (m) m.setAttribute('content', '#211e18');
+          if (m) m.setAttribute('content', '#f5efe4');
         }
       })();
     </script>
@@ -94,8 +92,8 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
          has already set data-theme, so painting the ground inline here, ahead
          of the stylesheet, means the first frame of every page is parchment. -->
     <style is:inline>
-      html { background: #f5efe4; color-scheme: light; }
-      html[data-theme='dark'] { background: #211e18; color-scheme: dark; }
+      html { background: #211e18; color-scheme: dark; }
+      html[data-theme='light'] { background: #f5efe4; color-scheme: light; }
     </style>
     <title>{pageTitle}</title>
     <link rel="canonical" href={canonicalURL} />
@@ -189,8 +187,12 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
       }
       /* Dark theme: the same lamplit-study identity with the values inverted.
          Every text/background pairing here was checked against WCAG AA
-         (all clear 6.1:1 or better, matching the light palette's profile). */
-      :root[data-theme='dark'] {
+         (all clear 6.1:1 or better, matching the light palette's profile).
+         Dark is the site's DEFAULT: the selector matches both an explicit
+         data-theme='dark' and the absence of any data-theme (no JavaScript,
+         first paint before the boot script), so only a stored light choice
+         falls through to the light base tokens above. */
+      :root:not([data-theme='light']) {
         --parchment: #211e18;
         --ink: #ece5d8;
         --ink-soft: #b8b0a2;
@@ -452,7 +454,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
       }
       .locator-land { fill: var(--parchment); stroke: color-mix(in srgb, var(--water) 85%, var(--parchment)); stroke-width: 1.1; }
       /* Dark mode lifts the land off the deep sea (night-chart polarity). */
-      :root[data-theme='dark'] .locator-land { fill: color-mix(in srgb, var(--ink) 16%, var(--parchment)); }
+      :root:not([data-theme='light']) .locator-land { fill: color-mix(in srgb, var(--ink) 16%, var(--parchment)); }
       .locator-river-ctx {
         fill: none;
         stroke: color-mix(in srgb, var(--water) 70%, var(--parchment));
@@ -495,7 +497,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
       @media print {
         .skip-link, .site-header nav { display: none; }
         /* Force the light palette on paper regardless of the on-screen theme. */
-        :root, :root[data-theme='dark'] {
+        :root, :root:not([data-theme='light']) {
           --parchment: #f5efe4;
           --ink: #1a1a1a;
           --ink-soft: #4a4a4a;
@@ -523,7 +525,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
         themeColor?.setAttribute('content', t === 'dark' ? '#211e18' : '#f5efe4');
         if (toggle) toggle.textContent = t === 'dark' ? '◑ Light mode' : '◐ Dark mode';
       };
-      reflect(document.documentElement.dataset.theme ?? 'light');
+      reflect(document.documentElement.dataset.theme ?? 'dark');
       toggle?.addEventListener('click', () => {
         const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         try { localStorage.setItem('theme', next); } catch {}

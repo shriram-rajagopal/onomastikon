@@ -7,7 +7,7 @@ ipa: /eu̯.pʰraːˈteːs/
 literal_meaning: the Euphrates
 era_start: -50
 era_end: 600
-family: euphrates
+family: purattu
 derived_from: euphrates-ancient-greek-euphrates
 confidence: attested
 sources:
