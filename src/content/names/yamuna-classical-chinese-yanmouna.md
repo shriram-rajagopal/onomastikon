@@ -2,7 +2,7 @@
 civilization: yamuna
 language: classical-chinese
 original_text: 閻牟那
-transliteration: Yán móu nà
+transliteration: Yánmóunà
 literal_meaning: the Yamunā; a Buddhist phonetic transcription
 era_start: 400
 era_end: 650

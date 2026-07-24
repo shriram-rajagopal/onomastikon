@@ -4,7 +4,7 @@ language: classical-chinese
 original_text: 印度
 transliteration: Yìndù
 era_start: 600
-era_end: 900
+era_end: null
 family: sindhu
 confidence: attested
 sources:

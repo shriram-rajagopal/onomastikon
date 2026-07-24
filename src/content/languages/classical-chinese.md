@@ -4,7 +4,7 @@ native_name: 文言
 language_family: Sino-Tibetan (Sinitic)
 script: Chinese characters
 lang_code: lzh
-era_start: -500
+era_start: -1100
 era_end: 1453
 direction: ltr
 ---

@@ -5,7 +5,7 @@ original_text: 長安
 transliteration: Cháng'ān
 literal_meaning: perpetual peace
 era_start: -202
-era_end: 600
+era_end: 907
 confidence: attested
 sources:
   - citation: "Sima Qian, *Shiji*, Annals of Gaozu (the founding of the capital at Chang'an)."
