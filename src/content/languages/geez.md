@@ -5,7 +5,7 @@ language_family: Afro-Asiatic (South Semitic)
 script: Ethiopic
 lang_code: gez
 era_start: 350
-era_end: 1500
+era_end: 1453
 direction: ltr
 ---
 

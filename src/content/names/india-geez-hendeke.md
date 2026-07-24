@@ -3,7 +3,7 @@ civilization: india
 language: geez
 original_text: ህንደኬ
 transliteration: Hendekē
-ipa: /hendeke/
+ipa: /hendeˈkeː/
 era_start: 350
 era_end: 700
 family: sindhu
