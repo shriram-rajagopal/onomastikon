@@ -7,6 +7,7 @@ ipa: /ˈɡrae̯.ki.a/
 literal_meaning: land of the Graeci
 era_start: -300
 era_end: 600
+family: graikoi
 confidence: attested
 sources:
   - citation: "Ennius, *Annales* (fragments), 3rd c. BCE."
