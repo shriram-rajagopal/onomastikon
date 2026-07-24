@@ -263,6 +263,7 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   cimmerians: { kind: 'range', label: 'Cimmeria', points: REGIONS.cimmerians },
   xiongnu: { kind: 'range', label: 'Xiongnu', points: REGIONS.xiongnu },
   yuezhi: { kind: 'range', label: 'Yuezhi', points: REGIONS.yuezhi },
+  romani: { kind: 'range', label: 'Romani range', points: REGIONS.romani },
 };
 
 // --- Per-map projection -----------------------------------------------------

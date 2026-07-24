@@ -538,6 +538,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Kaspía family',
     note: 'The Greek Kaspía and Latin Mare Caspium, the Caspian Sea named after the Caspii who lived on its shores, beside the rival Greek Hyrkanía that named it for the province of Hyrcania; Armenian Kaspicʿ cov declines the same people\'s name in native grammar, and medieval Latin carried Mare Caspium to Rubruck\'s correction of Isidore.',
   },
+  tsigane: {
+    display: 'The Tsigane family',
+    note: 'The name Europe gave the Romani by mistake: the Byzantine Atsínganoi, a dead heretical sect\'s label slid onto a new itinerant people, worn down through the Balkans into the Latin Cigani of Sigismund\'s 1423 safe-conduct and, beyond 1453, into Tsigane, Zigeuner, Cigány, and țigan.',
+  },
   gihon: {
     display: 'The Gîḥôn family',
     note: 'The second river of Eden landed on the Nile: Hebrew Gîḥôn, "the Gusher," which Genesis winds through the land of Kush, identified with Egypt\'s river by the Septuagint, Ben Sira, and Josephus, and carried into Geʿez as Giyon, the Blue Nile rising in paradise.',

@@ -61,6 +61,10 @@ const HULLS = {
   cimmerians: [[32.5, 45.0], [34.5, 46.6], [38.5, 46.4], [41.5, 45.4], [39.5, 44.3], [36.0, 44.9], [33.8, 44.4]],
   xiongnu: [[92.0, 44.0], [96.0, 47.5], [102.0, 49.3], [108.0, 49.8], [114.0, 48.3], [118.0, 46.0], [113.0, 44.3], [106.0, 43.3], [99.0, 42.7]],
   yuezhi: [[93.0, 38.6], [97.0, 39.8], [101.0, 40.2], [104.0, 39.6], [102.0, 37.9], [98.0, 37.6], [95.0, 37.4]],
+  // The Romani range: the attested pre-1453 envelope only (Byzantine Anatolia and
+  // the Balkans, where the Atsinganoi/Cigani records place them), not the whole
+  // migration road from India.
+  romani: [[20.0, 42.5], [23.0, 44.5], [26.5, 45.0], [29.5, 44.0], [33.0, 42.0], [36.5, 39.5], [35.0, 36.8], [30.5, 36.5], [27.0, 37.0], [23.0, 36.5], [20.5, 39.0]],
 };
 
 // slug -> hull framing a body of water. The DIFFERENCE with land (the inverse
