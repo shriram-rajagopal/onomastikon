@@ -3,7 +3,7 @@ civilization: punjab
 language: classical-persian
 original_text: پنجاب
 transliteration: Panjāb
-ipa: /pandʒˈɑːb/
+ipa: /panˈdʒaːb/
 literal_meaning: the five waters
 era_start: 1330
 era_end: null

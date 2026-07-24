@@ -3,7 +3,7 @@ civilization: greece
 language: classical-persian
 original_text: یونان
 transliteration: Yūnān
-ipa: /juːˈnɑːn/
+ipa: /juːˈnaːn/
 literal_meaning: Greece (the land of the Ionians)
 era_start: 900
 era_end: null

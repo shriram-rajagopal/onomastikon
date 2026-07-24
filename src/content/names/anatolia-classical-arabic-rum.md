@@ -5,6 +5,7 @@ original_text: الروم
 transliteration: al-Rūm
 ipa: /arˈruːm/
 literal_meaning: the land of the Romans (the Byzantines); Anatolia
+family: roma
 era_start: 630
 era_end: 1453
 confidence: attested

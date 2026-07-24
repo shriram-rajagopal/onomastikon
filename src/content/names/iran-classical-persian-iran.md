@@ -3,7 +3,7 @@ civilization: iran
 language: classical-persian
 original_text: ایران
 transliteration: Īrān
-ipa: /iːˈrɑːn/
+ipa: /iːˈraːn/
 literal_meaning: Iran (the land of the Aryans)
 era_start: 900
 era_end: null

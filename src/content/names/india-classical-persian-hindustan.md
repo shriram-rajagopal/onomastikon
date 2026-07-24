@@ -3,7 +3,7 @@ civilization: india
 language: classical-persian
 original_text: هندوستان
 transliteration: Hindūstān
-ipa: /hinduːˈstɑːn/
+ipa: /hinduːˈstaːn/
 literal_meaning: the land of the Hindūs (India)
 era_start: 1000
 era_end: null
