@@ -3,7 +3,7 @@ civilization: media
 language: elamite
 original_text: 𒈠𒁕
 transliteration: Mada
-ipa: "*ˈmada"
+ipa: "*mada"
 era_start: -520
 era_end: -460
 family: mada

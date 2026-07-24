@@ -3,7 +3,7 @@ civilization: babylon
 language: elamite
 original_text: 𒀸𒁀𒉿𒇷
 transliteration: Babili
-ipa: "*ˈbabili"
+ipa: "*babili"
 literal_meaning: Babylon (city and Achaemenid satrapy, Elamite chancellery form)
 era_start: -520
 era_end: -330

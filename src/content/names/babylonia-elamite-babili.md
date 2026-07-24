@@ -3,11 +3,12 @@ civilization: babylonia
 language: elamite
 original_text: 𒀸𒁀𒉿𒇷
 transliteration: Babili
-ipa: "*ˈbabili"
+ipa: "*babili"
 literal_meaning: Babylon; Babylonia (the Achaemenid satrapy, Elamite chancellery version)
 era_start: -520
 era_end: -330
 family: babili
+derived_from: babylonia-akkadian-babilu
 confidence: attested
 sources:
   - citation: "Hinz, Walther, and Heidemarie Koch. *Elamisches Wörterbuch*. 2 vols. Berlin: Dietrich Reimer, 1987, s.v. *Babili*."

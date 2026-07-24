@@ -3,7 +3,7 @@ civilization: assyria
 language: elamite
 original_text: 𒀸𒋗𒊏
 transliteration: Aššura
-ipa: "*ˈʔaʃʃura"
+ipa: "*ʔaʃʃura"
 literal_meaning: Assyria (the Achaemenid satrapy, in the Elamite chancellery version)
 era_start: -520
 era_end: -330

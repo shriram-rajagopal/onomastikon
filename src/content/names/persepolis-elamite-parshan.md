@@ -3,7 +3,7 @@ civilization: persepolis
 language: elamite
 original_text: 𒁇𒊭𒀭
 transliteration: Paršan
-ipa: "*ˈparʃan"
+ipa: "*parʃan"
 literal_meaning: Persia; the city of Pārsa (Elamite administrative usage)
 era_start: -509
 era_end: -330

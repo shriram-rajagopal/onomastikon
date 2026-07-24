@@ -5,7 +5,7 @@ original_text: 𒋢𒋢𒌦
 transliteration: Šušun
 ipa: "*ʃuʃun"
 literal_meaning: Susa (Elamite toponym)
-era_start: -2700
+era_start: -2400
 era_end: -360
 family: susa
 confidence: attested
