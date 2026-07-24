@@ -2,7 +2,7 @@
 civilization: elam
 language: imperial-aramaic
 original_text: עילם
-transliteration: ʿylm
+transliteration: ʿYlm
 ipa: "*ʕeːˈlaːm"
 literal_meaning: Elam (Aramaic administrative and biblical usage)
 era_start: -500

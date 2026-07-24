@@ -2,7 +2,7 @@
 civilization: assyria
 language: imperial-aramaic
 original_text: אתור
-transliteration: ʾtwr
+transliteration: ʾTwr
 ipa: "*ʔaːˈtuːr"
 literal_meaning: Assyria (the Aramaic t-form of Aššur)
 era_start: -700

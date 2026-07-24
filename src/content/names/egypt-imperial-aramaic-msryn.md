@@ -3,7 +3,7 @@ civilization: egypt
 language: imperial-aramaic
 original_text: מצרין
 transliteration: Mṣryn
-ipa: "*miṣˈrajin"
+ipa: "*misˤˈrajin"
 literal_meaning: Egypt (from the Semitic root mṣr)
 era_start: -500
 era_end: -200
