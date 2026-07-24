@@ -564,7 +564,7 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
   },
   halys: {
     display: 'The Hálys family',
-    note: 'The Greek Hálys and Latin Halys, the great looping river of central Anatolia and the boundary of Croesus\'s kingdom, perhaps from Greek háls, "salt"; the Hittites knew it as the Marassantiya.',
+    note: 'The Greek Hálys and Latin Halys, the great looping river of central Anatolia and the boundary of Croesus\'s kingdom, perhaps from Greek háls, "salt"; the Hittites knew it as the Maraššantiya.',
   },
   ararat: {
     display: 'The Ararat family',

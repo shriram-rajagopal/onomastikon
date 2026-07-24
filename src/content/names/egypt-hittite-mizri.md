@@ -3,7 +3,7 @@ civilization: egypt
 language: hittite
 original_text: 𒈪𒄑𒊑
 transliteration: Mizri
-ipa: "*mitsri"
+ipa: "*ˈmitsri"
 literal_meaning: Egypt (borrowed via Akkadian)
 era_start: -1400
 era_end: -1180

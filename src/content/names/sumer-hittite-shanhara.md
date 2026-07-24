@@ -3,6 +3,7 @@ civilization: sumer
 language: hittite
 original_text: 𒊭𒀭𒄩𒊏
 transliteration: Šanḫara
+ipa: "*ʃanˈxara"
 literal_meaning: Babylonia; the land of southern Mesopotamia
 era_start: -1400
 era_end: -1200

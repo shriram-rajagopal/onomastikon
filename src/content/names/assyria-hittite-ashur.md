@@ -3,7 +3,7 @@ civilization: assyria
 language: hittite
 original_text: 𒀸𒋩
 transliteration: Aššur
-ipa: /ˈʔaʃʃur/
+ipa: "*ˈaʃʃur"
 literal_meaning: Assyria; the land of Aššur (in Hittite diplomatic usage)
 era_start: -1320
 era_end: -1180

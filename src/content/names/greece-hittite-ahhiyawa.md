@@ -3,7 +3,7 @@ civilization: greece
 language: hittite
 original_text: 𒀀𒄭𒅀𒉿
 transliteration: Aḫḫiyawa
-ipa: "*aχːijaˈwa"
+ipa: "*axːijaˈwa"
 literal_meaning: the land of the Aḫḫiyans (cognate with Greek Akhaioí)
 era_start: -1400
 era_end: -1180
