@@ -8,6 +8,7 @@ literal_meaning: Bactria; Balkh
 era_start: 224
 era_end: 900
 family: baxtri
+derived_from: bactria-old-persian-baxtrish
 confidence: attested
 sources:
   - citation: "MacKenzie, D. N. *A Concise Pahlavi Dictionary*. London: Oxford University Press, 1971."
