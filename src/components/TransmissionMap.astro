@@ -90,8 +90,14 @@ const arcs = edges
       d: `M${a.x.toFixed(1)},${a.y.toFixed(1)}Q${cx.toFixed(1)},${cy.toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}`,
       start: b.start,
       end: b.end,
+      label: `${a.translit} (${a.langName}) to ${b.translit} (${b.langName})`,
     };
   });
+// Text rendering of the same arcs for the SVG's <desc>, so a non-visual
+// reader gets the transmission paths the drawing shows.
+const arcsDesc = arcs.length
+  ? `Borrowing paths: ${arcs.map((a) => a.label).join('; ')}.`
+  : 'No borrowing paths are asserted between the mapped forms.';
 // Project the entity locator into the map: a river is a polyline of its course,
 // a range a line of peak-triangles, a region a closed hull.
 const ept = entity ? entity.points.map(([lon, lat]) => proj.project(lon, lat)) : [];
@@ -192,6 +198,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 
 <div class="tmap-wrap">
   <svg class="tmap-svg" viewBox={proj.viewBox} role="img" aria-label={`Map of the names' homelands and transmission paths`}>
+    <desc>{arcsDesc}</desc>
     {entSeaPath && (
       <defs>
         <pattern id={`hatch-${civId}`} patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)">

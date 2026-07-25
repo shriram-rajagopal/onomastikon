@@ -537,7 +537,12 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
       const reflect = (t: string) => {
         document.documentElement.dataset.theme = t;
         themeColor?.setAttribute('content', t === 'dark' ? '#211e18' : '#f5efe4');
-        if (toggle) toggle.textContent = t === 'dark' ? '◑ Light mode' : '◐ Dark mode';
+        if (toggle) {
+          // The moon glyph is decoration; the accessible name is the action.
+          const label = t === 'dark' ? 'Light mode' : 'Dark mode';
+          toggle.innerHTML = `<span aria-hidden="true">${t === 'dark' ? '◑' : '◐'}</span> ${label}`;
+          toggle.setAttribute('aria-label', `Switch to ${label.toLowerCase()}`);
+        }
       };
       reflect(document.documentElement.dataset.theme ?? 'dark');
       toggle?.addEventListener('click', () => {

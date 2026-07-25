@@ -42,8 +42,8 @@ const bibtex = `@misc{onomastikon-${slug},
     </p>
     <span hidden id={`${base}-bibtex`}>{bibtex}</span>
     <p class="cite-actions">
-      <button type="button" data-copy={`${base}-chicago`}>Copy citation</button>
-      <button type="button" data-copy={`${base}-bibtex`}>Copy BibTeX</button>
+      <button type="button" data-copy={`${base}-chicago`} aria-label={`Copy the Chicago citation for ${title}`}>Copy citation</button>
+      <button type="button" data-copy={`${base}-bibtex`} aria-label={`Copy the BibTeX record for ${title}`}>Copy BibTeX</button>
     </p>
   </details>
 ) : (
@@ -54,8 +54,8 @@ const bibtex = `@misc{onomastikon-${slug},
     </p>
     <pre class="cite-bibtex" id={`${base}-bibtex`}>{bibtex}</pre>
     <p class="cite-actions">
-      <button type="button" data-copy={`${base}-chicago`}>Copy citation</button>
-      <button type="button" data-copy={`${base}-bibtex`}>Copy BibTeX</button>
+      <button type="button" data-copy={`${base}-chicago`} aria-label={`Copy the Chicago citation for ${title}`}>Copy citation</button>
+      <button type="button" data-copy={`${base}-bibtex`} aria-label={`Copy the BibTeX record for ${title}`}>Copy BibTeX</button>
     </p>
   </section>
 )}
@@ -75,6 +75,13 @@ const bibtex = `@misc{onomastikon-${slug},
     ta.remove();
     return ok;
   }
+  // One shared live region announces copy results to screen readers; the
+  // visible feedback stays on the button itself.
+  const copyStatus = document.createElement('div');
+  copyStatus.className = 'visually-hidden';
+  copyStatus.setAttribute('role', 'status');
+  copyStatus.setAttribute('aria-live', 'polite');
+  document.body.append(copyStatus);
   for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
     btn.addEventListener('click', async () => {
       const el = document.getElementById(btn.dataset.copy!);
@@ -88,6 +95,7 @@ const bibtex = `@misc{onomastikon-${slug},
       }
       const old = btn.textContent;
       btn.textContent = ok ? 'Copied' : 'Copy failed';
+      copyStatus.textContent = ok ? 'Copied to clipboard.' : 'Copy failed.';
       setTimeout(() => { btn.textContent = old; }, 1500);
     });
   }

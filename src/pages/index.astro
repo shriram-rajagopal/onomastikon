@@ -183,7 +183,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   </div>
   {/* The name is a styled paragraph, not a heading: the element is empty
       until the script fills it, and an empty heading fails WCAG. */}
-  <aside id="entity-pop" class="corner-ticks" hidden>
+  <aside id="entity-pop" class="corner-ticks" aria-live="polite" hidden>
     <p class="pop-name" id="pop-name"></p>
     <p class="pop-sub"><span id="pop-region"></span> · <span id="pop-era"></span></p>
     <p class="pop-badges"><span id="pop-status" class="status"></span><span id="pop-count" class="pop-count"></span></p>
@@ -696,6 +696,12 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     .era-names { flex-wrap: wrap; gap: 0.1rem 0.8rem; }
     .era-name { width: auto !important; text-align: left; }
   }
+  /* On the narrowest screens the intermediate year labels collide
+     ("550 BCE" riding into "0 CE"); keep only the endpoints, which is all
+     the compressed rule can honestly space. Decorative row (aria-hidden). */
+  @media (max-width: 480px) {
+    .era-years span:not(:first-child):not(:last-child) { display: none; }
+  }
   .era-note {
     width: 100%;
     margin-top: 0.85rem;
@@ -1198,6 +1204,17 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
             window.clearTimeout(showTimer);
             hideTimer = window.setTimeout(hide, 180);
           });
+          // Keyboard parity with hover: focusing the row's link opens the
+          // panel, leaving it closes it.
+          li.addEventListener('focusin', () => {
+            window.clearTimeout(showTimer);
+            window.clearTimeout(hideTimer);
+            show(li.dataset.slug!, li);
+          });
+          li.addEventListener('focusout', () => {
+            window.clearTimeout(showTimer);
+            hideTimer = window.setTimeout(hide, 180);
+          });
         }
       }
       for (const link of document.querySelectorAll<HTMLElement>('.ent-link[data-slug]')) {
@@ -1218,6 +1235,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
       pop.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
       pop.addEventListener('mouseleave', () => { hideTimer = window.setTimeout(hide, 180); });
       addEventListener('scroll', () => { if (shownFor) hide(); }, { passive: true });
+      addEventListener('keydown', (e) => { if (e.key === 'Escape' && shownFor) hide(); });
     }
   }
 
