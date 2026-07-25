@@ -6,6 +6,7 @@ transliteration: Turci
 ipa: /ˈtur.tʃi/
 literal_meaning: the Turks
 era_start: 1100
+family: turci
 era_end: 1300
 confidence: attested
 sources:

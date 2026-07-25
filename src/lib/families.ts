@@ -222,6 +222,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Saljūq family',
     note: 'The Oghuz ancestor\'s name carried as Arabic Āl Saljūq and Persian Saljūqiyān, a dead chieftain naming three centuries of sultans from Baghdad to Konya.',
   },
+  turci: {
+    display: 'The Turci family',
+    note: 'The ethnonym Turk in crusade Latin: the Turci of the chronicles, the Seljuk order named by the bare name of its soldiers, and the Turchia the name made of the land itself; through them, the Turks in Turkey on the modern map.',
+  },
   ikonion: {
     display: 'The Ikónion family',
     note: 'The unexplained pre-Greek name of Konya, passed with only light re-hearing from Xenophon\'s Ikónion through Latin Iconium and Arabic Qūniya to Turkish Konya.',

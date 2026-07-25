@@ -3,7 +3,7 @@ civilization: romani
 language: medieval-latin
 original_text: Cigani
 transliteration: Cigani
-ipa: /tʃiˈgaː.ni/
+ipa: /tʃiˈga.ni/
 literal_meaning: the Romani (from the Byzantine Atsínganoi)
 era_start: 1400
 era_end: 1453
