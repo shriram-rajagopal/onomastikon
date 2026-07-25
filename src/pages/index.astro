@@ -349,17 +349,25 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
      reader can jump between the entity categories without scrolling the long
      index. It sits in the empty margin beside the centered 720px column and is
      hidden once the window is too narrow to hold it without overlapping. */
+  /* Wears the same panel dress as the entity pages' Contents box (border,
+     grain, soft shadow, rounded corners), so the two rails read as one
+     device; the per-section colors below stay. */
   .home-toc {
     position: fixed;
     top: 7.5rem;
-    left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
-    width: 13rem;
+    left: calc((100vw - var(--max-width)) / 2 - 14.75rem);
+    width: 14.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.55rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.875rem;
     z-index: 5;
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    background-image: var(--grain);
+    box-shadow: var(--shadow-soft);
+    padding: 0.9rem 1.1rem;
     /* Hidden on arrival so it never crowds the masthead and the fading-in
        header; the script reveals it once the hero scrolls past. */
     opacity: 0;
