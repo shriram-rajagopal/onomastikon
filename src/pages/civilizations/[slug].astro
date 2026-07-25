@@ -16,7 +16,6 @@ import LocatorMap from '../../components/LocatorMap.astro';
 import HelpTip from '../../components/HelpTip.astro';
 import { LANG_GEO } from '../../lib/geo';
 import { ARTIFACTS } from '../../lib/artifacts';
-import { MONUMENTS } from '../../lib/monuments';
 
 export async function getStaticPaths() {
   const civs = await getCollection('civilizations');
@@ -134,38 +133,6 @@ const familyTrees = [...familyGroups.entries()]
   })
   .sort((a, b) => b.size - a.size);
 
-// Monuments: the inscribed objects that carry this page's names, derived from
-// the registry's entry-id linkage. Each card lists the forms it writes here
-// and links to the other entities the same stone names.
-const pageEntryIds = new Set(enriched.map((e) => e.name.id));
-const monumentCards = Object.entries(MONUMENTS)
-  .map(([id, m]) => {
-    const here = m.entries.filter((eid) => pageEntryIds.has(eid));
-    if (here.length === 0) return null;
-    const hereForms = here.map((eid) => {
-      const e = byId.get(eid)!;
-      return {
-        anchor: entryAnchor(eid, civ.id),
-        translit: e.name.data.transliteration,
-        lang: e.language?.data.english_name ?? '',
-      };
-    });
-    const elsewhere = [
-      ...new Set(
-        m.entries
-          .filter((eid) => !pageEntryIds.has(eid))
-          .map((eid) => namesById.get(eid)?.data.civilization.id)
-          .filter((cid): cid is string => Boolean(cid))
-      ),
-    ]
-      .map((cid) => ({ id: cid, name: civById.get(cid)?.data.english_name ?? cid }))
-      .sort((a, b) => a.name.localeCompare(b.name));
-    return { id, ...m, hereForms, elsewhere };
-  })
-  .filter((m): m is NonNullable<typeof m> => m !== null)
-  .sort((a, b) => b.hereForms.length - a.hereForms.length || a.title.localeCompare(b.title));
-const showMonuments = monumentCards.length > 0;
-
 // Which sections this page actually has, for the contents rail.
 const showFamilies = familyTrees.length > 0;
 const showMap = enriched.filter((e) => e.language && LANG_GEO[e.language.id]).length >= 2;
@@ -185,10 +152,9 @@ const mapEdges = enriched
   .filter((e) => e.name.data.derived_from)
   .map((e) => ({ from: e.name.data.derived_from!.id, to: e.name.id }));
 const contents = [
-  ...(showFamilies ? [{ href: '#families', label: 'Name families' }] : []),
   ...(showMap ? [{ href: '#map', label: 'Transmission map' }] : []),
+  ...(showFamilies ? [{ href: '#families', label: 'Name families' }] : []),
   ...(showTimeline ? [{ href: '#timeline', label: 'Attestation timeline' }] : []),
-  ...(showMonuments ? [{ href: '#monuments', label: 'Monuments' }] : []),
   { href: '#names', label: 'Names across languages' },
   { href: '#cite', label: 'Cite this page' },
 ];
@@ -221,11 +187,11 @@ const correctionUrl =
     <HelpTip title="Reading this entry">
       <ul>
         <li>The small map locates the subject; on it, rivers are context lines and the accent mark is the entity itself.</li>
+        <li>The <strong>transmission map</strong> plots each form at its language's homeland; slide the year and forms show as in use, former, or not yet attested.</li>
         <li><strong>Name families</strong> group forms that share one root. A form joined by a solid line was borrowed from the form it hangs under; forms sitting side by side on a dashed rail are parallel descendants of the shared root, not borrowings from each other.</li>
       </ul>
       <div class="hd-tree"><div>Greek <em>Aígyptos</em> (the source)</div><div>Latin <em>Aegyptus</em> (borrowed from it)</div></div>
       <ul>
-        <li>The <strong>transmission map</strong> plots each form at its language's homeland; slide the year and forms show as in use, former, or not yet attested.</li>
         <li><strong>Timeline</strong> bars span each name's attestation, not the language's lifespan.</li>
         <li>Confidence: green = attested in sources, tan = reconstructed (starred forms), rust = disputed reading.</li>
         <li>Hover any entry for its # permalink and a copy button; sources sit in each entry's drawer.</li>
@@ -302,6 +268,17 @@ const correctionUrl =
       </details>
     </nav>
 
+    {showMap && (
+      <section class="tmap breakout" id="map">
+        <h2>Transmission map</h2>
+        <p class="families-hint">
+          Each form at the homeland of its language; arcs follow asserted
+          borrowing paths. Slide to a year to see which names were in use.
+        </p>
+        <TransmissionMap civId={civ.id} nodes={mapNodes} edges={mapEdges} />
+      </section>
+    )}
+
     {showFamilies && (
       <>
         <h2 id="families">Name families</h2>
@@ -315,40 +292,31 @@ const correctionUrl =
           off-page source of a chain: it lives on another entity's page, and
           links there.
         </p>
-        {familyTrees.map((fam) => (
-          <section class="family corner-ticks">
-            <h3 class="family-title">{fam.display}</h3>
-            {fam.note && <p class="family-note">{fam.note}</p>}
-            {fam.roots.length > 1 ? (
-              <div class="family-cognates">
-                <span class="cognates-label">one shared root · parallel descendants</span>
-                <ul class="family-roots cognate-row">
+        <div class="families-grid breakout">
+          {familyTrees.map((fam) => (
+            <section class="family corner-ticks">
+              <h3 class="family-title">{fam.display}</h3>
+              {fam.note && <p class="family-note">{fam.note}</p>}
+              {fam.roots.length > 1 ? (
+                <div class="family-cognates">
+                  <span class="cognates-label">one shared root · parallel descendants</span>
+                  <ul class="family-roots cognate-row">
+                    {fam.roots.map((node) => <FamilyNode node={node} civId={civ.id} />)}
+                  </ul>
+                </div>
+              ) : (
+                <ul class="family-roots">
                   {fam.roots.map((node) => <FamilyNode node={node} civId={civ.id} />)}
                 </ul>
-              </div>
-            ) : (
-              <ul class="family-roots">
-                {fam.roots.map((node) => <FamilyNode node={node} civId={civ.id} />)}
-              </ul>
-            )}
-          </section>
-        ))}
+              )}
+            </section>
+          ))}
+        </div>
       </>
     )}
 
-    {showMap && (
-      <section class="tmap" id="map">
-        <h2>Transmission map</h2>
-        <p class="families-hint">
-          Each form at the homeland of its language; arcs follow asserted
-          borrowing paths. Slide to a year to see which names were in use.
-        </p>
-        <TransmissionMap civId={civ.id} nodes={mapNodes} edges={mapEdges} />
-      </section>
-    )}
-
     {showTimeline && (
-      <section class="timeline" id="timeline">
+      <section class="timeline breakout" id="timeline">
         <h2>Attestation timeline</h2>
         <p class="families-hint">When each name is attested, earliest first. Dates bound the name's use, not the language's lifespan.</p>
         <AttestationTimeline
@@ -360,46 +328,6 @@ const correctionUrl =
             end: e.name.data.era_end,
           }))}
         />
-      </section>
-    )}
-
-    {showMonuments && (
-      <section class="monuments" id="monuments">
-        <h2>Monuments</h2>
-        <p class="families-hint">
-          The inscribed objects this page's names actually stand on, and the
-          other entities the same stones name.
-        </p>
-        {monumentCards.map((m) => (
-          <article class="monument corner-ticks">
-            <h3 class="monument-title">{m.title}</h3>
-            <p class="monument-meta">
-              {m.date} · {m.place}
-              {m.location !== 'in situ' ? ` · now ${m.location}` : ' · in situ'}
-            </p>
-            <p class="monument-desc">{m.description}</p>
-            <p class="monument-forms">
-              <span class="monument-label">Writes here</span>
-              {m.hereForms.map((f, i) => (
-                <>
-                  {i > 0 && ', '}
-                  <a href={`#${f.anchor}`}><em>{f.translit}</em> ({f.lang})</a>
-                </>
-              ))}
-            </p>
-            {m.elsewhere.length > 0 && (
-              <p class="monument-forms">
-                <span class="monument-label">Also names</span>
-                {m.elsewhere.map((c, i) => (
-                  <>
-                    {i > 0 && ', '}
-                    <a href={`/civilizations/${c.id}#monuments`}>{c.name}</a>
-                  </>
-                ))}
-              </p>
-            )}
-          </article>
-        ))}
       </section>
     )}
 
@@ -753,45 +681,27 @@ const correctionUrl =
     box-shadow: var(--shadow-soft);
   }
   .family-title { font-size: 1.125rem; margin: 0 0 0.25rem; }
-  /* Monument cards share the family panels' manuscript dress: the section is
-     the atlas's evidence layer, so it wears the same paper. */
-  .monument {
-    margin: 1.5rem 0;
-    padding: 1.2rem 1.4rem 1.3rem;
-    background-color: color-mix(in srgb, var(--ink) 4%, var(--parchment));
-    background-image: var(--grain);
-    border: 1px solid var(--rule-strong);
-    border-radius: 6px;
-    box-shadow: var(--shadow-soft);
+  /* Breakout band: the diagram sections (map, family grid, timeline) widen
+     past the 720px prose column, centered over it, while running text keeps
+     its reading measure. On narrow viewports this collapses to the column. */
+  .breakout {
+    width: min(1040px, calc(100vw - 2.5rem));
+    margin-left: calc((100% - min(1040px, 100vw - 2.5rem)) / 2);
   }
-  .monument-title { font-size: 1.125rem; margin: 0 0 0.15rem; }
-  .monument-meta {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-soft);
-    margin: 0 0 0.7rem;
+  .breakout > h2, .breakout > .families-hint {
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
   }
-  .monument-desc { font-size: 0.9375rem; line-height: 1.6; color: var(--ink); margin: 0 0 0.8rem; }
-  .monument-forms {
-    font-size: 0.875rem;
-    line-height: 1.7;
-    margin: 0.35rem 0 0;
+  /* Family panels sit side by side where the band is wide enough: parallel
+     name-threads read as parallel columns instead of a long stack. */
+  .families-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+    gap: 1.25rem;
+    align-items: start;
   }
-  .monument-forms a { color: var(--accent); text-decoration: none; }
-  .monument-forms a:hover { text-decoration: underline; }
-  .monument-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.6563rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--ink-soft);
-    margin-right: 0.55rem;
-  }
-  @media (max-width: 640px) {
-    .monument { padding: 1rem 0.9rem 1.1rem; }
-  }
+  .families-grid .family { margin: 0; height: 100%; }
   .family-note { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.9rem; line-height: 1.55; }
   .family-roots { list-style: none; margin: 0; padding: 0; }
   /* Cognate shelf: parallel roots hang side by side from one dashed rail,
