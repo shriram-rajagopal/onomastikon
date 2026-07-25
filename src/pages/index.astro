@@ -904,18 +904,10 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   /* Long-hover popover: a lifted panel in the right gutter with the entity's
      summary, minimap, subheading, status, and count. Fixed-position, filled
      and revealed by script; wide hover-capable screens only. */
-  /* A tall preview panel pinned down the right side of the screen: it spans
-     from below the header to near the viewport's foot, the locator map
-     sitting large above the text. Transient and scroll-dismissed, it covers
-     the languages pillar and the gutter without pushing anything around. */
   #entity-pop {
     position: fixed;
-    left: auto;
-    right: 1.5rem;
-    top: 5.5rem;
-    bottom: 2rem;
-    width: min(480px, calc(50vw - 40px));
-    overflow-y: auto;
+    left: calc(50% + 380px);
+    width: 300px;
     z-index: 30;
     background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
     background-image: var(--grain);
@@ -931,21 +923,11 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     #entity-pop { transition: opacity 0.22s ease, transform 0.22s ease; }
   }
   #entity-pop.show { opacity: 1; transform: none; pointer-events: auto; }
-  #entity-pop[hidden] { display: none; }
-  #entity-pop > .pop-map { margin: 0.25rem 0 0.9rem; }
-  /* The anchored word-preview variant stays the compact card, positioned by
-     the script over the hovered word. */
-  #entity-pop.anchored {
-    right: auto;
-    bottom: auto;
-    width: 340px;
-    overflow-y: visible;
-  }
   /* Anchored variant: pinned above (or below) a hovered entity link in the
      era portraits, encyclopedia-preview style; left/top come from script. */
   #entity-pop.anchored { transform: translateY(8px); }
   #entity-pop.anchored.show { transform: none; }
-  #entity-pop .pop-name { margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.4rem; }
+  #entity-pop .pop-name { margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.25rem; }
   .pop-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0.25rem 0 0.5rem; }
   .pop-badges { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; }
   #entity-pop .status {
@@ -960,7 +942,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   #entity-pop .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
   .pop-count { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); }
   .pop-map { margin: 0 0 0.6rem; }
-  .pop-summary { font-size: 1rem; line-height: 1.6; margin: 0; color: var(--ink); }
+  .pop-summary { font-size: 0.9375rem; line-height: 1.55; margin: 0; color: var(--ink); }
   @media (max-width: 1439px), (hover: none) {
     #entity-pop { display: none; }
   }
@@ -1209,11 +1191,12 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
           pop.style.left = `${left}px`;
           pop.style.top = `${top}px`;
         } else {
-          // The tall right-side panel is fully positioned by the stylesheet
-          // (top to bottom down the right edge); clear any inline position a
-          // previous anchored show left behind.
+          // Align to the hovered row in the right gutter, clamped inside the
+          // viewport (left comes from the stylesheet).
           pop.style.left = '';
-          pop.style.top = '';
+          const rect = row.getBoundingClientRect();
+          const top = Math.min(Math.max(rect.top - 8, 76), innerHeight - pop.offsetHeight - 16);
+          pop.style.top = `${top}px`;
         }
         shownFor = slug;
         requestAnimationFrame(() => pop.classList.add('show'));
