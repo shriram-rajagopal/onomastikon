@@ -904,20 +904,18 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   /* Long-hover popover: a lifted panel in the right gutter with the entity's
      summary, minimap, subheading, status, and count. Fixed-position, filled
      and revealed by script; wide hover-capable screens only. */
-  /* Opens directly beside the hovered entity row and claims the right side
-     of the screen out to the viewport edge: the panel is transient and
-     dismisses on scroll/leave, so borrowing that ground buys a full preview
-     card without pushing anything around. Inside, a two-column grid puts
-     the text beside the locator map instead of stacking into a tower. */
+  /* A tall preview panel pinned down the right side of the screen: it spans
+     from below the header to near the viewport's foot, the locator map
+     sitting large above the text. Transient and scroll-dismissed, it covers
+     the languages pillar and the gutter without pushing anything around. */
   #entity-pop {
     position: fixed;
-    left: calc(50% + 10px);
+    left: auto;
     right: 1.5rem;
-    width: auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(220px, 38%);
-    column-gap: 1.5rem;
-    align-items: start;
+    top: 5.5rem;
+    bottom: 2rem;
+    width: min(480px, calc(50vw - 40px));
+    overflow-y: auto;
     z-index: 30;
     background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
     background-image: var(--grain);
@@ -933,15 +931,15 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     #entity-pop { transition: opacity 0.22s ease, transform 0.22s ease; }
   }
   #entity-pop.show { opacity: 1; transform: none; pointer-events: auto; }
-  /* display:grid would defeat the hidden attribute's UA display:none. */
   #entity-pop[hidden] { display: none; }
-  #entity-pop > .pop-name, #entity-pop > .pop-sub, #entity-pop > .pop-badges, #entity-pop > .pop-summary { grid-column: 1; }
-  #entity-pop > .pop-map { grid-column: 2; grid-row: 1 / 5; margin: 0; }
-  /* The anchored word-preview variant stays the compact single-column card. */
+  #entity-pop > .pop-map { margin: 0.25rem 0 0.9rem; }
+  /* The anchored word-preview variant stays the compact card, positioned by
+     the script over the hovered word. */
   #entity-pop.anchored {
-    display: block;
     right: auto;
+    bottom: auto;
     width: 340px;
+    overflow-y: visible;
   }
   /* Anchored variant: pinned above (or below) a hovered entity link in the
      era portraits, encyclopedia-preview style; left/top come from script. */
@@ -1211,12 +1209,11 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
           pop.style.left = `${left}px`;
           pop.style.top = `${top}px`;
         } else {
-          // Align to the hovered row in the right gutter, clamped inside the
-          // viewport (left comes from the stylesheet).
+          // The tall right-side panel is fully positioned by the stylesheet
+          // (top to bottom down the right edge); clear any inline position a
+          // previous anchored show left behind.
           pop.style.left = '';
-          const rect = row.getBoundingClientRect();
-          const top = Math.min(Math.max(rect.top - 8, 76), innerHeight - pop.offsetHeight - 16);
-          pop.style.top = `${top}px`;
+          pop.style.top = '';
         }
         shownFor = slug;
         requestAnimationFrame(() => pop.classList.add('show'));
