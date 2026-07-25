@@ -640,11 +640,14 @@ const correctionUrl =
     font-size: 0.75rem;
   }
   .toc-langs li:not(:last-child)::after { content: '·'; margin-left: 0.4rem; color: var(--rule); }
-  @media (min-width: 1180px) {
+  /* The rail must clear the 1040px breakout bands (edge at 50% + 520px), not
+     just the 720px prose column, so it sits further out and only appears on
+     viewports wide enough to hold it; below that it stays an in-flow block. */
+  @media (min-width: 1520px) {
     .toc {
       position: fixed;
       top: 7rem;
-      left: calc(50% + 380px);
+      left: calc(50% + 540px);
       width: 200px;
       max-height: calc(100vh - 9rem);
       overflow-y: auto;
