@@ -172,6 +172,31 @@ export const MONUMENTS: Record<string, Monument> = {
       'tyre-akkadian-surru',
     ],
   },
+  'mesha-stele': {
+    title: 'The Mesha stele',
+    date: 'c. 840 BCE',
+    place: 'found at Dhiban (ancient Dibon), Jordan',
+    location: 'Louvre, Paris',
+    description:
+      'The victory stele of Mesha king of Moab, thirty-four lines of Moabite that remain the longest royal inscription of the Iron Age Levant, and very nearly the whole of its language\'s surviving literature. It carries the oldest securely dated Semitic inscription of Israel\'s name, written by the king who fought it: the name preserved in the boast of its ruin.',
+    entries: ['israel-moabite-ysrl'],
+  },
+  'persepolis-tablets': {
+    title: 'The Persepolis Fortification tablets',
+    date: 'c. 509–494 BCE',
+    place: 'Persepolis, Iran',
+    location: 'divided between Tehran and the Oriental Institute, Chicago',
+    description:
+      'Tens of thousands of Elamite clay tablets from the administrative heart of the Achaemenid empire: ration ledgers and travel authorizations, the empire\'s daily economy in writing. Where the royal rock inscriptions name the provinces in ceremony, the tablets name them in use, on the lips of officials and travelers drawing rations along the royal roads.',
+    entries: [
+      'egypt-elamite-mudraya',
+      'greece-elamite-yauna',
+      'magan-old-persian-maka',
+      'media-elamite-mada',
+      'persepolis-elamite-parshan',
+      'persia-elamite-parsan',
+    ],
+  },
   'tel-dan-stele': {
     title: 'The Tel Dan stele',
     date: 'ninth century BCE',

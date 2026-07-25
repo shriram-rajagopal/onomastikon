@@ -35,6 +35,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   ugaritic: { lon: 35.78, lat: 35.6, place: 'Ugarit', anchor: 'end', dx: -7 },
   hurrian: { lon: 40.05, lat: 36.85, place: 'Waššukanni', dy: -6 },
   phoenician: { lon: 35.2, lat: 33.27, place: 'Tyre', anchor: 'end', dx: -7, dy: -2 },
+  moabite: { lon: 35.78, lat: 31.5, place: 'Dibon', anchor: 'start', dx: 7, dy: 4 },
   'biblical-hebrew': { lon: 35.23, lat: 31.78, place: 'Jerusalem', dx: 7, dy: 4 },
   'imperial-aramaic': { lon: 36.31, lat: 33.51, place: 'Damascus', dx: 7, dy: 6 },
   syriac: { lon: 38.79, lat: 37.16, place: 'Edessa', dy: -6 },
