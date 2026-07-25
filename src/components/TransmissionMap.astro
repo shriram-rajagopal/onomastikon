@@ -242,7 +242,18 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
 </div>
 <div class="tmap-controls">
   <label class="tmap-label" for={`era-${civId}`}>In</label>
-  <input id={`era-${civId}`} class="tmap-range" type="range" min={minYear} max={maxYear} step="10" value={minYear} data-cap={capYear} />
+  <input
+    id={`era-${civId}`}
+    class="tmap-range"
+    type="range"
+    min={minYear}
+    max={maxYear}
+    step="10"
+    value={minYear}
+    data-cap={capYear}
+    aria-label="Attestation year"
+    aria-valuetext={fmtYear(minYear)}
+  />
   <output class="tmap-year" for={`era-${civId}`}>{fmtYear(minYear)}</output>
   <!-- Export: current frame as an image, or the whole era sweep as a video.
        Hidden until the script wires it up; a no-JS visitor never sees it. -->
@@ -294,6 +305,8 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
       // reachable step); clamp so the final position is the true last year.
       const v = Math.min(Number(range.value), cap);
       year.textContent = fmt(v);
+      // Screen readers hear "520 BCE", not the raw negative number.
+      range.setAttribute('aria-valuetext', fmt(v));
       for (const el of dated) {
         el.classList.toggle('future', Number(el.dataset.start) > v);
         el.classList.toggle('past', Number(el.dataset.end) < v);

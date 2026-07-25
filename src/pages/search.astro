@@ -20,6 +20,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   />
   <ul id="results" role="listbox" aria-label="Search results"></ul>
   <p id="empty" hidden>No matches.</p>
+  {/* Result counts for screen readers: visually hidden, announced politely
+      as the list re-renders. */}
+  <p id="results-status" class="visually-hidden" role="status" aria-live="polite"></p>
 
   <script>
     // Fold diacritics so a query of "Parsa" matches the indexed "parsa" form of
@@ -29,6 +32,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const q = document.getElementById('q');
     const list = document.getElementById('results');
     const empty = document.getElementById('empty');
+    const status = document.getElementById('results-status');
     let records = [];
     let current = [];
     let sel = -1;
@@ -96,6 +100,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         current = [];
         empty.hidden = true;
         q.setAttribute('aria-expanded', 'false');
+        status.textContent = '';
         return;
       }
       current = records
@@ -112,6 +117,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       // Never claim "No matches" while the index is still in flight.
       empty.hidden = current.length > 0 || !loaded;
       q.setAttribute('aria-expanded', current.length ? 'true' : 'false');
+      // Announce the counts ("24 results: 3 entities, 5 languages, 16 names").
+      if (loaded) {
+        if (current.length === 0) {
+          status.textContent = 'No results.';
+        } else {
+          const singular = { entity: 'entity', language: 'language', name: 'name' };
+          const parts = GROUPS.map(([t, label]) => {
+            const n = current.filter((r) => r.type === t).length;
+            return n ? `${n} ${n === 1 ? singular[t] : label.toLowerCase()}` : '';
+          }).filter(Boolean);
+          status.textContent = `${current.length} result${current.length === 1 ? '' : 's'}: ${parts.join(', ')}.`;
+        }
+      }
       let lastType = null;
       current.forEach((r, i) => {
         if (r.type !== lastType) {

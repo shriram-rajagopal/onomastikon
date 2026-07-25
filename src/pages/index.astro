@@ -181,8 +181,10 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
       <a id="daily-random" class="daily-random" href="/search">Random name →</a>
     </section>
   </div>
+  {/* The name is a styled paragraph, not a heading: the element is empty
+      until the script fills it, and an empty heading fails WCAG. */}
   <aside id="entity-pop" class="corner-ticks" hidden>
-    <h3 id="pop-name"></h3>
+    <p class="pop-name" id="pop-name"></p>
     <p class="pop-sub"><span id="pop-region"></span> · <span id="pop-era"></span></p>
     <p class="pop-badges"><span id="pop-status" class="status"></span><span id="pop-count" class="pop-count"></span></p>
     <div id="pop-map" class="pop-map" aria-hidden="true"></div>
@@ -910,7 +912,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
      era portraits, encyclopedia-preview style; left/top come from script. */
   #entity-pop.anchored { transform: translateY(8px); }
   #entity-pop.anchored.show { transform: none; }
-  #entity-pop h3 { margin: 0; font-size: 1.25rem; }
+  #entity-pop .pop-name { margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.25rem; }
   .pop-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0.25rem 0 0.5rem; }
   .pop-badges { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; }
   #entity-pop .status {
