@@ -707,10 +707,12 @@ const correctionUrl =
   .families-grid .family { margin: 0; height: 100%; }
   .family-note { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.9rem; line-height: 1.55; }
   .family-roots { list-style: none; margin: 0; padding: 0; }
-  /* Cognate shelf: parallel roots hang from one dashed rail, the exact
-     mirror of the solid children rail, so line style alone carries the
-     meaning: solid = borrowed from, dashed = parallel descent from a shared
-     (often unattested) root. Same per-child segments, same elbow stop. */
+  /* Cognate shelf: parallel roots sit side by side, each hanging from a
+     dashed rail. Every cell draws its own stretch of the rail across its
+     top; with no column gap the stretches fuse into one continuous line per
+     row, and a wrapped row forms its own complete shelf, so every card
+     hangs from a rail that is actually there at any width. Solid = borrowed
+     from, dashed = parallel descent from the shared root. */
   .family-cognates {
     margin-top: 0.9rem;
   }
@@ -721,32 +723,26 @@ const correctionUrl =
     text-transform: uppercase;
     letter-spacing: 0.07em;
     color: var(--ink-soft);
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.55rem;
   }
   .cognate-row {
-    margin-left: 0.55rem;
-    padding-left: 1.6rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    column-gap: 0;
+    row-gap: 1.1rem;
   }
-  .cognate-row > :global(.family-node) { margin: 0.6rem 0; }
+  .cognate-row > :global(.family-node) {
+    margin: 0;
+    padding: 0.95rem 1.5rem 0.25rem 0;
+    border-top: 1.5px dashed var(--rule-strong);
+  }
   .cognate-row > :global(.family-node)::before {
     content: '';
     position: absolute;
-    left: -1.6rem;
-    top: 1.35rem;
-    width: 1.6rem;
-    border-top: 1.5px dashed var(--rule-strong);
-  }
-  .cognate-row > :global(.family-node)::after {
-    content: '';
-    position: absolute;
-    left: -1.6rem;
-    top: -0.7rem;
-    bottom: 0;
+    left: 1.1rem;
+    top: 0;
+    height: 0.95rem;
     border-left: 1.5px dashed var(--rule-strong);
-  }
-  .cognate-row > :global(.family-node):last-child::after {
-    bottom: auto;
-    height: 2.05rem;
   }
   @media (max-width: 640px) {
     .family { padding: 1rem 0.9rem 1.1rem; }
