@@ -1,7 +1,7 @@
 ---
 english_name: Moabite
 language_family: Afro-Asiatic (Northwest Semitic)
-script: Moabite alphabet (Phoenician-derived)
+script: Moabite alphabet
 lang_code: obm
 era_start: -850
 era_end: -600

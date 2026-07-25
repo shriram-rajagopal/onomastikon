@@ -330,7 +330,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
                       title={lang.data.script}
                     >{lang.data.native_name}</span>
                   ) : (
-                    <span class="era">{lang.data.script}</span>
+                    <span class="era era-script" title={lang.data.script}>{lang.data.script}</span>
                   )}
                 </span>
               </a>
@@ -841,7 +841,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     padding-bottom: 1.05rem;
     padding-left: 0.7rem;
   }
-  .row-meta { display: flex; align-items: baseline; gap: 0.55rem; flex-shrink: 0; }
+  .row-meta { display: flex; align-items: baseline; gap: 0.55rem; flex-shrink: 1; min-width: 0; }
   /* Entry-count chips, tinted by entity type: the page's color variation is
      drawn from the existing badge palette so both themes are already tuned. */
   .count {
@@ -940,6 +940,16 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     /* Keep the script label flush right even when it wraps to two lines. */
     text-align: right;
     flex-shrink: 0;
+  }
+  /* Script-name fallback for languages with no attested endonym: unlike the
+     era spans it may run long, so it shrinks and ellipsizes instead of
+     riding over the language's name (full value in the title tooltip). */
+  .era-script {
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   /* The language's self-name in its own script — the thesis, demonstrated on
      arrival. 'Endonyms' is the few-KB subset face; the full script fonts
