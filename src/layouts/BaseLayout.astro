@@ -43,12 +43,12 @@ const { title, description, schema } = Astro.props;
 // entity's own summary (passed in) or the site tagline.
 const metaDescription =
   description ??
-  'Naming the civilizations, cities, regions, and geographic features of antiquity. Telling their story, with English translations and transliterations. Interactive maps and diagrams, all rigorously sourced.';
+  'Naming the civilizations, cities, regions, and geographic features of the ancient and medieval worlds, from the Bronze Age to the fall of Constantinople. Telling their story, with English translations and transliterations. Interactive maps and diagrams, all rigorously sourced.';
 // The homepage would otherwise render "Onomastikon — Onomastikon"; give it the
 // tagline as its suffix instead, so the search-result title line reads clean.
 const pageTitle =
   title === 'Onomastikon'
-    ? 'Onomastikon — A digital atlas of ancient names'
+    ? 'Onomastikon — A digital atlas of ancient and medieval names'
     : `${title} — Onomastikon`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 // Footer provenance stamp: the corpus in numbers plus the build month,
@@ -137,7 +137,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
     <button type="button" id="back-to-top" hidden aria-label="Back to top">↑ Top</button>
     <footer class="site-footer">
       <p>
-        Onomastikon · A digital atlas of ancient names ·
+        Onomastikon · A digital atlas of ancient and medieval names ·
         <a href="/onomastikon.json">Data</a> ·
         <a href="/feed.xml">RSS</a> ·
         <a href="https://github.com/shriram-rajagopal/onomastikon">GitHub</a> ·

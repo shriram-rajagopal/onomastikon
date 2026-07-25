@@ -617,3 +617,30 @@ These are out of scope so I don't get distracted by them:
 - Roads, monuments, walls, temples, individual artifacts
 - Conceptual or abstract terms (kingship, the underworld, the gods)
 - Alphabets and scripts as named entities
+## Coverage gaps from the July 2026 external audit
+
+Planned entries surfaced by the audit's coverage review (names only; each
+still goes through the normal propose-and-confirm workflow before any file
+is created). The African–Arabian corridor entities are flagged **highest
+priority** per the audit.
+
+### Civilizations / entities
+- [ ] Kush / Meroë — **highest priority**
+- [ ] Aksum — **highest priority** (already queued in Phase 3 above; listed here for the audit's record)
+- [ ] Saba — **highest priority**
+- [ ] Himyar — **highest priority**
+- [ ] Nabataea (with Petra) — **highest priority**
+- [ ] Palmyra — **highest priority**
+- [ ] Numidia
+- [ ] Mauretania
+- [ ] Punt (already queued in Phase 3 above; listed here for the audit's record)
+
+### Languages
+- [ ] Luwian (currently HELD: Anatolian-hieroglyph Unicode encodes sign numbers, not self-verifiable glyphs — see the standing hold decision of 2026-06-30)
+- [ ] Gothic
+- [ ] Meroitic
+- [ ] Lydian
+- [ ] Carian
+- [ ] Palaic
+- [ ] Gaulish
+- [ ] Old Church Slavonic

@@ -1,6 +1,6 @@
 # Onomastikon
 
-**A digital atlas of ancient names.**
+**A digital atlas of ancient and medieval names.**
 
 What the civilizations, cities, regions, and geographic features of antiquity called themselves, and what their neighbors called them. Each entry records the original script, transliteration, IPA pronunciation, literal meaning, and primary sources, with explicit attention to uncertainty and reconstruction. The temporal scope runs from the Bronze Age to the fall of Constantinople (roughly 3100 BCE to 1453 CE).
 
@@ -10,11 +10,11 @@ What the civilizations, cities, regions, and geographic features of antiquity ca
 
 ## What this is
 
-Onomastikon catalogues the names of ancient entities across the languages of antiquity, all on one page per entity. The unit of interest is the name itself as a linguistic artifact, presented with the rigor of a scholarly lexicon and the navigability of a modern atlas. At present the atlas holds over a hundred entities and some seven hundred name entries across more than thirty ancient languages, from Egyptian hieroglyphs and cuneiform to Brahmi and Old Sogdian.
+Onomastikon catalogues the names of entities of the ancient and medieval worlds across the languages that named them, all on one page per entity. The unit of interest is the name itself as a linguistic artifact, presented with the rigor of a scholarly lexicon and the navigability of a modern atlas. At present the atlas holds over a hundred entities and some seven hundred name entries across more than thirty ancient languages, from Egyptian hieroglyphs and cuneiform to Brahmi and Old Sogdian.
 
 Entity pages derive their apparatus automatically from the entry data: name-family trees (borrowings indented under their sources, cognates side by side), a transmission map with an era scrubber, an attestation timeline, and a locator map. Site-wide features include client-side search across scripts and transliterations, a comparison view for two to four entities across shared languages, a name-of-the-day with a fairness-guaranteed rotation and a self-updating archive, region and era filters with a proportional timeline, an RSS feed of new entries, and a machine-readable export of the full dataset.
 
-The project is intended for students, language enthusiasts, history teachers, and anyone curious about how civilizations identified themselves and one another in the ancient world.
+The project is intended for students, language enthusiasts, history teachers, and anyone curious about how civilizations identified themselves and one another in the ancient and medieval worlds.
 
 ## Editorial principles
 
