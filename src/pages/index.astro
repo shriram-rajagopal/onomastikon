@@ -937,10 +937,15 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
     color: var(--ink-soft);
-    /* Keep the script label flush right even when it wraps to two lines. */
+    /* The span may shrink and wrap to two right-aligned lines when the row
+       runs tight (Byzantium / Constantinople's c. 657 BCE - 1453 CE) rather
+       than hang past the column edge. */
     text-align: right;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    min-width: 0;
   }
+  /* Endonyms are short and should never break mid-name. */
+  .endonym { flex-shrink: 0; }
   /* Script-name fallback for languages with no attested endonym: unlike the
      era spans it may run long, so it shrinks and ellipsizes instead of
      riding over the language's name (full value in the title tooltip). */
