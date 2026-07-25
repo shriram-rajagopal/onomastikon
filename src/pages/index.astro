@@ -904,10 +904,14 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   /* Long-hover popover: a lifted panel in the right gutter with the entity's
      summary, minimap, subheading, status, and count. Fixed-position, filled
      and revealed by script; wide hover-capable screens only. */
+  /* Opens directly beside the hovered entity row, covering the languages
+     pillar rather than hiding out in the gutter: the panel is transient and
+     dismisses on scroll/leave, so borrowing the pillar's ground buys a
+     larger card without pushing anything around. */
   #entity-pop {
     position: fixed;
-    left: calc(50% + 380px);
-    width: 300px;
+    left: calc(50% + 10px);
+    width: 400px;
     z-index: 30;
     background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
     background-image: var(--grain);
@@ -927,7 +931,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
      era portraits, encyclopedia-preview style; left/top come from script. */
   #entity-pop.anchored { transform: translateY(8px); }
   #entity-pop.anchored.show { transform: none; }
-  #entity-pop .pop-name { margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.25rem; }
+  #entity-pop .pop-name { margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.4rem; }
   .pop-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0.25rem 0 0.5rem; }
   .pop-badges { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; }
   #entity-pop .status {
@@ -942,7 +946,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   #entity-pop .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
   .pop-count { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); }
   .pop-map { margin: 0 0 0.6rem; }
-  .pop-summary { font-size: 0.9375rem; line-height: 1.55; margin: 0; color: var(--ink); }
+  .pop-summary { font-size: 1rem; line-height: 1.6; margin: 0; color: var(--ink); }
   @media (max-width: 1439px), (hover: none) {
     #entity-pop { display: none; }
   }
