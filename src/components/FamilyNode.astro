@@ -142,16 +142,27 @@ const { node, civId } = Astro.props;
         transform 0.5s ease var(--reveal-delay, 0s);
     }
   }
-  /* Lineage trace: hovering or focusing a form lights its ancestor cards and
-     the rails connecting them, reading the chain back to its root. */
+  /* Lineage trace: hovering or focusing a form lights the exact path back to
+     the root, not the whole rail. Each lit card draws its own elbow (the L
+     from the parent junction down and across to the card) as an accent
+     overlay on the base rail, and the script marks the siblings ABOVE it on
+     each level so only the rail segments the path actually rides light up. */
   .node-card.lit {
     border-color: var(--accent);
     color: var(--accent);
   }
-  .family-children.lit > :global(.family-node)::before {
-    border-top-color: var(--accent);
+  .family-children > :global(.family-node) > .node-card.lit::before {
+    content: '';
+    position: absolute;
+    left: -1.6rem;
+    top: -0.75rem;
+    width: 1.6rem;
+    height: 2.1rem;
+    border-left: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    pointer-events: none;
   }
-  .family-children.lit > :global(.family-node)::after {
+  .family-children > :global(.family-node.lit-rail)::after {
     border-left-color: var(--accent);
   }
 </style>

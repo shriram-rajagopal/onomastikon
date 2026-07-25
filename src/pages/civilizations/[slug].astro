@@ -509,8 +509,15 @@ const correctionUrl =
     let li: Element | null = card.closest('.family-node');
     while (li) {
       li.querySelector(':scope > .node-card')?.classList.toggle('lit', on);
+      // The node's own elbow is drawn by its lit card; the rail above it runs
+      // past every earlier sibling, so mark those for the segment highlight.
+      li.classList.toggle('lit-node', on);
+      let sib = li.previousElementSibling;
+      while (sib) {
+        sib.classList.toggle('lit-rail', on);
+        sib = sib.previousElementSibling;
+      }
       const rail: Element | null = li.parentElement?.closest('.family-children') ?? null;
-      rail?.classList.toggle('lit', on);
       li = rail ? rail.closest('.family-node') : null;
     }
   }
@@ -682,6 +689,10 @@ const correctionUrl =
     border: 1px solid var(--rule-strong);
     border-radius: 6px;
     box-shadow: var(--shadow-soft);
+    /* Each panel is a size container so the cognate shelf can pick its
+       layout from the panel's own width (a panel sharing the grid with a
+       sibling family is half the width of one standing alone). */
+    container-type: inline-size;
   }
   .family-title { font-size: 1.125rem; margin: 0 0 0.25rem; }
   /* Breakout band: the diagram sections (map, family grid, timeline) widen
@@ -743,6 +754,53 @@ const correctionUrl =
     top: 0;
     height: 0.95rem;
     border-left: 1.5px dashed var(--rule-strong);
+  }
+  /* Narrow panels (a family sharing the grid with a sibling, or a phone
+     viewport) would give every root its own full-width dashed topline: rails
+     over nothing, reading as separators. There the shelf turns vertical
+     instead, one dashed left rail with the roots hanging off it, the exact
+     mirror of the solid children rail. */
+  @container (max-width: 619px) {
+    .cognate-row {
+      display: block;
+      margin-left: 0.55rem;
+      padding-left: 1.6rem;
+    }
+    .cognate-row > :global(.family-node) {
+      margin: 0.6rem 0;
+      padding: 0;
+      border-top: 0;
+    }
+    .cognate-row > :global(.family-node)::before {
+      left: -1.6rem;
+      top: 1.35rem;
+      height: 0;
+      width: 1.6rem;
+      border-left: 0;
+      border-top: 1.5px dashed var(--rule-strong);
+    }
+    .cognate-row > :global(.family-node)::after {
+      content: '';
+      position: absolute;
+      left: -1.6rem;
+      top: -0.7rem;
+      bottom: 0;
+      border-left: 1.5px dashed var(--rule-strong);
+    }
+    .cognate-row > :global(.family-node):last-child::after {
+      bottom: auto;
+      height: 2.05rem;
+    }
+  }
+  /* Lineage trace on the shelf: the hovered root's hanging tick lights in
+     both shelf orientations, and in the vertical shelf the rail segments of
+     the roots above it light as the path rides past them. */
+  .cognate-row > :global(.family-node.lit-node)::before {
+    border-left-color: var(--accent);
+    border-top-color: var(--accent);
+  }
+  .cognate-row > :global(.family-node.lit-rail)::after {
+    border-left-color: var(--accent);
   }
   @media (max-width: 640px) {
     .family { padding: 1rem 0.9rem 1.1rem; }
