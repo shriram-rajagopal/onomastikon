@@ -355,8 +355,8 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   .home-toc {
     position: fixed;
     top: 7.5rem;
-    left: calc((100vw - var(--max-width)) / 2 - 14.75rem);
-    width: 14.25rem;
+    left: calc((100vw - var(--max-width)) / 2 - 16.5rem);
+    width: 16rem;
     display: flex;
     flex-direction: column;
     gap: 0.55rem;
@@ -386,7 +386,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   }
   /* Entity categories (left) and Languages (right) sit in parallel columns, the
      same split as the index content below. */
-  .home-toc-cols { display: flex; gap: 0.9rem; align-items: start; }
+  .home-toc-cols { display: flex; gap: 1.4rem; align-items: start; }
   .home-toc-col { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
   .home-toc-col:first-child { flex: 1 1 auto; }
   .home-toc a {
@@ -419,7 +419,8 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
   .home-toc a[href='#languages']:hover { color: var(--conf-disputed-fg); border-left-color: var(--conf-disputed-fg); }
   /* Hide once the gutter can no longer hold the wider two-column rail clear of
      the content. */
-  @media (max-width: 1200px) { .home-toc { display: none; } }
+  /* The wider panel needs a wider gutter; below this it clips, so it hides. */
+  @media (max-width: 1280px) { .home-toc { display: none; } }
   /* Anchor jumps land the heading clear of the top of the viewport. */
   .index-col h2 { scroll-margin-top: 1.5rem; }
 
