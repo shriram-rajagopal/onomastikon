@@ -5,6 +5,7 @@ original_text: 𒆍𒀭𒊏𒆠
 transliteration: Bābilu
 ipa: /ˈbaːbilu/
 literal_meaning: gate of the god (Bāb-ilim); the city of Babylon
+meaning_confidence: disputed
 era_start: -2300
 era_end: 100
 family: babili

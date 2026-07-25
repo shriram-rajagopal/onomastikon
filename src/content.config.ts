@@ -64,6 +64,13 @@ const names = defineCollection({
     era_start: z.number(),
     era_end: z.number().nullable(),
     confidence: z.enum(['attested', 'reconstructed', 'disputed']),
+    // The FORM's confidence label above conflates three axes; this optional
+    // field separates the second one out: how secure the MEANING (the
+    // literal_meaning gloss) is, independent of the form's attestation. A
+    // securely attested form may carry a debated gloss (Kengir is the type
+    // case). Absent = the gloss carries the entry's overall confidence;
+    // renderers add nothing.
+    meaning_confidence: z.enum(['attested', 'reconstructed', 'disputed']).optional(),
     // Recorded pronunciation of the reconstructed form (a path under
     // /public/audio/). Recordings only — never synthesized speech: TTS has no
     // ground truth for these languages, and generated audio would be a

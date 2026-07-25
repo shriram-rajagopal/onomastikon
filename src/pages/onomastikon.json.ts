@@ -45,6 +45,9 @@ export const GET: APIRoute = async () => {
       era_start: n.data.era_start,
       era_end: n.data.era_end,
       confidence: n.data.confidence,
+      // Present only where the meaning's security diverges from the form's;
+      // null = the gloss carries the entry's overall confidence.
+      meaning_confidence: n.data.meaning_confidence ?? null,
       sources: n.data.sources,
     })),
   };

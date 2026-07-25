@@ -5,6 +5,7 @@ original_text: צִיּוֹן
 transliteration: Ṣiyyôn
 ipa: /sˤij.ˈjoːn/
 literal_meaning: "Zion (the citadel-hill of Jerusalem); meaning uncertain"
+meaning_confidence: disputed
 era_start: -1000
 era_end: -100
 confidence: attested

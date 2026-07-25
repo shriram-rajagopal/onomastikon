@@ -5,6 +5,7 @@ original_text: 𒁹𒄬𒆷𒁶𒋾
 transliteration: Haltamti
 ipa: "*haltamti"
 literal_meaning: the lord country
+meaning_confidence: disputed
 era_start: -2400
 era_end: -540
 confidence: attested

@@ -4,6 +4,7 @@ language: sumerian
 original_text: 𒆠𒂗𒄀
 transliteration: Kengir
 literal_meaning: the land of the noble lords (Sumer)
+meaning_confidence: disputed
 era_start: -2600
 era_end: -1900
 confidence: attested

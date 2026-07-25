@@ -5,6 +5,7 @@ original_text: 𒄩𒉌𒃲𒁁
 transliteration: Ḫanigalbat
 ipa: /xaniˈgalbat/
 literal_meaning: Hanigalbat (the Assyro-Babylonian name for Mitanni; meaning disputed)
+meaning_confidence: disputed
 era_start: -1500
 era_end: -1180
 confidence: attested

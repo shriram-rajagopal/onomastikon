@@ -5,6 +5,7 @@ original_text: 𓎛𓄿𓅱𓋔𓍔𓏏𓏤
 transliteration: Ḥꜣw-nbwt
 ipa: "*ħaːw naˈbuːwat"
 literal_meaning: those of the islands; the island-peoples
+meaning_confidence: disputed
 era_start: -2000
 era_end: -300
 confidence: attested

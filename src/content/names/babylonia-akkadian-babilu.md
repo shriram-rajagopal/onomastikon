@@ -5,6 +5,7 @@ original_text: 𒆍𒀭𒊏𒆠
 transliteration: Bābilu
 ipa: /ˈbaːbilu/
 literal_meaning: Babylon (traditionally "gate of the god"); the land = māt Akkadî
+meaning_confidence: disputed
 era_start: -1894
 era_end: -539
 family: babili

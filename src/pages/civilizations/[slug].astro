@@ -452,7 +452,17 @@ const correctionUrl =
               </dd>
             </>
           )}
-          {name.data.literal_meaning && (<><dt>Meaning</dt><dd>“{name.data.literal_meaning}”</dd></>)}
+          {name.data.literal_meaning && (
+            <>
+              <dt>Meaning</dt>
+              <dd>
+                “{name.data.literal_meaning}”
+                {name.data.meaning_confidence && name.data.meaning_confidence !== name.data.confidence && (
+                  <span class={`confidence confidence-${name.data.meaning_confidence} meaning-conf`} title="The form is securely attested; its meaning is a separate question.">meaning {name.data.meaning_confidence}</span>
+                )}
+              </dd>
+            </>
+          )}
           {name.data.derived_from && byId.get(name.data.derived_from.id) && (
             <>
               <dt>Derived from</dt>
@@ -971,6 +981,9 @@ const correctionUrl =
   .confidence-attested { background: var(--conf-attested-bg); color: var(--conf-attested-fg); }
   .confidence-reconstructed { background: var(--conf-reconstructed-bg); color: var(--conf-reconstructed-fg); }
   .confidence-disputed { background: var(--conf-disputed-bg); color: var(--conf-disputed-fg); }
+  /* Meaning-confidence marker: rides beside the gloss in the same badge
+     dress, lowercase to read as an annotation rather than a verdict. */
+  .meaning-conf { margin-left: 0.5rem; text-transform: none; letter-spacing: 0.02em; }
   @media print {
     .entry-anchor, .entry-copy { display: none; }
     .name-entry { break-inside: avoid; }

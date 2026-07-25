@@ -5,6 +5,7 @@ original_text: 𐬎𐬞𐬁𐬌𐬭𐬌𐬯𐬀𐬉𐬥𐬀
 transliteration: Upāiri.saēna
 ipa: /u.paːi̯.ri.ˈsae̯.na/
 literal_meaning: conventionally interpreted as "higher than the eagle"
+meaning_confidence: disputed
 era_start: -1000
 era_end: -400
 family: paropamisos
