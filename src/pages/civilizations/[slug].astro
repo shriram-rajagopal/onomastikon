@@ -666,7 +666,7 @@ const correctionUrl =
     display: inline-block;
     width: 1.4rem;
     height: 0;
-    border-top: 1.5px solid var(--ink-soft);
+    border-top: 1.5px solid var(--rule-strong);
     vertical-align: middle;
     margin: 0 0.3rem 0.15rem 0.15rem;
   }
@@ -707,51 +707,49 @@ const correctionUrl =
   .families-grid .family { margin: 0; height: 100%; }
   .family-note { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.9rem; line-height: 1.55; }
   .family-roots { list-style: none; margin: 0; padding: 0; }
-  /* Cognate shelf: parallel roots hang side by side from one dashed rail,
-     reading as a set with a common (often unattested) source, not a chain.
-     Each root drops a short dashed tick from the rail; any borrowings then
-     descend from their root with the solid rails below. */
+  /* Cognate shelf: parallel roots hang from one dashed rail, the exact
+     mirror of the solid children rail, so line style alone carries the
+     meaning: solid = borrowed from, dashed = parallel descent from a shared
+     (often unattested) root. Same per-child segments, same elbow stop. */
   .family-cognates {
-    position: relative;
-    margin-top: 1.9rem;
-    padding-top: 1rem;
-    border-top: 1.5px dashed var(--rule-strong);
+    margin-top: 0.9rem;
   }
   .cognates-label {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 0.6rem;
-    background-color: color-mix(in srgb, var(--ink) 4%, var(--parchment));
+    display: block;
     font-family: 'Inter', sans-serif;
     font-size: 0.6563rem;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     color: var(--ink-soft);
-    white-space: nowrap;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin: 0 0 0.35rem;
   }
   .cognate-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.35rem 1.75rem;
+    margin-left: 0.55rem;
+    padding-left: 1.6rem;
   }
-  .cognate-row > :global(.family-node) { margin: 0.85rem 0 0; }
+  .cognate-row > :global(.family-node) { margin: 0.6rem 0; }
   .cognate-row > :global(.family-node)::before {
     content: '';
     position: absolute;
-    left: 1.1rem;
-    top: -0.95rem;
-    height: 0.95rem;
+    left: -1.6rem;
+    top: 1.35rem;
+    width: 1.6rem;
+    border-top: 1.5px dashed var(--rule-strong);
+  }
+  .cognate-row > :global(.family-node)::after {
+    content: '';
+    position: absolute;
+    left: -1.6rem;
+    top: -0.7rem;
+    bottom: 0;
     border-left: 1.5px dashed var(--rule-strong);
+  }
+  .cognate-row > :global(.family-node):last-child::after {
+    bottom: auto;
+    height: 2.05rem;
   }
   @media (max-width: 640px) {
     .family { padding: 1rem 0.9rem 1.1rem; }
-    .cognate-row { gap: 0.35rem 1.1rem; }
   }
   .derived-link { color: var(--ink); }
   .derived-link:hover { color: var(--accent); }

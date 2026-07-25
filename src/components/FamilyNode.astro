@@ -95,13 +95,15 @@ const { node, civId } = Astro.props;
     box-shadow: none;
   }
   .node-where { color: var(--accent); letter-spacing: 0.02em; }
-  /* Children hang from a left rail; each child gets a short horizontal tick
-     joining it to the rail. Solid lines are the meaningful mark: this form
-     was borrowed from the one it hangs under. */
+  /* Children hang from a left rail; each child gets a horizontal tick joining
+     it to the rail. Solid lines are the meaningful mark: this form was
+     borrowed from the one it hangs under. The rail is drawn per child (not as
+     a border on the list) so it emerges from under the parent card, runs
+     child to child, and STOPS at the last child's elbow instead of dangling
+     past it; ticks span the full gutter so they touch the cards they join. */
   .family-children {
     margin: 0.25rem 0 0;
     padding: 0 0 0 1.6rem;
-    border-left: 1.5px solid var(--rule-strong);
     margin-left: 1.1rem;
   }
   .family-children > :global(.family-node)::before {
@@ -109,8 +111,20 @@ const { node, civId } = Astro.props;
     position: absolute;
     left: -1.6rem;
     top: 1.35rem;
-    width: 1.1rem;
+    width: 1.6rem;
     border-top: 1.5px solid var(--rule-strong);
+  }
+  .family-children > :global(.family-node)::after {
+    content: '';
+    position: absolute;
+    left: -1.6rem;
+    top: -0.75rem;
+    bottom: 0;
+    border-left: 1.5px solid var(--rule-strong);
+  }
+  .family-children > :global(.family-node):last-child::after {
+    bottom: auto;
+    height: 2.1rem;
   }
   /* Scroll reveal: nodes are hidden only after the page script opts the
      section in (.anim), so the no-JS and reduced-motion paths always see the
@@ -134,10 +148,10 @@ const { node, civId } = Astro.props;
     border-color: var(--accent);
     color: var(--accent);
   }
-  .family-children.lit {
-    border-left-color: var(--accent);
-  }
   .family-children.lit > :global(.family-node)::before {
     border-top-color: var(--accent);
+  }
+  .family-children.lit > :global(.family-node)::after {
+    border-left-color: var(--accent);
   }
 </style>
