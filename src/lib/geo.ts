@@ -55,6 +55,8 @@ export const LANG_GEO: Record<string, LangGeo> = {
   sanskrit: { lon: 77.7, lat: 27.5, place: 'Mathura', anchor: 'end', dx: -7 },
   tamil: { lon: 78.12, lat: 9.93, place: 'Madurai', anchor: 'start', dx: 7, dy: 4 },
   'classical-chinese': { lon: 108.94, lat: 34.27, place: "Chang'an", anchor: 'end', dx: -7 },
+  'old-turkic': { lon: 102.85, lat: 47.35, place: 'The Orkhon Valley', anchor: 'end', dx: -7 },
+  'medieval-hebrew': { lon: -4.78, lat: 37.88, place: 'Córdoba', dy: 8 },
   'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hejaz' },
   geez: { lon: 38.72, lat: 14.13, place: 'Aksum' },
   lycian: { lon: 29.32, lat: 36.35, place: 'Xanthos', anchor: 'middle', dx: 0, dy: 12 },

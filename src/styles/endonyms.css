@@ -185,3 +185,11 @@
   src: url(/fonts/endonyms-noto-sans-old-sogdian-old-sogdian.woff2) format('woff2');
   unicode-range: U+10F00-10F27;
 }
+@font-face {
+  font-family: 'Endonyms';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/endonyms-noto-sans-old-turkic-old-turkic.woff2) format('woff2');
+  unicode-range: U+205A,U+2E30,U+10C00-10C48;
+}

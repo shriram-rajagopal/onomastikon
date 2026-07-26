@@ -558,6 +558,34 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Mediterraneum family',
     note: 'The sea in the middle of the lands: the late-antique Mare Mediterraneum of Solinus, carried into the Middle Ages by Isidore of Seville, whose Etymologiae fixed it as the name the European languages inherited.',
   },
+  turk: {
+    display: 'The Türk family',
+    note: 'The Old Turkic self-name of the Orkhon inscriptions, carried into every neighboring chancellery: Chinese Tūjué through a Rouran plural, Sogdian twrk on the qaghanate\'s own first monument, and the Persian, Arabic, Greek, and Sanskrit forms that made "Turk" a world-word.',
+  },
+  sarmatai: {
+    display: 'The Sarmatae family',
+    note: 'The Greek Sauromátai and later Sarmátai with their Latin and Armenian copies, and the Avestan Sairima- that tradition has long read as the same steppe name.',
+  },
+  hun: {
+    display: 'The Hun family',
+    note: 'The name of the Huns as it surfaces from the Sogdian Ancient Letters westward: Latin Hunni, Greek Oûnnoi, Sanskrit Hūṇa, Armenian Honkʿ, all reflexes of the same steppe ethnonym whose link to the Xiongnu remains the great open question.',
+  },
+  xyon: {
+    display: 'The Xyōn pair',
+    note: 'Avestan Xiiaona-, the scriptural enemies of Vištāspa, and its Middle Persian descendant Xyōn, the name the Zoroastrian books turned on the historical Chionites and Huns.',
+  },
+  heftal: {
+    display: 'The Hephthal family',
+    note: 'The name of the Hephthalite rulers carried into Greek, Chinese, Armenian, Arabic, and Persian, each language clipping the White Huns\' dynastic name to its own shape.',
+  },
+  avar: {
+    display: 'The Avar family',
+    note: 'The name of the qaghanate on the Danube as Byzantium and the Frankish annalists wrote it; the Orkhon inscriptions\' Apar may preserve the steppe\'s own memory of it.',
+  },
+  alan: {
+    display: 'The Alan family',
+    note: 'The name of the Alans, an Iranian self-designation cognate with Aryan, written down by Romans, Greeks, Armenians, Arabs, and the Han court\'s historians.',
+  },
   khazar: {
     display: 'The Khazar family',
     note: 'The Sea of the Khazars: Arabic Baḥr al-Khazar and Persian Daryā-yi Khazarān, the Caspian named for the Turkic khaganate of its northern steppe. The khaganate fell within a century of the name\'s first Persian attestation, and Persian alone still calls the sea by it.',
