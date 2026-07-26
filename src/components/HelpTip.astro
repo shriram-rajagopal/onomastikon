@@ -126,7 +126,9 @@ const { title, callout = false } = Astro.props;
   .help-btn {
     position: fixed;
     left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
-    top: 21rem;
+    /* Beneath the Browse rail's new resting place (the rail stepped down
+       3rem when the header grew its search bar). */
+    top: 24rem;
     z-index: 25;
     width: 2.6rem;
     height: 2.6rem;
@@ -150,7 +152,7 @@ const { title, callout = false } = Astro.props;
     left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
     /* Below the share button, which took the slot directly under the help
        button; the arrow still points up at the control stack. */
-    top: 27.4rem;
+    top: 30.6rem;
     z-index: 24;
     display: flex;
     flex-direction: column;
@@ -202,10 +204,12 @@ const { title, callout = false } = Astro.props;
   .help-panel {
     position: fixed;
     left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
-    top: 24.2rem;
+    /* Opens BELOW the share button (which holds the slot under the help
+       button), so an open panel never covers it. */
+    top: 30.6rem;
     z-index: 25;
     width: min(330px, calc(100vw - 2.2rem));
-    max-height: min(30rem, calc(100vh - 26rem));
+    max-height: min(30rem, calc(100vh - 32.4rem));
     overflow-y: auto;
     background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
     background-image: var(--grain);
@@ -268,7 +272,7 @@ const { title, callout = false } = Astro.props;
   @media (max-width: 1200px) {
     /* 8.2rem clears the header now that the search bar rides inside it. */
     .help-btn { left: auto; right: 1.1rem; top: 8.2rem; width: 1.9rem; height: 1.9rem; font-size: 1.05rem; }
-    .help-panel { left: auto; right: 1.1rem; top: 10.6rem; max-height: min(34rem, calc(100vh - 12rem)); }
+    .help-panel { left: auto; right: 1.1rem; top: 12.8rem; max-height: min(34rem, calc(100vh - 14.2rem)); }
     .help-callout { left: auto; right: 0.8rem; top: 12.8rem; align-items: flex-end; }
     .ca-svg { margin-right: 0.55rem; }
   }

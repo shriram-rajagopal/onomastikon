@@ -41,7 +41,9 @@
   .share-btn {
     position: fixed;
     left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
-    top: 24.4rem;
+    /* One step below the help button's new perch (24rem + 2.6rem + a gap);
+       the help panel opens below THIS button, never over it. */
+    top: 27.4rem;
     z-index: 25;
     width: 2.6rem;
     height: 2.6rem;
