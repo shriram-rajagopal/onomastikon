@@ -1,6 +1,7 @@
 ---
 civilization: miletus
 language: ancient-greek
+endonym: true
 original_text: Μίλητος
 transliteration: Mílētos
 ipa: /ˈmi.lɛː.tos/

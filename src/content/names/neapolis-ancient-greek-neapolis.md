@@ -1,6 +1,7 @@
 ---
 civilization: neapolis
 language: ancient-greek
+endonym: true
 original_text: Νεάπολις
 transliteration: Neápolis
 ipa: /ne.ˈa.po.lis/

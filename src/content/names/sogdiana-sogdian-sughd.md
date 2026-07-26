@@ -1,6 +1,7 @@
 ---
 civilization: sogdiana
 language: sogdian
+endonym: true
 original_text: 𐼑𐼇𐼄𐼌
 transliteration: swγδ
 ipa: "*suɣð"

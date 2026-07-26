@@ -1,6 +1,7 @@
 ---
 civilization: maghreb
 language: classical-arabic
+endonym: true
 original_text: المغرب
 transliteration: al-Maghrib
 ipa: /alˈmaɣrib/

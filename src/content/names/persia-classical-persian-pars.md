@@ -1,6 +1,7 @@
 ---
 civilization: persia
 language: classical-persian
+endonym: true
 original_text: پارس
 transliteration: Pārs
 ipa: /paːrs/

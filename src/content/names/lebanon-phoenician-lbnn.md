@@ -1,6 +1,7 @@
 ---
 civilization: lebanon
 language: phoenician
+endonym: true
 original_text: 𐤋𐤁𐤍𐤍
 transliteration: Lbnn
 ipa: "*labˈnaːn"

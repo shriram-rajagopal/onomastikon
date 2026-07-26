@@ -1,6 +1,7 @@
 ---
 civilization: sparta
 language: ancient-greek
+endonym: true
 original_text: Λακεδαίμων
 transliteration: Lakedaímōn
 ipa: /la.ke.ˈdai̯.mɔːn/

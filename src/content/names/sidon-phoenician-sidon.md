@@ -1,6 +1,7 @@
 ---
 civilization: sidon
 language: phoenician
+endonym: true
 original_text: 𐤑𐤃𐤍
 transliteration: Ṣīdūn
 ipa: "*sˤiːduːn"

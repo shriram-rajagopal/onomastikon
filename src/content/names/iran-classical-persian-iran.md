@@ -1,6 +1,7 @@
 ---
 civilization: iran
 language: classical-persian
+endonym: true
 original_text: ایران
 transliteration: Īrān
 ipa: /iːˈraːn/

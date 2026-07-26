@@ -1,6 +1,7 @@
 ---
 civilization: armenia
 language: classical-armenian
+endonym: true
 original_text: Հայք
 transliteration: Haykʿ
 ipa: /hajkʰ/

@@ -1,6 +1,7 @@
 ---
 civilization: mecca
 language: classical-arabic
+endonym: true
 original_text: مكة
 transliteration: Makka
 ipa: /ˈmakka/

@@ -1,6 +1,7 @@
 ---
 civilization: scythia
 language: ancient-greek
+endonym: true
 original_text: Σκόλοτοι
 transliteration: Skólotoi
 ipa: /ˈsko.lo.toi̯/

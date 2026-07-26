@@ -1,6 +1,7 @@
 ---
 civilization: latium
 language: latin
+endonym: true
 original_text: Latium
 transliteration: Latium
 ipa: /ˈla.ti.um/

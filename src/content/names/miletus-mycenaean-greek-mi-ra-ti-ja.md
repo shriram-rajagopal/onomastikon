@@ -1,6 +1,7 @@
 ---
 civilization: miletus
 language: mycenaean-greek
+endonym: true
 original_text: 𐀖𐀨𐀴𐀊
 transliteration: mi-ra-ti-ja
 ipa: "*milaːtiai"

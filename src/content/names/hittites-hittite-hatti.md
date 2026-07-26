@@ -1,6 +1,7 @@
 ---
 civilization: hittites
 language: hittite
+endonym: true
 original_text: 𒄩𒀜𒋾
 transliteration: Ḫatti
 ipa: "*ˈxatti"

@@ -1,6 +1,7 @@
 ---
 civilization: india
 language: sanskrit
+endonym: true
 original_text: भारत
 transliteration: Bhārata
 ipa: /ˈbʱaː.rɐ.t̪ɐ/

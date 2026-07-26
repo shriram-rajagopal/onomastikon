@@ -1,6 +1,7 @@
 ---
 civilization: khurasan
 language: classical-persian
+endonym: true
 original_text: خراسان
 transliteration: Khurāsān
 ipa: /xuraːˈsaːn/

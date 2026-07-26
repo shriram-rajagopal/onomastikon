@@ -1,6 +1,7 @@
 ---
 civilization: thebes
 language: ancient-greek
+endonym: true
 original_text: Θῆβαι
 transliteration: Thêbai
 ipa: /ˈtʰɛː.bai/

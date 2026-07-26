@@ -1,6 +1,7 @@
 ---
 civilization: elam
 language: elamite
+endonym: true
 original_text: 𒁹𒄬𒆷𒁶𒋾
 transliteration: Haltamti
 ipa: "*haltamti"

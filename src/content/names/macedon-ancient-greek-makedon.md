@@ -1,6 +1,7 @@
 ---
 civilization: macedon
 language: ancient-greek
+endonym: true
 original_text: Μακεδών
 transliteration: Makedṓn
 ipa: /ma.keˈdɔːn/

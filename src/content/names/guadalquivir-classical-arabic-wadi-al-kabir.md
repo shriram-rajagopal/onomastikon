@@ -1,6 +1,7 @@
 ---
 civilization: guadalquivir
 language: classical-arabic
+endonym: true
 original_text: الوادي الكبير
 transliteration: al-Wādī al-Kabīr
 ipa: /alˈwaːdiː alkaˈbiːr/

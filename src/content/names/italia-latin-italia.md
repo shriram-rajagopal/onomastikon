@@ -1,6 +1,7 @@
 ---
 civilization: italia
 language: latin
+endonym: true
 original_text: Italia
 transliteration: Italia
 ipa: /iˈta.li.a/

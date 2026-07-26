@@ -1,6 +1,7 @@
 ---
 civilization: nicaea
 language: ancient-greek
+endonym: true
 original_text: Νίκαια
 transliteration: Níkaia
 ipa: /ˈnikai̯a/

@@ -1,6 +1,7 @@
 ---
 civilization: himalayas
 language: pali
+endonym: true
 original_text: 𑀳𑀺𑀫𑀯𑀸
 transliteration: Himavā
 ipa: /ˈɦimɐʋaː/

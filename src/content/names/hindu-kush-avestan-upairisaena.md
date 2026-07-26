@@ -1,6 +1,7 @@
 ---
 civilization: hindu-kush
 language: avestan
+endonym: true
 original_text: 𐬎𐬞𐬁𐬌𐬭𐬌𐬯𐬀𐬉𐬥𐬀
 transliteration: Upāiri.saēna
 ipa: /u.paːi̯.ri.ˈsae̯.na/

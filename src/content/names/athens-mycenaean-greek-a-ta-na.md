@@ -1,6 +1,7 @@
 ---
 civilization: athens
 language: mycenaean-greek
+endonym: true
 original_text: 𐀀𐀲𐀙
 transliteration: a-ta-na
 ipa: "*atʰaːnaː"

@@ -1,6 +1,7 @@
 ---
 civilization: iran
 language: old-persian
+endonym: true
 original_text: 𐎠𐎼𐎡𐎹
 transliteration: ariya
 ipa: "*ˈar.ja"

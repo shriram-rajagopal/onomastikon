@@ -1,6 +1,7 @@
 ---
 civilization: cairo
 language: coptic
+endonym: true
 original_text: ⲃⲁⲃⲩⲗⲱⲛ
 transliteration: Babylōn
 ipa: /babyˈloːn/

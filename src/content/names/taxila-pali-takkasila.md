@@ -1,6 +1,7 @@
 ---
 civilization: taxila
 language: pali
+endonym: true
 original_text: 𑀢𑀓𑁆𑀓𑀲𑀺𑀮𑀸
 transliteration: Takkasilā
 ipa: /t̪ɐkkɐˈsilaː/

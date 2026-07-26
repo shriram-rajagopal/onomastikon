@@ -1,6 +1,7 @@
 ---
 civilization: transoxiana
 language: classical-arabic
+endonym: true
 original_text: ما وراء النهر
 transliteration: Mā warāʾ al-Nahr
 ipa: /maː waˈraːʔa nnahr/

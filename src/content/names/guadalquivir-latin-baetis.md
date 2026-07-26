@@ -1,6 +1,7 @@
 ---
 civilization: guadalquivir
 language: latin
+endonym: true
 original_text: Baetis
 transliteration: Baetis
 ipa: /ˈbae̯.tis/

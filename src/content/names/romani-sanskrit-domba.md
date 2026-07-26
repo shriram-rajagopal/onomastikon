@@ -1,6 +1,7 @@
 ---
 civilization: romani
 language: sanskrit
+endonym: true
 original_text: डोम्ब
 transliteration: Ḍomba
 ipa: /ˈɖom.bɐ/

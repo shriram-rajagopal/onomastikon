@@ -1,6 +1,7 @@
 ---
 civilization: jerusalem
 language: biblical-hebrew
+endonym: true
 original_text: יְרוּשָׁלַיִם
 transliteration: Yĕrûšālayim
 ipa: /jə.ruː.ʃɔːˈla.jim/

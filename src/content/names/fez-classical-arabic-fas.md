@@ -1,6 +1,7 @@
 ---
 civilization: fez
 language: classical-arabic
+endonym: true
 original_text: فاس
 transliteration: Fās
 ipa: /faːs/

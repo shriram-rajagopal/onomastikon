@@ -1,6 +1,7 @@
 ---
 civilization: indus
 language: sanskrit
+endonym: true
 original_text: सिन्धु
 transliteration: Sindhu
 ipa: /ˈsin̪.d̪ʱu/

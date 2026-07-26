@@ -1,6 +1,7 @@
 ---
 civilization: yamuna
 language: sanskrit
+endonym: true
 original_text: यमुना
 transliteration: Yamunā
 ipa: /jɐˈmuː.naː/

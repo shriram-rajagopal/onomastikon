@@ -1,6 +1,7 @@
 ---
 civilization: athens
 language: ancient-greek
+endonym: true
 original_text: Ἀθῆναι
 transliteration: Athēnai
 ipa: /a.ˈtʰɛː.nai̯/

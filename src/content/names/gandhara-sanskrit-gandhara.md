@@ -1,6 +1,7 @@
 ---
 civilization: gandhara
 language: sanskrit
+endonym: true
 original_text: गन्धार
 transliteration: Gandhāra
 ipa: /ɡɐnˈdʱaː.rɐ/

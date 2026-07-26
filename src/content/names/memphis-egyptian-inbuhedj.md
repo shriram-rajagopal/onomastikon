@@ -1,6 +1,7 @@
 ---
 civilization: memphis
 language: egyptian
+endonym: true
 original_text: 𓊅𓌉
 transliteration: Inbw-ḥḏ
 literal_meaning: White Walls

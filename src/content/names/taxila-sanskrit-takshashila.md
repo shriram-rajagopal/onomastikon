@@ -1,6 +1,7 @@
 ---
 civilization: taxila
 language: sanskrit
+endonym: true
 original_text: तक्षशिला
 transliteration: Takṣaśilā
 ipa: /t̪ɐkʂɐˈɕilaː/

@@ -1,6 +1,7 @@
 ---
 civilization: khazars
 language: medieval-hebrew
+endonym: true
 original_text: כּוּזָר
 transliteration: Kūzār
 ipa: /kuˈzar/

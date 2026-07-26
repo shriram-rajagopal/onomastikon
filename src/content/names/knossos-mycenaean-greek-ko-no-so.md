@@ -1,6 +1,7 @@
 ---
 civilization: knossos
 language: mycenaean-greek
+endonym: true
 original_text: 𐀒𐀜𐀰
 transliteration: ko-no-so
 ipa: "*knossos"

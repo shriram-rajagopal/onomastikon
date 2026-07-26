@@ -1,6 +1,7 @@
 ---
 civilization: memphis
 language: demotic
+endonym: true
 original_text: ""
 script_unencodable: true
 transliteration: Mnfy

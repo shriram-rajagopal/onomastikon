@@ -1,6 +1,7 @@
 ---
 civilization: oxus
 language: avestan
+endonym: true
 original_text: 𐬬𐬀𐬑𐬱𐬎
 transliteration: "*Vaxšu"
 ipa: "*ˈu̯ax.ʃu"

@@ -1,6 +1,7 @@
 ---
 civilization: punjab
 language: classical-persian
+endonym: true
 original_text: پنجاب
 transliteration: Panjāb
 ipa: /panˈdʒaːb/

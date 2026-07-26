@@ -1,6 +1,7 @@
 ---
 civilization: bursa
 language: ancient-greek
+endonym: true
 original_text: Προῦσα
 transliteration: Proûsa
 ipa: /ˈpruːsa/

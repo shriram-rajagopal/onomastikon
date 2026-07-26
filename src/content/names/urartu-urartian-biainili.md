@@ -1,6 +1,7 @@
 ---
 civilization: urartu
 language: urartian
+endonym: true
 original_text: 𒁉𒀀𒄿𒉌𒇷
 transliteration: Biainili
 ipa: "*biainili"

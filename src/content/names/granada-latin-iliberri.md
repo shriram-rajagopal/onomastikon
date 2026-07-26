@@ -1,6 +1,7 @@
 ---
 civilization: granada
 language: latin
+endonym: true
 original_text: Iliberri
 transliteration: Iliberri
 ipa: /iliˈber.ri/

@@ -1,6 +1,7 @@
 ---
 civilization: khurasan
 language: middle-persian
+endonym: true
 original_text: ""
 transliteration: Xwarāsān
 ipa: /xwaraːˈsaːn/

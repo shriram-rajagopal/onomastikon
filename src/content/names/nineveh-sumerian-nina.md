@@ -1,6 +1,7 @@
 ---
 civilization: nineveh
 language: sumerian
+endonym: true
 original_text: 𒀏
 transliteration: Nina
 literal_meaning: Nineveh (the logogram of a fish within a house)

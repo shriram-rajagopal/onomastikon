@@ -1,6 +1,7 @@
 ---
 civilization: jerusalem
 language: jewish-babylonian-aramaic
+endonym: true
 original_text: ירושלים
 transliteration: Yĕrûšālayim
 ipa: /jəruːʃaːˈlajim/

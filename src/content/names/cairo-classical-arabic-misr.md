@@ -1,6 +1,7 @@
 ---
 civilization: cairo
 language: classical-arabic
+endonym: true
 original_text: مصر
 transliteration: Miṣr
 ipa: /misˤr/

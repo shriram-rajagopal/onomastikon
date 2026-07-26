@@ -1,6 +1,7 @@
 ---
 civilization: konya
 language: ancient-greek
+endonym: true
 original_text: Ἰκόνιον
 transliteration: Ikónion
 ipa: /iˈkonion/

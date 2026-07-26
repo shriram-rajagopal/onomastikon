@@ -1,6 +1,7 @@
 ---
 civilization: medina
 language: classical-arabic
+endonym: true
 original_text: المدينة
 transliteration: al-Madīna
 ipa: /almaˈdiːna/

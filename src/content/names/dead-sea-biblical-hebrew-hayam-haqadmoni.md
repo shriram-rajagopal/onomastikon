@@ -1,6 +1,7 @@
 ---
 civilization: dead-sea
 language: biblical-hebrew
+endonym: true
 original_text: הַיָּם הַקַּדְמוֹנִי
 transliteration: ha-Yam ha-Qadmonī
 ipa: /haj.ˈjɔːm haq.qað.moː.ˈniː/

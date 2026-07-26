@@ -1,6 +1,7 @@
 ---
 civilization: ephesus
 language: hittite
+endonym: true
 original_text: 𒌷𒀀𒉺𒊭
 transliteration: Apaša
 ipa: "*ˈapaʃa"

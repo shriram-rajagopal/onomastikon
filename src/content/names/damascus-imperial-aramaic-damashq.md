@@ -1,6 +1,7 @@
 ---
 civilization: damascus
 language: imperial-aramaic
+endonym: true
 original_text: דמשק
 transliteration: Dmśq
 ipa: "*damˈmaʃq"

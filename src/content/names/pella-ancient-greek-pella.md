@@ -1,6 +1,7 @@
 ---
 civilization: pella
 language: ancient-greek
+endonym: true
 original_text: Πέλλα
 transliteration: Pélla
 ipa: /ˈpel.la/

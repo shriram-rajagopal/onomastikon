@@ -1,6 +1,7 @@
 ---
 civilization: sicily
 language: ancient-greek
+endonym: true
 original_text: Σικελία
 transliteration: Sikelía
 ipa: /si.ke.ˈli.a/

@@ -1,6 +1,7 @@
 ---
 civilization: ur
 language: sumerian
+endonym: true
 original_text: 𒋀𒀕𒆠
 transliteration: Urim
 literal_meaning: Ur (etymology uncertain; the cult-city of the moon-god Nanna)

@@ -1,6 +1,7 @@
 ---
 civilization: corinth
 language: ancient-greek
+endonym: true
 original_text: Κόρινθος
 transliteration: Kórinthos
 ipa: /ˈko.rin.tʰos/

@@ -1,6 +1,7 @@
 ---
 civilization: tigris
 language: sumerian
+endonym: true
 original_text: 𒈦𒄘𒃼
 transliteration: Idigna
 ipa: "*idigna"

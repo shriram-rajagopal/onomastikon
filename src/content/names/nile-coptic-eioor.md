@@ -1,6 +1,7 @@
 ---
 civilization: nile
 language: coptic
+endonym: true
 original_text: ⲉⲓⲟⲟⲣ
 transliteration: Eioor
 ipa: /ˈejoːr/

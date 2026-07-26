@@ -1,6 +1,7 @@
 ---
 civilization: egypt
 language: coptic
+endonym: true
 original_text: ⲕⲏⲙⲉ
 transliteration: Kēme
 ipa: /ˈkeːmə/

@@ -1,6 +1,7 @@
 ---
 civilization: punjab
 language: sanskrit
+endonym: true
 original_text: सप्त सिन्धु
 transliteration: Sapta Sindhu
 ipa: /ˈsɐp.tɐ ˈsin.dʱu/

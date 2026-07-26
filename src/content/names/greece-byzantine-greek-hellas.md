@@ -1,6 +1,7 @@
 ---
 civilization: greece
 language: byzantine-greek
+endonym: true
 original_text: Ἑλλάς
 transliteration: Hellás
 ipa: /eˈlas/

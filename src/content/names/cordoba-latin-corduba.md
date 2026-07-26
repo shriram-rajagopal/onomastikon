@@ -1,6 +1,7 @@
 ---
 civilization: cordoba
 language: latin
+endonym: true
 original_text: Corduba
 transliteration: Corduba
 ipa: /ˈkor.du.ba/

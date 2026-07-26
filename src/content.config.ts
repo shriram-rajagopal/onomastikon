@@ -56,6 +56,14 @@ const names = defineCollection({
     // "ionian", "roma"). Only set when at least two entries on the entity's
     // page share the family; etymologically isolated names carry no family.
     family: z.string().optional(),
+    // True where this form is a self-name: the name the entity's own people
+    // (or the resident population of a city or the riparian/shore civilization
+    // of a feature) used for it, in their own language. Drives the "They
+    // called themselves / Their neighbors called them" split on entity pages.
+    // Absent = an outsider's name. Set conservatively: an unflagged endonym
+    // merely lists with the neighbors, but a wrongly flagged exonym asserts a
+    // false self-name.
+    endonym: z.boolean().optional(),
     // The specific entry this form was borrowed or descended from, set ONLY
     // where the entry's own prose asserts the derivation without hedging and
     // the parent form exists in the collection. Cognate siblings (parallel

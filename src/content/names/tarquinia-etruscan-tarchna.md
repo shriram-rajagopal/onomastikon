@@ -1,6 +1,7 @@
 ---
 civilization: tarquinia
 language: etruscan
+endonym: true
 original_text: 𐌕𐌀𐌓𐌙𐌍𐌀
 transliteration: Tarχna
 ipa: /ˈtarkʰna/

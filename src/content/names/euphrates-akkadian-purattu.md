@@ -1,6 +1,7 @@
 ---
 civilization: euphrates
 language: akkadian
+endonym: true
 original_text: 𒌓𒄒𒉣
 transliteration: Purattu
 ipa: /puˈrattu/

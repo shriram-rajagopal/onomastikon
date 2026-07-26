@@ -1,6 +1,7 @@
 ---
 civilization: canaan
 language: ugaritic
+endonym: true
 original_text: 𐎋𐎐𐎓𐎐
 transliteration: Knʿn
 ipa: "*kanaʕnu"

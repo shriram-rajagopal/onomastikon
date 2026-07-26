@@ -1,6 +1,7 @@
 ---
 civilization: byzantines
 language: ancient-greek
+endonym: true
 original_text: Ῥωμανία
 transliteration: Rhōmanía
 ipa: /romaˈnia/

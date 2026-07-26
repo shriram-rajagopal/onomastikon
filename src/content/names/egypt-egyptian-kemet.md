@@ -1,6 +1,7 @@
 ---
 civilization: egypt
 language: egyptian
+endonym: true
 original_text: 𓆎𓅓𓏏
 transliteration: km.t
 ipa: "*kuːmat"

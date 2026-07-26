@@ -1,6 +1,7 @@
 ---
 civilization: mycenae
 language: ancient-greek
+endonym: true
 original_text: Μυκῆναι
 transliteration: Mykēnai
 ipa: /myˈkɛː.nai/

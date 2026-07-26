@@ -1,6 +1,7 @@
 ---
 civilization: himalayas
 language: sanskrit
+endonym: true
 original_text: हिमवत्
 transliteration: Himavat
 ipa: /ˈɦi.mɐ.ʋɐt̪/

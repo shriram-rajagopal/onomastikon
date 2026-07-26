@@ -1,6 +1,7 @@
 ---
 civilization: carthage
 language: phoenician
+endonym: true
 original_text: 𐤒𐤓𐤕𐤇𐤃𐤔𐤕
 transliteration: Qart-ḥadašt
 ipa: "*qart ħaˈdaʃt"

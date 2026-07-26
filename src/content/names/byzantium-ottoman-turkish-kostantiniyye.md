@@ -1,6 +1,7 @@
 ---
 civilization: byzantium
 language: ottoman-turkish
+endonym: true
 original_text: قسطنطينيه
 transliteration: Kostantiniyye
 ipa: /kostantiˈnijje/

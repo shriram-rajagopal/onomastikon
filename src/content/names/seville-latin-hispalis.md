@@ -1,6 +1,7 @@
 ---
 civilization: seville
 language: latin
+endonym: true
 original_text: Hispalis
 transliteration: Hispalis
 ipa: /ˈhis.pa.lis/

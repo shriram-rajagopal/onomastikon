@@ -1,6 +1,7 @@
 ---
 civilization: nishapur
 language: classical-persian
+endonym: true
 original_text: نیشاپور
 transliteration: Nīshāpūr
 ipa: /niːʃaːˈpuːr/

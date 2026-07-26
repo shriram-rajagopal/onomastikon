@@ -1,6 +1,7 @@
 ---
 civilization: uruk
 language: sumerian
+endonym: true
 original_text: 𒀕𒆠
 transliteration: Unug
 literal_meaning: Uruk (etymology uncertain; the seat of the goddess Inanna and the god An)

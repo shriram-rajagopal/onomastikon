@@ -1,6 +1,7 @@
 ---
 civilization: byzantium
 language: byzantine-greek
+endonym: true
 original_text: ἡ Πόλις
 transliteration: hē Pólis
 ipa: /i ˈpo.lis/

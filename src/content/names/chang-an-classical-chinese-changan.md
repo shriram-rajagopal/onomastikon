@@ -1,6 +1,7 @@
 ---
 civilization: chang-an
 language: classical-chinese
+endonym: true
 original_text: 長安
 transliteration: Cháng'ān
 literal_meaning: perpetual peace

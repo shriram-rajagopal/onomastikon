@@ -1,6 +1,7 @@
 ---
 civilization: judah
 language: biblical-hebrew
+endonym: true
 original_text: יְהוּדָה
 transliteration: Yĕhûdāh
 ipa: /jə.huːˈðɔː/

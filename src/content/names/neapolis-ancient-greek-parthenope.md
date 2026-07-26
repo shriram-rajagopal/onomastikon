@@ -1,6 +1,7 @@
 ---
 civilization: neapolis
 language: ancient-greek
+endonym: true
 original_text: Παρθενόπη
 transliteration: Parthenópē
 ipa: /par.the.ˈno.pɛː/

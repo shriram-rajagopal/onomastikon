@@ -1,6 +1,7 @@
 ---
 civilization: nicaea
 language: ottoman-turkish
+endonym: true
 original_text: ازنيق
 transliteration: İznik
 ipa: /izˈnik/

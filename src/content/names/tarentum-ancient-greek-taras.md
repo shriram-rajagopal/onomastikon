@@ -1,6 +1,7 @@
 ---
 civilization: tarentum
 language: ancient-greek
+endonym: true
 original_text: Τάρας
 transliteration: Táras
 ipa: /ˈta.ras/

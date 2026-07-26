@@ -1,6 +1,7 @@
 ---
 civilization: toledo
 language: classical-arabic
+endonym: true
 original_text: طليطلة
 transliteration: Ṭulayṭula
 ipa: /tˤulajˈtˤula/

@@ -1,6 +1,7 @@
 ---
 civilization: aegean
 language: ancient-greek
+endonym: true
 original_text: Αἰγαῖον
 transliteration: Aigaîon
 ipa: /ai̯.ˈɡai̯.on/

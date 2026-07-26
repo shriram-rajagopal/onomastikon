@@ -1,6 +1,7 @@
 ---
 civilization: parthia
 language: parthian
+endonym: true
 original_text: 𐭐𐭓𐭕𐭅
 transliteration: Parθaw
 ipa: /parˈθaw/

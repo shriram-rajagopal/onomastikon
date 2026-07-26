@@ -1,6 +1,7 @@
 ---
 civilization: persepolis
 language: old-persian
+endonym: true
 original_text: 𐎱𐎠𐎼𐎿
 transliteration: Pārsa
 ipa: /ˈpaːr.sa/

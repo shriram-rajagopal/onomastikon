@@ -1,6 +1,7 @@
 ---
 civilization: punjab
 language: sanskrit
+endonym: true
 original_text: पञ्चनद
 transliteration: Pañcanada
 ipa: /ˈpɐɲ.t͡ʃɐ.nɐ.dɐ/

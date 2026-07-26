@@ -1,6 +1,7 @@
 ---
 civilization: nile
 language: egyptian
+endonym: true
 original_text: 𓎛𓂝𓊪𓇋
 transliteration: Ḥꜥpy
 ipa: "*ħaʕpij"

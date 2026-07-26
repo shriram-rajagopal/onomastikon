@@ -1,6 +1,7 @@
 ---
 civilization: sicily
 language: latin
+endonym: true
 original_text: Sicilia
 transliteration: Sicilia
 ipa: /si.ˈki.li.a/

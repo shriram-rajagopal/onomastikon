@@ -1,6 +1,7 @@
 ---
 civilization: tiber
 language: latin
+endonym: true
 original_text: Tiberis
 transliteration: Tiberis
 ipa: /ˈti.be.ris/

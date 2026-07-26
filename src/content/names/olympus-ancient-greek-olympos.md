@@ -1,6 +1,7 @@
 ---
 civilization: olympus
 language: ancient-greek
+endonym: true
 original_text: Ὄλυμπος
 transliteration: Ólympos
 ipa: /ˈo.lym.pos/

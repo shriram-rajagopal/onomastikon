@@ -1,6 +1,7 @@
 ---
 civilization: kairouan
 language: classical-arabic
+endonym: true
 original_text: القيروان
 transliteration: al-Qayrawān
 ipa: /alqajraˈwaːn/

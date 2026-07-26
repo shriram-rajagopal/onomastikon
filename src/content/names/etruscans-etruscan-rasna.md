@@ -1,6 +1,7 @@
 ---
 civilization: etruscans
 language: etruscan
+endonym: true
 original_text: 𐌓𐌀𐌑𐌍𐌀
 transliteration: Raśna
 ipa: /ˈraʃna/

@@ -1,6 +1,7 @@
 ---
 civilization: jerusalem
 language: classical-arabic
+endonym: true
 original_text: بيت المقدس
 transliteration: Bayt al-Maqdis
 ipa: /bajt alˈmaqdis/

@@ -1,6 +1,7 @@
 ---
 civilization: persia
 language: middle-persian
+endonym: true
 original_text: 𐭠𐭩𐭥𐭠𐭭
 transliteration: Ērān
 ipa: /eːˈraːn/

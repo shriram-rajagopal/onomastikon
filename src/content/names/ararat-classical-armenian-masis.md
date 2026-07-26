@@ -1,6 +1,7 @@
 ---
 civilization: ararat
 language: classical-armenian
+endonym: true
 original_text: Մասիս
 transliteration: Masis
 ipa: /maˈsis/

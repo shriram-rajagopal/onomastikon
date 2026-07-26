@@ -1,6 +1,7 @@
 ---
 civilization: alexandria
 language: ancient-greek
+endonym: true
 original_text: Ἀλεξάνδρεια
 transliteration: Alexandreia
 ipa: /a.lek.ˈsan.drei.a/

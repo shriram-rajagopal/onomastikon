@@ -1,6 +1,7 @@
 ---
 civilization: baghdad
 language: classical-arabic
+endonym: true
 original_text: بغداد
 transliteration: Baghdād
 ipa: /baɣˈdaːd/

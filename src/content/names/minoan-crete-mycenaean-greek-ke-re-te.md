@@ -1,6 +1,7 @@
 ---
 civilization: minoan-crete
 language: mycenaean-greek
+endonym: true
 original_text: 𐀐𐀩𐀳
 transliteration: ke-re-te
 ipa: "*krɛːte"

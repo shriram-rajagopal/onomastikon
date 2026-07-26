@@ -1,6 +1,7 @@
 ---
 civilization: canaan
 language: phoenician
+endonym: true
 original_text: 𐤊𐤍𐤏𐤍
 transliteration: Kanaʿan
 ipa: "*kanaˈʕan"

@@ -1,6 +1,7 @@
 ---
 civilization: byzantium
 language: ancient-greek
+endonym: true
 original_text: Βυζάντιον
 transliteration: Byzántion
 ipa: /byˈzan.ti.on/

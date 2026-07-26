@@ -1,6 +1,7 @@
 ---
 civilization: ionia
 language: ancient-greek
+endonym: true
 original_text: Ἰωνία
 transliteration: Iōnía
 ipa: /i.ɔː.ˈni.a/

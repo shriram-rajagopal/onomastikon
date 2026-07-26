@@ -1,6 +1,7 @@
 ---
 civilization: ganges
 language: sanskrit
+endonym: true
 original_text: गङ्गा
 transliteration: Gaṅgā
 ipa: /ˈɡəŋ.ɡaː/

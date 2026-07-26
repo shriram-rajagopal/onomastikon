@@ -1,6 +1,7 @@
 ---
 civilization: macedonia
 language: ancient-greek
+endonym: true
 original_text: Μακεδονία
 transliteration: Makedonía
 ipa: /ma.ke.doˈni.a/

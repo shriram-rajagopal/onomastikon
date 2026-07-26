@@ -1,6 +1,7 @@
 ---
 civilization: persia
 language: parthian
+endonym: true
 original_text: 𐭀𐭓𐭉𐭀𐭍
 transliteration: ʾryʾn
 ipa: /arˈjaːn/

@@ -1,6 +1,7 @@
 ---
 civilization: syracuse
 language: ancient-greek
+endonym: true
 original_text: Συράκουσαι
 transliteration: Syrákousai
 ipa: /syˈraː.ku.sai̯/

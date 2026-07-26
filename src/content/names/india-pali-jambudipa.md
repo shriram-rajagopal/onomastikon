@@ -1,6 +1,7 @@
 ---
 civilization: india
 language: pali
+endonym: true
 original_text: 𑀚𑀁𑀩𑀼𑀤𑀻𑀧
 transliteration: Jambudīpa
 ipa: /ˈd͡ʑɐmbudiːpɐ/

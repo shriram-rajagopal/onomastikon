@@ -1,6 +1,7 @@
 ---
 civilization: israel
 language: biblical-hebrew
+endonym: true
 original_text: יִשְׂרָאֵל
 transliteration: Yiśrāʾēl
 ipa: /jisrɔːˈʔeːl/

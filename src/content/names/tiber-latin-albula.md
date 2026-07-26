@@ -1,6 +1,7 @@
 ---
 civilization: tiber
 language: latin
+endonym: true
 original_text: Albula
 transliteration: Albula
 ipa: /ˈal.bu.la/

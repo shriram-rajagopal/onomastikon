@@ -1,6 +1,7 @@
 ---
 civilization: thebes
 language: mycenaean-greek
+endonym: true
 original_text: 𐀳𐀣
 transliteration: te-qa
 ipa: "*tʰɛːɡʷai"

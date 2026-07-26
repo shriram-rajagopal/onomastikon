@@ -1,6 +1,7 @@
 ---
 civilization: bursa
 language: ottoman-turkish
+endonym: true
 original_text: بروسه
 transliteration: Bursa
 ipa: /ˈbursa/

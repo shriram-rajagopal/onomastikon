@@ -1,6 +1,7 @@
 ---
 civilization: syria
 language: imperial-aramaic
+endonym: true
 original_text: ארם
 transliteration: ʾRm
 ipa: "*ʔaˈraːm"

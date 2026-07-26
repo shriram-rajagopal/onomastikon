@@ -1,6 +1,7 @@
 ---
 civilization: konya
 language: ottoman-turkish
+endonym: true
 original_text: قونيه
 transliteration: Konya
 ipa: /ˈkonja/

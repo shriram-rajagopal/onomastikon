@@ -1,6 +1,7 @@
 ---
 civilization: al-andalus
 language: classical-arabic
+endonym: true
 original_text: الأندلس
 transliteration: al-Andalus
 ipa: /alˈʔandalus/

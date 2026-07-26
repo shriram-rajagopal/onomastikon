@@ -1,6 +1,7 @@
 ---
 civilization: alexandria
 language: demotic
+endonym: true
 original_text: ""
 script_unencodable: true
 transliteration: Rꜥ-qd

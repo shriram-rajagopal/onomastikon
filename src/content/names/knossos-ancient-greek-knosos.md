@@ -1,6 +1,7 @@
 ---
 civilization: knossos
 language: ancient-greek
+endonym: true
 original_text: Κνωσός
 transliteration: Knōsós
 ipa: /knɔːˈsos/

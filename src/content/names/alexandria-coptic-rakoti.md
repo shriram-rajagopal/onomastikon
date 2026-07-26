@@ -1,6 +1,7 @@
 ---
 civilization: alexandria
 language: coptic
+endonym: true
 original_text: ⲣⲁⲕⲟϯ
 transliteration: Rakoti
 ipa: /raˈkoti/

@@ -1,6 +1,7 @@
 ---
 civilization: china
 language: classical-chinese
+endonym: true
 original_text: 中國
 transliteration: Zhōngguó
 literal_meaning: the central state; the Middle Kingdom

@@ -1,6 +1,7 @@
 ---
 civilization: cordoba
 language: classical-arabic
+endonym: true
 original_text: قرطبة
 transliteration: Qurṭuba
 ipa: /ˈqurtˤuba/

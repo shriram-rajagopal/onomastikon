@@ -1,6 +1,7 @@
 ---
 civilization: babylonia
 language: sumerian
+endonym: true
 original_text: 𒆍𒀭𒊏𒆠
 transliteration: Kadingirra
 literal_meaning: gate of god (KÁ.DINGIR.RA)

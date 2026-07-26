@@ -1,6 +1,7 @@
 ---
 civilization: babylonia
 language: akkadian
+endonym: true
 original_text: 𒆍𒀭𒊏𒆠
 transliteration: Bābilu
 ipa: /ˈbaːbilu/

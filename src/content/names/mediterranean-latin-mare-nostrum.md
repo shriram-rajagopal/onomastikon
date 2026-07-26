@@ -1,6 +1,7 @@
 ---
 civilization: mediterranean
 language: latin
+endonym: true
 original_text: Mare Nostrum
 transliteration: Mare Nostrum
 ipa: /ˈma.re ˈnos.trum/

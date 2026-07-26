@@ -1,6 +1,7 @@
 ---
 civilization: lycia
 language: lycian
+endonym: true
 original_text: 𐊗𐊕𐊐𐊎𐊆𐊍𐊆
 transliteration: Trm̃mili
 era_start: -500

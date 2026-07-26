@@ -1,6 +1,7 @@
 ---
 civilization: nishapur
 language: middle-persian
+endonym: true
 original_text: ""
 transliteration: Nēw-Šābuhr
 ipa: /neːw ʃaːˈbuhr/

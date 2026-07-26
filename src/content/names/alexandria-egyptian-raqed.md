@@ -1,6 +1,7 @@
 ---
 civilization: alexandria
 language: egyptian
+endonym: true
 original_text: 𓂋𓏤𓂝𓀨𓏏𓊖
 transliteration: Rꜥ-qd
 literal_meaning: the building site (from qd, "to build")

@@ -1,6 +1,7 @@
 ---
 civilization: jordan
 language: biblical-hebrew
+endonym: true
 original_text: יַרְדֵּן
 transliteration: Yardēn
 ipa: /jarˈdeːn/

@@ -1,6 +1,7 @@
 ---
 civilization: iran
 language: avestan
+endonym: true
 original_text: 𐬀𐬌𐬭𐬫𐬀𐬥𐬀 𐬬𐬀𐬉𐬘𐬀𐬵
 transliteration: Airyana Vaēǰah
 ipa: /ai̯r.ja.na ˈu̯ae̯.d͡ʒah/

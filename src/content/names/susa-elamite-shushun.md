@@ -1,6 +1,7 @@
 ---
 civilization: susa
 language: elamite
+endonym: true
 original_text: 𒋢𒋢𒌦
 transliteration: Šušun
 ipa: "*ʃuʃun"

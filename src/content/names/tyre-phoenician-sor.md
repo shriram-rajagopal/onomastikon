@@ -1,6 +1,7 @@
 ---
 civilization: tyre
 language: phoenician
+endonym: true
 original_text: 𐤑𐤓
 transliteration: Ṣūr
 ipa: "*sˤuːr"

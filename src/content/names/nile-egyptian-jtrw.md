@@ -1,6 +1,7 @@
 ---
 civilization: nile
 language: egyptian
+endonym: true
 original_text: 𓇋𓏏𓂋𓅱𓈗
 transliteration: jtrw
 ipa: "*ˈjatraw"

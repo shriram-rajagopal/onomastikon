@@ -1,6 +1,7 @@
 ---
 civilization: byzantium
 language: ancient-greek
+endonym: true
 original_text: Κωνσταντινούπολις
 transliteration: Kōnstantinoúpolis
 ipa: /kɔːn.stan.tiˈnuː.po.lis/

@@ -1,6 +1,7 @@
 ---
 civilization: magna-graecia
 language: ancient-greek
+endonym: true
 original_text: Μεγάλη Ἑλλάς
 transliteration: Megálē Hellás
 ipa: /me.ˈɡa.lɛː hel.ˈlas/

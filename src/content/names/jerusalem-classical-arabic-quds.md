@@ -1,6 +1,7 @@
 ---
 civilization: jerusalem
 language: classical-arabic
+endonym: true
 original_text: القدس
 transliteration: al-Quds
 ipa: /alˈquds/

@@ -1,6 +1,7 @@
 ---
 civilization: dead-sea
 language: biblical-hebrew
+endonym: true
 original_text: יָם הַמֶּלַח
 transliteration: Yam ha-Melaḥ
 ipa: /jam ham.ˈmɛ.laħ/

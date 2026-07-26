@@ -1,6 +1,7 @@
 ---
 civilization: baghdad
 language: classical-arabic
+endonym: true
 original_text: مدينة السلام
 transliteration: Madīnat al-Salām
 ipa: /maˈdiːnat assaˈlaːm/

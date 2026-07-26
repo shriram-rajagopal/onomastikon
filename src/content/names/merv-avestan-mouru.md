@@ -1,6 +1,7 @@
 ---
 civilization: merv
 language: avestan
+endonym: true
 original_text: 𐬨𐬋𐬎𐬭𐬎
 transliteration: Mōuru
 ipa: /ˈmoː.u.ru/

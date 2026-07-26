@@ -1,6 +1,7 @@
 ---
 civilization: pataliputra
 language: pali
+endonym: true
 original_text: 𑀧𑀸𑀝𑀮𑀺𑀧𑀼𑀢𑁆𑀢
 transliteration: Pāṭaliputta
 ipa: /paːʈɐliˈputtɐ/

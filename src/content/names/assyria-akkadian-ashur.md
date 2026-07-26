@@ -1,6 +1,7 @@
 ---
 civilization: assyria
 language: akkadian
+endonym: true
 original_text: 𒀸𒋩
 transliteration: Aššur
 ipa: /ˈʔaʃʃur/

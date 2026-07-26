@@ -1,6 +1,7 @@
 ---
 civilization: ottomans
 language: ottoman-turkish
+endonym: true
 original_text: آل عثمان
 transliteration: Âl-i ʿOsmân
 ipa: /aːli osˈmaːn/

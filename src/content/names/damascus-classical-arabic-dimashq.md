@@ -1,6 +1,7 @@
 ---
 civilization: damascus
 language: classical-arabic
+endonym: true
 original_text: دمشق
 transliteration: Dimashq
 ipa: /diˈmaʃq/

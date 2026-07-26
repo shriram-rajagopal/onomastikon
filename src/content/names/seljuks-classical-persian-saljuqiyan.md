@@ -1,6 +1,7 @@
 ---
 civilization: seljuks
 language: classical-persian
+endonym: true
 original_text: سلجوقیان
 transliteration: Saljūqiyān
 ipa: /saldʒuːqiˈjaːn/

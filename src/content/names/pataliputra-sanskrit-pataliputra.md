@@ -1,6 +1,7 @@
 ---
 civilization: pataliputra
 language: sanskrit
+endonym: true
 original_text: पाटलिपुत्र
 transliteration: Pāṭaliputra
 ipa: /paːʈɐliˈput̪rɐ/

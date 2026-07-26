@@ -1,6 +1,7 @@
 ---
 civilization: greece
 language: ancient-greek
+endonym: true
 original_text: Ἑλλάς
 transliteration: Hellás
 ipa: /hel.ˈlas/

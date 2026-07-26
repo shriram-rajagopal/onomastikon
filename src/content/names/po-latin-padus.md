@@ -1,6 +1,7 @@
 ---
 civilization: po
 language: latin
+endonym: true
 original_text: Padus
 transliteration: Padus
 ipa: /ˈpa.dus/

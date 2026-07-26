@@ -1,6 +1,7 @@
 ---
 civilization: samarkand
 language: sogdian
+endonym: true
 original_text: 𐼑𐼍𐼀𐼘𐼋𐼎𐼌𐼅
 transliteration: smʾrknδh
 ipa: "*smaːrkanθ"

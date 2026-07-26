@@ -1,6 +1,7 @@
 ---
 civilization: cilicia
 language: hittite
+endonym: true
 original_text: 𒆠𒄑𒍪𒉿𒀜𒈾
 transliteration: Kizzuwatna
 ipa: "*kit.tsu.ˈwat.na"

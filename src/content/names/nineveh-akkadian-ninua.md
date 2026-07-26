@@ -1,6 +1,7 @@
 ---
 civilization: nineveh
 language: akkadian
+endonym: true
 original_text: 𒌷𒉌𒉡𒀀
 transliteration: Ninua
 ipa: /ˈninuwa/

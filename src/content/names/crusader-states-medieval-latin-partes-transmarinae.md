@@ -1,6 +1,7 @@
 ---
 civilization: crusader-states
 language: medieval-latin
+endonym: true
 original_text: partes transmarinae
 transliteration: partes transmarinae
 ipa: /ˈpar.tes trans.maˈri.ne/

@@ -1,6 +1,7 @@
 ---
 civilization: tigris
 language: akkadian
+endonym: true
 original_text: 𒈦𒄘𒃼
 transliteration: Idiqlat
 ipa: /iˈdiqlat/

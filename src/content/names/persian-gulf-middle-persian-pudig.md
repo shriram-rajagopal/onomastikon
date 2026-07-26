@@ -1,6 +1,7 @@
 ---
 civilization: persian-gulf
 language: middle-persian
+endonym: true
 original_text: ""
 transliteration: Pūdīg
 ipa: "*puːˈdiːɡ"

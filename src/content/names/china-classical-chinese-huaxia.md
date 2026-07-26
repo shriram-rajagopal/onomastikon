@@ -1,6 +1,7 @@
 ---
 civilization: china
 language: classical-chinese
+endonym: true
 original_text: 華夏
 transliteration: Huáxià
 literal_meaning: the Hua and the Xia; the Chinese cultural community

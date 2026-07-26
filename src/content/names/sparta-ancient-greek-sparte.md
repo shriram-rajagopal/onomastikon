@@ -1,6 +1,7 @@
 ---
 civilization: sparta
 language: ancient-greek
+endonym: true
 original_text: Σπάρτη
 transliteration: Spártē
 ipa: /ˈspar.tɛː/

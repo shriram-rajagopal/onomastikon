@@ -1,6 +1,7 @@
 ---
 civilization: ephesus
 language: ancient-greek
+endonym: true
 original_text: Ἔφεσος
 transliteration: Éphesos
 ipa: /ˈe.pʰe.sos/

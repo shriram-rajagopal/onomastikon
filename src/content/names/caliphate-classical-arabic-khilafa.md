@@ -1,6 +1,7 @@
 ---
 civilization: caliphate
 language: classical-arabic
+endonym: true
 original_text: الخلافة
 transliteration: al-Khilāfa
 ipa: /alxiˈlaːfa/

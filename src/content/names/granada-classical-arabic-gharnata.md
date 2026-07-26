@@ -1,6 +1,7 @@
 ---
 civilization: granada
 language: classical-arabic
+endonym: true
 original_text: غرناطة
 transliteration: Gharnāṭa
 ipa: /ɣarˈnaːtˤa/

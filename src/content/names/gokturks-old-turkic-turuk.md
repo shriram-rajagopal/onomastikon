@@ -1,6 +1,7 @@
 ---
 civilization: gokturks
 language: old-turkic
+endonym: true
 original_text: 𐱅𐰇𐰼𐰜
 transliteration: Türük
 ipa: /tyˈryk/

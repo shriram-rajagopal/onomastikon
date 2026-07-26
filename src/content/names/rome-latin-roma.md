@@ -1,6 +1,7 @@
 ---
 civilization: rome
 language: latin
+endonym: true
 original_text: Roma
 transliteration: Roma
 ipa: /ˈroː.ma/

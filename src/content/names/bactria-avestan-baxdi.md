@@ -1,6 +1,7 @@
 ---
 civilization: bactria
 language: avestan
+endonym: true
 original_text: 𐬠𐬁𐬑𐬜𐬍
 transliteration: Bāxδī
 ipa: /ˈbaːx.ðiː/

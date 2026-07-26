@@ -1,6 +1,7 @@
 ---
 civilization: caspian-sea
 language: middle-persian
+endonym: true
 original_text: ""
 transliteration: Kamrōd
 ipa: "*kamˈroːd"

@@ -1,6 +1,7 @@
 ---
 civilization: akkad
 language: akkadian
+endonym: true
 original_text: 𒌵𒆠
 transliteration: Akkadû
 ipa: /akkaˈduː/

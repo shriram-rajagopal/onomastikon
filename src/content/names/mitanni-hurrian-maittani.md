@@ -1,6 +1,7 @@
 ---
 civilization: mitanni
 language: hurrian
+endonym: true
 original_text: 𒈪𒋫𒀭𒉌
 transliteration: Mittani
 ipa: "*ˈmittani"

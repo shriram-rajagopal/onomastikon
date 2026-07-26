@@ -1,6 +1,7 @@
 ---
 civilization: euphrates
 language: sumerian
+endonym: true
 original_text: 𒌓𒄒𒉣
 transliteration: Buranun
 ipa: "*buranun"

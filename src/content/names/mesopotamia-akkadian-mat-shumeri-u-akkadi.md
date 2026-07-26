@@ -1,6 +1,7 @@
 ---
 civilization: mesopotamia
 language: akkadian
+endonym: true
 original_text: 𒋗𒈨𒊑 𒌑 𒀝𒅗𒁲𒄿
 transliteration: māt Šumeri u Akkadi
 ipa: /maːt ʃuˈmeːri u akkaˈdiː/

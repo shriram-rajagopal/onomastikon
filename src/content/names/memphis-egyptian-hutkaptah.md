@@ -1,6 +1,7 @@
 ---
 civilization: memphis
 language: egyptian
+endonym: true
 original_text: 𓉗𓂓𓊪𓏏𓎛
 transliteration: Ḥwt-kꜣ-Ptḥ
 literal_meaning: Mansion of the ka of Ptah

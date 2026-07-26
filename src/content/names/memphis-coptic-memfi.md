@@ -1,6 +1,7 @@
 ---
 civilization: memphis
 language: coptic
+endonym: true
 original_text: ⲙⲉⲙϥⲓ
 transliteration: Memfi
 ipa: /ˈmɛmfi/

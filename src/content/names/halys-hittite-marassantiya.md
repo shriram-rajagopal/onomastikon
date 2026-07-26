@@ -1,6 +1,7 @@
 ---
 civilization: halys
 language: hittite
+endonym: true
 original_text: 𒈠𒊏𒀸𒊭𒀭𒋾𒄿𒀀
 transliteration: Maraššantiya
 ipa: "*ma.ra.ʃːanˈti.ja"

@@ -1,6 +1,7 @@
 ---
 civilization: memphis
 language: egyptian
+endonym: true
 original_text: 𓏠𓈖𓄤𓆑𓂋𓊖
 transliteration: Mn-nfr
 literal_meaning: enduring and beautiful

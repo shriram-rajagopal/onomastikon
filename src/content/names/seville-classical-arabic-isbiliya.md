@@ -1,6 +1,7 @@
 ---
 civilization: seville
 language: classical-arabic
+endonym: true
 original_text: إشبيلية
 transliteration: Ishbīliya
 ipa: /iʃbiːˈlija/

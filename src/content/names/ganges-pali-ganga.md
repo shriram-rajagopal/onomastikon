@@ -1,6 +1,7 @@
 ---
 civilization: ganges
 language: pali
+endonym: true
 original_text: 𑀕𑀗𑁆𑀕𑀸
 transliteration: Gaṅgā
 ipa: /ˈɡɐŋɡaː/

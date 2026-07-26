@@ -1,6 +1,7 @@
 ---
 civilization: veii
 language: etruscan
+endonym: true
 original_text: 𐌅𐌄𐌉
 transliteration: "*Vei"
 ipa: "*wei"

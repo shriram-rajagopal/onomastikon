@@ -1,6 +1,7 @@
 ---
 civilization: persian-gulf
 language: old-persian
+endonym: true
 original_text: 𐎭𐎼𐎹
 transliteration: drayah
 ipa: "*draˈja.ha"

@@ -1,6 +1,7 @@
 ---
 civilization: jerusalem
 language: biblical-hebrew
+endonym: true
 original_text: צִיּוֹן
 transliteration: Ṣiyyôn
 ipa: /sˤij.ˈjoːn/

@@ -1,6 +1,7 @@
 ---
 civilization: sumer
 language: sumerian
+endonym: true
 original_text: 𒆠𒂗𒄀
 transliteration: Kengir
 literal_meaning: the land of the noble lords (Sumer)

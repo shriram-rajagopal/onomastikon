@@ -1,6 +1,7 @@
 ---
 civilization: toledo
 language: latin
+endonym: true
 original_text: Toletum
 transliteration: Toletum
 ipa: /toˈleː.tum/

@@ -160,6 +160,35 @@ const contents = [
 ];
 const pageUrl = new URL(`/civilizations/${civ.id}`, Astro.site).href;
 
+// The quick answer: endonyms (flagged in the data) split from the neighbors'
+// names, shown before the map and the prose so a cold arrival reads the
+// site's thesis in the first screen. A long gloss stays in its entry; the
+// box quotes only a short one, and only on the first self-name.
+const endoNames = enriched.filter(({ name }) => name.data.endonym);
+const exoNames = enriched.filter(({ name }) => !name.data.endonym);
+const isCivType = civ.data.type === 'civilization';
+const selfLabel = isCivType ? 'They called themselves' : 'Its own people called it';
+const otherLabel = isCivType ? 'Their neighbors called them' : 'Its neighbors called it';
+const noSelfLine = isCivType
+  ? 'No self-name survives: every name below is a neighbor’s.'
+  : 'No native name is recorded: the names below are its neighbors’.';
+const endoGloss =
+  endoNames[0]?.name.data.literal_meaning && endoNames[0].name.data.literal_meaning.length <= 40
+    ? endoNames[0].name.data.literal_meaning
+    : null;
+
+// Plain-language definitions for the labels a search visitor meets before any
+// About page: rendered as tap-or-hover tooltips at the point of use.
+const CONF_TIPS: Record<string, string> = {
+  attested: 'Found in a surviving ancient source: we have the actual text.',
+  reconstructed: 'Never found written out: scholars rebuilt the form from related languages and later descendants.',
+  disputed: 'Scholars genuinely disagree about this form, its reading, or who it names.',
+};
+const STATUS_TIPS: Record<string, string> = {
+  developing: 'This page is still being expanded with names from more languages.',
+  complete: 'This page covers every language in the atlas with an attested name for this entity.',
+};
+
 // Enriched <title>: lead with the earliest-attested form so the search-result
 // line carries a real name ("Sumer — Kengir and the Names of Sumer"). Falls
 // back to the plain entity name when there are no entries or the line would
@@ -290,23 +319,45 @@ const correctionUrl =
     <p class="meta">
       {civ.data.region} · {formatEra(civ.data.era_start, civ.data.era_end)}
       {dates.modified && ` · Updated ${formatMonthYear(dates.modified)}`}
-      <span class={`status status-${civ.data.entry_status}`}>{civ.data.entry_status}</span>
+      <span class={`status status-${civ.data.entry_status}`} tabindex="0" data-tip={STATUS_TIPS[civ.data.entry_status]}>{civ.data.entry_status}</span>
     </p>
+
+    {/* The quick answer, before anything else: the thesis in one glance. */}
+    {enriched.length > 0 && (
+      <aside class="quick-names" aria-label="The names at a glance">
+        {endoNames.length > 0 ? (
+          <p class="qn-row">
+            <span class="qn-label">{selfLabel}:</span>{' '}
+            {endoNames.map(({ name }, i) => (
+              <>{i > 0 && ', '}<a class="aka-link" href={`#${entryAnchor(name.id, civ.id)}`}><em>{name.data.transliteration}</em></a></>
+            ))}{endoGloss && <span class="qn-gloss">, “{endoGloss}”</span>}
+          </p>
+        ) : (
+          <p class="qn-row qn-none">{noSelfLine}</p>
+        )}
+        {exoNames.length > 0 && (
+          <p class="qn-row">
+            <span class="qn-label">{otherLabel}:</span>{' '}
+            {exoNames.map(({ name }, i) => (
+              <>{i > 0 && ', '}<a class="aka-link" href={`#${entryAnchor(name.id, civ.id)}`}>{name.data.transliteration}</a></>
+            ))}
+          </p>
+        )}
+      </aside>
+    )}
 
     {/* Orients the reader on arrival; the transmission map further down plots
         language homelands, not the entity itself, so the two don't compete. */}
     <LocatorMap civId={civ.id} />
 
-    {enriched.length > 0 && (
-      <p class="aka">
-        Also known as: {enriched.map(({ name }, i) => (
-          <>
-            {i > 0 && ', '}
-            <a class="aka-link" href={`#${entryAnchor(name.id, civ.id)}`}>{name.data.transliteration}</a>
-          </>
-        ))}
-      </p>
-    )}
+    {/* The page's interactive features, sold at the moment of arrival; the
+        Contents drawer below stays the sober index of the same anchors. */}
+    <nav class="explore-chips" aria-label="Explore this page">
+      {showMap && <a class="chip" href="#map">See the names travel →</a>}
+      {showTimeline && <a class="chip" href="#timeline">When each name was in use →</a>}
+      {showFamilies && <a class="chip" href="#families">How the names relate →</a>}
+      <a class="chip" href={`/compare?a=${civ.id}`}>Compare with another →</a>
+    </nav>
 
     <div class="summary"><Content /></div>
 
@@ -401,6 +452,20 @@ const correctionUrl =
     )}
 
     <h2 id="names">Names across languages</h2>
+    {/* The marks a lay reader meets in every transliteration, decoded once,
+        where the names are. Closed by default; costs one line. */}
+    <details class="read-key">
+      <summary>How to read these letters</summary>
+      <ul>
+        <li><b>š</b> sounds like sh; <b>č</b> like ch in church; <b>ǰ</b> like j</li>
+        <li><b>ḫ</b> and <b>x</b> sound like ch in Bach; <b>γ</b> is that sound voiced, a gargled g</li>
+        <li><b>ṣ</b>, <b>ṭ</b>, <b>q</b> are emphatic s, t, k, pronounced deeper in the throat; <b>ḥ</b> is a strong breathy h</li>
+        <li><b>ʾ</b> is a catch in the throat, like the middle of “uh-oh”; <b>ʿ</b> is the same made deeper and voiced</li>
+        <li>A line over a vowel (<b>ā ē ī ō ū</b>) means it is held longer; <b>ə</b> is the vowel of “about”</li>
+        <li>A dot under <b>ṇ</b>, <b>ḍ</b>, or <b>ṭ</b> in Indian names means the tongue curls back</li>
+        <li>An asterisk (<b>*</b>) before a form means scholars reconstructed it; it is not found written out</li>
+      </ul>
+    </details>
 
     {enriched.length === 0 && <p><em>No name entries yet.</em></p>}
 
@@ -432,10 +497,10 @@ const correctionUrl =
           >{name.data.original_text}</p>
         )}
         <dl>
-          <dt>Transliteration</dt><dd><em>{name.data.transliteration}</em></dd>
+          <dt><span class="term" tabindex="0" data-tip="The name's sounds spelled out in our alphabet.">Transliteration</span></dt><dd><em>{name.data.transliteration}</em></dd>
           {(name.data.ipa || name.data.audio) && (
             <>
-              <dt>IPA</dt>
+              <dt><span class="term" tabindex="0" data-tip="The International Phonetic Alphabet: how scholars think it was pronounced. An asterisk means the vowels are reconstructed.">IPA</span></dt>
               <dd>
                 {name.data.ipa}
                 {name.data.audio && (
@@ -476,7 +541,7 @@ const correctionUrl =
           )}
           <dt>Confidence</dt>
           <dd>
-            <span class={`confidence confidence-${name.data.confidence}`}>
+            <span class={`confidence confidence-${name.data.confidence}`} tabindex="0" data-tip={CONF_TIPS[name.data.confidence]}>
               {name.data.confidence}
             </span>
           </dd>
@@ -672,11 +737,68 @@ const correctionUrl =
   }
   .status-developing { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
   .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
-  .aka { font-style: italic; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  /* The quick answer: the endonym/exonym split in a bordered box under the
+     metadata, first thing on the page after the title. */
+  .quick-names {
+    margin: 1.25rem 0 1.5rem;
+    padding: 0.85rem 1.1rem;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--accent) 4%, var(--parchment));
+  }
+  .qn-row { margin: 0; color: var(--ink-soft); line-height: 1.55; }
+  .qn-row + .qn-row { margin-top: 0.35rem; }
+  .qn-label { font-family: 'Inter', sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-right: 0.15rem; }
+  .qn-gloss { font-style: italic; }
+  .qn-none { font-style: italic; }
   /* Each form links to its entry below; dressed as the surrounding prose so
      the line stays a sentence, not a link farm. */
   .aka-link { color: inherit; text-decoration: none; }
   .aka-link:hover, .aka-link:focus { color: var(--accent); text-decoration: underline; }
+  /* Explore chips: the page's features, offered as verbs at arrival. */
+  .explore-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0 0.5rem; }
+  .chip {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    background: var(--parchment);
+  }
+  .chip:hover, .chip:focus { color: var(--accent); border-color: var(--accent); }
+  /* The letters key: one closed line at the top of the Names section. */
+  .read-key { margin: 0.75rem 0 1.25rem; font-size: 0.9rem; color: var(--ink-soft); }
+  .read-key summary { cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.8rem; color: var(--accent); }
+  .read-key ul { margin: 0.5rem 0 0; padding-left: 1.2rem; line-height: 1.6; }
+  .read-key b { font-weight: 600; font-family: 'EB Garamond', serif; }
+  /* Point-of-use definitions: a plain-language tooltip on hover or focus for
+     the labels a first-time reader meets (badges, Transliteration, IPA). */
+  [data-tip] { position: relative; cursor: help; }
+  .term { border-bottom: 1px dotted color-mix(in srgb, var(--ink) 45%, var(--parchment)); }
+  [data-tip]:hover::after, [data-tip]:focus::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 7px);
+    z-index: 30;
+    width: max-content;
+    max-width: 250px;
+    padding: 0.45rem 0.65rem;
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-transform: none;
+    letter-spacing: 0;
+    border-radius: 4px;
+    box-shadow: var(--shadow-soft);
+    white-space: normal;
+  }
   .summary { margin: 1.5rem 0 2rem; }
   /* Contents: an in-flow block under the summary; on wide viewports it
      becomes a sticky rail in the right margin with scrollspy highlighting. */

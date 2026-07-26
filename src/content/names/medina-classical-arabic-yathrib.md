@@ -1,6 +1,7 @@
 ---
 civilization: medina
 language: classical-arabic
+endonym: true
 original_text: يثرب
 transliteration: Yathrib
 ipa: /ˈjaθrib/

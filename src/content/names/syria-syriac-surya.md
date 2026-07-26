@@ -1,6 +1,7 @@
 ---
 civilization: syria
 language: syriac
+endonym: true
 original_text: ܣܘܪܝܐ
 transliteration: Sūryā
 ipa: /suːrˈjaː/
