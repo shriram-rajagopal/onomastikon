@@ -262,7 +262,7 @@ Regions that were always inside the 3100 BCE window but never made the roadmap; 
 - [ ] Hispania / Iberia (the peninsula)
 - [ ] Britannia (*Pretannikē*, *Britannia*; ancient attestation, medieval continuation in Phase 5)
 - [ ] Germania
-- [ ] Sarmatia (candidate; may fold into the Scythia page's thread)
+- [x] Sarmatia (BUILT 2026-07-26 as its own page, the Sarmatians: user's call over the fold-into-Scythia option. Both Greek forms as separate entries per the Sauromatai/Sarmatai question, Latin, the Armenian Geography's Sarmatia, Avestan Sairima- disputed, and Chinese Yancai; complete.)
 
 ### Geographic features
 - [x] ~~The Red Sea~~ and ~~the Persian Gulf~~ — already built in the 2026-06 off-roadmap Near-Eastern-seas batch; listed here in error in the 2026-07-15 revision
@@ -388,10 +388,10 @@ China is already in the atlas; this phase builds its whole neighborhood, largely
 - [ ] Korea (the Three Kingdoms names, *Silla* and *Goguryeo* and *Baekje*, resolving into the *Goryeo* thread that names Korea; page structure decided by the name-thread rule at planning, likely one page with internal threads)
 - [ ] Tibet (endonym *Bod*; Chinese *Tǔbō*, Arabic *Tubbat*; the exonym family behind "Tibet" itself)
 - [ ] The Mongols (*Yeke Mongɣol Ulus*; the *Tatar* exonym displacement is the second paragraph writing itself)
-- [ ] The Göktürk Khaganate (Orkhon *Türk* 𐱅𐰇𐰼𐰰, the headwater of every "Turk" in every language)
+- [x] The Göktürk Khaganate (BUILT 2026-07-26 as gokturks, with Old Turkic: endonym Türük 𐱅𐰇𐰼𐰜 plus Chinese, Byzantine Greek, Sogdian (Bugut twrk), Middle Persian, Arabic, Sanskrit, and Classical Persian forms; Tabgach backfilled onto China. Gaps: Syriac Turkaye, Armenian, and the runiform Purum/Sogdaq/Apar spellings pending editions.)
 - [ ] The Uyghur Khaganate (candidate; Old Uyghur corpus is real and rich)
 - [ ] The Khitan Liao and Tangut Xi Xia (candidates; own scripts, partial decipherment, honest labels — the Minoan precedent applies)
-- [ ] The Khazars (candidate; exonym-led via Greek, Arabic, and Hebrew)
+- [x] The Khazars (BUILT 2026-07-26, exonym-led as planned, plus the endonym-adjacent Hebrew Kuzar of the Khazar Correspondence hosted by the new Medieval Hebrew language; Greek, Arabic, Persian, Armenian forms; links the existing khazar family on the Caspian page.)
 
 ### Cities
 - [ ] Kyoto (*Heian-kyō*)
@@ -416,7 +416,7 @@ China is already in the atlas; this phase builds its whole neighborhood, largely
 - [ ] Old Japanese / Classical Japanese (man'yōgana through kana)
 - [ ] Middle Korean (the *Hunminjeongeum* of 1446 lands inside the boundary by seven years)
 - [ ] Classical Tibetan
-- [ ] Old Turkic (Orkhon runiform)
+- [x] Old Turkic (BUILT 2026-07-26: otk, rtl, 680-840, Orkhon Valley homeland, Noto Sans Old Turkic font landed; backfill Tabgach on China, with Purum/Sogdaq/Apar held as documented gaps pending runiform editions.)
 - [ ] Middle Mongol (ʼPhags-pa and Uyghur-script corpora)
 - [ ] Old Uyghur, Tangut, Khitan (candidates, gated on their civilizations above)
 
