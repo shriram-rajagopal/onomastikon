@@ -298,7 +298,10 @@ const VIEW_W = 800;
 const PAD_FRAC = 0.14; // breathing room around the outermost nodes, per side
 const PAD_MIN = 3; // ...but at least this many degrees, for tight clusters
 const MIN_LON_SPAN = 20; // a one- or two-city map should not zoom in absurdly
-const MAX_ASPECT = 0.82; // cap height/width; widen the lon window if too tall
+const MAX_ASPECT = 0.65; // cap height/width; widen the lon window if too tall
+// (0.82 until 2026-07-26: north-south maps like the Nile's rendered taller than
+// a laptop viewport at the page's width. 0.65 keeps the tallest map at ~65% of
+// its rendered width, so height stays bounded along with the container width.)
 const MIN_ASPECT = 0.42; // floor height/width; add vertical context if too flat
 
 /** Fit an equirectangular window around the given coordinates and return a
