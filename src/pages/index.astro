@@ -31,7 +31,7 @@ const dailyRounds = dailySchedule.rounds.map((r) => ({
 
 // Region options for the filter row, limited to shelves that actually occur.
 const regionOptions = Object.entries(MACRO_REGION_LABELS).filter(([key]) =>
-  civs.some((c) => MACRO_REGION_OF[c.id] === key)
+  civs.some((c) => (MACRO_REGION_OF[c.id] ?? []).includes(key))
 );
 
 // Entry counts per entity and language, shown as chips in the index so a
@@ -304,7 +304,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
                 {grouped[key].map((entity) => (
                   <li
                     data-slug={entity.id}
-                    data-mregion={MACRO_REGION_OF[entity.id]}
+                    data-mregion={(MACRO_REGION_OF[entity.id] ?? []).join(' ')}
                     data-start={entity.data.era_start}
                     data-end={entity.data.era_end ?? 9999}
                   >
@@ -1318,7 +1318,9 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
       const apply = () => {
         let shown = 0;
         for (const row of rows) {
-          const okRegion = regions.size === 0 || regions.has(row.dataset.mregion ?? '');
+          const okRegion =
+            regions.size === 0 ||
+            (row.dataset.mregion ?? '').split(' ').some((r) => regions.has(r));
           const okEra =
             !eraRange ||
             (Number(row.dataset.start) <= eraRange[1] && Number(row.dataset.end) >= eraRange[0]);
