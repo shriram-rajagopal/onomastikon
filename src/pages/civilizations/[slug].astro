@@ -523,7 +523,7 @@ const correctionUrl =
               <dd>
                 “{name.data.literal_meaning}”
                 {name.data.meaning_confidence && name.data.meaning_confidence !== name.data.confidence && (
-                  <span class={`confidence confidence-${name.data.meaning_confidence} meaning-conf`} title="The form is securely attested; its meaning is a separate question.">meaning {name.data.meaning_confidence}</span>
+                  <span class={`confidence confidence-${name.data.meaning_confidence} meaning-conf`} tabindex="0" data-tip="The form itself is securely attested; this label rates the meaning separately, since what a name says can be less certain than how it was written.">meaning {name.data.meaning_confidence}</span>
                 )}
               </dd>
             </>
