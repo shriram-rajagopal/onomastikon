@@ -1,0 +1,75 @@
+---
+// A floating share button on every page, holding the spot directly below the
+// help button's (same gutter, same dress, same corner fallback), so the pair
+// reads as one control stack wherever the reader is. Native share sheet where
+// one exists; otherwise the page URL is copied with a moment of ✓ feedback.
+// The icon is the universal share mark: a box whose lid the arrow breaks.
+---
+
+<button class="share-btn" id="share-page" type="button" aria-label="Share this page" title="Share this page">
+  <svg class="share-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+    <polyline points="16 6 12 2 8 6" />
+    <line x1="12" y1="2" x2="12" y2="15" />
+  </svg>
+  <span class="share-ok" aria-hidden="true">✓</span>
+</button>
+
+<script>
+  const btn = document.getElementById('share-page');
+  if (btn) {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    btn.addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: document.title, url: location.href });
+        } else {
+          await navigator.clipboard.writeText(location.href);
+          btn.classList.add('copied');
+          clearTimeout(timer);
+          timer = setTimeout(() => btn.classList.remove('copied'), 1500);
+        }
+      } catch {
+        /* user dismissed the sheet; nothing to clean up */
+      }
+    });
+  }
+</script>
+
+<style>
+  /* Geometry mirrors HelpTip's .help-btn, one step down the same gutter. */
+  .share-btn {
+    position: fixed;
+    left: calc((100vw - var(--max-width)) / 2 - 14.5rem);
+    top: 24.4rem;
+    z-index: 25;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    border: 1px solid var(--rule-strong);
+    background: var(--parchment);
+    color: var(--accent);
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .share-btn:hover, .share-btn:focus { border-color: var(--accent); box-shadow: var(--shadow-lift); }
+  .share-ic { display: block; }
+  .share-ok {
+    display: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .share-btn.copied .share-ic { display: none; }
+  .share-btn.copied .share-ok { display: block; }
+  @media (max-width: 1200px) {
+    .share-btn { left: auto; right: 1.1rem; top: 10.4rem; width: 1.9rem; height: 1.9rem; }
+    .share-ic { width: 14px; height: 14px; }
+  }
+  @media print {
+    .share-btn { display: none; }
+  }
+</style>

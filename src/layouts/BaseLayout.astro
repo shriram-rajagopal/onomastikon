@@ -59,6 +59,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 import { getCollection } from 'astro:content';
 import SiteSearch from '../components/SiteSearch.astro';
 import ComparePanel from '../components/ComparePanel.astro';
+import SharePage from '../components/SharePage.astro';
 const [footerCivs, footerLangs, footerNames] = await Promise.all([
   getCollection('civilizations'),
   getCollection('languages'),
@@ -144,6 +145,8 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
     {/* Compare overlays the current page rather than replacing it: every
         a[href^="/compare"] on the site opens this dialog in place. */}
     <ComparePanel />
+    {/* The fixed share control, one step below the help button's spot. */}
+    <SharePage />
     <footer class="site-footer">
       <p>
         Onomastikon · A digital atlas of ancient and medieval names ·

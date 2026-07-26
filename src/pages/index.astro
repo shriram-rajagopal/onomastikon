@@ -180,7 +180,14 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
       <div id="daily-details" class="daily-details" hidden></div>
       <a id="daily-archive" class="daily-archive" href="/names-of-the-day">Past names →</a>
       <a id="daily-random" class="daily-random" href="/names-of-the-day">Random name →</a>
-      <button id="daily-share" class="daily-share" type="button" title="Copy a link to this name">Share ↗</button>
+      <button id="daily-share" class="daily-share" type="button" title="Copy a link to this name">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+          <polyline points="16 6 12 2 8 6" />
+          <line x1="12" y1="2" x2="12" y2="15" />
+        </svg>
+        <span id="daily-share-label">Share</span>
+      </button>
     </section>
   </div>
   {/* The name is a styled paragraph, not a heading: the element is empty
@@ -554,6 +561,9 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     font-size: 0.8125rem;
     color: var(--accent);
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
   }
   .daily-share:hover { text-decoration: underline; }
   /* The expander arrow pops down the full entry details in place. */
@@ -1267,9 +1277,12 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
             await navigator.share({ title: `${translit} — Onomastikon`, url });
           } else {
             await navigator.clipboard.writeText(url);
-            const prior = shareBtn.textContent;
-            shareBtn.textContent = 'Copied ✓';
-            setTimeout(() => { shareBtn.textContent = prior; }, 1600);
+            const label = document.getElementById('daily-share-label');
+            if (label) {
+              const prior = label.textContent;
+              label.textContent = 'Copied ✓';
+              setTimeout(() => { label.textContent = prior; }, 1600);
+            }
           }
         } catch { /* user dismissed the sheet; nothing to clean up */ }
       });
