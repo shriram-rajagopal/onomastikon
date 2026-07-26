@@ -57,7 +57,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'classical-chinese': { lon: 108.94, lat: 34.27, place: "Chang'an", anchor: 'end', dx: -7 },
   'old-turkic': { lon: 102.85, lat: 47.35, place: 'The Orkhon Valley', anchor: 'end', dx: -7 },
   'medieval-hebrew': { lon: -4.78, lat: 37.88, place: 'Córdoba', dy: 8 },
-  'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hejaz' },
+  'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hijaz' },
   geez: { lon: 38.72, lat: 14.13, place: 'Aksum' },
   lycian: { lon: 29.32, lat: 36.35, place: 'Xanthos', anchor: 'middle', dx: 0, dy: 12 },
   'classical-armenian': { lon: 44.55, lat: 39.95, place: 'Artašat', dy: -6 },

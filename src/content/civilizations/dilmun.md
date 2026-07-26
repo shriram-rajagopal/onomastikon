@@ -2,7 +2,7 @@
 english_name: Dilmun
 type: civilization
 entry_status: complete
-region: Bahrain, Failaka, and the eastern Arabian Gulf coast
+region: Bahrain, Failaka, and the Gulf coast of eastern Arabia
 era_start: -3200
 era_end: -540
 summary: The island trade-land of the Persian Gulf, Mesopotamia's holy isle and copper entrepôt, the earliest foreign country in the written record.

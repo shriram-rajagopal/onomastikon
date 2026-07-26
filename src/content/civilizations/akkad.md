@@ -2,7 +2,7 @@
 english_name: Akkad
 type: civilization
 entry_status: complete
-region: Northern Mesopotamia
+region: Central Mesopotamia (northern Babylonia)
 era_start: -2334
 era_end: -2154
 summary: The first empire, founded by Sargon of Akkad in the twenty-fourth century BCE around the lost city of Agade.

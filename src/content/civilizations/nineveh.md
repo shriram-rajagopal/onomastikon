@@ -2,7 +2,7 @@
 english_name: Nineveh
 type: city
 entry_status: complete
-region: Northern Mesopotamia (Assyria)
+region: Upper Mesopotamia (Assyria)
 era_start: -2500
 era_end: 1300
 summary: The last and greatest capital of Assyria, on the Tigris opposite modern Mosul, the wicked city of Jonah and Nahum, whose mound still holds the Tomb of Jonah.

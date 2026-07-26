@@ -2,7 +2,7 @@
 english_name: Mount Olympus
 type: geographic_feature
 entry_status: complete
-region: The Thessaly–Macedonia border, northern Greece
+region: The Thessaly-Macedonia border, northern Greece
 era_start: -800
 era_end: null
 summary: The highest mountain in Greece, on the border of Thessaly and Macedonia, revered as the dwelling of the gods; its pre-Greek name, meaning roughly "the high place," was given to many peaks but reserved, in its most famous instance, for the home of the Olympians.

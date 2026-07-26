@@ -2,7 +2,7 @@
 english_name: Persia
 type: civilization
 entry_status: complete
-region: Iranian plateau and the wider Near East
+region: The Iranian plateau and the wider Near East
 era_start: -550
 era_end: 650
 summary: The Achaemenid Empire and the political tradition of pre-Islamic Iran.

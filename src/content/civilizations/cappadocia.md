@@ -1,7 +1,7 @@
 ---
 english_name: Cappadocia
 type: region
-region: Eastern Anatolia
+region: East-central Anatolia
 entry_status: developing
 era_start: -550
 era_end: 600

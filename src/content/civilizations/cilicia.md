@@ -1,7 +1,7 @@
 ---
 english_name: Cilicia
 type: region
-region: Southeastern Anatolia
+region: The southern coast of Anatolia, below the Taurus
 entry_status: developing
 era_start: -1400
 era_end: 1300

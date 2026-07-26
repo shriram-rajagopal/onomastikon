@@ -2,7 +2,7 @@
 english_name: The Crusader States
 type: civilization
 entry_status: developing
-region: The Levantine coast, from Edessa to Jerusalem
+region: The Levant, from Edessa to Jerusalem
 era_start: 1098
 era_end: 1291
 summary: The Latin polities of the Levant, 1098 to the fall of Acre; the lands the west called partes transmarinae and Outremer, a country named entirely by distance.

@@ -1,7 +1,7 @@
 ---
 english_name: Greece
 type: civilization
-region: Aegean and southern Balkans
+region: The Aegean and the southern Balkans
 entry_status: complete
 era_start: -1600
 era_end: 600

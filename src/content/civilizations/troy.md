@@ -2,7 +2,7 @@
 english_name: Troy
 type: city
 entry_status: complete
-region: The Troad, northwest Anatolia
+region: The Troad, northwestern Anatolia
 era_start: -1700
 era_end: 500
 summary: The citadel of Homer's Iliad at Hisarlık in northwest Anatolia, known to the Greeks by two names, Ilios and Troia, both of which reach back to the Bronze Age Hittite records as Wiluša and Truwiša.

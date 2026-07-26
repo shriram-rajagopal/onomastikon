@@ -1,7 +1,7 @@
 ---
 english_name: Gandhāra
 type: region
-region: The northwestern gate of India
+region: The Peshawar basin and the Vale of Taxila, the northwestern gate of India
 entry_status: developing
 era_start: -1500
 era_end: 800
