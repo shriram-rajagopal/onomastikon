@@ -58,6 +58,30 @@ const proj = fitProjection(
   minLonSpan
 );
 const coastPath = landPath(proj);
+// Context rivers crossing the window (except the subject's own course): the
+// same orientation underlay the mini-locators draw, ported here so inland
+// windows (the steppe pages above all) carry more to orient by than a coast
+// at the frame's edge. Fainter than the arcs, beneath everything that names.
+const riverCtxPaths = Object.values(ENTITY_GEO)
+  .filter((e) => e.kind === 'river' && e.points !== (entity?.points ?? null))
+  .map((e) => {
+    const b = proj.bounds;
+    const segs: string[] = [];
+    let run: Array<{ x: number; y: number }> = [];
+    const flush = () => {
+      if (run.length > 1)
+        segs.push('M' + run.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join('L'));
+      run = [];
+    };
+    for (const [lon, lat] of e.points) {
+      if (lon >= b.lonMin && lon <= b.lonMax && lat >= b.latMin && lat <= b.latMax) {
+        run.push(proj.project(lon, lat));
+      } else flush();
+    }
+    flush();
+    return segs.join('');
+  })
+  .filter(Boolean);
 const placed = located.map((n) => {
   const geo = LANG_GEO[n.langId];
   return { ...n, geo, ...proj.project(geo.lon, geo.lat) };
@@ -207,6 +231,11 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
       </defs>
     )}
     <path class="coast" d={coastPath} />
+    {riverCtxPaths.length > 0 && (
+      <g class="river-ctx" aria-hidden="true">
+        {riverCtxPaths.map((d) => <path d={d} />)}
+      </g>
+    )}
     {entity && (
       <g class="entity-geo" aria-hidden="true">
         {entSeaPath && <path class="ent-sea" fill-rule="evenodd" fill={`url(#hatch-${civId})`} d={entSeaPath} />}
@@ -376,6 +405,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     return {
       vb: { w: vb.width, h: vb.height },
       coast: snapPath(svg.querySelector<SVGPathElement>('.coast')!),
+      riverPaths: [...svg.querySelectorAll<SVGPathElement>('.river-ctx path')].map(snapPath),
       geoPaths: [...svg.querySelectorAll<SVGPathElement>('.entity-geo path')].map(snapPath),
       topPaths: [...svg.querySelectorAll<SVGPathElement>('.entity-top path')].map(snapPath),
       arcs: [...svg.querySelectorAll<SVGPathElement>('.arc')].map((el) => {
@@ -531,6 +561,7 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     ctx.fillStyle = m.sea;
     ctx.fillRect(0, 0, m.vb.w, m.vb.h);
     paint(ctx, m.coast);
+    for (const p of m.riverPaths) paint(ctx, p);
     for (const p of m.geoPaths) paint(ctx, p, m.vb, m.hatch);
     m.arcs.forEach((a, i) => {
       const future = a.start > fr.year;
@@ -776,6 +807,15 @@ const fmtYear = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : `${y} C
     fill: color-mix(in srgb, var(--ink) 8%, var(--parchment));
     stroke: color-mix(in srgb, var(--water) 90%, var(--parchment));
     stroke-width: 1;
+  }
+  /* Context rivers: the mini-locator's orientation underlay, kept fainter and
+     thinner than the arcs so the naming layer stays the map's loudest ink. */
+  .river-ctx path {
+    fill: none;
+    stroke: color-mix(in srgb, var(--water) 55%, var(--parchment));
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   /* Dark mode lifts the land well off the deep sea (night-chart polarity). */
   :global(:root:not([data-theme='light'])) .coast {
