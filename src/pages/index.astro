@@ -107,7 +107,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${Astro.site?.href}search?q={search_term_string}`,
+        urlTemplate: `${Astro.site?.href}?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -161,22 +161,10 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
         </div>
       </div>
     </div>
-    {/* Outside #hero-intro on purpose: the intro flies up on first scroll and
-        the search box must not leave with it. */}
-    <form class="hero-search" action="/search" role="search">
-      <input
-        type="search"
-        name="q"
-        placeholder="Search a name or place: Kemet, Babylon, the Nile…"
-        aria-label="Search the atlas"
-        autocomplete="off"
-      />
-      <button type="submit">Search</button>
-    </form>
   </section>
 
   <!-- Name of the day: filled by JS from the search index (the same fetch
-       primes the cache for the search page). One name per Eastern-time day;
+       primes the cache for the header search bar). One name per Eastern-time day;
        a per-cycle permutation gives every name one turn before any repeats.
        Absent without JS; the slot's min-height reserves the space. -->
   <div class="daily-slot">
@@ -191,7 +179,7 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
       <button id="daily-expand" class="daily-expand" type="button" aria-expanded="false" aria-controls="daily-details" title="Show this entry's details">▾</button>
       <div id="daily-details" class="daily-details" hidden></div>
       <a id="daily-archive" class="daily-archive" href="/names-of-the-day">Past names →</a>
-      <a id="daily-random" class="daily-random" href="/search">Random name →</a>
+      <a id="daily-random" class="daily-random" href="/names-of-the-day">Random name →</a>
       <button id="daily-share" class="daily-share" type="button" title="Copy a link to this name">Share ↗</button>
     </section>
   </div>
@@ -467,38 +455,6 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
        the centered wordmark and h1. */
     margin: 1rem auto 0;
   }
-  /* Inline search: the front door's front door. Submits to /search?q= (the
-     search page's deep-link contract), so it works without any script. */
-  .hero-search {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    max-width: 28em;
-    margin: 1.5rem auto 0;
-  }
-  .hero-search input {
-    flex: 1;
-    min-width: 0;
-    padding: 0.55rem 1rem;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    background: var(--parchment);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-  }
-  .hero-search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-  .hero-search button {
-    padding: 0.55rem 1.1rem;
-    border: 1px solid var(--rule);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--accent);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    cursor: pointer;
-  }
-  .hero-search button:hover, .hero-search button:focus { border-color: var(--accent); }
   /* Name of the day: a legend-framed plate between the hero and the index —
      hairline rule box with the label set into the top border and the random
      link set into the bottom, both on parchment cutouts. The slot's

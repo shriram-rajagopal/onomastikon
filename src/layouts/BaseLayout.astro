@@ -57,6 +57,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
 // recomputed from the content collections on every deploy so the figures can
 // never go stale.
 import { getCollection } from 'astro:content';
+import SiteSearch from '../components/SiteSearch.astro';
 const [footerCivs, footerLangs, footerNames] = await Promise.all([
   getCollection('civilizations'),
   getCollection('languages'),
@@ -125,13 +126,15 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
       <div class="site-header-inner">
         <a href="/" class="logo" aria-label="Onomastikon, home">Onoma<span class="logo-sigma">Σ</span>tikon</a>
         <nav>
-          <a href="/search" aria-keyshortcuts="/ Control+K" title="Search (press /)">Search</a>
           <a href="/compare">Compare</a>
           <a href="/about">About</a>
           <button id="theme-toggle" type="button">◐ Dark mode</button>
           <button id="sfx-toggle" type="button">♪ Mute</button>
         </nav>
       </div>
+      {/* Search lives here, not on a page of its own: a slim bar riding with
+          the sticky header, results in a dropdown. /search redirects here. */}
+      <SiteSearch />
     </header>
     <main id="main">
       <slot />
@@ -234,7 +237,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
         border: 0;
       }
       /* scroll-padding-top keeps anchor jumps clear of the now-sticky header. */
-      html { background: var(--parchment); color: var(--ink); scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+      html { background: var(--parchment); color: var(--ink); scroll-behavior: smooth; scroll-padding-top: 7.5rem; }
       /* Cross-document view transitions: same-origin navigations cross-fade.
          Pure CSS; browsers without support, and visitors preferring reduced
          motion, get instant navigation. (A morphing title pair — index row
@@ -566,9 +569,7 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
         const cmdK = e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey) && !e.altKey;
         if (!slash && !cmdK) return;
         e.preventDefault();
-        const input = document.getElementById('q');
-        if (input) input.focus();
-        else location.href = '/search';
+        document.getElementById('q')?.focus();
       });
 
       // Arrow-key paging: ← and → follow the page's prev/next pager links

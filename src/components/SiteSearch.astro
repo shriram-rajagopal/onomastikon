@@ -1,0 +1,283 @@
+---
+// The site's one search affordance: a slim bar attached below the header nav,
+// riding with the sticky header on every page, with results in a dropdown
+// panel. This is the former /search page's combobox (scoring, grouping,
+// keyboard navigation, live announcements) ported whole; /search itself is now
+// a redirect stub, and this bar honors the old ?q= deep-link contract by
+// reading the parameter on load wherever the reader lands.
+---
+
+<div class="site-search" id="site-search">
+  <input
+    id="q"
+    type="search"
+    autocomplete="off"
+    role="combobox"
+    aria-controls="results"
+    aria-expanded="false"
+    aria-autocomplete="list"
+    aria-label="Search the atlas"
+    aria-keyshortcuts="/ Control+K"
+    placeholder="Search a name or place: Kemet, Babylon, the Nile… (press /)"
+  />
+  <div class="search-pop" id="search-pop" hidden>
+    <ul id="results" role="listbox" aria-label="Search results"></ul>
+    <p id="empty" hidden>No matches.</p>
+  </div>
+  {/* Result counts for screen readers: visually hidden, announced politely
+      as the list re-renders. */}
+  <p id="results-status" class="visually-hidden" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+  // Fold diacritics so a query of "Parsa" matches the indexed "parsa" form of
+  // Pārsa. Kept functionally identical to fold() in search-index.json.ts.
+  const fold = (s) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  const wrap = document.getElementById('site-search');
+  const q = document.getElementById('q') as HTMLInputElement;
+  const pop = document.getElementById('search-pop');
+  const list = document.getElementById('results');
+  const empty = document.getElementById('empty');
+  const status = document.getElementById('results-status');
+  let records = [];
+  let current = [];
+  let sel = -1;
+  let loaded = false;
+
+  // The index is a few hundred KB and growing with the corpus; don't spend
+  // it on readers who never search. Fetch once, on the first keystroke.
+  let loadPromise = null;
+  const load = () =>
+    (loadPromise ??= fetch('/search-index.json')
+      .then((r) => r.json())
+      .then((d) => {
+        records = d;
+        loaded = true;
+        if (q.value) run();
+      }));
+
+  function score(r, nq) {
+    const lab = fold(r.label);
+    const tr = fold(r.translit || '');
+    if (lab.startsWith(nq) || tr.startsWith(nq)) return 0; // prefix of the form
+    if (lab.includes(nq) || tr.includes(nq)) return 1; // inside the form
+    return 2; // matched only in the wider metadata haystack
+  }
+
+  // Results render grouped by kind — pages first, then languages, then the
+  // name forms — so a reader hunting for "the Egypt page" isn't wading
+  // through name-form matches. Within a group the score order holds.
+  const GROUPS = [
+    ['entity', 'Entities'],
+    ['language', 'Languages'],
+    ['name', 'Names'],
+  ];
+  const groupRank = (r) => {
+    const i = GROUPS.findIndex(([t]) => t === r.type);
+    return i === -1 ? GROUPS.length : i;
+  };
+  let optionEls = [];
+
+  function run() {
+    const nq = fold(q.value).trim();
+    list.textContent = '';
+    optionEls = [];
+    sel = -1;
+    q.removeAttribute('aria-activedescendant');
+    if (!nq) {
+      current = [];
+      empty.hidden = true;
+      pop.hidden = true;
+      q.setAttribute('aria-expanded', 'false');
+      status.textContent = '';
+      return;
+    }
+    current = records
+      .filter((r) => r.h.includes(nq))
+      .map((r) => ({ r, s: score(r, nq) }))
+      .sort(
+        (a, b) =>
+          groupRank(a.r) - groupRank(b.r) ||
+          a.s - b.s ||
+          a.r.label.localeCompare(b.r.label)
+      )
+      .slice(0, 25)
+      .map((x) => x.r);
+    // Never claim "No matches" while the index is still in flight.
+    empty.hidden = current.length > 0 || !loaded;
+    pop.hidden = current.length === 0 && empty.hidden;
+    q.setAttribute('aria-expanded', current.length ? 'true' : 'false');
+    // Announce the counts ("24 results: 3 entities, 5 languages, 16 names").
+    if (loaded) {
+      if (current.length === 0) {
+        status.textContent = 'No results.';
+      } else {
+        const singular = { entity: 'entity', language: 'language', name: 'name' };
+        const parts = GROUPS.map(([t, label]) => {
+          const n = current.filter((r) => r.type === t).length;
+          return n ? `${n} ${n === 1 ? singular[t] : label.toLowerCase()}` : '';
+        }).filter(Boolean);
+        status.textContent = `${current.length} result${current.length === 1 ? '' : 's'}: ${parts.join(', ')}.`;
+      }
+    }
+    let lastType = null;
+    current.forEach((r, i) => {
+      if (r.type !== lastType) {
+        lastType = r.type;
+        const [, groupLabel] = GROUPS.find(([t]) => t === r.type) ?? [];
+        if (groupLabel) {
+          // Presentation-only divider: not an option, invisible to the
+          // combobox's aria-activedescendant walk.
+          const h = document.createElement('li');
+          h.className = 'r-group';
+          h.setAttribute('role', 'presentation');
+          h.setAttribute('aria-hidden', 'true');
+          h.textContent = groupLabel;
+          list.append(h);
+        }
+      }
+      const li = document.createElement('li');
+      li.id = 'result-' + i;
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', 'false');
+      const a = document.createElement('a');
+      a.href = r.url;
+      const lab = document.createElement('span');
+      lab.className = 'r-label';
+      lab.textContent = r.label;
+      if (r.lang) lab.setAttribute('lang', r.lang);
+      if (r.dir) lab.setAttribute('dir', r.dir);
+      const ctx = document.createElement('span');
+      ctx.className = 'r-ctx';
+      ctx.textContent = r.context || '';
+      a.append(lab, ctx);
+      li.append(a);
+      list.append(li);
+      optionEls.push(li);
+    });
+  }
+
+  function move(d) {
+    if (!current.length) return;
+    sel = (sel + d + current.length) % current.length;
+    optionEls.forEach((li, i) => {
+      const on = i === sel;
+      li.classList.toggle('sel', on);
+      li.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    const active = optionEls[sel];
+    if (active) {
+      q.setAttribute('aria-activedescendant', active.id);
+      active.scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  q.addEventListener('input', () => {
+    load();
+    run();
+  });
+  q.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      move(1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      move(-1);
+    } else if (e.key === 'Enter' && sel >= 0) {
+      e.preventDefault();
+      location.href = current[sel].url;
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      q.value = '';
+      run();
+    }
+  });
+  // A dropdown, unlike the old full page, must yield the ground it floats on.
+  document.addEventListener('click', (e) => {
+    if (!wrap.contains(e.target as Node)) {
+      pop.hidden = true;
+      q.setAttribute('aria-expanded', 'false');
+    }
+  });
+  q.addEventListener('focus', () => {
+    if (q.value) run();
+  });
+
+  // The old /search?q= deep links (now redirected here with the query intact)
+  // and any /?q= link open with results ready.
+  const initial = new URLSearchParams(location.search).get('q');
+  if (initial) {
+    q.value = initial;
+    load();
+    q.focus();
+  }
+</script>
+
+<style>
+  .site-search {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0.35rem 1rem 0.55rem;
+  }
+  #q {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    padding: 0.4rem 0.9rem;
+    background: color-mix(in srgb, var(--ink) 3%, var(--parchment));
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+  }
+  #q:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  /* The results float over the page beneath the bar. */
+  .search-pop {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    top: calc(100% - 0.25rem);
+    z-index: 60;
+    max-height: min(28rem, 65vh);
+    overflow-y: auto;
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    box-shadow: var(--shadow-soft);
+    padding: 0 0.75rem 0.5rem;
+  }
+  #results { list-style: none; padding: 0; margin: 0; }
+  /* The result <li>/<a>/<span> are created at runtime via createElement, so they
+     never receive Astro's scoped-style attribute (data-astro-cid-…). Target them
+     with :global(), anchored on the static #results. */
+  #results :global(li) { border-bottom: 1px solid var(--rule); }
+  #results :global(li:last-child) { border-bottom: 0; }
+  #results :global(.r-group) {
+    border-bottom: 0;
+    padding: 0.9rem 0.5rem 0.2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  #results :global(a) {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 0.55rem 0.5rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  #results :global(a:hover),
+  #results :global(li.sel a) { background: color-mix(in srgb, var(--accent) 8%, var(--parchment)); color: var(--accent); }
+  /* Match the entity page's .original stack so non-Latin script labels render. */
+  #results :global(.r-label) {
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', 'Noto Sans Tamil', 'Noto Sans Brahmi', 'Noto Sans Old Sogdian', 'Noto Sans Old Turkic', serif;
+    font-size: 1.05rem;
+  }
+  #results :global(.r-ctx) { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: right; }
+  #empty { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.75rem 0.5rem; }
+</style>
