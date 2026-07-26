@@ -1,0 +1,369 @@
+---
+import { getCollection } from 'astro:content';
+
+// Compare as an overlay, not a page: the former /compare view ported into a
+// <dialog> that BaseLayout renders on every page, so hitting Compare from an
+// entity page opens the table in place instead of navigating away. Any link
+// to /compare (the nav item, the entity pages' chips with ?a= prefills) is
+// intercepted and opens this dialog; /compare itself is a redirect stub for
+// old bookmarks, and ?a=&b= parameters on any page's URL auto-open it, which
+// keeps comparisons shareable from wherever they were made.
+const civs = await getCollection('civilizations');
+const typeOrder: Record<string, number> = { civilization: 0, city: 1, region: 2, geographic_feature: 3 };
+const ordered = [...civs].sort((a, b) => {
+  const t = (typeOrder[a.data.type] ?? 9) - (typeOrder[b.data.type] ?? 9);
+  return t !== 0 ? t : a.data.english_name.localeCompare(b.data.english_name);
+});
+const SLOTS = ['a', 'b', 'c', 'd'] as const;
+const TYPES = [
+  ['civilization', 'Civilization'],
+  ['city', 'City'],
+  ['region', 'Region'],
+  ['geographic_feature', 'Geographic feature'],
+] as const;
+// Slim index for the pickers. The entity selects are populated client-side
+// from this JSON (the dialog only exists with JS, so unlike the old page
+// there is no server-rendered option fallback to carry on every page).
+const entityIndex = ordered.map((c) => ({
+  id: c.id,
+  name: c.data.english_name,
+  type: c.data.type,
+}));
+---
+
+<dialog class="compare-dialog" id="compare-dialog" aria-labelledby="compare-title">
+  <div class="cd-head">
+    <p class="cd-title" id="compare-title">Compare</p>
+    <button class="cd-close" id="compare-close" type="button" aria-label="Close the comparison">✕</button>
+  </div>
+  <p class="hint">
+    Pick two to four entities and see their names side-by-side, language by
+    language. Languages that name all of your picks sort first.
+  </p>
+
+  <form class="pickers" id="pickers">
+    {SLOTS.map((slot, i) => (
+      <div class="picker">
+        <span class="picker-label">{i < 2 ? `Entity ${slot.toUpperCase()}` : `Entity ${slot.toUpperCase()} (optional)`}</span>
+        <div class="picker-row">
+          <select class="pick-type" id={`type-${slot}`} aria-label={`Entity ${slot.toUpperCase()} kind`}>
+            {TYPES.map(([value, label]) => <option value={value}>{label}</option>)}
+          </select>
+          <select id={`pick-${slot}`} data-slot={slot} aria-label={`Entity ${slot.toUpperCase()}`}>
+            <option value="">—</option>
+          </select>
+        </div>
+      </div>
+    ))}
+  </form>
+  <script type="application/json" id="entity-index" set:html={JSON.stringify(entityIndex)} />
+
+  <p id="compare-status" class="hint" aria-live="polite">Choose at least two entities to compare.</p>
+  <div class="compare-scroll">
+    <table id="compare-table" hidden>
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</dialog>
+
+<script>
+  const SLOTS = ['a', 'b', 'c', 'd'];
+  const dialog = document.getElementById('compare-dialog') as HTMLDialogElement;
+  const selects = SLOTS.map((s) => document.getElementById(`pick-${s}`) as HTMLSelectElement);
+  const typeSelects = SLOTS.map((s) => document.getElementById(`type-${s}`) as HTMLSelectElement);
+  const table = document.getElementById('compare-table') as HTMLTableElement;
+  const status = document.getElementById('compare-status')!;
+
+  // The slim build-time index drives the type-filtered entity lists.
+  const entityIndex: Array<{ id: string; name: string; type: string }> = JSON.parse(
+    document.getElementById('entity-index')!.textContent!
+  );
+  const typeOf = new Map(entityIndex.map((e) => [e.id, e.type]));
+
+  // Rebuild a slot's entity list to its chosen kind, keeping the current
+  // pick when it still belongs.
+  function rebuild(i: number) {
+    const kind = typeSelects[i].value;
+    const keep = selects[i].value;
+    selects[i].textContent = '';
+    const blank = document.createElement('option');
+    blank.value = '';
+    blank.textContent = '—';
+    selects[i].append(blank);
+    for (const e of entityIndex) {
+      if (e.type !== kind) continue;
+      const o = document.createElement('option');
+      o.value = e.id;
+      o.textContent = e.name;
+      selects[i].append(o);
+    }
+    selects[i].value = typeOf.get(keep) === kind ? keep : '';
+  }
+  SLOTS.forEach((_, i) => rebuild(i));
+
+  let dataPromise: Promise<any> | null = null;
+  const loadData = () => (dataPromise ??= fetch('/onomastikon.json').then((r) => r.json()));
+
+  // The current picks live in the page URL (?a=&b=…) only while the dialog is
+  // open, so a comparison is shareable from any page; closing restores the
+  // page's own clean URL.
+  function syncURL(ids: string[]) {
+    const q = new URLSearchParams(location.search);
+    SLOTS.forEach((s, i) => {
+      if (ids[i]) q.set(s, ids[i]);
+      else q.delete(s);
+    });
+    const qs = q.toString();
+    history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
+  }
+  function clearURL() {
+    const q = new URLSearchParams(location.search);
+    SLOTS.forEach((s) => q.delete(s));
+    const qs = q.toString();
+    history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
+  }
+
+  async function render() {
+    const ids = selects.map((s) => s.value);
+    if (dialog.open) syncURL(ids);
+    const picked = ids.filter(Boolean);
+    if (picked.length < 2) {
+      table.hidden = true;
+      status.hidden = false;
+      status.textContent = 'Choose at least two entities to compare.';
+      return;
+    }
+    const data = await loadData();
+    const entities = picked
+      .map((id) => data.entities.find((e: any) => e.id === id))
+      .filter(Boolean);
+    const langById = new Map(data.languages.map((l: any) => [l.id, l]));
+    // names[entity][language] — an entity can carry several forms in one
+    // language (successive eras); keep them all, era order as exported.
+    const cell = new Map<string, Map<string, any[]>>();
+    for (const n of data.names) {
+      if (!picked.includes(n.civilization)) continue;
+      if (!cell.has(n.civilization)) cell.set(n.civilization, new Map());
+      const byLang = cell.get(n.civilization)!;
+      if (!byLang.has(n.language)) byLang.set(n.language, []);
+      byLang.get(n.language)!.push(n);
+    }
+    // Rows: every language naming at least one pick; full-coverage rows
+    // first (that's the comparative payoff), then by coverage, then the
+    // dataset's language order.
+    const langIds = data.languages
+      .map((l: any) => l.id)
+      .filter((id: string) => entities.some((e: any) => cell.get(e.id)?.has(id)));
+    const coverage = (id: string) => entities.filter((e: any) => cell.get(e.id)?.has(id)).length;
+    langIds.sort((x: string, y: string) => coverage(y) - coverage(x));
+
+    const thead = table.tHead!;
+    const tbody = table.tBodies[0];
+    thead.textContent = '';
+    tbody.textContent = '';
+
+    const headRow = document.createElement('tr');
+    headRow.append(document.createElement('th')); // corner
+    for (const e of entities) {
+      const th = document.createElement('th');
+      th.scope = 'col';
+      const a = document.createElement('a');
+      a.href = `/civilizations/${e.id}`;
+      a.textContent = e.english_name;
+      th.append(a);
+      headRow.append(th);
+    }
+    thead.append(headRow);
+
+    for (const langId of langIds) {
+      const lang: any = langById.get(langId);
+      const tr = document.createElement('tr');
+      const th = document.createElement('th');
+      th.scope = 'row';
+      const a = document.createElement('a');
+      a.href = `/languages/${langId}`;
+      a.textContent = lang?.english_name ?? langId;
+      th.append(a);
+      tr.append(th);
+      for (const e of entities) {
+        const td = document.createElement('td');
+        const forms = cell.get(e.id)?.get(langId) ?? [];
+        if (!forms.length) {
+          td.textContent = '—';
+          td.className = 'empty';
+        }
+        for (const form of forms) {
+          const wrap = document.createElement('a');
+          wrap.className = 'form';
+          wrap.href = form.url;
+          if (form.original_text) {
+            const orig = document.createElement('span');
+            orig.className = 'form-original';
+            orig.textContent = form.original_text;
+            if (lang?.lang_code) orig.setAttribute('lang', lang.lang_code);
+            if (lang?.direction === 'rtl') orig.setAttribute('dir', 'rtl');
+            wrap.append(orig);
+          }
+          const tr2 = document.createElement('em');
+          tr2.className = 'form-translit';
+          tr2.textContent = form.transliteration;
+          wrap.append(tr2);
+          td.append(wrap);
+        }
+        tr.append(td);
+      }
+      tbody.append(tr);
+    }
+
+    table.hidden = false;
+    status.hidden = true;
+  }
+
+  for (const s of selects) s.addEventListener('change', render);
+  typeSelects.forEach((t, i) => t.addEventListener('change', () => { rebuild(i); render(); }));
+
+  function setSlot(i: number, id: string) {
+    if (!typeOf.has(id)) return;
+    typeSelects[i].value = typeOf.get(id)!;
+    rebuild(i);
+    selects[i].value = id;
+  }
+
+  function openCompare(prefills: Array<string | null>) {
+    prefills.forEach((id, i) => { if (id) setSlot(i, id); });
+    dialog.showModal();
+    loadData();
+    render();
+  }
+
+  // Every /compare link on the site (the nav item, the entity chips with
+  // their ?a= prefills) opens the dialog in place; the href survives as the
+  // no-JS path to the redirect stub.
+  document.addEventListener('click', (e) => {
+    const link = (e.target as HTMLElement).closest?.('a[href^="/compare"]') as HTMLAnchorElement | null;
+    if (!link) return;
+    e.preventDefault();
+    const p = new URL(link.href, location.origin).searchParams;
+    openCompare(SLOTS.map((s) => p.get(s)));
+  });
+
+  dialog.addEventListener('close', clearURL);
+  document.getElementById('compare-close')?.addEventListener('click', () => dialog.close());
+  // A click on the backdrop (the dialog element itself, outside its padding
+  // box's content) closes, matching light-dismiss expectations.
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  // Shared links: ?a=&b= on any page's URL (including redirects from the old
+  // /compare?a=…) reopen the comparison on arrival.
+  const params = new URLSearchParams(location.search);
+  const fromURL = SLOTS.map((s) => params.get(s));
+  if (fromURL.filter((v) => v && typeOf.has(v)).length >= 2) openCompare(fromURL);
+</script>
+
+<style>
+  .compare-dialog {
+    width: min(64rem, calc(100vw - 2rem));
+    max-height: min(85vh, 100%);
+    margin: auto;
+    padding: 1.25rem 1.5rem 1.5rem;
+    background: var(--parchment);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    box-shadow: var(--shadow-soft);
+  }
+  .compare-dialog::backdrop { background: color-mix(in srgb, var(--ink) 45%, transparent); }
+  .cd-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .cd-title { font-family: 'EB Garamond', Georgia, serif; font-size: 1.6rem; font-weight: 600; margin: 0 0 0.25rem; }
+  .cd-close {
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    cursor: pointer;
+  }
+  .cd-close:hover, .cd-close:focus { color: var(--accent); border-color: var(--accent); }
+  .hint { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0 0 1.25rem; }
+  .pickers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin: 0 0 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+  }
+  .picker { display: flex; flex-direction: column; gap: 0.3rem; }
+  .picker-row { display: flex; gap: 0.4rem; }
+  .picker-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.6875rem;
+    color: var(--ink-soft);
+  }
+  .pickers select {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: var(--ink);
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.3rem 0.4rem;
+    max-width: 11rem;
+  }
+  /* Wide comparisons scroll inside their own container. */
+  .compare-scroll { overflow-x: auto; }
+  #compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+  }
+  #compare-table :global(th),
+  #compare-table :global(td) {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.7rem 0.9rem 0.7rem 0;
+    border-bottom: 1px solid var(--rule);
+    min-width: 8rem;
+  }
+  #compare-table :global(thead th) {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  #compare-table :global(thead a) { color: var(--ink); text-decoration: none; }
+  #compare-table :global(thead a:hover) { color: var(--accent); }
+  #compare-table :global(tbody th) {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    padding-top: 1rem;
+  }
+  #compare-table :global(tbody th a) { color: inherit; text-decoration: none; }
+  #compare-table :global(tbody th a:hover) { color: var(--accent); }
+  #compare-table :global(td.empty) { color: var(--rule); }
+  #compare-table :global(a.form) {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  #compare-table :global(a.form:hover) { color: var(--accent); }
+  #compare-table :global(.form-original) {
+    display: block;
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', 'Noto Sans Tamil', 'Noto Sans Brahmi', 'Noto Sans Old Sogdian', 'Noto Sans Old Turkic', serif;
+    font-size: 1.375rem;
+    line-height: 1.25;
+  }
+  #compare-table :global(.form-translit) {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+</style>

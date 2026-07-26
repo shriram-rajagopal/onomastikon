@@ -10,6 +10,15 @@ const fold = (s?: string | null) =>
 // null era_end = "in continued use"; contributes no year token to the haystack.
 const era = (y: number | null) => (y === null ? '' : y < 0 ? `${Math.abs(y)} bce` : `${y} ce`);
 
+// Safeguards for the gap between scholarly transliteration and what a reader
+// types: every record's haystack also carries (a) its own slug, hyphens spaced
+// — the slug is a plain-roman alias chosen by a human (egypt-egyptian-kemet
+// carries "kemet" for the entry whose transliteration is km.t) — and (b) the
+// transliteration stripped to bare letters, so "kmt" finds km.t and "sfarad"
+// finds Sǝfārad.
+const slugTokens = (id: string) => id.replace(/-/g, ' ');
+const bare = (s?: string | null) => fold(s).replace(/[^a-z0-9 ]+/g, '');
+
 // Display labels for the entity type enum, matching the entity-page eyebrow;
 // the raw enum value ("geographic_feature") is not user-facing.
 const TYPE_LABELS: Record<string, string> = {
@@ -41,7 +50,7 @@ export const GET: APIRoute = async () => {
       label: c.data.english_name,
       context: TYPE_LABELS[c.data.type] ?? c.data.type,
       url: `/civilizations/${c.id}`,
-      h: fold([c.data.english_name, c.data.region, TYPE_LABELS[c.data.type] ?? c.data.type].join(' ')),
+      h: fold([c.data.english_name, slugTokens(c.id), c.data.region, TYPE_LABELS[c.data.type] ?? c.data.type].join(' ')),
     });
   }
 
@@ -51,7 +60,7 @@ export const GET: APIRoute = async () => {
       label: l.data.english_name,
       context: l.data.language_family,
       url: `/languages/${l.id}`,
-      h: fold([l.data.english_name, l.data.language_family, l.data.script].join(' ')),
+      h: fold([l.data.english_name, slugTokens(l.id), l.data.language_family, l.data.script].join(' ')),
     });
   }
 
@@ -76,22 +85,26 @@ export const GET: APIRoute = async () => {
       ...(n.data.literal_meaning ? { meaning: n.data.literal_meaning } : {}),
       context: `${l?.data.english_name ?? ''} · ${c?.data.english_name ?? ''}`,
       url: `/civilizations/${c?.id}#${entryAnchor(n.id, c?.id ?? '')}`,
-      h: fold(
-        [
-          n.data.original_text,
-          n.data.transliteration,
-          n.data.literal_meaning,
-          l?.data.english_name,
-          l?.data.script,
-          l?.data.language_family,
-          c?.data.english_name,
-          c?.data.region,
-          era(n.data.era_start),
-          era(n.data.era_end),
-        ]
-          .filter(Boolean)
-          .join(' ')
-      ),
+      h: [
+        fold(
+          [
+            n.data.original_text,
+            n.data.transliteration,
+            n.data.literal_meaning,
+            l?.data.english_name,
+            l?.data.script,
+            l?.data.language_family,
+            c?.data.english_name,
+            c?.data.region,
+            era(n.data.era_start),
+            era(n.data.era_end),
+          ]
+            .filter(Boolean)
+            .join(' ')
+        ),
+        fold(slugTokens(n.id)),
+        bare(n.data.transliteration),
+      ].join(' '),
     });
   }
 

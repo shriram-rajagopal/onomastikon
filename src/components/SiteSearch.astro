@@ -18,7 +18,7 @@
     aria-autocomplete="list"
     aria-label="Search the atlas"
     aria-keyshortcuts="/ Control+K"
-    placeholder="Search a name or place: Kemet, Babylon, the Nile… (press /)"
+    placeholder="Search for a name or place (press /)"
   />
   <div class="search-pop" id="search-pop" hidden>
     <ul id="results" role="listbox" aria-label="Search results"></ul>
@@ -148,10 +148,19 @@
       lab.textContent = r.label;
       if (r.lang) lab.setAttribute('lang', r.lang);
       if (r.dir) lab.setAttribute('dir', r.dir);
+      a.append(lab);
+      // An original-script label alone is unreadable to most visitors: pair it
+      // with the transliteration whenever the two differ.
+      if (r.translit && r.translit !== r.label) {
+        const tl = document.createElement('em');
+        tl.className = 'r-translit';
+        tl.textContent = r.translit;
+        a.append(tl);
+      }
       const ctx = document.createElement('span');
       ctx.className = 'r-ctx';
       ctx.textContent = r.context || '';
-      a.append(lab, ctx);
+      a.append(ctx);
       li.append(a);
       list.append(li);
       optionEls.push(li);
@@ -278,6 +287,7 @@
     font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', 'Noto Sans Tamil', 'Noto Sans Brahmi', 'Noto Sans Old Sogdian', 'Noto Sans Old Turkic', serif;
     font-size: 1.05rem;
   }
-  #results :global(.r-ctx) { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: right; }
+  #results :global(.r-translit) { font-size: 0.95rem; color: var(--ink-soft); }
+  #results :global(.r-ctx) { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: right; margin-left: auto; }
   #empty { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--ink-soft); margin: 0.75rem 0.5rem; }
 </style>
