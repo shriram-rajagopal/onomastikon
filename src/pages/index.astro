@@ -356,7 +356,8 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
      device; the per-section colors below stay. */
   .home-toc {
     position: fixed;
-    top: 7.5rem;
+    /* Clears the header plus its search bar (the bar joined 2026-07-26). */
+    top: 10.5rem;
     left: calc((100vw - var(--max-width)) / 2 - 16.5rem);
     width: 16rem;
     display: flex;
@@ -734,9 +735,9 @@ const ERA_NOTES: Record<string, { span: string; html: string }> = {
     .era-note {
       position: fixed;
       left: calc(50% + 380px);
-      top: 7.5rem;
+      top: 10.5rem;
       width: 300px;
-      max-height: calc(100vh - 9.5rem);
+      max-height: calc(100vh - 12.5rem);
       overflow-y: auto;
       margin-top: 0;
       z-index: 24;

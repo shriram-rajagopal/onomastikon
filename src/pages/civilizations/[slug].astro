@@ -854,10 +854,11 @@ const correctionUrl =
   @media (min-width: 1520px) {
     .toc {
       position: fixed;
-      top: 7rem;
+      /* Clears the header plus its search bar (the bar joined 2026-07-26). */
+      top: 10rem;
       left: calc(50% + 540px);
       width: 200px;
-      max-height: calc(100vh - 9rem);
+      max-height: calc(100vh - 12rem);
       overflow-y: auto;
       margin: 0;
     }
