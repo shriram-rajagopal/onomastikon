@@ -11,11 +11,10 @@
 //
 // Membership is MANY, not one: an entity belongs to every shelf it genuinely
 // occupied. A single-place entity (a city, a river) lists one shelf; a body of
-// water lists every region it borders; a trans-regional polity (the Caliphate,
-// the Byzantines) lists its core and every region it ruled, so browsing any of
-// them surfaces it. The one deliberate omission is the Mediterranean, the sea
-// that touches every shelf: it stays under "All regions" only, an honest
-// non-answer beating a forced one.
+// water lists every region it borders (the Mediterranean the most, all five of
+// its shores); a trans-regional polity (the Caliphate, the Byzantines) lists
+// its core and every region it ruled, so browsing any of them surfaces it.
+// Every entity has at least one home; nothing is left to "All regions" only.
 
 export const MACRO_REGION_LABELS: Record<string, string> = {
   mesopotamia: 'Mesopotamia',
@@ -201,8 +200,9 @@ export const MACRO_REGION_OF: Record<string, string[]> = {
   ottomans: ['anatolia', 'greek-world'],
   seljuks: ['central-asia', 'iran-caucasus', 'anatolia'],
   romani: ['south-asia', 'iran-caucasus', 'anatolia', 'europe'],
-  // Deliberately unshelved: the Mediterranean touches every region, so it
-  // appears only under "All regions" (see the header note).
+  // The Mediterranean, like every sea here, lists each region it borders; it
+  // simply borders more of them than the others.
+  mediterranean: ['levant', 'north-africa', 'anatolia', 'greek-world', 'europe'],
 };
 
 // Era shelves for the homepage's "browse by era" filter. An entity matches a
