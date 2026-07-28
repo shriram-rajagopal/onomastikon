@@ -1,26 +1,33 @@
 ---
-// Hover-preview popover for auto-crossreference links (.xref) in prose. Rest
-// the cursor on a linked entity name and, after the same beat as the homepage
-// index menu, a card rises anchored over the word with the entity's summary,
-// locator minimap, subheading, status, and count — the same card the homepage
-// uses, here on every page that renders entity prose.
+// Hover-preview popover for the auto-crossreference links (.xref) in prose and
+// for the language labels on name cards (.lang-link, beside the dates). Rest
+// the cursor on a linked name and, after the same beat as the homepage index
+// menu, a card rises anchored over the word.
+//
+// Two card shapes share one element:
+//   - a CIVILIZATION card: summary, locator minimap, region · era, status, and
+//     name count (the same card the homepage uses);
+//   - a LANGUAGE card: the language name, its endonym in its own script, the
+//     language family, the alphabet, and a short blurb.
 //
 // Deliberately its own element (#xref-pop), separate from the homepage's
-// #entity-pop: the two never share a page's active targets (the homepage has
-// no .xref prose), so this stays isolated and cannot disturb the index/era
-// popover. Only civilization xrefs get a card; language links are left plain.
+// #entity-pop, so the two never interfere. It holds the horizontal band the
+// transmission map and family trees set, clamping inside that column.
 import { getCollection } from 'astro:content';
 import { formatEra } from '../lib/era';
 
-const [civs, names] = await Promise.all([
+const [civs, langs, names] = await Promise.all([
   getCollection('civilizations'),
+  getCollection('languages'),
   getCollection('names'),
 ]);
+
 const countByCiv = new Map<string, number>();
 for (const n of names) {
   const id = n.data.civilization.id;
   countByCiv.set(id, (countByCiv.get(id) ?? 0) + 1);
 }
+
 const popData = Object.fromEntries(
   civs.map((c) => [
     c.id,
@@ -34,24 +41,66 @@ const popData = Object.fromEntries(
     },
   ])
 );
+
+// The language blurb is the opening sentence of its own (vetted) description,
+// stripped of markdown and capped, so it reads like an entity summary without
+// a second field to author. Split on a sentence break that a capital or quote
+// follows, which leaves "c. 1500 BCE" and the like intact.
+const firstSentence = (body: string): string => {
+  const text = (body ?? '').trim();
+  if (!text) return '';
+  let s = text.split(/(?<=[.!?])\s+(?=[A-Z“"'ʾʿ])/)[0] ?? text;
+  s = s
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // [text](url) -> text
+    .replace(/[*_]/g, '') // italic / bold markers
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (s.length > 240) s = s.slice(0, 220).replace(/\s+\S*$/, '') + '…';
+  return s;
+};
+
+const langData = Object.fromEntries(
+  langs.map((l) => [
+    l.id,
+    {
+      n: l.data.english_name,
+      endo: l.data.native_name ?? '',
+      code: l.data.lang_code,
+      dir: l.data.direction === 'rtl' ? 'rtl' : '',
+      fam: l.data.language_family,
+      script: l.data.script,
+      blurb: firstSentence(l.body),
+    },
+  ])
+);
 ---
 
 <aside id="xref-pop" class="corner-ticks" aria-live="polite" hidden>
   <p class="xp-name" id="xp-name"></p>
-  <p class="xp-sub"><span id="xp-region"></span> · <span id="xp-era"></span></p>
-  <p class="xp-badges"><span id="xp-status" class="status"></span><span id="xp-count" class="xp-count"></span></p>
-  <div id="xp-map" class="xp-map" aria-hidden="true"></div>
+  {/* Civilization fields */}
+  <div class="xp-entity">
+    <p class="xp-sub"><span id="xp-region"></span> · <span id="xp-era"></span></p>
+    <p class="xp-badges"><span id="xp-status" class="status"></span><span id="xp-count" class="xp-count"></span></p>
+    <div id="xp-map" class="xp-map" aria-hidden="true"></div>
+  </div>
+  {/* Language fields */}
+  <div class="xp-lang">
+    <p class="xp-endo" id="xp-endo"></p>
+    <p class="xp-meta" id="xp-meta"></p>
+  </div>
   <p id="xp-summary" class="xp-summary"></p>
 </aside>
-<script type="application/json" id="xref-pop-data" set:html={JSON.stringify(popData)} />
+<script type="application/json" id="xref-pop-entities" set:html={JSON.stringify(popData)} />
+<script type="application/json" id="xref-pop-langs" set:html={JSON.stringify(langData)} />
 
 <script>
   {
     const pop = document.getElementById('xref-pop');
-    const dataEl = document.getElementById('xref-pop-data');
-    // Hover-capable only; a touch reader taps through to the page.
-    if (pop && dataEl && matchMedia('(hover: hover)').matches) {
-      const data = JSON.parse(dataEl.textContent!);
+    const entEl = document.getElementById('xref-pop-entities');
+    const langEl = document.getElementById('xref-pop-langs');
+    if (pop && entEl && langEl && matchMedia('(hover: hover)').matches) {
+      const entData = JSON.parse(entEl.textContent!);
+      const langData = JSON.parse(langEl.textContent!);
       const mapCache = new Map<string, string>();
       const el = (id: string) => document.getElementById(id)!;
       let showTimer = 0;
@@ -64,9 +113,9 @@ const popData = Object.fromEntries(
         window.setTimeout(() => { if (!shownFor) pop.hidden = true; }, 240);
       };
 
-      // The horizontal band the popover must stay inside: the width set by the
-      // transmission map and the name-family trees (the widest content on the
-      // page). Falls back to the prose column, then a viewport inset.
+      // The horizontal band the popover stays inside: the width the transmission
+      // map and family trees set (the widest content). Falls back to the prose
+      // column, then a viewport inset.
       const columnBounds = () => {
         const ref =
           document.querySelector('.tmap-svg') ||
@@ -80,9 +129,21 @@ const popData = Object.fromEntries(
         return { left: 12, right: innerWidth - 12 };
       };
 
-      const show = async (slug: string, word: HTMLElement) => {
-        const d = data[slug];
+      const place = (word: HTMLElement) => {
+        const a = word.getBoundingClientRect();
+        const b = columnBounds();
+        const w = pop.offsetWidth;
+        const left = Math.min(Math.max(a.left + a.width / 2 - w / 2, b.left), b.right - w);
+        let top = a.top - pop.offsetHeight - 10;
+        if (top < 76) top = a.bottom + 10; // no room above → drop below
+        pop.style.left = `${Math.round(left)}px`;
+        pop.style.top = `${Math.round(top)}px`;
+      };
+
+      const showEntity = async (slug: string, word: HTMLElement) => {
+        const d = entData[slug];
         if (!d) return;
+        pop.dataset.kind = 'entity';
         el('xp-name').textContent = d.n;
         el('xp-region').textContent = d.r;
         el('xp-era').textContent = d.e;
@@ -102,44 +163,65 @@ const popData = Object.fromEntries(
           }
         }
         holder.innerHTML = mapCache.get(slug) ?? '';
+        reveal(word, slug);
+      };
+
+      const showLang = (slug: string, word: HTMLElement) => {
+        const d = langData[slug];
+        if (!d) return;
+        pop.dataset.kind = 'lang';
+        el('xp-name').textContent = d.n;
+        const endo = el('xp-endo');
+        endo.textContent = d.endo || '';
+        endo.hidden = !d.endo;
+        if (d.endo) {
+          endo.setAttribute('lang', d.code);
+          if (d.dir) endo.setAttribute('dir', 'rtl');
+          else endo.removeAttribute('dir');
+        }
+        el('xp-meta').textContent = `${d.fam} · ${d.script}`;
+        el('xp-summary').textContent = d.blurb;
+        reveal(word, slug);
+      };
+
+      const reveal = (word: HTMLElement, slug: string) => {
         pop.hidden = false;
-        // Anchor centered over the word, then clamp horizontally to the
-        // content band (may cover the text; never leaves the column).
-        const a = word.getBoundingClientRect();
-        const b = columnBounds();
-        const w = pop.offsetWidth;
-        const left = Math.min(Math.max(a.left + a.width / 2 - w / 2, b.left), b.right - w);
-        let top = a.top - pop.offsetHeight - 10;
-        if (top < 76) top = a.bottom + 10; // no room above → drop below
-        pop.style.left = `${Math.round(left)}px`;
-        pop.style.top = `${Math.round(top)}px`;
+        place(word);
         shownFor = slug;
         requestAnimationFrame(() => pop.classList.add('show'));
       };
 
-      const slugOf = (a: HTMLAnchorElement) => {
-        const m = a.getAttribute('href')?.match(/^\/civilizations\/([^#?]+)/);
+      const hrefSlug = (a: HTMLAnchorElement, base: string) => {
+        const m = a.getAttribute('href')?.match(new RegExp(`^${base}([^#?]+)`));
         return m ? m[1] : null;
       };
 
-      // Only civilization crossrefs carry a card; language xrefs stay plain.
-      for (const a of document.querySelectorAll<HTMLAnchorElement>('a.xref[href^="/civilizations/"]')) {
-        const slug = slugOf(a);
-        if (!slug || !data[slug]) continue;
-        // Timing matched to the homepage index menu: 550ms in, 180ms out.
+      // Timing matched to the homepage index menu: 550ms in, 180ms out.
+      const wire = (a: HTMLAnchorElement, run: () => void) => {
         a.addEventListener('mouseenter', () => {
           window.clearTimeout(showTimer);
           window.clearTimeout(hideTimer);
-          showTimer = window.setTimeout(() => show(slug, a), 550);
+          showTimer = window.setTimeout(run, 550);
         });
         a.addEventListener('mouseleave', () => {
           window.clearTimeout(showTimer);
           hideTimer = window.setTimeout(hide, 180);
         });
-        a.addEventListener('focus', () => show(slug, a));
+        a.addEventListener('focus', run);
         a.addEventListener('blur', () => { hideTimer = window.setTimeout(hide, 180); });
+      };
+
+      // Civilization crossrefs in prose.
+      for (const a of document.querySelectorAll<HTMLAnchorElement>('a.xref[href^="/civilizations/"]')) {
+        const slug = hrefSlug(a, '/civilizations/');
+        if (slug && entData[slug]) wire(a, () => showEntity(slug, a));
       }
-      // Reading into the card keeps it open.
+      // Language crossrefs in prose, and the language label on every name card.
+      for (const a of document.querySelectorAll<HTMLAnchorElement>('a.xref[href^="/languages/"], a.lang-link[href^="/languages/"]')) {
+        const slug = hrefSlug(a, '/languages/');
+        if (slug && langData[slug]) wire(a, () => showLang(slug, a));
+      }
+
       pop.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
       pop.addEventListener('mouseleave', () => { hideTimer = window.setTimeout(hide, 180); });
       addEventListener('scroll', () => { if (shownFor) hide(); }, { passive: true });
@@ -168,6 +250,10 @@ const popData = Object.fromEntries(
     #xref-pop { transition: opacity 0.22s ease, transform 0.22s ease; }
   }
   #xref-pop.show { opacity: 1; transform: none; pointer-events: auto; }
+  /* Show only the block that matches the current target's kind. */
+  #xref-pop .xp-entity, #xref-pop .xp-lang { display: none; }
+  #xref-pop[data-kind='entity'] .xp-entity { display: block; }
+  #xref-pop[data-kind='lang'] .xp-lang { display: block; }
   #xref-pop .xp-name { margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.25rem; }
   .xp-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0.25rem 0 0.5rem; }
   .xp-badges { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; }
@@ -183,6 +269,16 @@ const popData = Object.fromEntries(
   #xref-pop .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
   .xp-count { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); }
   .xp-map { margin: 0 0 0.6rem; }
+  /* Language endonym, in its own script; the stack matches the entity page's
+     original-script forms so every alphabet renders. */
+  .xp-endo {
+    margin: 0.3rem 0 0.4rem;
+    font-family: 'EB Garamond', 'Noto Sans Egyptian Hieroglyphs', 'Noto Sans Cuneiform', 'Noto Sans Old Persian', 'Noto Sans Avestan', 'Noto Serif Devanagari', 'Noto Serif Hebrew', 'Noto Naskh Arabic', 'Noto Sans Coptic', 'Noto Sans Ethiopic', 'Noto Sans Inscriptional Pahlavi', 'Noto Sans Inscriptional Parthian', 'Noto Sans Manichaean', 'Noto Sans Syriac', 'Noto Sans Phoenician', 'Noto Sans Ugaritic', 'Noto Sans Lycian', 'Noto Serif Armenian', 'Noto Sans Old Italic', 'Noto Sans Linear B', 'Noto Sans Tamil', 'Noto Sans Brahmi', 'Noto Sans Old Sogdian', 'Noto Sans Old Turkic', serif;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .xp-meta { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0 0 0.6rem; }
   .xp-summary { font-size: 0.9375rem; line-height: 1.55; margin: 0; color: var(--ink); }
   @media (hover: none) {
     #xref-pop { display: none; }
