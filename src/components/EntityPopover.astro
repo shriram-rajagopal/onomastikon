@@ -1,0 +1,190 @@
+---
+// Hover-preview popover for auto-crossreference links (.xref) in prose. Rest
+// the cursor on a linked entity name and, after the same beat as the homepage
+// index menu, a card rises anchored over the word with the entity's summary,
+// locator minimap, subheading, status, and count — the same card the homepage
+// uses, here on every page that renders entity prose.
+//
+// Deliberately its own element (#xref-pop), separate from the homepage's
+// #entity-pop: the two never share a page's active targets (the homepage has
+// no .xref prose), so this stays isolated and cannot disturb the index/era
+// popover. Only civilization xrefs get a card; language links are left plain.
+import { getCollection } from 'astro:content';
+import { formatEra } from '../lib/era';
+
+const [civs, names] = await Promise.all([
+  getCollection('civilizations'),
+  getCollection('names'),
+]);
+const countByCiv = new Map<string, number>();
+for (const n of names) {
+  const id = n.data.civilization.id;
+  countByCiv.set(id, (countByCiv.get(id) ?? 0) + 1);
+}
+const popData = Object.fromEntries(
+  civs.map((c) => [
+    c.id,
+    {
+      n: c.data.english_name,
+      s: c.data.summary,
+      r: c.data.region ?? '',
+      e: formatEra(c.data.era_start, c.data.era_end),
+      st: c.data.entry_status,
+      c: countByCiv.get(c.id) ?? 0,
+    },
+  ])
+);
+---
+
+<aside id="xref-pop" class="corner-ticks" aria-live="polite" hidden>
+  <p class="xp-name" id="xp-name"></p>
+  <p class="xp-sub"><span id="xp-region"></span> · <span id="xp-era"></span></p>
+  <p class="xp-badges"><span id="xp-status" class="status"></span><span id="xp-count" class="xp-count"></span></p>
+  <div id="xp-map" class="xp-map" aria-hidden="true"></div>
+  <p id="xp-summary" class="xp-summary"></p>
+</aside>
+<script type="application/json" id="xref-pop-data" set:html={JSON.stringify(popData)} />
+
+<script>
+  {
+    const pop = document.getElementById('xref-pop');
+    const dataEl = document.getElementById('xref-pop-data');
+    // Hover-capable only; a touch reader taps through to the page.
+    if (pop && dataEl && matchMedia('(hover: hover)').matches) {
+      const data = JSON.parse(dataEl.textContent!);
+      const mapCache = new Map<string, string>();
+      const el = (id: string) => document.getElementById(id)!;
+      let showTimer = 0;
+      let hideTimer = 0;
+      let shownFor: string | null = null;
+
+      const hide = () => {
+        pop.classList.remove('show');
+        shownFor = null;
+        window.setTimeout(() => { if (!shownFor) pop.hidden = true; }, 240);
+      };
+
+      // The horizontal band the popover must stay inside: the width set by the
+      // transmission map and the name-family trees (the widest content on the
+      // page). Falls back to the prose column, then a viewport inset.
+      const columnBounds = () => {
+        const ref =
+          document.querySelector('.tmap-svg') ||
+          document.getElementById('families') ||
+          document.querySelector('.summary') ||
+          document.getElementById('main');
+        if (ref) {
+          const r = ref.getBoundingClientRect();
+          if (r.width > 0) return { left: r.left, right: r.right };
+        }
+        return { left: 12, right: innerWidth - 12 };
+      };
+
+      const show = async (slug: string, word: HTMLElement) => {
+        const d = data[slug];
+        if (!d) return;
+        el('xp-name').textContent = d.n;
+        el('xp-region').textContent = d.r;
+        el('xp-era').textContent = d.e;
+        const status = el('xp-status');
+        status.textContent = d.st;
+        status.className = `status status-${d.st}`;
+        el('xp-count').textContent = `${d.c} name ${d.c === 1 ? 'entry' : 'entries'}`;
+        el('xp-summary').textContent = d.s;
+        const holder = el('xp-map');
+        holder.innerHTML = '';
+        if (!mapCache.has(slug)) {
+          try {
+            const r = await fetch(`/locators/${slug}.svg`);
+            mapCache.set(slug, r.ok ? await r.text() : '');
+          } catch {
+            mapCache.set(slug, '');
+          }
+        }
+        holder.innerHTML = mapCache.get(slug) ?? '';
+        pop.hidden = false;
+        // Anchor centered over the word, then clamp horizontally to the
+        // content band (may cover the text; never leaves the column).
+        const a = word.getBoundingClientRect();
+        const b = columnBounds();
+        const w = pop.offsetWidth;
+        const left = Math.min(Math.max(a.left + a.width / 2 - w / 2, b.left), b.right - w);
+        let top = a.top - pop.offsetHeight - 10;
+        if (top < 76) top = a.bottom + 10; // no room above → drop below
+        pop.style.left = `${Math.round(left)}px`;
+        pop.style.top = `${Math.round(top)}px`;
+        shownFor = slug;
+        requestAnimationFrame(() => pop.classList.add('show'));
+      };
+
+      const slugOf = (a: HTMLAnchorElement) => {
+        const m = a.getAttribute('href')?.match(/^\/civilizations\/([^#?]+)/);
+        return m ? m[1] : null;
+      };
+
+      // Only civilization crossrefs carry a card; language xrefs stay plain.
+      for (const a of document.querySelectorAll<HTMLAnchorElement>('a.xref[href^="/civilizations/"]')) {
+        const slug = slugOf(a);
+        if (!slug || !data[slug]) continue;
+        // Timing matched to the homepage index menu: 550ms in, 180ms out.
+        a.addEventListener('mouseenter', () => {
+          window.clearTimeout(showTimer);
+          window.clearTimeout(hideTimer);
+          showTimer = window.setTimeout(() => show(slug, a), 550);
+        });
+        a.addEventListener('mouseleave', () => {
+          window.clearTimeout(showTimer);
+          hideTimer = window.setTimeout(hide, 180);
+        });
+        a.addEventListener('focus', () => show(slug, a));
+        a.addEventListener('blur', () => { hideTimer = window.setTimeout(hide, 180); });
+      }
+      // Reading into the card keeps it open.
+      pop.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
+      pop.addEventListener('mouseleave', () => { hideTimer = window.setTimeout(hide, 180); });
+      addEventListener('scroll', () => { if (shownFor) hide(); }, { passive: true });
+      addEventListener('keydown', (e) => { if (e.key === 'Escape' && shownFor) hide(); });
+    }
+  }
+</script>
+
+<style>
+  #xref-pop {
+    position: fixed;
+    width: 300px;
+    max-width: calc(100vw - 24px);
+    z-index: 30;
+    background-color: color-mix(in srgb, var(--ink) 2%, var(--parchment));
+    background-image: var(--grain);
+    border: 1px solid var(--rule-strong);
+    border-radius: 6px;
+    padding: 1rem 1.15rem 1.1rem;
+    box-shadow: var(--shadow-lift);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    #xref-pop { transition: opacity 0.22s ease, transform 0.22s ease; }
+  }
+  #xref-pop.show { opacity: 1; transform: none; pointer-events: auto; }
+  #xref-pop .xp-name { margin: 0; font-family: 'EB Garamond', Georgia, serif; font-weight: 600; font-size: 1.25rem; }
+  .xp-sub { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); margin: 0.25rem 0 0.5rem; }
+  .xp-badges { display: flex; align-items: center; gap: 0.6rem; margin: 0 0 0.6rem; }
+  #xref-pop .status {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+  }
+  #xref-pop .status-developing { background: var(--badge-developing-bg); color: var(--badge-developing-fg); }
+  #xref-pop .status-complete { background: var(--badge-complete-bg); color: var(--badge-complete-fg); }
+  .xp-count { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--ink-soft); }
+  .xp-map { margin: 0 0 0.6rem; }
+  .xp-summary { font-size: 0.9375rem; line-height: 1.55; margin: 0; color: var(--ink); }
+  @media (hover: none) {
+    #xref-pop { display: none; }
+  }
+</style>

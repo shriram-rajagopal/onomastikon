@@ -60,6 +60,7 @@ import { getCollection } from 'astro:content';
 import SiteSearch from '../components/SiteSearch.astro';
 import ComparePanel from '../components/ComparePanel.astro';
 import SharePage from '../components/SharePage.astro';
+import EntityPopover from '../components/EntityPopover.astro';
 const [footerCivs, footerLangs, footerNames] = await Promise.all([
   getCollection('civilizations'),
   getCollection('languages'),
@@ -163,6 +164,8 @@ const builtStamp = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'nume
     <ComparePanel />
     {/* The fixed share control, one step below the help button's spot. */}
     <SharePage />
+    {/* Hover-preview cards for crossreference links in prose. */}
+    <EntityPopover />
     <footer class="site-footer">
       <p>
         Onomastikon · A digital atlas of ancient and medieval names ·
