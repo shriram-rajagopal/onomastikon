@@ -1,0 +1,430 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { atlasFeatures } from '../lib/atlas-geo';
+import { formatEra, SCOPE_END } from '../lib/era';
+
+// The globe: every entity in the atlas plotted on a rotatable orthographic
+// sphere, colored by type, with a year slider that dims what is not yet (or no
+// longer) attested. Geometry comes from the same ENTITY_GEO that drives the
+// transmission maps; the world land is a Natural Earth TopoJSON fetched by the
+// client and drawn with d3-geo. Phase 1: the corpus only. (A muted layer of
+// every world feature is a later phase.)
+const civs = await getCollection('civilizations');
+const byId = new Map(civs.map((c) => [c.id, c]));
+const feats = atlasFeatures();
+
+// One record per plottable entity: metadata + geometry + representative point.
+const data = feats
+  .map((f) => {
+    const c = byId.get(f.id);
+    if (!c) return null;
+    return {
+      id: f.id,
+      n: c.data.english_name,
+      t: c.data.type,
+      s: c.data.era_start,
+      e: c.data.era_end ?? SCOPE_END,
+      g: f.geometry,
+      r: f.repr,
+    };
+  })
+  .filter(Boolean);
+
+// Slider bounds: earliest start to latest end across the corpus.
+const minYear = Math.min(...data.map((d) => d!.s));
+const maxYear = SCOPE_END;
+// Open on the year of richest coverage, not the empty far end, so the first
+// view is a full world rather than a mostly-dimmed one.
+let peakYear = 0;
+let peakCount = -1;
+for (let y = minYear; y <= 1453; y += 25) {
+  const n = data.filter((d) => d!.s <= y && d!.e >= y).length;
+  if (n > peakCount) {
+    peakCount = n;
+    peakYear = y;
+  }
+}
+---
+
+<BaseLayout
+  title="The Globe"
+  description="Every civilization, city, region, and geographic feature of the atlas, plotted on a rotatable globe with a year slider."
+>
+  <h1>The Globe</h1>
+  <p class="lede">
+    Every entity in the atlas on one turning world. Drag to spin, scroll to zoom,
+    hover a marker for its name, and slide the year to watch names come into use
+    and pass. Colored by kind: civilizations, cities, regions, and geographic
+    features.
+  </p>
+
+  <div class="globe-wrap">
+    <canvas id="globe" role="img" aria-label="A rotatable globe of the atlas's entities"></canvas>
+    <div id="globe-tip" class="globe-tip" hidden></div>
+  </div>
+
+  <div class="globe-controls">
+    <div class="year-row">
+      <label for="year" class="year-label">Year</label>
+      <input type="range" id="year" min={minYear} max={maxYear} value={peakYear} step="10" />
+      <output id="year-out" class="year-out"></output>
+    </div>
+    <ul class="legend" aria-label="Legend">
+      <li><span class="sw sw-civ"></span> Civilization</li>
+      <li><span class="sw sw-city"></span> City</li>
+      <li><span class="sw sw-region"></span> Region</li>
+      <li><span class="sw sw-feature"></span> Geographic feature</li>
+    </ul>
+  </div>
+
+  <p class="globe-fallback">
+    Prefer a list? Every entity is also on the <a href="/#civilization">index</a>,
+    filterable by region and era.
+  </p>
+
+  <script type="application/json" id="globe-data" set:html={JSON.stringify(data)} />
+
+  <script>
+    import { geoOrthographic, geoPath, geoGraticule10, geoDistance } from 'd3-geo';
+    import { feature } from 'topojson-client';
+
+    const canvas = document.getElementById('globe') as HTMLCanvasElement;
+    const tip = document.getElementById('globe-tip')!;
+    const yearInput = document.getElementById('year') as HTMLInputElement;
+    const yearOut = document.getElementById('year-out')!;
+    const dataEl = document.getElementById('globe-data');
+    if (canvas && dataEl) {
+      type Rec = { id: string; n: string; t: string; s: number; e: number; g: any; r: [number, number] };
+      const data: Rec[] = JSON.parse(dataEl.textContent!);
+      const TYPE_LABEL: Record<string, string> = {
+        civilization: 'Civilization',
+        city: 'City',
+        region: 'Region',
+        geographic_feature: 'Geographic feature',
+      };
+      const fmtY = (y: number) => (y < 0 ? `${-y} BCE` : y === 0 ? '1 CE' : y >= 9999 ? 'in continued use' : `${y} CE`);
+
+      const ctx = canvas.getContext('2d')!;
+      const projection = geoOrthographic().clipAngle(90).rotate([-44, -34]);
+      const path = geoPath(projection, ctx);
+      const graticule = geoGraticule10();
+
+      // Theme colors, re-read on each draw so light/dark both work.
+      const cssVar = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+      let C = { ocean: '', land: '', rule: '', grat: '', ink: '', civ: '', city: '', region: '', feature: '' };
+      const readColors = () => {
+        const parch = cssVar('--parchment');
+        const sea = cssVar('--sea') || cssVar('--water');
+        C = {
+          // Lift land clear of the ocean so continents read on the sphere.
+          ocean: `color-mix(in srgb, ${cssVar('--water')} 15%, ${sea})`,
+          land: `color-mix(in srgb, ${cssVar('--ink-soft')} 24%, ${parch})`,
+          rule: cssVar('--rule'),
+          grat: `color-mix(in srgb, ${cssVar('--rule')} 45%, transparent)`,
+          ink: cssVar('--ink'),
+          civ: cssVar('--accent'),
+          city: cssVar('--badge-developing-fg'),
+          region: cssVar('--conf-attested-fg'),
+          feature: cssVar('--conf-reconstructed-fg'),
+        };
+      };
+      const colorOf = (t: string) => (t === 'civilization' ? C.civ : t === 'city' ? C.city : t === 'region' ? C.region : C.feature);
+
+      let land: any = null;
+      let W = 0;
+      let H = 0;
+      let year = Number(yearInput.value);
+      let hovered: Rec | null = null;
+
+      const active = (d: Rec) => d.s <= year && d.e >= year;
+      // A repr point is on the near hemisphere (so its marker/label shows).
+      const visible = (lonlat: [number, number]) => {
+        const c = projection.rotate();
+        return geoDistance(lonlat, [-c[0], -c[1]]) < Math.PI / 2 - 0.01;
+      };
+
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        W = rect.width;
+        H = rect.height;
+        canvas.width = Math.round(W * dpr);
+        canvas.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        projection.translate([W / 2, H / 2]).scale((Math.min(W, H) / 2) * zoom - 4);
+        draw();
+      };
+
+      let zoom = 0.98;
+
+      const draw = () => {
+        readColors();
+        ctx.clearRect(0, 0, W, H);
+        // Ocean sphere.
+        ctx.beginPath();
+        path({ type: 'Sphere' } as any);
+        ctx.fillStyle = C.ocean;
+        ctx.fill();
+        // Graticule.
+        ctx.beginPath();
+        path(graticule);
+        ctx.strokeStyle = C.grat;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+        // Land.
+        if (land) {
+          ctx.beginPath();
+          path(land);
+          ctx.fillStyle = C.land;
+          ctx.fill();
+          ctx.strokeStyle = `color-mix(in srgb, ${C.ink} 30%, transparent)`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+        // Entity geometry (areas/lines), inactive first so active reads on top.
+        for (const pass of [false, true]) {
+          for (const d of data) {
+            if (active(d) !== pass) continue;
+            const col = colorOf(d.t);
+            const on = pass;
+            const gt = d.g.type;
+            if (gt === 'Polygon' || gt === 'MultiPolygon') {
+              ctx.beginPath();
+              path(d.g);
+              ctx.globalAlpha = on ? 0.18 : 0.05;
+              ctx.fillStyle = col;
+              ctx.fill();
+              ctx.globalAlpha = on ? 0.9 : 0.25;
+              ctx.lineWidth = 1;
+              ctx.strokeStyle = col;
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+            } else if (gt === 'LineString') {
+              ctx.beginPath();
+              path(d.g);
+              ctx.globalAlpha = on ? 0.9 : 0.25;
+              ctx.lineWidth = 1.6;
+              ctx.strokeStyle = col;
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+            }
+          }
+        }
+        // Markers at each repr point (drawn last so nodes sit atop the shapes).
+        for (const pass of [false, true]) {
+          for (const d of data) {
+            if (active(d) !== pass) continue;
+            if (!visible(d.r)) continue;
+            const p = projection(d.r);
+            if (!p) continue;
+            const col = colorOf(d.t);
+            const isCiv = d.t === 'civilization';
+            const rad = d === hovered ? (isCiv ? 6 : 5) : isCiv ? 4 : 3;
+            ctx.globalAlpha = pass ? 1 : 0.35;
+            ctx.beginPath();
+            ctx.arc(p[0], p[1], rad, 0, Math.PI * 2);
+            ctx.fillStyle = col;
+            ctx.fill();
+            if (d === hovered || isCiv) {
+              ctx.lineWidth = 1;
+              ctx.strokeStyle = C.land;
+              ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+          }
+        }
+      };
+
+      // Load the world land, then first paint.
+      // Same winding normalization the entity polygons get: exterior rings
+      // counterclockwise, so d3's spherical fill paints land, not its inverse.
+      const ringArea = (r: number[][]) => {
+        let a = 0;
+        for (let i = 0; i < r.length - 1; i++) a += r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1];
+        return a / 2;
+      };
+      const rewind = (geom: any) => {
+        // d3-geo wants exterior rings CLOCKWISE (negative signed area): fill is
+        // to the ring's right on the sphere. So exterior (i===0) -> not CCW.
+        const fix = (rings: number[][][]) => rings.map((r, i) => ((ringArea(r) > 0) === (i !== 0) ? r : [...r].reverse()));
+        if (geom.type === 'Polygon') geom.coordinates = fix(geom.coordinates);
+        else if (geom.type === 'MultiPolygon') geom.coordinates = geom.coordinates.map(fix);
+        return geom;
+      };
+
+      fetch('/data/land-110m.json')
+        .then((r) => r.json())
+        .then((topo) => {
+          land = feature(topo, topo.objects.land);
+          if (land.type === 'FeatureCollection') land.features.forEach((f: any) => rewind(f.geometry));
+          else if (land.geometry) rewind(land.geometry);
+          else rewind(land);
+          draw();
+        })
+        .catch(() => draw());
+
+      // --- Interaction -----------------------------------------------------
+      let dragging = false;
+      let lastX = 0;
+      let lastY = 0;
+      let moved = false;
+      const onDown = (x: number, y: number) => {
+        dragging = true;
+        moved = false;
+        lastX = x;
+        lastY = y;
+      };
+      const onMove = (x: number, y: number) => {
+        if (dragging) {
+          const k = 0.32 / Math.sqrt(zoom);
+          const c = projection.rotate();
+          projection.rotate([c[0] + (x - lastX) * k, Math.max(-90, Math.min(90, c[1] - (y - lastY) * k))]);
+          lastX = x;
+          lastY = y;
+          moved = true;
+          hovered = null;
+          tip.hidden = true;
+          draw();
+          return;
+        }
+        // Hover hit-test against repr points on the near hemisphere.
+        const rect = canvas.getBoundingClientRect();
+        const mx = x - rect.left;
+        const my = y - rect.top;
+        let best: Rec | null = null;
+        let bestD = 12 * 12;
+        for (const d of data) {
+          if (!active(d) || !visible(d.r)) continue;
+          const p = projection(d.r);
+          if (!p) continue;
+          const dd = (p[0] - mx) ** 2 + (p[1] - my) ** 2;
+          if (dd < bestD) {
+            bestD = dd;
+            best = d;
+          }
+        }
+        if (best !== hovered) {
+          hovered = best;
+          draw();
+        }
+        canvas.style.cursor = best ? 'pointer' : 'grab';
+        if (best) {
+          tip.innerHTML = `<strong>${best.n}</strong><span>${TYPE_LABEL[best.t]} · ${fmtY(best.s)} – ${fmtY(best.e)}</span>`;
+          tip.hidden = false;
+          tip.style.left = `${mx + 14}px`;
+          tip.style.top = `${my + 14}px`;
+        } else {
+          tip.hidden = true;
+        }
+      };
+      const onUp = () => {
+        dragging = false;
+        canvas.style.cursor = hovered ? 'pointer' : 'grab';
+      };
+
+      canvas.addEventListener('pointerdown', (e) => {
+        canvas.setPointerCapture(e.pointerId);
+        onDown(e.clientX, e.clientY);
+      });
+      canvas.addEventListener('pointermove', (e) => onMove(e.clientX, e.clientY));
+      canvas.addEventListener('pointerup', (e) => {
+        onUp();
+        if (!moved && hovered) location.href = `/civilizations/${hovered.id}`;
+      });
+      canvas.addEventListener('pointerleave', () => {
+        tip.hidden = true;
+        if (hovered) {
+          hovered = null;
+          draw();
+        }
+      });
+      canvas.addEventListener(
+        'wheel',
+        (e) => {
+          e.preventDefault();
+          zoom = Math.max(0.6, Math.min(4, zoom * (e.deltaY < 0 ? 1.1 : 0.9)));
+          projection.scale((Math.min(W, H) / 2) * zoom - 4);
+          draw();
+        },
+        { passive: false }
+      );
+
+      yearInput.addEventListener('input', () => {
+        year = Number(yearInput.value);
+        yearOut.textContent = fmtY(year);
+        draw();
+      });
+      yearOut.textContent = fmtY(year);
+
+      const ro = new ResizeObserver(resize);
+      ro.observe(canvas.parentElement!);
+      // Redraw on theme flip so colors track.
+      new MutationObserver(() => draw()).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+      });
+      resize();
+    }
+  </script>
+
+  <style>
+    h1 { margin-bottom: 0.25rem; }
+    .lede { color: var(--ink-soft); margin: 0 0 1.5rem; max-width: 46em; }
+    .globe-wrap {
+      position: relative;
+      width: 100%;
+      /* A square-ish stage, capped so the sphere never dwarfs the page. */
+      aspect-ratio: 1 / 1;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    #globe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      cursor: grab;
+    }
+    .globe-tip {
+      position: absolute;
+      z-index: 5;
+      pointer-events: none;
+      background: var(--ink);
+      color: var(--parchment);
+      font-family: 'Inter', sans-serif;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      box-shadow: var(--shadow-soft);
+      max-width: 220px;
+    }
+    .globe-tip strong { display: block; font-family: 'EB Garamond', Georgia, serif; font-size: 1.05rem; font-weight: 600; }
+    .globe-tip span { font-size: 0.75rem; opacity: 0.85; }
+    .globe-controls { max-width: 620px; margin: 1.25rem auto 0; }
+    .year-row { display: flex; align-items: center; gap: 0.9rem; }
+    .year-label { font-family: 'Inter', sans-serif; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
+    #year { flex: 1; accent-color: var(--accent); }
+    .year-out { font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--accent); min-width: 7.5em; text-align: right; }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.4rem;
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      color: var(--ink-soft);
+    }
+    .legend li { display: flex; align-items: center; gap: 0.45rem; }
+    .sw { width: 0.7rem; height: 0.7rem; border-radius: 50%; display: inline-block; }
+    .sw-civ { background: var(--accent); }
+    .sw-city { background: var(--badge-developing-fg); }
+    .sw-region { background: var(--conf-attested-fg); }
+    .sw-feature { background: var(--conf-reconstructed-fg); }
+    .globe-fallback { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: center; margin: 1.5rem 0 0; }
+    @media (max-width: 640px) {
+      .globe-wrap { max-width: 100%; }
+    }
+  </style>
+</BaseLayout>

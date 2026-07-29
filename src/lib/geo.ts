@@ -268,6 +268,13 @@ export const ENTITY_GEO: Record<string, EntityGeo> = {
   xiongnu: { kind: 'range', label: 'Xiongnu', points: REGIONS.xiongnu },
   yuezhi: { kind: 'range', label: 'Yuezhi', points: REGIONS.yuezhi },
   romani: { kind: 'range', label: 'Romani range', points: REGIONS.romani },
+  huns: { kind: 'range', label: 'Huns', points: REGIONS.huns },
+  avars: { kind: 'range', label: 'Avars', points: REGIONS.avars },
+  sarmatians: { kind: 'range', label: 'Sarmatians', points: REGIONS.sarmatians },
+  alans: { kind: 'range', label: 'Alans', points: REGIONS.alans },
+  khazars: { kind: 'range', label: 'Khazars', points: REGIONS.khazars },
+  gokturks: { kind: 'range', label: 'Göktürks', points: REGIONS.gokturks },
+  hephthalites: { kind: 'range', label: 'Hephthalites', points: REGIONS.hephthalites },
 };
 
 // --- Per-map projection -----------------------------------------------------
