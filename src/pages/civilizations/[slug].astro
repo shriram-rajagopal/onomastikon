@@ -230,31 +230,70 @@ const CONF_VERB: Record<string, string> = {
   disputed: 'is recorded (with a disputed reading) as',
 };
 const oldest = enriched[0];
-const faqSchema =
-  enriched.length >= 2 && oldest
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: `What is the oldest recorded name of ${civ.data.english_name}?`,
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: `The oldest name in the atlas ${CONF_VERB[oldest.name.data.confidence] ?? 'is recorded as'} ${oldest.name.data.transliteration}${oldest.name.data.original_text ? ` (${oldest.name.data.original_text})` : ''} in ${oldest.language?.data.english_name}, ${formatEra(oldest.name.data.era_start, oldest.name.data.era_end)}.`,
-            },
-          },
-          {
-            '@type': 'Question',
-            name: `How many historical names of ${civ.data.english_name} are recorded?`,
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: `Onomastikon records ${enriched.length} names of ${civ.data.english_name}, across ${[...new Set(enriched.map((e) => e.language?.data.english_name).filter(Boolean))].join(', ')}.`,
-            },
-          },
-        ],
-      }
-    : null;
+// The self-reference the FAQ uses ("call themselves" for a people, "call it"
+// for a place), and every romanized form the entity carries, for alternateName.
+const selfRef = isCivType ? 'themselves' : 'itself';
+const altNames = [...new Set(enriched.map((e) => e.name.data.transliteration).filter(Boolean))];
+
+// FAQ questions phrased the way people actually ask them ("What did the X call
+// themselves?"), answered from the endonym/exonym data. This is what lets an
+// AI answer or a People-Also-Ask box lift the answer straight off the page.
+const faqQuestions: Array<Record<string, unknown>> = [];
+if (enriched.length >= 1) {
+  const q = (name: string, text: string) => ({
+    '@type': 'Question',
+    name,
+    acceptedAnswer: { '@type': 'Answer', text },
+  });
+  if (endoNames.length) {
+    const forms = endoNames.map((e) => e.name.data.transliteration).join(', ');
+    const g = endoNames[0].name.data.literal_meaning;
+    const orig = endoNames[0].name.data.original_text;
+    faqQuestions.push(
+      q(
+        `What did ${civ.data.english_name} call ${selfRef}?`,
+        `In ${endoNames[0].language?.data.english_name}, ${civ.data.english_name} called ${selfRef} ${forms}${g ? `, meaning “${g}”` : ''}.${orig ? ` The name was written ${orig}.` : ''}`
+      )
+    );
+  } else {
+    faqQuestions.push(
+      q(
+        `What did ${civ.data.english_name} call ${selfRef}?`,
+        `No native self-name of ${civ.data.english_name} survives; the atlas records it only through the names its neighbors used.`
+      )
+    );
+  }
+  if (exoNames.length) {
+    faqQuestions.push(
+      q(
+        `What did other ancient and medieval peoples call ${civ.data.english_name}?`,
+        `${civ.data.english_name} was called ${exoNames
+          .slice(0, 10)
+          .map((e) => `${e.name.data.transliteration} in ${e.language?.data.english_name}`)
+          .join(', ')}.`
+      )
+    );
+  }
+  if (enriched.length >= 2 && oldest) {
+    faqQuestions.push(
+      q(
+        `What is the oldest recorded name of ${civ.data.english_name}?`,
+        `The oldest name in the atlas ${CONF_VERB[oldest.name.data.confidence] ?? 'is recorded as'} ${oldest.name.data.transliteration}${oldest.name.data.original_text ? ` (${oldest.name.data.original_text})` : ''} in ${oldest.language?.data.english_name}, ${formatEra(oldest.name.data.era_start, oldest.name.data.era_end)}.`
+      ),
+      q(
+        `How many historical names of ${civ.data.english_name} are recorded?`,
+        `Onomastikon records ${enriched.length} names of ${civ.data.english_name}, across ${[...new Set(enriched.map((e) => e.language?.data.english_name).filter(Boolean))].join(', ')}.`
+      )
+    );
+  }
+}
+const faqSchema = faqQuestions.length ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqQuestions } : null;
+
+// Meta description leads with the answer to the query that brings people here.
+const metaDescription =
+  endoNames.length
+    ? `${civ.data.english_name} called ${selfRef} ${endoNames.map((e) => e.name.data.transliteration).join(', ')}${endoNames[0].name.data.literal_meaning ? ` (“${endoNames[0].name.data.literal_meaning}”)` : ''}. ${civ.data.summary}`.slice(0, 250)
+    : civ.data.summary;
 const dates = pageDates('civilizations', civ.id);
 const correctionUrl =
   'https://github.com/shriram-rajagopal/onomastikon/issues/new?template=correction.yml' +
@@ -264,7 +303,7 @@ const correctionUrl =
 
 <BaseLayout
   title={richTitle}
-  description={civ.data.summary}
+  description={metaDescription}
   schema={{
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -275,6 +314,15 @@ const correctionUrl =
     license: 'https://creativecommons.org/licenses/by-sa/4.0/',
     inLanguage: 'en',
     isPartOf: { '@type': 'WebSite', name: 'Onomastikon', url: Astro.site?.href },
+    // The entity itself, with every recorded name as an alternateName — the
+    // structured form of "X is also called Y, Z…", which is what a knowledge
+    // graph and an AI answer both want for these queries.
+    about: {
+      '@type': civ.data.type === 'civilization' ? 'Thing' : 'Place',
+      name: civ.data.english_name,
+      ...(altNames.length && { alternateName: altNames }),
+      description: civ.data.summary,
+    },
     ...(dates.published && { datePublished: dates.published }),
     ...(dates.modified && { dateModified: dates.modified }),
   }}

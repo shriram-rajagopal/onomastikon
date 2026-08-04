@@ -1,0 +1,23 @@
+# Onomastikon
+
+> A scholarly digital atlas of ancient and medieval names: what the civilizations, cities, regions, and geographic features of the Bronze Age through the fall of Constantinople (c. 3100 BCE – 1453 CE) called themselves, and what their neighbors called them.
+
+Onomastikon catalogues endonyms (a people's or place's name for itself) and exonyms (the names used by neighboring cultures) across 39+ ancient and medieval languages. Each name entry gives the form in its original script, a scholarly transliteration, IPA where reconstructable, the literal meaning where known, the era it is attested, a confidence label (attested, reconstructed, or disputed), and Chicago-style citations to standard reference works (CAD, HALOT, LSJ, Kent, MacKenzie, and the like).
+
+Every entity page answers, directly and with sources: "What did the people of X call themselves?" and "What did other ancient and medieval peoples call X?"
+
+Author: Shriram Rajagopal. Content licensed CC BY-SA 4.0. Not affiliated with any institution; a solo scholarly project.
+
+## Key resources
+
+- [Name index](https://onomastikon.org/): every civilization, city, region, and geographic feature, filterable by region and era.
+- [Machine-readable data export](https://onomastikon.org/onomastikon.json): the whole corpus as JSON — entities, languages, and every name with its script, transliteration, meaning, era, confidence, and sources.
+- [The globe](https://onomastikon.org/atlas): every entity plotted on an interactive world with a year slider.
+- [About and methodology](https://onomastikon.org/about): temporal scope, sources, and editorial conventions.
+
+## Example entities
+
+- Egypt — https://onomastikon.org/civilizations/egypt — self-name *Kemet* ("the Black Land"); neighbors' names include Greek *Aígyptos*, Arabic *Miṣr*, Hebrew *Miṣrayim*, Akkadian *Miṣru*.
+- Greece — https://onomastikon.org/civilizations/greece — self-name *Hellás*; the eastern *Yāwān / Yauna / Yūnān* family, and Latin *Graeci*.
+- Persia — https://onomastikon.org/civilizations/persia — Old Persian *Pārsa*; and Iran — https://onomastikon.org/civilizations/iran — Middle Persian *Ērān*.
+- Mesopotamia, Babylon, Assyria, Sumer, Rome, China, India, and ~140 more entities across 39 languages.
