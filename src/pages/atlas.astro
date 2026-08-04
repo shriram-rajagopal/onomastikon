@@ -390,7 +390,7 @@ for (let y = minYear; y <= 1453; y += 25) {
         }
         canvas.style.cursor = best ? 'pointer' : 'grab';
         if (best) {
-          tip.innerHTML = `<strong>${best.n}</strong><span>${TYPE_LABEL[best.t]} · ${fmtY(best.s)} – ${fmtY(best.e)}</span>`;
+          tip.innerHTML = `<strong>${best.n}</strong><span>${TYPE_LABEL[best.t]} · <span class="nb">${fmtY(best.s)} – ${fmtY(best.e)}</span></span>`;
           tip.hidden = false;
           tip.style.left = `${mx + 14}px`;
           tip.style.top = `${my + 14}px`;
@@ -503,10 +503,23 @@ for (let y = minYear; y <= 1453; y += 25) {
       padding: 0.4rem 0.6rem;
       border-radius: 4px;
       box-shadow: var(--shadow-soft);
-      max-width: 220px;
+      max-width: 17rem;
+      line-height: 1.35;
     }
-    .globe-tip strong { display: block; font-family: 'EB Garamond', Georgia, serif; font-size: 1.05rem; font-weight: 600; }
-    .globe-tip span { font-size: 0.75rem; opacity: 0.85; }
+    /* The name and meta are set via innerHTML at runtime, so they never get
+       Astro's scoped attribute — target them globally or they fall back to
+       the body's 18px and run together. */
+    .globe-tip :global(strong) {
+      display: block;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 0.15rem;
+    }
+    .globe-tip :global(span) { font-size: 0.75rem; opacity: 0.85; }
+    /* Keep the date range from breaking mid-span ("1453" / "CE"). */
+    .globe-tip :global(.nb) { white-space: nowrap; }
     .globe-controls { max-width: 620px; margin: 1.25rem auto 0; }
     .year-row { display: flex; align-items: center; gap: 0.9rem; }
     .year-label { font-family: 'Inter', sans-serif; font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
