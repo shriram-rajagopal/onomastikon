@@ -219,9 +219,15 @@ for (let y = minYear; y <= 1453; y += 25) {
             if (gt === 'Polygon' || gt === 'MultiPolygon') {
               ctx.beginPath();
               path(d.g);
-              ctx.globalAlpha = on ? 0.18 : 0.05;
-              ctx.fillStyle = col;
-              ctx.fill();
+              // Seas (geographic_feature polygons) are outlined, not filled: a
+              // filled sea over the water ocean is redundant, and the largest
+              // of them (the Mediterranean) is broad enough that a filled ring
+              // can flood the sphere. Regions and ranges keep their wash.
+              if (d.t !== 'geographic_feature') {
+                ctx.globalAlpha = on ? 0.18 : 0.05;
+                ctx.fillStyle = col;
+                ctx.fill();
+              }
               ctx.globalAlpha = on ? 0.9 : 0.25;
               ctx.lineWidth = 1;
               ctx.strokeStyle = col;
