@@ -118,12 +118,17 @@ for (let y = minYear; y <= 1453; y += 25) {
       let C = { ocean: '', land: '', rule: '', grat: '', ink: '', muted: '', atmo: '', halo: '', civ: '', city: '', region: '', feature: '' };
       const readColors = () => {
         const parch = cssVar('--parchment');
-        const sea = cssVar('--sea') || cssVar('--water');
         const water = cssVar('--water');
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        // Land is green and water blue, plainly, in either theme — muted and
+        // earthy to sit under the parchment palette, and desaturated enough
+        // that the saturated region-green and city-blue markers read against
+        // them rather than blending in.
+        const ocean = isLight ? '#9cc0d6' : '#194a66';
+        const land = isLight ? '#c3cc98' : '#3d4c2b';
         C = {
-          // Lift land clear of the ocean so continents read on the sphere.
-          ocean: `color-mix(in srgb, ${water} 15%, ${sea})`,
-          land: `color-mix(in srgb, ${cssVar('--ink-soft')} 24%, ${parch})`,
+          ocean,
+          land,
           rule: cssVar('--rule'),
           // Quiet base scaffolding: the graticule barely there.
           grat: `color-mix(in srgb, ${cssVar('--rule')} 22%, transparent)`,
@@ -320,28 +325,13 @@ for (let y = minYear; y <= 1453; y += 25) {
 
       // Load the world land, then first paint.
       // Same winding normalization the entity polygons get: exterior rings
-      // counterclockwise, so d3's spherical fill paints land, not its inverse.
-      const ringArea = (r: number[][]) => {
-        let a = 0;
-        for (let i = 0; i < r.length - 1; i++) a += r[i][0] * r[i + 1][1] - r[i + 1][0] * r[i][1];
-        return a / 2;
-      };
-      const rewind = (geom: any) => {
-        // d3-geo wants exterior rings CLOCKWISE (negative signed area): fill is
-        // to the ring's right on the sphere. So exterior (i===0) -> not CCW.
-        const fix = (rings: number[][][]) => rings.map((r, i) => ((ringArea(r) > 0) === (i !== 0) ? r : [...r].reverse()));
-        if (geom.type === 'Polygon') geom.coordinates = fix(geom.coordinates);
-        else if (geom.type === 'MultiPolygon') geom.coordinates = geom.coordinates.map(fix);
-        return geom;
-      };
-
+      // world-atlas land-110m already carries the winding d3-geo expects, so it
+      // is used as-is: rewinding it (as the hand-drawn entity hulls need) is
+      // what inverted the fill and flooded the sphere with land.
       fetch('/data/land-110m.json')
         .then((r) => r.json())
         .then((topo) => {
           land = feature(topo, topo.objects.land);
-          if (land.type === 'FeatureCollection') land.features.forEach((f: any) => rewind(f.geometry));
-          else if (land.geometry) rewind(land.geometry);
-          else rewind(land);
           draw();
         })
         .catch(() => draw());
