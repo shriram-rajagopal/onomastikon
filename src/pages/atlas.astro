@@ -56,7 +56,8 @@ for (let y = minYear; y <= 1453; y += 25) {
     Every entity in the atlas on one turning world. Drag to spin, scroll to zoom,
     hover a marker for its name, and slide the year to watch names come into use
     and pass. Colored by kind: civilizations, cities, regions, and geographic
-    features.
+    features. The faint blue threads are the world's other rivers and lakes, the
+    ones the atlas has not named; the corpus lights up among them.
   </p>
 
   <div class="globe-wrap">
@@ -75,6 +76,7 @@ for (let y = minYear; y <= 1453; y += 25) {
       <li><span class="sw sw-city"></span> City</li>
       <li><span class="sw sw-region"></span> Region</li>
       <li><span class="sw sw-feature"></span> Geographic feature</li>
+      <li><span class="sw sw-muted"></span> World rivers &amp; lakes (not in the atlas)</li>
     </ul>
   </div>
 
@@ -112,7 +114,7 @@ for (let y = minYear; y <= 1453; y += 25) {
 
       // Theme colors, re-read on each draw so light/dark both work.
       const cssVar = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-      let C = { ocean: '', land: '', rule: '', grat: '', ink: '', civ: '', city: '', region: '', feature: '' };
+      let C = { ocean: '', land: '', rule: '', grat: '', ink: '', muted: '', civ: '', city: '', region: '', feature: '' };
       const readColors = () => {
         const parch = cssVar('--parchment');
         const sea = cssVar('--sea') || cssVar('--water');
@@ -122,6 +124,8 @@ for (let y = minYear; y <= 1453; y += 25) {
           land: `color-mix(in srgb, ${cssVar('--ink-soft')} 24%, ${parch})`,
           rule: cssVar('--rule'),
           grat: `color-mix(in srgb, ${cssVar('--rule')} 45%, transparent)`,
+          // The muted backdrop: the world's other rivers and lakes, faint.
+          muted: `color-mix(in srgb, ${cssVar('--water')} 34%, transparent)`,
           ink: cssVar('--ink'),
           civ: cssVar('--accent'),
           city: cssVar('--badge-developing-fg'),
@@ -132,10 +136,12 @@ for (let y = minYear; y <= 1453; y += 25) {
       const colorOf = (t: string) => (t === 'civilization' ? C.civ : t === 'city' ? C.city : t === 'region' ? C.region : C.feature);
 
       let land: any = null;
+      let world: { rivers: any[]; lakes: any[] } | null = null; // muted backdrop
       let W = 0;
       let H = 0;
       let year = Number(yearInput.value);
       let hovered: Rec | null = null;
+      let dragging = false;
 
       const active = (d: Rec) => d.s <= year && d.e >= year;
       // A repr point is on the near hemisphere (so its marker/label shows).
@@ -181,6 +187,27 @@ for (let y = minYear; y <= 1453; y += 25) {
           ctx.strokeStyle = `color-mix(in srgb, ${C.ink} 30%, transparent)`;
           ctx.lineWidth = 0.7;
           ctx.stroke();
+        }
+        // The muted backdrop: every river and lake in the world, faint and
+        // non-interactive, so the corpus features light up among them. Skipped
+        // while dragging so a spin stays smooth (it is only scenery).
+        if (world && !dragging) {
+          ctx.strokeStyle = C.muted;
+          ctx.lineWidth = 0.6;
+          // A degenerate ring (rounding can collapse a tiny lake to a point)
+          // makes d3's spherical clip throw; guard each so one bad feature
+          // can never abort the frame and take the corpus down with it.
+          const stroke = (g: any) => {
+            try {
+              ctx.beginPath();
+              path({ type: g.t, coordinates: g.c } as any);
+              ctx.stroke();
+            } catch {
+              /* skip the degenerate feature */
+            }
+          };
+          for (const g of world.rivers) stroke(g);
+          for (const g of world.lakes) stroke(g);
         }
         // Entity geometry (areas/lines), inactive first so active reads on top.
         for (const pass of [false, true]) {
@@ -264,8 +291,16 @@ for (let y = minYear; y <= 1453; y += 25) {
         })
         .catch(() => draw());
 
+      // The muted world features load after the land (secondary scenery).
+      fetch('/data/world-features.json')
+        .then((r) => r.json())
+        .then((w) => {
+          world = w;
+          draw();
+        })
+        .catch(() => {});
+
       // --- Interaction -----------------------------------------------------
-      let dragging = false;
       let lastX = 0;
       let lastY = 0;
       let moved = false;
@@ -319,8 +354,10 @@ for (let y = minYear; y <= 1453; y += 25) {
         }
       };
       const onUp = () => {
+        const wasDragging = dragging;
         dragging = false;
         canvas.style.cursor = hovered ? 'pointer' : 'grab';
+        if (wasDragging) draw(); // restore the muted backdrop the spin dropped
       };
 
       canvas.addEventListener('pointerdown', (e) => {
@@ -422,6 +459,7 @@ for (let y = minYear; y <= 1453; y += 25) {
     .sw-city { background: var(--badge-developing-fg); }
     .sw-region { background: var(--conf-attested-fg); }
     .sw-feature { background: var(--conf-reconstructed-fg); }
+    .sw-muted { background: color-mix(in srgb, var(--water) 34%, var(--parchment)); }
     .globe-fallback { font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--ink-soft); text-align: center; margin: 1.5rem 0 0; }
     @media (max-width: 640px) {
       .globe-wrap { max-width: 100%; }
