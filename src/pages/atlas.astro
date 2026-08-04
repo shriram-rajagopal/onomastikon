@@ -54,10 +54,10 @@ for (let y = minYear; y <= 1453; y += 25) {
   <h1>The Globe</h1>
   <p class="lede">
     Every entity in the atlas on one turning world. Drag to spin, scroll to zoom,
-    hover a marker for its name, and slide the year to watch names come into use
-    and pass. Colored by kind: civilizations, cities, regions, and geographic
-    features. The faint blue threads are the world's other rivers and lakes, the
-    ones the atlas has not named; the corpus lights up among them.
+    and slide the year to watch names come into use and pass. Hover a marker to
+    see its name and trace its shape. The nodes are colored by kind; tap a swatch
+    below to hide a layer and clear the view. The faintest threads are the
+    world's other rivers and lakes, the ones the atlas has not named.
   </p>
 
   <div class="globe-wrap">
@@ -71,12 +71,12 @@ for (let y = minYear; y <= 1453; y += 25) {
       <input type="range" id="year" min={minYear} max={maxYear} value={peakYear} step="10" />
       <output id="year-out" class="year-out"></output>
     </div>
-    <ul class="legend" aria-label="Legend">
-      <li><span class="sw sw-civ"></span> Civilization</li>
-      <li><span class="sw sw-city"></span> City</li>
-      <li><span class="sw sw-region"></span> Region</li>
-      <li><span class="sw sw-feature"></span> Geographic feature</li>
-      <li><span class="sw sw-muted"></span> World rivers &amp; lakes (not in the atlas)</li>
+    <ul class="legend" aria-label="Show or hide layers">
+      <li><button type="button" class="leg" data-type="civilization" aria-pressed="true"><span class="sw sw-civ"></span> Civilizations</button></li>
+      <li><button type="button" class="leg" data-type="city" aria-pressed="true"><span class="sw sw-city"></span> Cities</button></li>
+      <li><button type="button" class="leg" data-type="region" aria-pressed="true"><span class="sw sw-region"></span> Regions</button></li>
+      <li><button type="button" class="leg" data-type="geographic_feature" aria-pressed="true"><span class="sw sw-feature"></span> Features</button></li>
+      <li><button type="button" class="leg" data-layer="world" aria-pressed="true"><span class="sw sw-muted"></span> World rivers &amp; lakes</button></li>
     </ul>
   </div>
 
@@ -88,7 +88,7 @@ for (let y = minYear; y <= 1453; y += 25) {
   <script type="application/json" id="globe-data" set:html={JSON.stringify(data)} />
 
   <script>
-    import { geoOrthographic, geoPath, geoGraticule10, geoDistance } from 'd3-geo';
+    import { geoOrthographic, geoPath, geoGraticule, geoDistance } from 'd3-geo';
     import { feature } from 'topojson-client';
 
     const canvas = document.getElementById('globe') as HTMLCanvasElement;
@@ -110,22 +110,29 @@ for (let y = minYear; y <= 1453; y += 25) {
       const ctx = canvas.getContext('2d')!;
       const projection = geoOrthographic().clipAngle(90).rotate([-44, -34]);
       const path = geoPath(projection, ctx);
-      const graticule = geoGraticule10();
+      // A sparse graticule (every 30°) reads as quiet scaffolding, not a grid.
+      const graticule = geoGraticule().step([30, 30])();
 
       // Theme colors, re-read on each draw so light/dark both work.
       const cssVar = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-      let C = { ocean: '', land: '', rule: '', grat: '', ink: '', muted: '', civ: '', city: '', region: '', feature: '' };
+      let C = { ocean: '', land: '', rule: '', grat: '', ink: '', muted: '', atmo: '', halo: '', civ: '', city: '', region: '', feature: '' };
       const readColors = () => {
         const parch = cssVar('--parchment');
         const sea = cssVar('--sea') || cssVar('--water');
+        const water = cssVar('--water');
         C = {
           // Lift land clear of the ocean so continents read on the sphere.
-          ocean: `color-mix(in srgb, ${cssVar('--water')} 15%, ${sea})`,
+          ocean: `color-mix(in srgb, ${water} 15%, ${sea})`,
           land: `color-mix(in srgb, ${cssVar('--ink-soft')} 24%, ${parch})`,
           rule: cssVar('--rule'),
-          grat: `color-mix(in srgb, ${cssVar('--rule')} 45%, transparent)`,
-          // The muted backdrop: the world's other rivers and lakes, faint.
-          muted: `color-mix(in srgb, ${cssVar('--water')} 34%, transparent)`,
+          // Quiet base scaffolding: the graticule barely there.
+          grat: `color-mix(in srgb, ${cssVar('--rule')} 22%, transparent)`,
+          // The muted backdrop, much fainter than before so it is texture, not
+          // a competing web.
+          muted: `color-mix(in srgb, ${water} 16%, transparent)`,
+          // A soft halo of atmosphere just outside the rim, for depth.
+          atmo: `color-mix(in srgb, ${water} 40%, transparent)`,
+          halo: parch,
           ink: cssVar('--ink'),
           civ: cssVar('--accent'),
           city: cssVar('--badge-developing-fg'),
@@ -142,6 +149,10 @@ for (let y = minYear; y <= 1453; y += 25) {
       let year = Number(yearInput.value);
       let hovered: Rec | null = null;
       let dragging = false;
+      // Categories the reader has toggled off (progressive disclosure).
+      const hidden = new Set<string>();
+      const shown = (d: Rec) => !hidden.has(d.t);
+      let worldOn = true; // the muted world-features backdrop
 
       const active = (d: Rec) => d.s <= year && d.e >= year;
       // A repr point is on the near hemisphere (so its marker/label shows).
@@ -167,12 +178,26 @@ for (let y = minYear; y <= 1453; y += 25) {
       const draw = () => {
         readColors();
         ctx.clearRect(0, 0, W, H);
+        const R = projection.scale();
+        const cx = W / 2;
+        const cy = H / 2;
+
+        // Atmosphere: a soft glow just outside the rim, drawn first so it
+        // bleeds outward from behind the sphere (depth cue, GitHub/Stripe-style).
+        const atmo = ctx.createRadialGradient(cx, cy, R * 0.98, cx, cy, R * 1.14);
+        atmo.addColorStop(0, C.atmo);
+        atmo.addColorStop(1, 'transparent');
+        ctx.beginPath();
+        ctx.arc(cx, cy, R * 1.14, 0, Math.PI * 2);
+        ctx.fillStyle = atmo;
+        ctx.fill();
+
         // Ocean sphere.
         ctx.beginPath();
         path({ type: 'Sphere' } as any);
         ctx.fillStyle = C.ocean;
         ctx.fill();
-        // Graticule.
+        // Graticule (very faint).
         ctx.beginPath();
         path(graticule);
         ctx.strokeStyle = C.grat;
@@ -184,84 +209,93 @@ for (let y = minYear; y <= 1453; y += 25) {
           path(land);
           ctx.fillStyle = C.land;
           ctx.fill();
-          ctx.strokeStyle = `color-mix(in srgb, ${C.ink} 30%, transparent)`;
+          ctx.strokeStyle = `color-mix(in srgb, ${C.ink} 26%, transparent)`;
           ctx.lineWidth = 0.7;
           ctx.stroke();
         }
-        // The muted backdrop: every river and lake in the world, faint and
-        // non-interactive, so the corpus features light up among them. Skipped
-        // while dragging so a spin stays smooth (it is only scenery).
-        if (world && !dragging) {
+        // The muted backdrop: the world's other rivers and lakes, now barely
+        // there — quiet texture that the corpus reads against, not a web.
+        // Skipped while dragging (scenery only) so a spin stays smooth.
+        if (world && worldOn && !dragging) {
           ctx.strokeStyle = C.muted;
-          ctx.lineWidth = 0.6;
-          // A degenerate ring (rounding can collapse a tiny lake to a point)
-          // makes d3's spherical clip throw; guard each so one bad feature
-          // can never abort the frame and take the corpus down with it.
+          ctx.lineWidth = 0.4;
           const stroke = (g: any) => {
             try {
               ctx.beginPath();
               path({ type: g.t, coordinates: g.c } as any);
               ctx.stroke();
             } catch {
-              /* skip the degenerate feature */
+              /* skip a degenerate feature rather than abort the frame */
             }
           };
           for (const g of world.rivers) stroke(g);
           for (const g of world.lakes) stroke(g);
         }
-        // Entity geometry (areas/lines), inactive first so active reads on top.
+
+        // Corpus geometry, outline only: regions/ranges/seas as faint hulls,
+        // rivers as faint courses. The full shape of any one entity is a
+        // detail revealed on hover, not shouted for all 150 at once.
         for (const pass of [false, true]) {
           for (const d of data) {
-            if (active(d) !== pass) continue;
-            const col = colorOf(d.t);
-            const on = pass;
+            if (!shown(d) || active(d) !== pass || d === hovered) continue;
             const gt = d.g.type;
-            if (gt === 'Polygon' || gt === 'MultiPolygon') {
-              ctx.beginPath();
-              path(d.g);
-              // Seas (geographic_feature polygons) are outlined, not filled: a
-              // filled sea over the water ocean is redundant, and the largest
-              // of them (the Mediterranean) is broad enough that a filled ring
-              // can flood the sphere. Regions and ranges keep their wash.
-              if (d.t !== 'geographic_feature') {
-                ctx.globalAlpha = on ? 0.18 : 0.05;
-                ctx.fillStyle = col;
-                ctx.fill();
-              }
-              ctx.globalAlpha = on ? 0.9 : 0.25;
-              ctx.lineWidth = 1;
-              ctx.strokeStyle = col;
-              ctx.stroke();
-              ctx.globalAlpha = 1;
-            } else if (gt === 'LineString') {
-              ctx.beginPath();
-              path(d.g);
-              ctx.globalAlpha = on ? 0.9 : 0.25;
-              ctx.lineWidth = 1.6;
-              ctx.strokeStyle = col;
-              ctx.stroke();
-              ctx.globalAlpha = 1;
-            }
+            if (gt !== 'Polygon' && gt !== 'MultiPolygon' && gt !== 'LineString') continue;
+            ctx.beginPath();
+            path(d.g);
+            ctx.globalAlpha = pass ? 0.4 : 0.12;
+            ctx.lineWidth = gt === 'LineString' ? 1.1 : 0.9;
+            ctx.strokeStyle = colorOf(d.t);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
           }
         }
-        // Markers at each repr point (drawn last so nodes sit atop the shapes).
+        // The hovered entity's geometry, drawn bright over everything: its hull
+        // filled, its course thickened — the one shape in focus.
+        if (hovered && shown(hovered)) {
+          const gt = hovered.g.type;
+          const col = colorOf(hovered.t);
+          if (gt === 'Polygon' || gt === 'MultiPolygon') {
+            ctx.beginPath();
+            path(hovered.g);
+            if (hovered.t !== 'geographic_feature') {
+              ctx.globalAlpha = 0.22;
+              ctx.fillStyle = col;
+              ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+            ctx.lineWidth = 1.6;
+            ctx.strokeStyle = col;
+            ctx.stroke();
+          } else if (gt === 'LineString') {
+            ctx.beginPath();
+            path(hovered.g);
+            ctx.lineWidth = 2.4;
+            ctx.strokeStyle = col;
+            ctx.stroke();
+          }
+        }
+
+        // Markers: the primary layer. Active nodes read solid with a thin
+        // parchment ring so they lift off the sphere; inactive ones recede to
+        // faint dots; the hovered node grows and takes an accent ring.
         for (const pass of [false, true]) {
           for (const d of data) {
-            if (active(d) !== pass) continue;
+            if (!shown(d) || active(d) !== pass) continue;
             if (!visible(d.r)) continue;
             const p = projection(d.r);
             if (!p) continue;
             const col = colorOf(d.t);
             const isCiv = d.t === 'civilization';
-            const rad = d === hovered ? (isCiv ? 6 : 5) : isCiv ? 4 : 3;
-            ctx.globalAlpha = pass ? 1 : 0.35;
+            const isHov = d === hovered;
+            const rad = isHov ? (isCiv ? 6.5 : 5.5) : pass ? (isCiv ? 4 : 3.2) : 2;
+            ctx.globalAlpha = isHov ? 1 : pass ? 1 : 0.22;
             ctx.beginPath();
             ctx.arc(p[0], p[1], rad, 0, Math.PI * 2);
             ctx.fillStyle = col;
             ctx.fill();
-            if (d === hovered || isCiv) {
-              ctx.lineWidth = 1;
-              ctx.strokeStyle = C.land;
+            if (pass || isHov) {
+              ctx.lineWidth = isHov ? 2 : 1;
+              ctx.strokeStyle = isHov ? C.ink : C.halo;
               ctx.stroke();
             }
             ctx.globalAlpha = 1;
@@ -336,7 +370,7 @@ for (let y = minYear; y <= 1453; y += 25) {
         let best: Rec | null = null;
         let bestD = 12 * 12;
         for (const d of data) {
-          if (!active(d) || !visible(d.r)) continue;
+          if (!shown(d) || !active(d) || !visible(d.r)) continue;
           const p = projection(d.r);
           if (!p) continue;
           const dd = (p[0] - mx) ** 2 + (p[1] - my) ** 2;
@@ -400,6 +434,31 @@ for (let y = minYear; y <= 1453; y += 25) {
       });
       yearOut.textContent = fmtY(year);
 
+      // Legend doubles as layer toggles: tap a swatch to hide its kind (or the
+      // world backdrop) and clear the view. Reflected in aria-pressed + a dim.
+      for (const btn of document.querySelectorAll<HTMLButtonElement>('.leg')) {
+        btn.addEventListener('click', () => {
+          const t = btn.dataset.type;
+          const layer = btn.dataset.layer;
+          let on: boolean;
+          if (t) {
+            if (hidden.has(t)) hidden.delete(t);
+            else hidden.add(t);
+            on = !hidden.has(t);
+          } else {
+            worldOn = layer === 'world' ? !worldOn : worldOn;
+            on = worldOn;
+          }
+          btn.setAttribute('aria-pressed', String(on));
+          btn.classList.toggle('off', !on);
+          if (hovered && !shown(hovered)) {
+            hovered = null;
+            tip.hidden = true;
+          }
+          draw();
+        });
+      }
+
       const ro = new ResizeObserver(resize);
       ro.observe(canvas.parentElement!);
       // Redraw on theme flip so colors track.
@@ -459,8 +518,23 @@ for (let y = minYear; y <= 1453; y += 25) {
       font-size: 0.8125rem;
       color: var(--ink-soft);
     }
-    .legend li { display: flex; align-items: center; gap: 0.45rem; }
-    .sw { width: 0.7rem; height: 0.7rem; border-radius: 50%; display: inline-block; }
+    .legend li { display: flex; }
+    /* Each legend entry is a toggle button in the page's small-sans register. */
+    .leg {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem 0.2rem 0.45rem;
+      font: inherit;
+      color: var(--ink-soft);
+      cursor: pointer;
+    }
+    .leg:hover, .leg:focus-visible { border-color: var(--rule); color: var(--ink); }
+    .leg.off { opacity: 0.4; text-decoration: line-through; }
+    .sw { width: 0.7rem; height: 0.7rem; border-radius: 50%; display: inline-block; flex: none; }
     .sw-civ { background: var(--accent); }
     .sw-city { background: var(--badge-developing-fg); }
     .sw-region { background: var(--conf-attested-fg); }
