@@ -1,6 +1,7 @@
 ---
 civilization: edirne
 language: ottoman-turkish
+endonym: true
 original_text: ادرنه
 transliteration: Edirne
 ipa: /eˈdirne/
