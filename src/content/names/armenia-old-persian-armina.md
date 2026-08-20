@@ -3,7 +3,7 @@ civilization: armenia
 language: old-persian
 original_text: 𐎠𐎼𐎷𐎡𐎴
 transliteration: Armina
-ipa: "*ˈarmina"
+ipa: /ˈarmina/
 era_start: -520
 era_end: -330
 family: armina

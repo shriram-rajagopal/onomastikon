@@ -3,7 +3,7 @@ civilization: sogdiana
 language: old-persian
 original_text: 𐎿𐎢𐎥𐎢𐎭𐎠
 transliteration: Suguda
-ipa: "*su.gu.da"
+ipa: /ˈsu.gu.da/
 era_start: -520
 era_end: -330
 family: suguda

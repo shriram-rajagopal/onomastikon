@@ -3,7 +3,7 @@ civilization: merv
 language: old-persian
 original_text: 𐎶𐎼𐎦𐎢𐏁
 transliteration: Marguš
-ipa: "*mar.guʃ"
+ipa: /ˈmar.guʃ/
 era_start: -520
 era_end: -330
 family: margu

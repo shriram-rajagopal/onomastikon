@@ -3,7 +3,7 @@ civilization: cappadocia
 language: old-persian
 original_text: 𐎣𐎫𐎱𐎬𐎢𐎣
 transliteration: Katpatuka
-ipa: "*kat.pa.ˈtu.ka"
+ipa: /kat.pa.ˈtu.ka/
 era_start: -520
 era_end: -330
 family: katpatuka

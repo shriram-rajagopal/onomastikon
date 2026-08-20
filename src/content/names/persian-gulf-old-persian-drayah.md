@@ -4,7 +4,7 @@ language: old-persian
 endonym: true
 original_text: 𐎭𐎼𐎹
 transliteration: drayah
-ipa: "*draˈja.ha"
+ipa: /draˈja.ha/
 literal_meaning: the sea
 era_start: -520
 era_end: -486

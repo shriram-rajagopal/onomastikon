@@ -3,7 +3,7 @@ civilization: gandhara
 language: old-persian
 original_text: 𐎥𐎭𐎠𐎼
 transliteration: Gandāra
-ipa: "*ɡan.ˈdaː.ra"
+ipa: /ɡan.ˈdaː.ra/
 era_start: -520
 era_end: -330
 family: gandhara

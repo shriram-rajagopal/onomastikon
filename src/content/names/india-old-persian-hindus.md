@@ -3,7 +3,7 @@ civilization: india
 language: old-persian
 original_text: 𐏃𐎡𐎯𐎢𐏁
 transliteration: Hinduš
-ipa: "*hinˈduʃ"
+ipa: /hinˈduʃ/
 era_start: -518
 era_end: -330
 family: sindhu

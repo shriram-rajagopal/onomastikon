@@ -3,7 +3,7 @@ civilization: media
 language: old-persian
 original_text: 𐎶𐎠𐎭
 transliteration: Māda
-ipa: "*ˈmaːda"
+ipa: /ˈmaːda/
 era_start: -520
 era_end: -330
 family: mada

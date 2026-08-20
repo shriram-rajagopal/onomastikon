@@ -3,7 +3,7 @@ civilization: scythia
 language: old-persian
 original_text: 𐎿𐎣𐎠
 transliteration: Sakā
-ipa: "*ˈsa.kaː"
+ipa: /ˈsa.kaː/
 era_start: -520
 era_end: -330
 family: saka

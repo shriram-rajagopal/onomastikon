@@ -3,7 +3,7 @@ civilization: ionia
 language: old-persian
 original_text: 𐎹𐎢𐎴
 transliteration: Yauna
-ipa: "*jauna"
+ipa: /ˈjau̯.na/
 era_start: -520
 era_end: -330
 family: ionian

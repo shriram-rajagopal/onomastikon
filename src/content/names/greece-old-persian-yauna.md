@@ -3,7 +3,7 @@ civilization: greece
 language: old-persian
 original_text: 𐎹𐎢𐎴
 transliteration: Yauna
-ipa: /jau̯.na/
+ipa: /ˈjau̯.na/
 literal_meaning: Ionian
 era_start: -550
 era_end: -330

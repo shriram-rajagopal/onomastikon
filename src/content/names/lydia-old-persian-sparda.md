@@ -3,7 +3,7 @@ civilization: lydia
 language: old-persian
 original_text: 𐎿𐎱𐎼𐎭
 transliteration: Sparda
-ipa: "*spar.da"
+ipa: /ˈspar.da/
 era_start: -520
 era_end: -330
 confidence: attested

@@ -3,7 +3,7 @@ civilization: macedonia
 language: old-persian
 original_text: 𐎿𐎤𐎢𐎭𐎼
 transliteration: Skudra
-ipa: "*skudra"
+ipa: /ˈskudra/
 literal_meaning: Skudra (the Achaemenid satrapy of Thrace and Macedonia)
 era_start: -513
 era_end: -479

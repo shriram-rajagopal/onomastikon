@@ -4,7 +4,7 @@ language: old-persian
 endonym: true
 original_text: 𐎠𐎼𐎡𐎹
 transliteration: ariya
-ipa: "*ˈar.ja"
+ipa: /ˈar.ja/
 literal_meaning: Aryan, noble
 era_start: -520
 era_end: -330
