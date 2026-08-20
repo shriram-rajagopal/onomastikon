@@ -4,7 +4,7 @@ language: mycenaean-greek
 endonym: true
 original_text: 𐀒𐀜𐀰
 transliteration: ko-no-so
-ipa: "*knossos"
+ipa: "*knɔːsos"
 literal_meaning: Knossos
 era_start: -1450
 era_end: -1200

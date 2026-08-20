@@ -4,7 +4,7 @@ language: mycenaean-greek
 endonym: true
 original_text: 𐀐𐀩𐀳
 transliteration: ke-re-te
-ipa: "*krɛːte"
+ipa: "*krɛːtɛː"
 literal_meaning: Crete (the island)
 era_start: -1450
 era_end: -1200
