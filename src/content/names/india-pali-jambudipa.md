@@ -4,7 +4,7 @@ language: pali
 endonym: true
 original_text: 𑀚𑀁𑀩𑀼𑀤𑀻𑀧
 transliteration: Jambudīpa
-ipa: /ˈd͡ʑɐmbudiːpɐ/
+ipa: /ˈd͡ʑɐmbud̪iːpɐ/
 literal_meaning: the island of the rose-apple tree
 era_start: -250
 era_end: 600

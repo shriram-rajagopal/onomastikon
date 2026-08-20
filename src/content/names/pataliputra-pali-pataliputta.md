@@ -4,7 +4,7 @@ language: pali
 endonym: true
 original_text: 𑀧𑀸𑀝𑀮𑀺𑀧𑀼𑀢𑁆𑀢
 transliteration: Pāṭaliputta
-ipa: /paːʈɐliˈputtɐ/
+ipa: /paːʈɐliˈput̪t̪ɐ/
 literal_meaning: son of the pāṭali (trumpet-flower) tree
 family: pataliputra
 derived_from: pataliputra-sanskrit-pataliputra

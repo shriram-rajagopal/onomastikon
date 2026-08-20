@@ -3,7 +3,7 @@ civilization: deccan
 language: pali
 original_text: 𑀤𑀓𑁆𑀔𑀺𑀡𑀸𑀧𑀣
 transliteration: Dakkhiṇāpatha
-ipa: /ˈdɐkkʰiɳaːpɐtʰɐ/
+ipa: /ˈd̪ɐkkʰiɳaːpɐt̪ʰɐ/
 literal_meaning: the southern road; the southern region
 family: dakshinapatha
 derived_from: deccan-sanskrit-dakshinapatha
