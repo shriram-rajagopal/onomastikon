@@ -3,7 +3,7 @@ civilization: carthage
 language: phoenician
 endonym: true
 original_text: 𐤒𐤓𐤕𐤇𐤃𐤔𐤕
-transliteration: Qart-ḥadašt
+transliteration: Qrt-ḥdšt
 ipa: "*qart ħaˈdaʃt"
 literal_meaning: New City
 era_start: -814

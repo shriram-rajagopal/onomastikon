@@ -3,7 +3,7 @@ civilization: sidon
 language: phoenician
 endonym: true
 original_text: 𐤑𐤃𐤍
-transliteration: Ṣīdūn
+transliteration: Ṣdn
 ipa: "*sˤiːduːn"
 literal_meaning: fishery, fishing-place (from a root ṣwd, "to fish, to hunt")
 era_start: -1000

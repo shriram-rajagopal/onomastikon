@@ -3,7 +3,7 @@ civilization: tyre
 language: phoenician
 endonym: true
 original_text: 𐤑𐤓
-transliteration: Ṣūr
+transliteration: Ṣr
 ipa: "*sˤuːr"
 literal_meaning: rock
 era_start: -1000

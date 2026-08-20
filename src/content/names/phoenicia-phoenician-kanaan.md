@@ -3,7 +3,7 @@ civilization: phoenicia
 language: phoenician
 endonym: true
 original_text: 𐤊𐤍𐤏𐤍
-transliteration: Kanaʿan
+transliteration: Knʿn
 ipa: "*kanaˈʕan"
 literal_meaning: Canaan; the Canaanite (land)
 era_start: -1000
