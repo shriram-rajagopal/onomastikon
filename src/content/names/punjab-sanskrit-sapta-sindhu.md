@@ -4,7 +4,7 @@ language: sanskrit
 endonym: true
 original_text: सप्त सिन्धु
 transliteration: Sapta Sindhu
-ipa: /ˈsɐp.tɐ ˈsin.dʱu/
+ipa: /ˈsɐp.t̪ɐ ˈsin̪.d̪ʱu/
 literal_meaning: the seven rivers
 era_start: -1500
 era_end: -800

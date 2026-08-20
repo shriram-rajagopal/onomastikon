@@ -3,7 +3,7 @@ civilization: deccan
 language: sanskrit
 original_text: दक्षिणापथ
 transliteration: Dakṣiṇāpatha
-ipa: /dɐkˌʂiɳaːˈpɐt̪ʰɐ/
+ipa: /d̪ɐkˌʂiɳaːˈpɐt̪ʰɐ/
 literal_meaning: the southern road; the southern region
 era_start: -400
 era_end: 1200

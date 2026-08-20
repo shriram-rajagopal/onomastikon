@@ -4,7 +4,7 @@ language: sanskrit
 endonym: true
 original_text: पञ्चनद
 transliteration: Pañcanada
-ipa: /ˈpɐɲ.t͡ʃɐ.nɐ.dɐ/
+ipa: /ˈpɐɲ.t͡ʃɐ.n̪ɐ.d̪ɐ/
 literal_meaning: the five rivers
 era_start: -400
 era_end: 1200

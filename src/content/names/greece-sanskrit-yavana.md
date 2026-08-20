@@ -3,7 +3,7 @@ civilization: greece
 language: sanskrit
 original_text: यवन
 transliteration: Yavana
-ipa: /ˈjɐʋɐnɐ/
+ipa: /ˈjɐʋɐn̪ɐ/
 literal_meaning: Greek; later broadened to Westerner
 era_start: -400
 era_end: 1200

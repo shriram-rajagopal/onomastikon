@@ -4,7 +4,7 @@ language: sanskrit
 endonym: true
 original_text: गन्धार
 transliteration: Gandhāra
-ipa: /ɡɐnˈdʱaː.rɐ/
+ipa: /ɡɐn̪ˈd̪ʱaː.rɐ/
 era_start: -1200
 era_end: 600
 family: gandhara

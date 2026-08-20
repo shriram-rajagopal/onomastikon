@@ -3,7 +3,7 @@ civilization: yuezhi
 language: sanskrit
 original_text: तुखार
 transliteration: Tukhāra
-ipa: /tuˈkʰaː.rɐ/
+ipa: /t̪uˈkʰaː.rɐ/
 era_start: 0
 era_end: 600
 family: tochari

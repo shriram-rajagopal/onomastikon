@@ -4,7 +4,7 @@ language: sanskrit
 endonym: true
 original_text: गङ्गा
 transliteration: Gaṅgā
-ipa: /ˈɡəŋ.ɡaː/
+ipa: /ˈɡɐŋ.ɡaː/
 literal_meaning: the Ganges; the river-goddess Gaṅgā
 era_start: -1500
 era_end: null

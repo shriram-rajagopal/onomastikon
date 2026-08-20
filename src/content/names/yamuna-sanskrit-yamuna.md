@@ -4,7 +4,7 @@ language: sanskrit
 endonym: true
 original_text: यमुना
 transliteration: Yamunā
-ipa: /jɐˈmuː.naː/
+ipa: /jɐˈmuː.n̪aː/
 literal_meaning: the Yamuna; the river-goddess Yamunā, twin of Yama
 era_start: -1500
 era_end: null

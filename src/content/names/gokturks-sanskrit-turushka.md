@@ -3,7 +3,7 @@ civilization: gokturks
 language: sanskrit
 original_text: तुरुष्क
 transliteration: Turuṣka
-ipa: /tuˈruʂ.ka/
+ipa: /t̪uˈruʂ.kɐ/
 literal_meaning: Turk
 era_start: 700
 era_end: 1200

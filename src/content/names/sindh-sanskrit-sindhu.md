@@ -4,7 +4,7 @@ language: sanskrit
 endonym: true
 original_text: सिन्धु
 transliteration: Sindhu
-ipa: /ˈsin.dʱu/
+ipa: /ˈsin̪.d̪ʱu/
 era_start: -1500
 era_end: null
 family: sindhu

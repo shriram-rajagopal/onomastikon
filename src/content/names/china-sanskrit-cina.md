@@ -3,7 +3,7 @@ civilization: china
 language: sanskrit
 original_text: चीन
 transliteration: Cīna
-ipa: /ˈt͡ʃiːnɐ/
+ipa: /ˈt͡ʃiːn̪ɐ/
 era_start: -300
 era_end: 1200
 family: cina
