@@ -2,8 +2,8 @@
 civilization: greece
 language: parthian
 original_text: 𐫏𐫇𐫗𐫏𐫃
-transliteration: ywnyg
-ipa: /joːniːɡ/
+transliteration: yōnīg
+ipa: /joːˈniːɡ/
 literal_meaning: Greek
 era_start: 250
 era_end: 400

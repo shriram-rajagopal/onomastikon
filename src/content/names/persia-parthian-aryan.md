@@ -3,7 +3,7 @@ civilization: persia
 language: parthian
 endonym: true
 original_text: 𐭀𐭓𐭉𐭀𐭍
-transliteration: ʾryʾn
+transliteration: Aryān
 ipa: /arˈjaːn/
 literal_meaning: of the Aryans; Iran
 era_start: 224

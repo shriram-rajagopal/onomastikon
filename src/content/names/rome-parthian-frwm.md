@@ -2,7 +2,7 @@
 civilization: rome
 language: parthian
 original_text: 𐭐𐭓𐭅𐭌
-transliteration: frwm
+transliteration: Frōm
 ipa: /froːm/
 literal_meaning: Rome; the Roman empire
 era_start: 240

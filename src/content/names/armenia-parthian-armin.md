@@ -2,13 +2,12 @@
 civilization: armenia
 language: parthian
 original_text: 𐭀𐭓𐭌𐭍𐭉
-transliteration: ʾrmny
+transliteration: Armin
 ipa: /arˈmin/
 literal_meaning: Armenia (the Sasanian province)
 era_start: 262
 era_end: 300
 family: armina
-derived_from: armenia-old-persian-armina
 confidence: attested
 sources:
   - citation: "Huyse, Philip. *Die dreisprachige Inschrift Šābuhrs I. an der Kaʿba-i Zardušt (ŠKZ)*. Corpus Inscriptionum Iranicarum III/1. London: SOAS, 1999."
