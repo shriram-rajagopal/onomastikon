@@ -466,6 +466,10 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Lower Sea',
     note: 'The Mesopotamian name for the Persian Gulf by its position relative to the rivers, Sumerian a-ab-ba sig, "lower sea," calqued into Akkadian tâmtu šaplītu; paired with the "Upper Sea" of the Mediterranean, the two bracketing the land a king claimed to rule from edge to edge.',
   },
+  'upper-sea': {
+    display: 'The Upper Sea',
+    note: 'The Mesopotamian name for the Mediterranean by its position relative to the rivers, Sumerian a-ab-ba igi-nim, "upper sea," calqued into Akkadian tâmtu elītu; paired with the "Lower Sea" of the Persian Gulf, the two bracketing the land a king claimed to rule from edge to edge.',
+  },
   'persian-sea': {
     display: 'The Persian Sea',
     note: 'The Gulf named for the land on its shore, from Darius\'s Old Persian "the sea that goes from Persia" through Greek Persikòs Kólpos and Latin Sinus Persicus to the Arabic Baḥr Fāris of the medieval geographers; the naming that prevailed and gives the modern Persian Gulf.',

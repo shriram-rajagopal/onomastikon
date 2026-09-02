@@ -4,7 +4,6 @@ language: sumerian
 endonym: true
 original_text: 𒌓𒄒𒉣
 transliteration: Buranun
-ipa: "*buranun"
 literal_meaning: the Euphrates (origin uncertain)
 era_start: -3000
 era_end: -1600

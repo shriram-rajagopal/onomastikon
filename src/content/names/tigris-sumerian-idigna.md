@@ -4,7 +4,6 @@ language: sumerian
 endonym: true
 original_text: 𒈦𒄘𒃼
 transliteration: Idigna
-ipa: "*idigna"
 literal_meaning: the swift river (interpreted as "running water")
 era_start: -3000
 era_end: -1600
