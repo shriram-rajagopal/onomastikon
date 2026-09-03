@@ -3,7 +3,7 @@ civilization: lebanon
 language: syriac
 original_text: ܠܒܢܢ
 transliteration: Lebnān
-ipa: /lɛβˈnaːn/
+ipa: /lɛvˈnaːn/
 literal_meaning: the white (mountain)
 era_start: 150
 era_end: 600

@@ -3,7 +3,7 @@ civilization: elam
 language: syriac
 original_text: ܥܝܠܡ
 transliteration: ʿĒlām
-ipa: /ʕeːˈlɔm/
+ipa: /ʕeːˈlaːm/
 literal_meaning: Elam
 era_start: 150
 era_end: 600

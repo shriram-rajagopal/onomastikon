@@ -3,7 +3,7 @@ civilization: babylon
 language: syriac
 original_text: ܒܒܠ
 transliteration: Bābel
-ipa: /ˈbɔːvel/
+ipa: /ˈbaːvel/
 literal_meaning: Babylon (the city)
 era_start: 150
 era_end: 600

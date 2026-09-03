@@ -3,7 +3,7 @@ civilization: judah
 language: syriac
 original_text: ܝܗܘܕܐ
 transliteration: Īhûdā
-ipa: /iːhuˈðɔ/
+ipa: /iːhuˈðaː/
 literal_meaning: Judah; Judaea
 era_start: 150
 era_end: 600

@@ -3,7 +3,7 @@ civilization: assyria
 language: syriac
 original_text: ܐܬܘܪ
 transliteration: ʾĀtor
-ipa: /ʔɔˈtor/
+ipa: /ʔaːˈtor/
 literal_meaning: Assyria (the t-form continued into Syriac)
 era_start: 150
 era_end: null
