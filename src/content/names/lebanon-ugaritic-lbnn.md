@@ -3,7 +3,7 @@ civilization: lebanon
 language: ugaritic
 original_text: 𐎍𐎁𐎐𐎐
 transliteration: Lbnn
-ipa: "*labˈnaːnu"
+ipa: "*labnaːnu"
 literal_meaning: the white (mountain)
 era_start: -1400
 era_end: -1190
