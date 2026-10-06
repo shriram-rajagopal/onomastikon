@@ -3,7 +3,7 @@ civilization: baghdad
 language: medieval-hebrew
 original_text: בָּבֶל
 transliteration: Bāvel
-ipa: /baˈvɛl/
+ipa: /baːˈvel/
 literal_meaning: Babylon (reapplied to the Baghdad of the academies)
 era_start: 850
 era_end: 1300

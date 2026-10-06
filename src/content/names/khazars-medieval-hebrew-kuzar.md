@@ -4,7 +4,7 @@ language: medieval-hebrew
 endonym: true
 original_text: כּוּזָר
 transliteration: Kūzār
-ipa: /kuˈzar/
+ipa: /kuːˈzaːr/
 literal_meaning: Khazar; (in the correspondence) the Khazar people and kingdom
 era_start: 950
 era_end: 1150

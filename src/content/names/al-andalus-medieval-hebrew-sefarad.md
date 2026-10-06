@@ -3,7 +3,7 @@ civilization: al-andalus
 language: medieval-hebrew
 original_text: סְפָרַד
 transliteration: Sǝfārad
-ipa: /səfaˈrad/
+ipa: /səfaːˈraːd/
 literal_meaning: Sepharad (the exile-land of Obadiah 20, reapplied to Iberia)
 era_start: 900
 era_end: 1453

@@ -18,10 +18,6 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Ionian family',
     note: 'The name of the Ionian Greeks, spread eastward through Semitic and Iranian transmission.',
   },
-  hellas: {
-    display: 'The Hellas tradition',
-    note: 'The Greek self-designation and the forms taken directly from it.',
-  },
   parsa: {
     display: 'The Pārsa family',
     note: 'The Old Persian heartland name, radiating outward through the languages of the empire and its neighbors.',
