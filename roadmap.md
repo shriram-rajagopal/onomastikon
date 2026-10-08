@@ -192,7 +192,7 @@ Scope: for each existing entity, add the medieval-window forms (roughly 640–14
 Target: by end of summer 2026, before junior-year application work intensifies.
 
 ### Civilizations
-- [ ] Kush / Nubia
+- [x] Kush / Nubia — Kush built 2026-10-08 (Kerma to Meroë, −2500 to 350; 17 forms in three families: Kush, Nubia, Aithiopia). Christian Nubia stays a Phase 8 page; the Meroitic endonym *qes* is held as a documented gap until an edition-verified cursive spelling is in hand.
 - [ ] Aksum
 - [ ] The Maya
 - [ ] The Mexica / Aztec
@@ -213,7 +213,7 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 - [ ] Nahuatl
 - [ ] Quechua
 - [ ] Mayan languages / glyphic Maya
-- [ ] Meroitic (for Kush and Meroë; the script reads phonetically even though the language is barely understood, and names are precisely the part that survives)
+- [ ] Meroitic (HELD 2026-10-08 pending a REM-verified spelling of *qes*; for Kush and Meroë; the script reads phonetically even though the language is barely understood, and names are precisely the part that survives)
 - [ ] Old Nubian (surfaced by the 2026-07-15 revision; also carries Christian Nubia in Phase 8)
 
 ## The 1453 revision: world coverage plan (2026-07-15)

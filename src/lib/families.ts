@@ -694,6 +694,18 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Meluḫḫa family',
     note: 'The name of the farthest Bronze Age trade-land, most likely the Indus civilization, shared by Sumerian and Akkadian; possibly the only surviving name the Indus world was called while it lived.',
   },
+  kush: {
+    display: 'The Kush family',
+    note: 'The Egyptian name Kꜣš for the kingdom on the middle Nile, carried into Akkadian, Hebrew, Old Persian, and the daughter languages of the Hebrew Bible; used by everyone except, so far as their stones can be read, the Kushites themselves.',
+  },
+  nubia: {
+    display: 'The Nubia family',
+    note: 'The name of the Noba peoples beside and after Meroë, first in the Noûbai of Eratosthenes and the Nobā of Ezana; it outlived Kush and replaced it on the map.',
+  },
+  aithiopia: {
+    display: 'The Aithiopia line',
+    note: 'The Greek description of the peoples beyond Egypt, the burnt-faced by the ancients\' own etymology, which the Septuagint and the Vulgate wrote for the land of Kush and which later crossed the Red Sea to Aksum.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
