@@ -193,7 +193,7 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 
 ### Civilizations
 - [x] Kush / Nubia — Kush built 2026-10-08 (Kerma to Meroë, −2500 to 350; 17 forms in three families: Kush, Nubia, Aithiopia). Christian Nubia stays a Phase 8 page; the Meroitic endonym *qes* is held as a documented gap until an edition-verified cursive spelling is in hand.
-- [ ] Aksum
+- [x] Aksum — built 2026-10-13 (100–960; 10 forms: Geʽez ʾAksum/Ḥbśt/Ityoṗya, Greek Auxōmîtai/Aithiopía, Latin India ulterior, Syriac Kūšāyē, Arabic al-Ḥabasha, Sabaic ʾks¹mn/ḥbs²tn; new families aksum + habashat). Sabaic added as language #40 for it. Gaps: Arabic Aksūm, the ABACCIN coin legend, Coptic; the post-Aksum Abyssinia names wait for a medieval Ethiopia page.
 - [ ] The Maya
 - [ ] The Mexica / Aztec
 - [ ] The Inka / Tawantinsuyu
@@ -210,6 +210,7 @@ Target: by end of summer 2026, before junior-year application work intensifies.
 ### Languages needed for Phase 3
 - [x] Coptic (added early, during Phase 1)
 - [x] Geʽez (added early, during Phase 1)
+- [x] Sabaic (added 2026-10-13 with Aksum: ʾks¹mn and ḥbs²tn; backfill of CIH 541's *Rm* for the Byzantines and *Frs* for Persia BANKED until the Sabaic spellings are verified against Sima/Robin's edition)
 - [ ] Nahuatl
 - [ ] Quechua
 - [ ] Mayan languages / glyphic Maya

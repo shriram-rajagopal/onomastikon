@@ -59,6 +59,7 @@ export const LANG_GEO: Record<string, LangGeo> = {
   'medieval-hebrew': { lon: -4.78, lat: 37.88, place: 'Córdoba', dy: 8 },
   'classical-arabic': { lon: 39.83, lat: 24.47, place: 'The Hijaz' },
   geez: { lon: 38.72, lat: 14.13, place: 'Aksum' },
+  sabaic: { lon: 45.34, lat: 15.42, place: 'Marib' },
   lycian: { lon: 29.32, lat: 36.35, place: 'Xanthos', anchor: 'middle', dx: 0, dy: 12 },
   'classical-armenian': { lon: 44.55, lat: 39.95, place: 'Artašat', dy: -6 },
   urartian: { lon: 43.36, lat: 38.49, place: 'Tušpa', anchor: 'end', dx: -7, dy: 4 },

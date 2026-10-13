@@ -706,6 +706,14 @@ export const FAMILIES: Record<string, { display: string; note?: string }> = {
     display: 'The Aithiopia line',
     note: 'The Greek description of the peoples beyond Egypt, the burnt-faced by the ancients\' own etymology, which the Septuagint and the Vulgate wrote for the land of Kush and which later crossed the Red Sea to Aksum.',
   },
+  aksum: {
+    display: 'The Aksum family',
+    note: 'The name of the highland capital extended to its kingdom: the Auxōmîtai of the Greek sailors, the ʾks¹mn of the Sabaean inscriptions, and the ʾAksum of the kings\' own titles.',
+  },
+  habashat: {
+    display: 'The Ḥabašat family',
+    note: 'The Arabian neighbors\' name for the Aksumite highlanders, carved in Sabaic around 200 CE, taken into Ezana\'s titles, and carried by Arabic into every European language as Abyssinia.',
+  },
 };
 
 export function familyDisplay(slug: string): { display: string; note?: string } {
